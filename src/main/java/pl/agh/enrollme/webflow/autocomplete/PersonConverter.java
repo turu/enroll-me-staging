@@ -10,23 +10,25 @@ import javax.faces.convert.FacesConverter;
 
 import org.springframework.util.StringUtils;
 
+import pl.agh.enrollme.model.Person;
+
 @FacesConverter(value="personConverter")
 public class PersonConverter implements Converter {
 
 	private static List<Person> cache = new ArrayList<Person>();
 	
 	static {
-		cache.add(new Person(0L, "Jamie Carr"));
-		cache.add(new Person(1L, "Jean Cobbs"));
-		cache.add(new Person(2L, "John Howard"));
-		cache.add(new Person(3L, "John Mudra"));
-		cache.add(new Person(4L, "Julia Webber"));
+		cache.add(new Person(0, "Jamie", "Carr"));
+		cache.add(new Person(1, "Jean", "Cobbs"));
+		cache.add(new Person(2, "John", "Howard"));
+		cache.add(new Person(3, "John", "Mudra"));
+		cache.add(new Person(4, "Julia", "Webber"));
 	}
 
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (StringUtils.hasText(value)) {
 			for (Person p : cache) {
-				if (p.getName().equals(value)) {
+				if ((p.getFirstName()+" "+p.getLastName()).equals(value)) {
 					return p;
 				}
 			}
@@ -36,7 +38,8 @@ public class PersonConverter implements Converter {
 
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value != null) {
-            return String.valueOf(((Person) value).getName());
+        	final Person person = (Person) value;
+            return String.valueOf(person.getFirstName() + " " + person.getLastName());
         }
         return null;
 	}

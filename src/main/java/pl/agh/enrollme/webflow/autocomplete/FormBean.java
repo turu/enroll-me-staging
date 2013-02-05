@@ -1,6 +1,7 @@
 package pl.agh.enrollme.webflow.autocomplete;
 
 import java.io.Serializable;
+import pl.agh.enrollme.model.Person;
 
 public class FormBean implements Serializable {
 
