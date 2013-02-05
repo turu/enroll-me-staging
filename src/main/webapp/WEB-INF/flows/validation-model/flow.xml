@@ -8,7 +8,7 @@
 		Also see ../parent-flow.xml. 
 	-->
 
-	<var name="reservation" class="org.springframework.samples.webflow.validation.Reservation" />
+	<var name="reservation" class="pl.agh.enrollme.webflow.validation.Reservation" />
 
 	<view-state id="edit" model="reservation">
 		<transition on="next" to="review">

@@ -8,7 +8,7 @@
 		Also see ../parent-flow.xml. 
 	-->
 
-	<var name="formBean" class="org.springframework.samples.webflow.autocomplete.FormBean" />
+	<var name="formBean" class="pl.agh.enrollme.webflow.autocomplete.FormBean" />
 
 	<view-state id="view" />
 
