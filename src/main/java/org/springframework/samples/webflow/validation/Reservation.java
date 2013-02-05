@@ -7,6 +7,7 @@ import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.binding.validation.ValidationContext;
 
+
 public class Reservation implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,7 +22,7 @@ public class Reservation implements Serializable {
 
 	public void validateEdit(ValidationContext validationContext) {
 		if (stateValidationEnabled && startDate.after(endDate)) {
-			MessageContext messageContext = validationContext.getMessageContext(); 
+			MessageContext messageContext = validationContext.getMessageContext();
 			messageContext.addMessage(new MessageBuilder().error().code("startDateBeforeEndDate.viewState").build());
 		}
 	}

@@ -9,6 +9,7 @@ import org.springframework.webflow.execution.RequestContext;
 public class UserBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+    //some change
 
 	private String firstName;
 
