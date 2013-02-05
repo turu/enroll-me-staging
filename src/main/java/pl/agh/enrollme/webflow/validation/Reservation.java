@@ -1,4 +1,4 @@
-package org.springframework.samples.webflow.validation;
+package pl.agh.enrollme.webflow.validation;
 
 import java.io.Serializable;
 import java.util.Date;

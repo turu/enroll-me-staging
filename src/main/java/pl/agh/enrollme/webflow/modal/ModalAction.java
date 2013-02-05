@@ -1,4 +1,4 @@
-package org.springframework.samples.webflow.modal;
+package pl.agh.enrollme.webflow.modal;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

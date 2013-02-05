@@ -1,4 +1,4 @@
-package org.springframework.samples.webflow.upload;
+package pl.agh.enrollme.webflow.upload;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

@@ -1,4 +1,4 @@
-package org.springframework.samples.webflow.autocomplete;
+package pl.agh.enrollme.webflow.autocomplete;
 
 import java.io.Serializable;
 

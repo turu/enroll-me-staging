@@ -1,4 +1,4 @@
-package org.springframework.samples.webflow.jsf;
+package pl.agh.enrollme.webflow.jsf;
 
 import javax.faces.context.FacesContext;
 

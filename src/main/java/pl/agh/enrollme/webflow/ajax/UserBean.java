@@ -1,4 +1,4 @@
-package org.springframework.samples.webflow.ajax;
+package pl.agh.enrollme.webflow.ajax;
 
 import java.io.Serializable;
 
