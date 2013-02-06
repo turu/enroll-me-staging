@@ -35,11 +35,12 @@ public class PersonDAO implements IPersonDAO {
         Person person = new Person();
         person.setFirstName("Lech");
         person.setLastName("Kaczyński" + new Random().nextInt());
+        
+        em.getTransaction().begin();
         em.persist(person);
-        
         assert em.contains(person) : "Nie ma wody na pustyni!";
+        em.getTransaction().commit();
         
-        em.flush();
         
         return em.createQuery(c).getResultList();
     }
