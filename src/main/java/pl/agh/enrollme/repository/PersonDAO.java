@@ -1,6 +1,7 @@
 package pl.agh.enrollme.repository;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,6 +30,12 @@ public class PersonDAO implements IPersonDAO {
         CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
         Root<Person> from = c.from(Person.class);
         c.orderBy(em.getCriteriaBuilder().desc(from.get("lastName")));
+        
+        Person person = new Person();
+        person.setFirstName("Lech");
+        person.setLastName("Kaczyński" + new Random().nextInt());
+        em.persist(person);
+        
         return em.createQuery(c).getResultList();
     }
 
