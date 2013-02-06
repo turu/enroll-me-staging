@@ -1,10 +1,16 @@
 package pl.agh.enrollme.webflow.services;
 
-import javax.persistence.EntityManager;
+import com.sun.org.apache.xerces.internal.impl.XMLEntityManager;
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.webflow.model.EnrollConfiguration;
+import pl.agh.enrollme.webflow.services.IConfigurationDAO;
 
+
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.lang.Integer;
+import java.lang.String;
+import java.lang.UnsupportedOperationException;
 import java.util.Map;
 
 /**

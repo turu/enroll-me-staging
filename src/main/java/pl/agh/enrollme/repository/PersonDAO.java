@@ -19,13 +19,11 @@ public class PersonDAO implements IPersonDAO {
 	@PersistenceContext
     EntityManager em;
     
-	@Override
     @Transactional
     public void addPerson(Person person) {
         em.persist(person);
     }
 	
-	@Override
     @Transactional
     public List<Person> listPeople() {
         CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
@@ -34,7 +32,6 @@ public class PersonDAO implements IPersonDAO {
         return em.createQuery(c).getResultList();
     }
 
-	@Override
     @Transactional
     public void removePerson(Integer id) {
         Person person = em.find(Person.class, id);
