@@ -17,6 +17,6 @@
 
 	<mvc:view-controller path="/home" />
 	
-	<context:component-scan base-package="pl.agh.enrollme.webflow" />
+	<context:component-scan base-package="pl.agh.enrollme" />
 	 
 </beans>
