@@ -16,6 +16,22 @@
     </ui:define>
 
     <ui:define name="content">
+
+        <!-- Loops through peopleList and creates row for each element -->
+        <!-- Well, I hope -->
+
+        <h:dataTable value="${peopleList}" var="p">
+            <h:column>
+                #{p.id}
+            </h:column>
+            <h:column>
+                #{p.firstName}
+            </h:column>
+            <h:column>
+                #{p.lastName}
+            </h:column>
+        </h:dataTable>
+
         <h:form class="span-10">
             <fieldset>
                 <legend>User Details</legend>

@@ -7,6 +7,7 @@
 
     <view-state id="list">
         <on-render>
+            <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
             <evaluate expression="personDAO.listPeople().size()" result="viewScope.count"/>
         </on-render>
         <transition on="new" to="add"/>
