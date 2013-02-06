@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Person;
 
 @Repository
-@Transactional
 public class PersonDAO implements IPersonDAO {
 
 	@PersistenceContext
@@ -46,7 +45,7 @@ public class PersonDAO implements IPersonDAO {
         em.persist(person);
         
         if(!em.contains(person)) {
-        	throw new IllegalStateException("Persist failed!"); 
+        	//throw new IllegalStateException("Persist failed!"); 
         }
         
         return em.createQuery(c).getResultList();
