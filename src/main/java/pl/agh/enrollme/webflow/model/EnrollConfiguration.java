@@ -7,7 +7,7 @@ import java.util.IdentityHashMap;
 /**
  * @author Michal Partyka
  */
-@Entity
+@Entity(name = "enrollConfiguration")
 public class EnrollConfiguration {
 
     @Id

@@ -7,7 +7,7 @@
 	<!--
 		Also see ../parent-flow.xml. 
 	-->
-    <var name="enrollConfiguration" class="pl.agh.enrollme.webflow.model.EnrollConfiguration"/>
+
 
 	<view-state id="view" model="enrollConfiguration">
         <transition on="update">
