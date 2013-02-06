@@ -31,10 +31,13 @@ public class PersonDAO implements IPersonDAO {
         Root<Person> from = c.from(Person.class);
         c.orderBy(em.getCriteriaBuilder().desc(from.get("lastName")));
         
+        
         Person person = new Person();
         person.setFirstName("Lech");
         person.setLastName("Kaczyński" + new Random().nextInt());
         em.persist(person);
+        
+        assert em.contains(person) : "Nie ma wody na pustyni!";
         
         return em.createQuery(c).getResultList();
     }
