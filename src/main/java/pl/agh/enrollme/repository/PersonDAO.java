@@ -39,6 +39,8 @@ public class PersonDAO implements IPersonDAO {
         
         assert em.contains(person) : "Nie ma wody na pustyni!";
         
+        em.flush();
+        
         return em.createQuery(c).getResultList();
     }
 
