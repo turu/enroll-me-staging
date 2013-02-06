@@ -7,12 +7,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.agh.enrollme.model.Person;
 
-@Repository
+@Service
 public class PersonDAO implements IPersonDAO {
 
 	@PersistenceContext
