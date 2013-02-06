@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Person;
 
 @Repository
+@Transactional
 public class PersonDAO implements IPersonDAO {
 
 	@PersistenceContext
@@ -23,6 +24,12 @@ public class PersonDAO implements IPersonDAO {
     @Transactional
     public void addPerson(Person person) {
         em.persist(person);
+        
+        if(!em.contains(person)) {
+        	throw new IllegalStateException("Persist failed!");
+        }
+        
+        System.out.println(person.getFirstName()+" "+person.getLastName());
     }
 	
     @Transactional
@@ -36,11 +43,8 @@ public class PersonDAO implements IPersonDAO {
         person.setFirstName("Lech");
         person.setLastName("Kaczyński" + new Random().nextInt());
         
-        em.getTransaction().begin();
         em.persist(person);
-        assert em.contains(person) : "Nie ma wody na pustyni!";
-        em.getTransaction().commit();
-        
+        assert em.contains(person) : "Nie ma wody na pustyni!";        
         
         return em.createQuery(c).getResultList();
     }
