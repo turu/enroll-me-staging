@@ -5,11 +5,13 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 
 @Entity
 public class Person implements Serializable {
 
+	@Transient
 	private static final long serialVersionUID = -5777367229609230476L;
 
 	@Id
@@ -19,6 +21,12 @@ public class Person implements Serializable {
 	private String firstName;
 	
 	private String lastName;
+	
+	public Person() {
+		this.id = 0;
+		this.firstName = "";
+		this.lastName = "";
+	}
 
 	public Person(int id, String firstName, String lastName) {
 		this.id = id;
