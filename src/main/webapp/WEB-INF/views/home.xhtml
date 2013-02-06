@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/layouts/standard.xhtml">
 
-<ui:define name="title"></ui:define>
+<ui:define name="title">Enroll Me!</ui:define>
 
 <ui:define name="notes">
 	<p>
@@ -122,6 +122,10 @@
 		 -->
 		
 	</p:tabView>
+
+    <h:outputLink value="configuration" >
+        <h:outputText value="Change the configuration" />
+    </h:outputLink><br/>
 
 </ui:define>
 </ui:composition>
