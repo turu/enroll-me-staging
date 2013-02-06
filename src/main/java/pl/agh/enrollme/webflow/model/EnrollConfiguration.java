@@ -1,5 +1,7 @@
 package pl.agh.enrollme.webflow.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.IdentityHashMap;
 
 /**
@@ -12,6 +14,12 @@ public class EnrollConfiguration {
     private Integer enroll_ID;
 
     private int pointsPerTerm;
+
+    @Deprecated
+    public EnrollConfiguration() {
+        enroll_ID=1;
+        pointsPerTerm=0;
+    }
 
     public EnrollConfiguration(Integer enroll_id, int pointsPerTerm) {
         enroll_ID = enroll_id;
