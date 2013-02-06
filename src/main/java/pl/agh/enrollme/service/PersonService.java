@@ -31,8 +31,7 @@ public class PersonService {
 	public List<Person> suggestPeople(String text) {
 		List<Person> results = new ArrayList<Person>();
 		for (Person p : cache) {
-			if (p.getFirstName().toLowerCase().startsWith(text.toLowerCase()) ||
-				p.getLastName().toLowerCase().startsWith(text.toLowerCase())) {
+			if ((p.getFirstName() + " " + p.getLastName()).toLowerCase().startsWith(text.toLowerCase())) {
 				results.add(p);
 			}
 		}

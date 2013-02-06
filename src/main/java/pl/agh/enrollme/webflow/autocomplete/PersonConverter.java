@@ -39,7 +39,7 @@ public class PersonConverter implements Converter {
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value != null) {
         	final Person person = (Person) value;
-            return String.valueOf(person.getFirstName() + " " + person.getLastName());
+            return person.getFirstName() + " " + person.getLastName();
         }
         return null;
 	}
