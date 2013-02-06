@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="primefaces-showcase:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="primefaces-showcase-1.0.0-BUILD-SNAPSHOT.war">
+    <root id="archive" name="enroll-me-1.0.0-BUILD-SNAPSHOT.war">
       <element id="artifact" artifact-name="primefaces-showcase:war exploded" />
     </root>
   </artifact>
