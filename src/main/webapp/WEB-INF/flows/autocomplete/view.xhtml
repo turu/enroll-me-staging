@@ -27,11 +27,11 @@
 	<div>
 		<h:outputLabel value="Person (type 'J'): " for="person" /><br/>
 		<p:autoComplete id="person" value="#{formBean.person}" completeMethod="#{personService.suggestPeople}" 
-			var="selectedPerson" itemLabel="#{selectedPerson.name}" itemValue="#{selectedPerson}" converter="personConverter"/>
+			var="selectedPerson" itemLabel="#{selectedPerson.firstName}" itemValue="#{selectedPerson}" converter="personConverter"/>
 	</div>
 	<h:panelGroup layout="block" styleClass="success" rendered="${formBean.value != null or formBean.person != null}">
 		<p>String Value: ${formBean.value}</p> 
-		<p>Person: ${formBean.person.name}</p> 
+		<p>Person: ${formBean.person.firstName}</p> 
 	</h:panelGroup>
 	<br/>
 	<p>
