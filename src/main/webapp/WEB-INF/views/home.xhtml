@@ -111,6 +111,16 @@
 				</li>
 			</ul>
 		</p:tab>
+        <p:tab title="Prototypes">
+            <ul>
+                <li>
+                    <h:outputLink value="configuration?tab=5" >
+                        <h:outputText value="Change the configuration" />
+                    </h:outputLink><br/>
+                    <span class="alt">Simple view with one InputText - attempt to use Hibernate for persistency of configuration</span>
+                </li>
+            </ul>
+        </p:tab>
 
 		<!-- 
 			popup with form validation
@@ -123,9 +133,7 @@
 		
 	</p:tabView>
 
-    <h:outputLink value="configuration" >
-        <h:outputText value="Change the configuration" />
-    </h:outputLink><br/>
+
 
 </ui:define>
 </ui:composition>
