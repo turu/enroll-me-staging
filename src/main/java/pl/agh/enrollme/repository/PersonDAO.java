@@ -26,7 +26,7 @@ public class PersonDAO implements IPersonDAO {
         em.persist(person);
         
         if(!em.contains(person)) {
-        	throw new IllegalStateException("Persist failed!");
+        	//throw new IllegalStateException("Persist failed!");
         }
         
         System.out.println(person.getFirstName()+" "+person.getLastName());
@@ -44,7 +44,10 @@ public class PersonDAO implements IPersonDAO {
         person.setLastName("Kaczyński" + new Random().nextInt());
         
         em.persist(person);
-        assert em.contains(person) : "Nie ma wody na pustyni!";        
+        
+        if(!em.contains(person)) {
+        	throw new IllegalStateException("Persist failed!"); 
+        }
         
         return em.createQuery(c).getResultList();
     }
