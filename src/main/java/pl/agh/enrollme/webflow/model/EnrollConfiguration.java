@@ -2,13 +2,14 @@ package pl.agh.enrollme.webflow.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.IdentityHashMap;
 
 /**
  * @author Michal Partyka
  */
 @Entity(name = "enrollConfiguration")
-public class EnrollConfiguration {
+public class EnrollConfiguration implements Serializable {
 
     @Id
     private Integer enroll_ID;
