@@ -17,12 +17,12 @@
 
     <ui:define name="content">
 
-        <h:dataTable value="${enrollmentList}" var="e">
+        <h:dataTable value="${peopleList}" var="p">
             <h:column>
-                #{e.id}
+                #{p.id}
             </h:column>
             <h:column>
-                #{e.name}
+                #{p.firstName}
             </h:column>
         </h:dataTable>
 
