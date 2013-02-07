@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
+	
+	<subflow-state id="manageAccount" subflow="account-management">
+		<transition on="accountManaged" to="chooseEvent">
+		</transition>
+	</subflow-state>
+	
+	<subflow-state id="chooseEvent" subflow="event-selection">
+		<transition on="eventEnded" to="seeResults">
+		</transition>
+		<transition on="activeChoosen" to="chooseSubjects">
+		</transition>
+	</subflow-state>
+	
+	<subflow-state id="chooseSubjects" subflow="subject-selection">
+		<transition on="subjectsChoosen" to="managePreferences">
+		</transition>
+	</subflow-state>
+	
+	<subflow-state id="managePreferences" subflow="preferences-management">
+	</subflow-state>
+	
+	<subflow-state id="seeResults" subflow="results">
+	</subflow-state>
+	
+	<end-state id="flowComplete" view="externalRedirect:servletRelative:/main" />
+	
+	<global-transitions>
+		<transition on="exit" to="flowComplete">
+		</transition>
+	</global-transitions>
+
+</flow>
