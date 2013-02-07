@@ -6,41 +6,55 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 
-@Entity(name = "enrollment")
+
+@Entity
 public class Enrollment implements Serializable {
 
-    @Transient
-    private static final long serialVersionUID = -1058276725038926524L;
+	@Transient
+	private static final long serialVersionUID = -5777367229609230476L;
 
-    @Id
-    @GeneratedValue
-    private Integer id;
+	@Id
+	@GeneratedValue
+	private Integer id;
 
-    private String name;
+	private String firstName;
 
-    public Enrollment() {
-        this.id = 0;
-        this.name = "";
-    }
+	private String lastName;
 
-    public Enrollment(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+	public Enrollment() {
+		this.id = 0;
+		this.firstName = "";
+		this.lastName = "";
+	}
 
-    public int getId() {
-        return id;
-    }
+	public Enrollment(int id, String firstName, String lastName) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 }

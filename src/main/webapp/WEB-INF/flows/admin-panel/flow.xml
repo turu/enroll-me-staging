@@ -8,15 +8,15 @@
 
     <view-state id="list">
         <on-render>
-            <!-- <evaluate expression="enrollmentDAO.listEnrollments()" result="viewScope.enrollmentList"/> -->
-            <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
+            <evaluate expression="enrollmentDAO.listEnrollments()" result="viewScope.enrollmentList"/> -->
+            <!-- <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/> -->
         </on-render>
         <transition on="new" to="add"/>
     </view-state>
 
     <view-state id="add">
         <transition on="add" to="list">
-            <evaluate expression="personDAO.addPerson(person)"/>
+            <evaluate expression="enrollmentDAO.addEnrollment(enrollment)"/>
         </transition>
         <transition on="resign" to="list"/>
     </view-state>
