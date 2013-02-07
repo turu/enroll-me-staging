@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pl.agh.enrollme</groupId>
 	<artifactId>enroll-me</artifactId>
-	<name>System zapisów</name>
+	<name>System zapisow</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
@@ -166,7 +166,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>4.0.2.GA</version>
+			<version>4.0.1.GA</version>
 		</dependency>
 		<dependency>
             <groupId>org.hsqldb</groupId>
@@ -185,8 +185,13 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.6.10.Final</version>
+            <version>4.0.1.Final</version>
         </dependency>
 		<!-- Test -->
 		<dependency>
