@@ -41,5 +41,10 @@ public class PersonDAO implements IPersonDAO {
             em.remove(person);
         }
     }
-    
+
+    @Transactional
+    public Person getPerson(Integer id) {
+        CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
+        return em.createQuery(c).getSingleResult();
+    }
 }
