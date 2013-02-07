@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Enrollment implements Serializable {
 
     @Id
-    private int enrollmentID;
+    private int id;
 
     private String name;
 
@@ -16,12 +16,12 @@ public class Enrollment implements Serializable {
 
     }
 
-    public int getEnrollmentID() {
-        return enrollmentID;
+    public int getId() {
+        return id;
     }
 
-    public void setEnrollmentID(int enrollmentID) {
-        this.enrollmentID = enrollmentID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
