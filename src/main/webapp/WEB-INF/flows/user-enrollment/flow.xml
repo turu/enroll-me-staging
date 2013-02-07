@@ -7,7 +7,17 @@
 
     <var name="enrollment" class="pl.agh.enrollme.webflow.model.EnrollConfiguration" />
 
-	<view-state id="view">
+	<view-state id="enrollment-choice">
+        <!-- <on-render>
+            <evaluate expression="enrollmentDAO.listEnrollments()" result="viewScope.enrollmentList" />
+        </on-render> -->
+        <transition on="chosen" to="subject-choice">
+
+        </transition>
 	</view-state>
+
+    <view-state id="subject-choice">
+
+    </view-state>
 
 </flow>
