@@ -17,6 +17,12 @@
 	</view-state>
 
     <view-state id="subject-choice">
+        <transition on="chosen" to="preference-choice">
+
+        </transition>
+    </view-state>
+
+    <view-state id="preference-choice">
 
     </view-state>
 
