@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="parent-flow">
+
+    <var name="enrollment" class="pl.agh.enrollme.webflow.model.Enrollment" />
+
+    <view-state id="list">
+        <on-render>
+            <evaluate expression="enrollmentDAO.listEnrollments()" result="viewScope.enrollmentList"/>
+        </on-render>
+        <transition on="new" to="add"/>
+    </view-state>
+
+    <view-state id="add">
+        <transition on="add" to="list">
+            <evaluate expression="enrollmentDAO.addEnrollment(enrollment)"/>
+        </transition>
+        <transition on="resign" to="list"/>
+    </view-state>
+</flow>

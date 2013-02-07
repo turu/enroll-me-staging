@@ -14,8 +14,6 @@ public class EnrollConfiguration implements Serializable {
     @Id
     private Integer enroll_ID;
 
-    private String name;
-
     private int pointsPerTerm;
 
     @Deprecated
@@ -45,11 +43,4 @@ public class EnrollConfiguration implements Serializable {
         this.pointsPerTerm = pointsPerTerm;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
