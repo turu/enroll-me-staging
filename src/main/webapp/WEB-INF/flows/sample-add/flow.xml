@@ -10,12 +10,23 @@
             <evaluate expression="personDAO.listPeople().size()" result="viewScope.count"/>
         </on-render>
         <transition on="new" to="add"/>
+        <transition on="delete" to="remove"/>
     </view-state>
 
     <view-state id="add">
         <var name="person" class="pl.agh.enrollme.model.Person"/>
         <transition on="add" to="list">
             <evaluate expression="personDAO.addPerson(person)"/>
+        </transition>
+        <transition on="resign" to="list"/>
+    </view-state>
+
+    <view-state id="remove">
+        <on-render>
+            <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
+        </on-render>
+        <transition on="remove" to="list">
+            <!--<evaluate expression="personDAO.removePerson(id)"/>-->
         </transition>
         <transition on="resign" to="list"/>
     </view-state>
