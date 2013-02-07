@@ -23,12 +23,6 @@ public class PersonDAO implements IPersonDAO {
     @Transactional
     public void addPerson(Person person) {
         em.persist(person);
-        
-        if(!em.contains(person)) {
-        	//throw new IllegalStateException("Persist failed!");
-        }
-        
-        System.out.println(person.getFirstName()+" "+person.getLastName());
     }
 	
     @Transactional
@@ -36,17 +30,6 @@ public class PersonDAO implements IPersonDAO {
         CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
         Root<Person> from = c.from(Person.class);
         c.orderBy(em.getCriteriaBuilder().desc(from.get("lastName")));
-        
-        
-        Person person = new Person();
-        person.setFirstName("Lech");
-        person.setLastName("Kaczyński" + new Random().nextInt());
-        
-        em.persist(person);
-        
-        if(!em.contains(person)) {
-        	//throw new IllegalStateException("Persist failed!"); 
-        }
         
         return em.createQuery(c).getResultList();
     }
