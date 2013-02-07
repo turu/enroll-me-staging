@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "enrollment")
 public class Enrollment implements Serializable {
 
     @Transient
