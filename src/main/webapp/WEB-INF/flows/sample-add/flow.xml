@@ -10,12 +10,20 @@
             <evaluate expression="personDAO.listPeople().size()" result="viewScope.count"/>
         </on-render>
         <!-- Buttons shown next to each person on list -->
-        <transition on="remove" to="list">
-            <evaluate expression="personDAO.removePerson(requestParameters.id)"/>
+        <transition on="delete-ask">
+            <set name="viewScope.deleteID" value="requestParameters.id"/>
+            <set name="viewScope.deleteFirstName" value="requestParameters.firstName"/>
+            <set name="viewScope.deleteLastName" value="requestParameters.lastName"/>
+            <!--<evaluate expression="personDAO.removePerson(requestParameters.id)"/>-->
+        </transition>
+        <transition on="delete">
+            <evaluate expression="personDAO.removePerson(viewScope.deleteID)"/>
+            <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
+            <evaluate expression="personDAO.listPeople().count()" result="viewScope.count"/>
         </transition>
         <!-- Buttons at the bottom -->
         <transition on="new" to="add"/>
-        <transition on="delete" to="remove"/>
+        <transition on="delete-advanced" to="remove"/>
     </view-state>
 
     <view-state id="add">
