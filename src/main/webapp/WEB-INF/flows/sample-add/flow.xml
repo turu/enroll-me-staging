@@ -9,6 +9,11 @@
             <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
             <evaluate expression="personDAO.listPeople().size()" result="viewScope.count"/>
         </on-render>
+        <!-- Buttons shown next to each person on list -->
+        <transition on="remove" to="list">
+            <evaluate expression="personDAO.removePerson(requestParameters.id)"/>
+        </transition>
+        <!-- Buttons at the bottom -->
         <transition on="new" to="add"/>
         <transition on="delete" to="remove"/>
     </view-state>

@@ -2,6 +2,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/standard.xhtml">
 
@@ -16,21 +17,28 @@
     </ui:define>
 
     <ui:define name="content">
+        <h:form>
+            <!-- Loops through peopleList and creates row for each element -->
+            <!-- Well, I hope -->
 
-        <!-- Loops through peopleList and creates row for each element -->
-        <!-- Well, I hope -->
-
-        <p:dataTable value="${peopleList}" var="p">
-            <p:column headerText="ID">
-                #{p.id}
-            </p:column>
-            <p:column headerText="First name">
-                #{p.firstName}
-            </p:column>
-            <p:column headerText="Last name">
-                #{p.lastName}
-            </p:column>
-        </p:dataTable>
+            <p:dataTable value="${peopleList}" var="p">
+                <p:column headerText="ID">
+                    #{p.id}
+                </p:column>
+                <p:column headerText="First name">
+                    #{p.firstName}
+                </p:column>
+                <p:column headerText="Last name">
+                    #{p.lastName}
+                </p:column>
+                <p:column headerText="Action">
+                    <p:commandButton value="Remove" action="remove">
+                        <!-- Set proper requestParameter that will be used in flow -->
+                        <f:param name="id" value="#{p.id}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
 
         <h:form class="span-10">
             <fieldset>
