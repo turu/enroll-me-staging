@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
       parent="parent-flow">
 
-    <var name="enrollment" class="pl.agh.enrollme.webflow.model.Enrollment" />
+    <var name="enrollment" class="pl.agh.enrollme.model.Enrollment" />
 
     <view-state id="list">
         <on-render>

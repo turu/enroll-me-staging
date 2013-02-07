@@ -1,14 +1,20 @@
-package pl.agh.enrollme.webflow.model;
+package pl.agh.enrollme.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 @Entity(name="enrollment")
 public class Enrollment implements Serializable {
 
+    @Transient
+    private static final long serialVersionUID = -1058276725038926524L;
+
     @Id
-    private int id;
+    @GeneratedValue
+    private Integer id;
 
     private String name;
 

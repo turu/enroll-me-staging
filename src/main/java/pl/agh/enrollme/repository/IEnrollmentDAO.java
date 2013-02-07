@@ -1,8 +1,6 @@
 package pl.agh.enrollme.repository;
 
-import pl.agh.enrollme.model.Person;
-import pl.agh.enrollme.webflow.model.EnrollConfiguration;
-import pl.agh.enrollme.webflow.model.Enrollment;
+import pl.agh.enrollme.model.Enrollment;
 
 import java.util.List;
 

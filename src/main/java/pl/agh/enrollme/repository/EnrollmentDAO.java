@@ -2,8 +2,7 @@ package pl.agh.enrollme.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.agh.enrollme.model.Person;
-import pl.agh.enrollme.webflow.model.Enrollment;
+import pl.agh.enrollme.model.Enrollment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
