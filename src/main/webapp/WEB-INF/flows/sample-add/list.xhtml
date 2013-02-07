@@ -32,10 +32,13 @@
                     #{p.lastName}
                 </p:column>
                 <p:column headerText="Action">
-                    <p:commandButton value="Remove" action="remove">
-                        <!-- Set proper requestParameter that will be used in flow -->
+                    <p:splitButton value="Edit" action="edit" icon="ui-icon-trash">
                         <f:param name="id" value="#{p.id}"/>
-                    </p:commandButton>
+                        <!-- Additional options -->
+                        <p:menuitem value="Remove" action="remove" icon="ui-icon-trash">
+                            <f:param name="id" value="#{p.id}"/>
+                        </p:menuitem>
+                    </p:splitButton>
                 </p:column>
             </p:dataTable>
         </h:form>
