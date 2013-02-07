@@ -23,6 +23,11 @@ public class Enrollment implements Serializable {
         this.name = "";
     }
 
+    public Enrollment(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
