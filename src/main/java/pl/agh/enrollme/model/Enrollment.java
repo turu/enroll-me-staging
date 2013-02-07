@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 
-@Entity(name="enrollment")
+@Entity
 public class Enrollment implements Serializable {
 
     @Transient
@@ -19,7 +19,8 @@ public class Enrollment implements Serializable {
     private String name;
 
     public Enrollment() {
-
+        this.id = 0;
+        this.name = "";
     }
 
     public int getId() {
