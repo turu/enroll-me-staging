@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IEnrollmentDAO {
     void addEnrollment(Enrollment enrollment);
-    List<Enrollment> listEnrollments();
+    List listEnrollments();
 }

@@ -6,8 +6,6 @@ import pl.agh.enrollme.model.Enrollment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -23,10 +21,10 @@ public class EnrollmentDAO implements IEnrollmentDAO {
 
     @Transactional
     public List<Enrollment> listEnrollments() {
-        CriteriaQuery<Enrollment> c = em.getCriteriaBuilder().createQuery(Enrollment.class);
+        /*CriteriaQuery<Enrollment> c = em.getCriteriaBuilder().createQuery(Enrollment.class);
         Root<Enrollment> from = c.from(Enrollment.class);
-        c.orderBy(em.getCriteriaBuilder().asc(from.get("name")));
+        c.orderBy(em.getCriteriaBuilder().asc(from.get("name")));*/
 
-        return em.createQuery(c).getResultList();
+        return (List<Enrollment>)em.createQuery("FROM Enrollment").getResultList();
     }
 }
