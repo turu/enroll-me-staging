@@ -20,7 +20,9 @@
             <fieldset>
                 <legend>Select person</legend>
                 <p>
-                    <p:selectOneListbox>
+                    <!-- ListBox will store selected value in ${id} so we will be able to reference it from flow -->
+                    <p:selectOneListbox value="${id}">
+                        <!-- Fill box with values injected by flow into viewScope variable -->
                         <f:selectItems value="${peopleList}" var="person"
                                        itemLabel="#{person.firstName} #{person.lastName}"
                                        itemValue="#{person.id}"/>

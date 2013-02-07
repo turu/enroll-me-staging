@@ -23,10 +23,11 @@
 
     <view-state id="remove">
         <on-render>
+            <set name="viewScope.id" value="0" type="integer"/>
             <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
         </on-render>
         <transition on="remove" to="list">
-            <!--<evaluate expression="personDAO.removePerson(id)"/>-->
+            <evaluate expression="personDAO.removePerson(viewScope.id)"/>
         </transition>
         <transition on="resign" to="list"/>
     </view-state>
