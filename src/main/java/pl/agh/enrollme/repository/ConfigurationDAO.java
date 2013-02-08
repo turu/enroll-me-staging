@@ -1,5 +1,7 @@
 package pl.agh.enrollme.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.EnrollConfiguration;
@@ -17,42 +19,38 @@ import java.util.List;
  */
 @Repository
 public class ConfigurationDAO implements IConfigurationDAO{
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationDAO.class.getName());
 
     @PersistenceContext
     EntityManager em;
 
     @Transactional
     public void addConfiguration(EnrollConfiguration configuration) throws Exception {
-        //TODO - em.merge, this is for a while only (to check if persist doesnt work when same PK is provided
 
-        //TODO remove later - DEBUG ONLY!
         EnrollConfiguration currentConfiguration = em.find(EnrollConfiguration.class, configuration.getEnroll_ID());
         if(currentConfiguration != null) {
+            LOGGER.info("[INFO " + this.getClass().getSimpleName() + "] There was already a configuration with "
+                    + currentConfiguration.getEnroll_ID() + " , removed it");
             em.remove(currentConfiguration);
         }
         em.persist(configuration);
-        if(!em.contains(configuration)) {
-            throw new Exception("KURWA");
-        }
+        LOGGER.info("[INFO " + this.getClass().getSimpleName() + "] configuration persisted succesfully");
     }
 
     @Transactional
     @SuppressWarnings("unchecked")
     public EnrollConfiguration getConfigurationByID(Integer id) {
+        // TODO: later change it to the Criteria Query
         Query query = em.createQuery("SELECT eC from EnrollConfiguration eC " +
                 "where eC.enroll_ID = :identity").setParameter("identity", id);
         List<EnrollConfiguration> list = query.getResultList();
-        System.out.println("[partyks DEBUG] " + list);
 
-        //DEBUG ONLY
-        if(list == null || list.size()==0) {
-            System.out.println("[partyks DEBUG] No entry...");
+        if(list != null && list.size() > 0) {
+            //TODO: move the this.getClass.getSimpleName() to the Logger configuration!
+            LOGGER.info("[INFO " + this.getClass().getSimpleName() + "] Found configuration with given ID [" + id + "]");
+        } else {
+            LOGGER.info("[INFO " + this.getClass().getSimpleName() + "] No configuration for given ID [" + id + "]");
         }
-        else {
-            System.out.println("[partyks DEBUG] " + list.get(0).getPointsPerTerm());
-        }
-
-
         return ( list != null && list.size()>0 ) ? list.get(0) : new EnrollConfiguration();
     }
 }
