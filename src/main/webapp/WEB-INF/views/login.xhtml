@@ -27,7 +27,7 @@
 		</div>
 	</c:if>
 	<p:panel header="Login Information">
-		<h:form name="f" action="${requestScope.contextPath}/app/j_spring_security_check" method="post">
+		<form name="f" action="${request.contextPath}/app/j_spring_security_check" method="post">
 			<div>
 				<h:outputLabel value="Username:" />
 				<br />
@@ -46,9 +46,9 @@
 				<h:outputLabel value="Remember me"/>
 			</div>
 			<div>
-				<p:commandButton name="submit" type="submit" value="Login" immediate="true"/>
+				<input name="submit" type="submit" value="Login"/>
 			</div>
-		</h:form>
+		</form>
 	</p:panel>
 </div>
 <div class="prepend-1 span-12 last">
