@@ -31,7 +31,7 @@
 
     <view-state id="configure">
         <on-render>
-            <set name="viewScope.id" value="0" type="integer"/>
+            <set name="viewScope.id" value="requestParameters.id" type="integer"/>
         </on-render>
     </view-state>
 
