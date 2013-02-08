@@ -18,7 +18,7 @@
 
     <ui:define name="content">
 
-        <p:dataTable value="${enrollmentList}" var="e">
+        <p:dataTable value="${enrollmentList}" var="e" selection="#{flowScope.selectedEnrollment}">
             <p:column>
                 #{e.id}
             </p:column>
