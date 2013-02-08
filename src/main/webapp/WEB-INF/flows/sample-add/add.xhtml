@@ -21,16 +21,16 @@
                 <legend>User Details</legend>
                 <p>
                     <h:outputLabel for="firstName">First Name: </h:outputLabel><br/>
-                    <p:inputText id="firstName" value="#{person.firstName}"/>
+                    <p:inputText id="firstName" value="#{person.firstName}" />
                 </p>
                 <p>
                     <h:outputLabel for="lastName">Last Name: </h:outputLabel><br/>
-                    <p:inputText id="lastName" value="#{person.lastName}"/>
+                    <p:inputText id="lastName" value="#{person.lastName}" />
                 </p>
             </fieldset>
             <p>
-                <p:commandButton value="Save" action="save"/>
-                <p:commandButton value="Resign" action="resign"/>
+                <p:commandButton value="Add" action="add" />
+                <p:commandButton value="Resign" action="resign" />
             </p>
         </h:form>
     </ui:define>

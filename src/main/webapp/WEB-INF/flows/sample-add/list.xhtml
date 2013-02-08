@@ -17,11 +17,11 @@
     </ui:define>
 
     <ui:define name="content">
-        <!-- Form containing list of people and some buttons bellow it -->
-        <h:form id="mainForm">
-
+        <h:form>
             <!-- Loops through peopleList and creates row for each element -->
-            <p:dataTable id="peopleTable" value="${peopleList}" var="p">
+            <!-- Well, I hope -->
+
+            <p:dataTable value="${peopleList}" var="p">
                 <p:column headerText="ID">
                     #{p.id}
                 </p:column>
@@ -32,21 +32,15 @@
                     #{p.lastName}
                 </p:column>
                 <p:column headerText="Action">
-                    <p:splitButton value="Edit" action="edit" icon="ui-icon-pencil">
+                    <p:commandButton value="Remove" action="remove">
+                        <!-- Set proper requestParameter that will be used in flow -->
                         <f:param name="id" value="#{p.id}"/>
-                        <!-- Additional options -->
-                        <p:menuitem value="Delete" action="delete-ask" icon="ui-icon-trash"
-                                    update=":#{p:component('confirmDeleteContent')}"
-                                    oncomplete="confirmDeleteDialog.show()">
-                            <f:param name="id" value="#{p.id}"/>
-                            <f:param name="firstName" value="#{p.firstName}"/>
-                            <f:param name="lastName" value="#{p.lastName}"/>
-                        </p:menuitem>
-                    </p:splitButton>
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
+        </h:form>
 
-
+        <h:form class="span-10">
             <fieldset>
                 <legend>Summary</legend>
                 <p>
@@ -55,20 +49,9 @@
             </fieldset>
             <p>
                 <p:commandButton value="New" action="new"/>
-                <p:commandButton value="Delete" action="delete-advanced"/>
+                <p:commandButton value="Delete" action="delete"/>
                 <p:commandButton value="Exit" action="exit"/>
             </p>
-
-            <!-- Dialog for confirming deleting -->
-            <p:dialog widgetVar="confirmDeleteDialog" header="Are you sure?" modal="true">
-                <p:outputPanel id="confirmDeleteContent">
-                    <p>
-                        <h:outputText value="Are you sure you want to delete ${deleteID} ${deleteFirstName} ${deleteLastName}?"/>
-                    </p>
-                    <p:commandButton value="Sure!" action="delete"/>
-                    <p:commandButton value="No" oncomplete="confirmDeleteDialog.hide()"/>
-                </p:outputPanel>
-            </p:dialog>
         </h:form>
     </ui:define>
 

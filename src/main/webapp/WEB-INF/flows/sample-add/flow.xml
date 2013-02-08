@@ -10,39 +10,18 @@
             <evaluate expression="personDAO.listPeople().size()" result="viewScope.count"/>
         </on-render>
         <!-- Buttons shown next to each person on list -->
-        <transition on="edit" to="edit">
-            <set name="flowScope.editID" value="requestParameters.id"/>
-        </transition>
-        <transition on="delete-ask">
-            <!-- Remember which person was selected to delete -->
-            <set name="viewScope.deleteID" value="requestParameters.id"/>
-            <set name="viewScope.deleteFirstName" value="requestParameters.firstName"/>
-            <set name="viewScope.deleteLastName" value="requestParameters.lastName"/>
-        </transition>
-        <transition on="delete" to="list">
-            <!-- TODO delete without refreshing page -->
-            <evaluate expression="personDAO.removePerson(viewScope.deleteID)"/>
+        <transition on="remove" to="list">
+            <evaluate expression="personDAO.removePerson(requestParameters.id)"/>
         </transition>
         <!-- Buttons at the bottom -->
         <transition on="new" to="add"/>
-        <transition on="delete-advanced" to="remove"/>
+        <transition on="delete" to="remove"/>
     </view-state>
 
-    <view-state id="add" view="edit.xhtml">
+    <view-state id="add">
         <var name="person" class="pl.agh.enrollme.model.Person"/>
-        <transition on="save" to="list">
+        <transition on="add" to="list">
             <evaluate expression="personDAO.addPerson(person)"/>
-        </transition>
-        <transition on="resign" to="list"/>
-    </view-state>
-
-    <view-state id="edit">
-        <var name="person" class="pl.agh.enrollme.model.Person"/>
-        <on-render>
-            <evaluate expression="personDAO.getPerson(flowScope.editID)" result="person"/>
-        </on-render>
-        <transition on="save" to="list">
-            <evaluate expression="personDAO.updatePerson(person)"/>
         </transition>
         <transition on="resign" to="list"/>
     </view-state>
