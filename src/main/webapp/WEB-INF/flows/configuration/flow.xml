@@ -7,13 +7,24 @@
 	<!--
 		Also see ../parent-flow.xml. 
 	-->
-    <var name="enrollConfiguration" class="pl.agh.enrollme.webflow.model.EnrollConfiguration"/>
+    <var name="enrollConfiguration" class="pl.agh.enrollme.model.EnrollConfiguration"/>
 
-	<view-state id="view" model="enrollConfiguration">
-        <transition on="update">
-            <evaluate expression="configurationDAO.addConfiguration(enrollConfiguration)"/>
+    <var name="enrollConfigurationHere" class="pl.agh.enrollme.model.EnrollConfiguration"/>
+    <var name="person" class="pl.agh.enrollme.model.Person"/>
+
+    <view-state id="configuration">
+        <on-render>
+            <evaluate expression="configurationDAO.getConfigurationByID(1)" result="enrollConfigurationHere"
+                      result-type="pl.agh.enrollme.model.EnrollConfiguration"/>
+        </on-render>
+        <transition  on="myupdate">
+            <set name="enrollConfigurationHere.enroll_ID" value="1" type="java.lang.Integer"/>
+            <evaluate expression="configurationDAO.addConfiguration(enrollConfigurationHere)"/>
         </transition>
-        
-	</view-state>
+        <!--<transition on="myrefresh">-->
+        <!--<evaluate expression="configurationDAO.getConfigurationByID(1)" result="enrollConfiguration"-->
+        <!--result-type="pl.agh.enrollme.model.EnrollConfiguration"/>-->
+        <!--</transition>-->
+    </view-state>
 
 </flow>
