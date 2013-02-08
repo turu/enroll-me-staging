@@ -34,6 +34,9 @@
             </p:column>
             <p:column headerText="Action">
                 <h:form>
+                    <h:outputLink value="enrollment-configuration?id=#{e.id}">
+                        Configuration
+                    </h:outputLink>
                     <p:commandButton value="Configure" action="configure?id=#{e.id}">
                         <!-- Set proper requestParameter that will be used in flow -->
                         <f:param name="id" value="#{e.id}"/>

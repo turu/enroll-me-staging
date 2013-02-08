@@ -4,27 +4,5 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
       parent="parent-flow">
 
-    <!-- <var name="person" class="pl.agh.enrollme.model.Person" /> -->
-    <var name="enrollment" class="pl.agh.enrollme.model.Enrollment" />
-
-    <input name="tab" value="flowScope.tab" required="false" />
-
-
-    <view-state id="list">
-        <on-render>
-            <evaluate expression="enrollmentDAO.listEnrollments()" result="viewScope.enrollmentList"/>
-            <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
-        </on-render>
-        <transition on="new" to="add"/>
-
-    </view-state>
-
-    <view-state id="add">
-        <transition on="add" to="list">
-            <!-- <evaluate expression="personDAO.addPerson(person)"/> -->
-            <evaluate expression="enrollmentDAO.addEnrollment(enrollment)"/>
-        </transition>
-        <transition on="resign" to="list"/>
-    </view-state>
-
+    <view-state id="configure" />
 </flow>
