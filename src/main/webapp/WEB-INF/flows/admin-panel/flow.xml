@@ -4,10 +4,10 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
       parent="parent-flow">
 
-    <input name="tab" value="flowScope.tab" required="false" />
-
     <!-- <var name="person" class="pl.agh.enrollme.model.Person" /> -->
     <var name="enrollment" class="pl.agh.enrollme.model.Enrollment" />
+
+    <input name="tab" value="flowScope.tab" required="false" />
 
     <view-state id="list">
         <on-render>
