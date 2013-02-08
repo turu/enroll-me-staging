@@ -15,6 +15,8 @@ public class EnrollConfiguration implements Serializable {
     @Transient
     private static final long serialVersionUID = -5771235478609230476L;
 
+
+    //TODO: it should be 1:1 relation with Enroll! or it should be merged (2nd solution is better probably)
     @Id
     private Integer enroll_ID;
 
