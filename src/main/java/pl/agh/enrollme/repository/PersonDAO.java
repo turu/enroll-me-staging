@@ -30,12 +30,20 @@ public class PersonDAO implements IPersonDAO {
     }
 
     @Transactional
+    public void updatePerson(Person person) {
+        LOGGER.info("Changing person into - "+ person.getId() +
+                " " + person.getFirstName() + " " + person.getLastName());
+
+        em.merge(person);
+    }
+
+    @Transactional
     public List<Person> listPeople() {
         LOGGER.info("Retrieving list of people in database");
         CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
         Root<Person> from = c.from(Person.class);
         c.orderBy(em.getCriteriaBuilder().desc(from.get("lastName")));
-        
+
         return em.createQuery(c).getResultList();
     }
 
@@ -54,4 +62,5 @@ public class PersonDAO implements IPersonDAO {
         LOGGER.info("Retrieving person with id " + id);
         return em.find(Person.class, id);
     }
+
 }

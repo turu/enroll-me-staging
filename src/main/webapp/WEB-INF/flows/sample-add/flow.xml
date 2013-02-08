@@ -42,7 +42,7 @@
             <evaluate expression="personDAO.getPerson(flowScope.editID)" result="person"/>
         </on-render>
         <transition on="save" to="list">
-            <evaluate expression="personDAO.addPerson(person)"/>
+            <evaluate expression="personDAO.commit(person)"/>
         </transition>
         <transition on="resign" to="list"/>
     </view-state>
