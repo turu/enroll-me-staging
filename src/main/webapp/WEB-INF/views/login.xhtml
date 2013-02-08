@@ -34,19 +34,19 @@
 				<c:if test="${not empty param.login_error}">
 					<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
 				</c:if>
-				<p:inputText name="j_username" value="#{username}"/>
+				<p:inputText id="j_username" value="#{username}" required="true" />
 			</div>
 			<div>
 				<h:outputLabel value="Password: " />
 				<br />
-				<p:password name="j_password" />				
+				<p:password id="j_password" required="true" />
 			</div>
 			<div>
-				<p:selectBooleanCheckbox name="_spring_security_remember_me"/>
+				<p:selectBooleanCheckbox id="_spring_security_remember_me"/>
 				<h:outputLabel value="Remember me"/>
 			</div>
 			<div>
-				<input name="submit" value="Login" type="submit" />
+				<input id="submit" value="Login" type="submit" />
 			</div>
 		</form>
 	</p:panel>

@@ -5,8 +5,8 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
 	<secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
-	
-	<subflow-state id="manageAccount" subflow="account-management">
+
+    <subflow-state id="manageAccount" subflow="account-management">
 		<transition on="accountManaged" to="chooseEvent">
 		</transition>
 	</subflow-state>
