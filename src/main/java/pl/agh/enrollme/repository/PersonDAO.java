@@ -25,7 +25,7 @@ public class PersonDAO implements IPersonDAO {
     
     @Transactional
     public void addPerson(Person person) {
-        LOGGER.info("Saving person with id " + person.getId());
+        LOGGER.info("Adding person " + person.getFirstName() + " " + person.getLastName());
         em.persist(person);
     }
 
