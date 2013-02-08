@@ -26,4 +26,6 @@
         </transition>
         <transition on="resign" to="list"/>
     </view-state>
+
+    <view-state id="configure" />
 </flow>
