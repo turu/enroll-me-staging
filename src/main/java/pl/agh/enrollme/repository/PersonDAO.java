@@ -1,7 +1,6 @@
 package pl.agh.enrollme.repository;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,7 +8,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.agh.enrollme.model.Person;
@@ -44,7 +42,6 @@ public class PersonDAO implements IPersonDAO {
 
     @Transactional
     public Person getPerson(Integer id) {
-        CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
-        return em.createQuery(c).getSingleResult();
+        return em.find(Person.class, id);
     }
 }
