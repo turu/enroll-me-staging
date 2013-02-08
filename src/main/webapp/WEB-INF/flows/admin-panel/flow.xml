@@ -9,6 +9,7 @@
 
     <input name="tab" value="flowScope.tab" required="false" />
 
+
     <view-state id="list">
         <on-render>
             <evaluate expression="enrollmentDAO.listEnrollments()" result="viewScope.enrollmentList"/>
