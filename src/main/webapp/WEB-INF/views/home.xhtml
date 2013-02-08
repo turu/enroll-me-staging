@@ -156,6 +156,16 @@
                     <h:outputLink value="admin-panel?tab=7" >
                         <h:outputText value="Admin panel" />
                     </h:outputLink><br/>
+
+                    <h:dataTable value="${enrollmentDAO.listEnrollments()}" var="e">
+                        <h:column>
+                            #{e.id}
+                        </h:column>
+                        <h:column>
+                            #{e.firstName}
+                        </h:column>
+                    </h:dataTable>
+
                     <span class="alt">Admin panel</span>
                 </li>
             </ul>
