@@ -8,6 +8,10 @@
 
 	<end-state id="end" view="externalRedirect:servletRelative:/home?tab=#{tab}" />
 
+    <on-start>
+        <evaluate expression="enrollmentDAO.listEnrollments()" result="enrollmentList" />
+    </on-start>
+
 	<global-transitions>
 		<transition on="exit" to="end" />
 	</global-transitions>
