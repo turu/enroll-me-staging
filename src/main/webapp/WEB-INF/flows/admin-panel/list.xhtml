@@ -33,10 +33,12 @@
                 #{e.firstName}
             </p:column>
             <p:column headerText="Action">
-                <p:commandButton value="Configure" action="configure">
-                    <!-- Set proper requestParameter that will be used in flow -->
-                    <f:param name="id" value="#{e.id}"/>
-                </p:commandButton>
+                <h:form>
+                    <p:commandButton value="Configure" action="configure">
+                        <!-- Set proper requestParameter that will be used in flow -->
+                        <f:param name="id" value="#{e.id}"/>
+                    </p:commandButton>
+                </h:form>
             </p:column>
         </p:dataTable>
 
