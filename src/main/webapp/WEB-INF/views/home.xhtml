@@ -146,6 +146,7 @@
                         <h:outputText value="Enroll" />
                     </h:outputLink><br/>
                     <span class="alt">Enroll for specified subjects</span>
+
                 </li>
             </ul>
         </p:tab>
@@ -157,14 +158,18 @@
                         <h:outputText value="Admin panel" />
                     </h:outputLink><br/>
 
-                    <h:dataTable value="${conversationScope.globalEnrollmentList}" var="e">
+                    <!-- <h:dataTable value="${conversationScope.globalEnrollmentList}" var="e">
                         <h:column>
                             #{e.id}
                         </h:column>
                         <h:column>
                             #{e.firstName}
                         </h:column>
-                    </h:dataTable>
+                    </h:dataTable> -->
+
+                    <p>
+                        There are <h:outputLabel id="count" value="${conversationScope.globalEnrollmentCount}"/> enrollments in database.
+                    </p>
 
                     <span class="alt">Admin panel - choose enrollment</span>
                 </li>
