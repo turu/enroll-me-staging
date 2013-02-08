@@ -29,12 +29,12 @@ public class ConfigurationDAO implements IConfigurationDAO{
 
         EnrollConfiguration currentConfiguration = em.find(EnrollConfiguration.class, configuration.getEnroll_ID());
         if(currentConfiguration != null) {
-            LOGGER.info("[INFO " + this.getClass().getSimpleName() + "] There was already a configuration with "
-                    + currentConfiguration.getEnroll_ID() + " , removed it");
+            LOGGER.info("There was already a configuration with [" + currentConfiguration.getEnroll_ID() + "" +
+                    "] , removing it");
             em.remove(currentConfiguration);
         }
         em.persist(configuration);
-        LOGGER.info("[INFO " + this.getClass().getSimpleName() + "] configuration persisted succesfully");
+        LOGGER.info("configuration persisted succesfully");
     }
 
     @Transactional
@@ -47,9 +47,9 @@ public class ConfigurationDAO implements IConfigurationDAO{
 
         if(list != null && list.size() > 0) {
             //TODO: move the this.getClass.getSimpleName() to the Logger configuration!
-            LOGGER.info("[INFO " + this.getClass().getSimpleName() + "] Found configuration with given ID [" + id + "]");
+            LOGGER.info("Found configuration with given ID [" + id + "]");
         } else {
-            LOGGER.info("[INFO " + this.getClass().getSimpleName() + "] No configuration for given ID [" + id + "]");
+            LOGGER.info("No configuration for given ID [" + id + "]");
         }
         return ( list != null && list.size()>0 ) ? list.get(0) : new EnrollConfiguration();
     }
