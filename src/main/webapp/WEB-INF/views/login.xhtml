@@ -27,9 +27,9 @@
 		</div>
 	</c:if>
 	<p:panel header="Login Information">
-		<h:form name="f" action="${request.contextPath}/app/j_spring_security_check" method="post">
+		<h:form name="f" action="${requestScope.contextPath}/app/j_spring_security_check" method="post">
 			<div>
-				<h:outputLabel value="Username:" for="stringValue" />
+				<h:outputLabel value="Username:" />
 				<br />
 				<c:if test="${not empty param.login_error}">
 					<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
@@ -37,13 +37,13 @@
 				<p:inputText name="j_username" value="#{username}"/>
 			</div>
 			<div>
-				<h:outputLabel value="Password: " for="stringValue" />
+				<h:outputLabel value="Password: " />
 				<br />
 				<p:password name="j_password" />				
 			</div>
 			<div>
 				<p:selectBooleanCheckbox name="_spring_security_remember_me"/>
-				<h:outputLabel value="Remember me" for="stringValue" />
+				<h:outputLabel value="Remember me"/>
 			</div>
 			<div>
 				<p:commandButton name="submit" type="submit" value="Login" immediate="true"/>
