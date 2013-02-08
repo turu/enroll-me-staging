@@ -42,7 +42,7 @@ public class PersonDAO implements IPersonDAO {
         LOGGER.info("Retrieving list of people in database");
         CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
         Root<Person> from = c.from(Person.class);
-        c.orderBy(em.getCriteriaBuilder().desc(from.get("lastName")));
+        c.orderBy(em.getCriteriaBuilder().asc(from.get("lastName")));
 
         return em.createQuery(c).getResultList();
     }
