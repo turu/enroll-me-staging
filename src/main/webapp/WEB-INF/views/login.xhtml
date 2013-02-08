@@ -8,11 +8,11 @@
 <ui:define name="title">Login</ui:define>
 
 <ui:define name="notes">
-	<h5>Configuration to review:</h5>
+	<h5>Witaj w systemie zapisów:</h5>
 	<ul>
-		<li>Spring Security filter and taglib declarations: src/main/webapp/WEB-INF/web.xml</li>
-  		<li>Spring Security configuration: src/main/webapp/WEB-INF/spring/security-config.xml</li>
-  		<li>Taglib file: src/main/webapp/WEB-INF/springsecurity.taglib.xml</li>
+		<li>Zaloguj się używając danych zgodnych z wytycznymi uzyskanymi od starosty</li>
+  		<li>W razie problemów lorem ipsum</li>
+  		<li>Mądra rada</li>
 	</ul>
 	<hr/>
 </ui:define>
@@ -33,19 +33,19 @@
 				<c:if test="${not empty param.login_error}">
 					<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
 				</c:if>
-				<input type="text" name="j_username" value="#{username}"/>
+				<p:inputText name="j_username" value="#{username}"/>
 			</p>
 			<p>
 				Password:
 				<br />
-				<input type="password" name="j_password" />				
+				<p:password name="j_password" />				
 			</p>
 			<p>
-				<input type="checkbox" name="_spring_security_remember_me"/> 
+				<p:selectBooleanCheckbox name="_spring_security_remember_me"/> 
 				Don't ask for my password for two weeks
 			</p>
 			<p>
-				<input name="submit" type="submit" value="Login" />
+				<p:commandButton name="submit" type="submit" value="Login" />
 			</p>
 		</form>
 	</p:panel>
