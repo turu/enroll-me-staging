@@ -8,9 +8,9 @@
 
     <!-- <input name="enrollmentList" value="enrollmentDAO.listEnrollments()"  /> -->
 
-    <on-start>
+    <!-- <on-start>
         <evaluate expression="enrollmentDAO.listEnrollments().size()" result="conversationScope.globalEnrollmentCount"/>
-    </on-start>
+    </on-start> -->
 
 	<end-state id="end" view="externalRedirect:servletRelative:/home?tab=#{tab}" />
 
