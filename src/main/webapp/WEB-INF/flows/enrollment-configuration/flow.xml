@@ -5,7 +5,6 @@
       parent="parent-flow">
 
     <!-- <var name="person" class="pl.agh.enrollme.model.Person" /> -->
-
     <var name="enrollment" class="pl.agh.enrollme.model.Enrollment" />
 
     <input name="tab" value="flowScope.tab" required="false" />
@@ -17,7 +16,6 @@
             <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
         </on-render>
         <transition on="new" to="add"/>
-        <transition on="configure" to="configure"/>
 
     </view-state>
 
@@ -27,12 +25,6 @@
             <evaluate expression="enrollmentDAO.addEnrollment(enrollment)"/>
         </transition>
         <transition on="resign" to="list"/>
-    </view-state>
-
-    <view-state id="configure">
-        <on-render>
-            <set name="viewScope.id" value="0" type="integer"/>
-        </on-render>
     </view-state>
 
 </flow>
