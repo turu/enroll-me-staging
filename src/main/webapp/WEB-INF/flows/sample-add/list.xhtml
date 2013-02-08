@@ -31,7 +31,7 @@
                 <p:column headerText="Last name">
                     #{p.lastName}
                 </p:column>
-                <p:column headerText="Action" width="200">
+                <p:column headerText="Action">
                     <p:splitButton value="Edit" action="edit" icon="ui-icon-pencil">
                         <f:param name="id" value="#{p.id}"/>
                         <!-- Additional options -->
@@ -66,9 +66,7 @@
                     <p>
                         <h:outputText value="Are you sure you want to delete ${deleteID} ${deleteFirstName} ${deleteLastName}?"/>
                     </p>
-                    <h:commandButton value="Sure!" action="delete"
-                                    update=":#{p:component('peopleTable')}"
-                                    oncomplete="confirmDeleteDialog.hide()"/>
+                    <p:commandButton value="Sure!" action="delete"/>
                     <p:commandButton value="No" oncomplete="confirmDeleteDialog.hide()"/>
                 </p:outputPanel>
             </p:dialog>
