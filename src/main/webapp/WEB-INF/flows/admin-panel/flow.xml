@@ -16,6 +16,7 @@
             <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
         </on-render>
         <transition on="new" to="add"/>
+        <transition on="configure" to="configure"/>
     </view-state>
 
     <view-state id="add">

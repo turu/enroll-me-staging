@@ -3,6 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/standard.xhtml">
 
     <ui:define name="title">Available enrollments</ui:define>
@@ -17,14 +18,17 @@
 
     <ui:define name="content">
 
-        <h:dataTable value="${enrollmentList}" var="p">
-            <h:column>
-                #{p.id}
-            </h:column>
-            <h:column>
-                #{p.firstName}
-            </h:column>
-        </h:dataTable>
+        <p:dataTable value="${enrollmentList}" var="e">
+            <p:column>
+                #{e.id}
+            </p:column>
+            <p:column>
+                #{e.firstName}
+            </p:column>
+            <p:column>
+                <p:commandButton value="Configure" action="configure" />
+            </p:column>
+        </p:dataTable>
 
         <h:form class="span-10">
             <!-- <fieldset>
