@@ -1,5 +1,6 @@
 package pl.agh.enrollme.model;
 
+import org.jboss.netty.example.localtime.LocalTimeProtocol;
 import pl.agh.enrollme.utils.Color;
 
 import javax.persistence.*;
@@ -30,7 +31,7 @@ public class Subject implements Serializable {
     private Color color;
     private String room;
     private String teacher;
-//    private LocalTimeProtocol.DayOfWeek dayOfWeek;
+    private LocalTimeProtocol.DayOfWeek dayOfWeek;
 
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    private StupidDate timeStart;
@@ -100,9 +101,9 @@ public class Subject implements Serializable {
         this.teacher = teacher;
     }
 
-//    public void setDayOfWeek(LocalTimeProtocol.DayOfWeek dayOfWeek) {
-//        this.dayOfWeek = dayOfWeek;
-//    }
+    public void setDayOfWeek(LocalTimeProtocol.DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
 
 //    public void setTimeStart(StupidDate timeStart) {
 //        this.timeStart = timeStart;
@@ -121,9 +122,9 @@ public class Subject implements Serializable {
 //        return timeStart;
 //    }
 
-//    public LocalTimeProtocol.DayOfWeek getDayOfWeek() {
-//        return dayOfWeek;
-//    }
+    public LocalTimeProtocol.DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
 
     public String getTeacher() {
         return teacher;
