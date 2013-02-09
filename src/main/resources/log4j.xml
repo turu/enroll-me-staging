@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="pl.agh.enrollme.webflow">
+	<logger name="pl.agh.enrollme">
 		<level value="debug" />
 	</logger>
 	
