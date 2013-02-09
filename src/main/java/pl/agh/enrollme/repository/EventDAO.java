@@ -33,7 +33,7 @@ public class EventDAO implements IEventDAO {
     public List<Event> listEvents() {
         CriteriaQuery<Event> c = em.getCriteriaBuilder().createQuery(Event.class);
         Root<Event> from = c.from(Event.class);
-        c.orderBy(em.getCriteriaBuilder().desc(from.get("lastName")));
+        c.orderBy(em.getCriteriaBuilder().asc(from.get("name")));
         
         return em.createQuery(c).getResultList();
     }
