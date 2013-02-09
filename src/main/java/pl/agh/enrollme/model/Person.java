@@ -19,12 +19,12 @@ public class Person implements Serializable {
     private Integer id;
     private String firstName;
     private String lastName;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
-    private List<Group> groups;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
-    private List<Subject> subjects;
+//
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
+//    private List<Group> groups;
+//
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
+//    private List<Subject> subjects;
 
     public Person() {
         this.id = 0;
@@ -38,33 +38,33 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public void addSubject(Subject subject) {
-        subjects.add(subject);
-    }
+//    public void addSubject(Subject subject) {
+//        subjects.add(subject);
+//    }
 
-    public void addGroups(Group group) {
-        groups.add(group);
-    }
+//    public void addGroups(Group group) {
+//        groups.add(group);
+//    }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
+//    public void setGroups(List<Group> groups) {
+//        this.groups = groups;
+//    }
 
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
-    }
+//    public void setSubjects(List<Subject> subjects) {
+//        this.subjects = subjects;
+//    }
 
-    public List<Group> getGroups() {
-        return groups;
-    }
+//    public List<Group> getGroups() {
+//        return groups;
+//    }
 
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
+//    public List<Subject> getSubjects() {
+////        return subjects;
+//    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
