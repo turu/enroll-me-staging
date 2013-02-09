@@ -6,9 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 
-// Please don't ask why I defined this parameter, believe, it's the only way to make it work.
-@Entity(name = "enrollment0_")
-public class Enrollment implements Serializable {
+/// // Please don't ask why I defined this parameter, believe, it's the only way to make it work.
+@Entity //(name = "enrollment0_")
+public class Event implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = -5777367229609230476L;
@@ -21,13 +21,13 @@ public class Enrollment implements Serializable {
 
 	private String lastName;
 
-	public Enrollment() {
+	public Event() {
 		this.id = 0;
 		this.firstName = "";
 		this.lastName = "";
 	}
 
-	public Enrollment(int id, String firstName, String lastName) {
+	public Event(int id, String firstName, String lastName) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;

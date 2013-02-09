@@ -13,6 +13,22 @@
 
 <ui:define name="content">
 <h:form>
+    <p:dataTable value="${eventList}" var="e">
+        <p:column headerText="ID">
+            #{e.id}
+        </p:column>
+        <p:column headerText="First name">
+            #{e.firstName}
+        </p:column>
+        <p:column headerText="Last name">
+            #{e.lastName}
+        </p:column>
+        <p:column headerText="Action">
+            <p:commandButton value="Do something">
+                <f:param name="id" value="#{e.id}"/>
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
 </h:form>
 
 </ui:define>

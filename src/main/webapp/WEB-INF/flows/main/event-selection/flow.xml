@@ -7,7 +7,7 @@
     <view-state id="view">
     </view-state>
 
-    <end-state id="activeChoosen">
+    <end-state id="activeChosen">
         <output name="eventID" value="1"/>
     </end-state>
 

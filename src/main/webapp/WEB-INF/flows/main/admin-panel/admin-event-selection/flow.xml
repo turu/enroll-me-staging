@@ -4,6 +4,9 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <view-state id="view">
+        <on-render>
+            <evaluate expression="eventDAO.listEvents()" result="viewScope.eventList"/>
+        </on-render>
     </view-state>
 
     <end-state id="eventToBeAdded">

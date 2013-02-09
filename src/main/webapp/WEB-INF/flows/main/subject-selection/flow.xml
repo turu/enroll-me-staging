@@ -6,10 +6,10 @@
     <var name="subjectChoice" class="pl.agh.enrollme.webflow.model.SubjectChoice"/>
 
     <view-state id="view" model="subjectChoice">
-        <transition on="done" to="subjectsChoosen"/>
+        <transition on="done" to="subjectsChosen"/>
     </view-state>
 
-    <end-state id="subjectsChoosen">
+    <end-state id="subjectsChosen">
         <output name="subjectChoice" value="subjectChoice" type="pl.agh.enrollme.webflow.model.SubjectChoice" />
     </end-state>
 

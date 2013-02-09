@@ -2,8 +2,7 @@ package pl.agh.enrollme.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.agh.enrollme.model.Enrollment;
-import pl.agh.enrollme.model.Person;
+import pl.agh.enrollme.model.Event;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,30 +11,30 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-public class EnrollmentDAO implements IEnrollmentDAO {
+public class EventDAO implements IEventDAO {
 
 	@PersistenceContext
     EntityManager em;
     
     @Transactional
-    public void addEnrollment(Enrollment enrollment) {
-        em.persist(enrollment);
+    public void addEvent(Event event) {
+        em.persist(event);
     }
 	
     @Transactional
-    public List<Enrollment> listEnrollments() {
-        CriteriaQuery<Enrollment> c = em.getCriteriaBuilder().createQuery(Enrollment.class);
-        Root<Enrollment> from = c.from(Enrollment.class);
+    public List<Event> listEvents() {
+        CriteriaQuery<Event> c = em.getCriteriaBuilder().createQuery(Event.class);
+        Root<Event> from = c.from(Event.class);
         c.orderBy(em.getCriteriaBuilder().desc(from.get("lastName")));
         
         return em.createQuery(c).getResultList();
     }
 
     @Transactional
-    public void removeEnrollment(Integer id) {
-        Enrollment enrollment = em.find(Enrollment.class, id);
-        if (null != enrollment) {
-            em.remove(enrollment);
+    public void removeEvent(Integer id) {
+        Event event = em.find(Event.class, id);
+        if (null != event) {
+            em.remove(event);
         }
     }
     
