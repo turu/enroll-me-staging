@@ -21,8 +21,8 @@ public class Subject implements Serializable {
     @GeneratedValue
     private Integer SubjectID;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Enroll enroll;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Enroll enroll;
 //
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> persons;
@@ -72,9 +72,9 @@ public class Subject implements Serializable {
         this.name = name;
     }
 
-//    public Enroll getEnroll() {
-//        return enroll;
-//    }
+    public Enroll getEnroll() {
+        return enroll;
+    }
 
     public List<Person> getPersons() {
         return persons;
@@ -84,9 +84,9 @@ public class Subject implements Serializable {
         this.teamsCapacity = teamsCapacity;
     }
 
-//    public void setEnroll(Enroll enroll) {
-//        this.enroll = enroll;
-//    }
+    public void setEnroll(Enroll enroll) {
+        this.enroll = enroll;
+    }
 
     public void setPersons(List<Person> persons) {
         this.persons = persons;
