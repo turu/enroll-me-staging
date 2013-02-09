@@ -7,28 +7,28 @@
 	<!--
 		Also see ../parent-flow.xml. 
 	-->
-    <var name="enrollConfigurationHere" class="pl.agh.enrollme.model.EnrollConfiguration"/>
-    <var name="enroll" class="pl.agh.enrollme.model.Enroll"/>
+    <!--<var name="enrollConfigurationHere" class="pl.agh.enrollme.model.EnrollConfiguration"/>-->
+    <!--<var name="enroll" class="pl.agh.enrollme.model.Enroll"/>-->
 
-    <on-start>
-        <set name="enroll.enrollID" value="1" type="java.lang.Integer"/>
-        <set name="enroll.enrollConfiguration" value="enrollConfigurationHere"/>
-        <set name="enroll.name" value="'Example'" type="java.lang.String"/>
-    </on-start>
+    <!--<on-start>-->
+        <!--<set name="enroll.enrollID" value="1" type="java.lang.Integer"/>-->
+        <!--<set name="enroll.enrollConfiguration" value="enrollConfigurationHere"/>-->
+        <!--<set name="enroll.name" value="'Example'" type="java.lang.String"/>-->
+    <!--</on-start>-->
 
     <view-state id="configuration">
-        <on-render>
-            <evaluate expression="configurationDAO.getConfigurationByID(enroll)" result="enrollConfigurationHere"
-                      result-type="pl.agh.enrollme.model.EnrollConfiguration"/>
-        </on-render>
-        <transition  on="myupdate">
-            <set name="enrollConfigurationHere.enroll" value="enroll"/>
-            <evaluate expression="configurationDAO.addConfiguration(enrollConfigurationHere)"/>
-        </transition>
-        <!--<transition on="myrefresh">-->
-        <!--<evaluate expression="configurationDAO.getConfigurationByID(1)" result="enrollConfiguration"-->
-        <!--result-type="pl.agh.enrollme.model.EnrollConfiguration"/>-->
+        <!--<on-render>-->
+            <!--<evaluate expression="configurationDAO.getConfigurationByID(enroll)" result="enrollConfigurationHere"-->
+                      <!--result-type="pl.agh.enrollme.model.EnrollConfiguration"/>-->
+        <!--</on-render>-->
+        <!--<transition  on="myupdate">-->
+            <!--<set name="enrollConfigurationHere.enroll" value="enroll"/>-->
+            <!--<evaluate expression="configurationDAO.addConfiguration(enrollConfigurationHere)"/>-->
         <!--</transition>-->
+        <!--&lt;!&ndash;<transition on="myrefresh">&ndash;&gt;-->
+        <!--&lt;!&ndash;<evaluate expression="configurationDAO.getConfigurationByID(1)" result="enrollConfiguration"&ndash;&gt;-->
+        <!--&lt;!&ndash;result-type="pl.agh.enrollme.model.EnrollConfiguration"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</transition>&ndash;&gt;-->
     </view-state>
 
 </flow>
