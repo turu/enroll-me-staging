@@ -10,5 +10,6 @@ public interface IPersonDAO {
     void removePerson(Integer id);
     Person getPerson(Integer id);
     List<Person> listPeople();
+    Person findByUsername(String username);
 
 }

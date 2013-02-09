@@ -32,6 +32,11 @@ public class PersonDAO implements IPersonDAO {
         return em.createQuery(c).getResultList();
     }
 
+    @Override
+    public Person findByUsername(String username) {
+        return null;
+    }
+
     @Transactional
     public void removePerson(Integer id) {
         Person person = em.find(Person.class, id);
