@@ -19,6 +19,10 @@ public class Term implements Serializable {
     @EmbeddedId
     private TermPK termId;
 
+    @MapsId("subject")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Subject subject;
+
     private DayOfWeek dayOfWeek;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
