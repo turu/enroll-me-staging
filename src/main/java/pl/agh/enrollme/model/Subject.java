@@ -22,11 +22,11 @@ public class Subject implements Serializable {
     @GeneratedValue
     private Integer SubjectID;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Enroll enroll;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subjects")
-    private List<Person> persons;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Enroll enroll;
+//
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subjects")
+//    private List<Person> persons;
 
     private String name;
 
@@ -45,8 +45,8 @@ public class Subject implements Serializable {
 
     public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, Color color, String room,
                    String teacher, LocalTimeProtocol.DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
-        this.enroll = enroll;
-        this.persons = persons;
+//        this.enroll = enroll;
+//        this.persons = persons;
         this.name = name;
         this.teamsCapacity = teamsCapacity;
         this.color = color;
@@ -57,41 +57,41 @@ public class Subject implements Serializable {
         this.timeEnd = timeEnd;
     }
 
-    public void addPerson(Person person) {
-        persons.add(person);
-    }
+//    public void addPerson(Person person) {
+//        persons.add(person);
+//    }
 
     public void setSubjectID(Integer subjectID) {
         SubjectID = subjectID;
     }
 
-    public void setEnrollID(Enroll enroll) {
-        this.enroll = enroll;
-    }
+//    public void setEnrollID(Enroll enroll) {
+//        this.enroll = enroll;
+//    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Enroll getEnroll() {
-        return enroll;
-    }
+//    public Enroll getEnroll() {
+//        return enroll;
+//    }
 
-    public List<Person> getPersons() {
-        return persons;
-    }
+//    public List<Person> getPersons() {
+//        return persons;
+//    }
 
     public void setTeamsCapacity(Integer teamsCapacity) {
         this.teamsCapacity = teamsCapacity;
     }
 
-    public void setEnroll(Enroll enroll) {
-        this.enroll = enroll;
-    }
+//    public void setEnroll(Enroll enroll) {
+//        this.enroll = enroll;
+//    }
 
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
-    }
+//    public void setPersons(List<Person> persons) {
+//        this.persons = persons;
+//    }
 
     public void setColor(Color color) {
         this.color = color;
@@ -150,9 +150,9 @@ public class Subject implements Serializable {
         return name;
     }
 
-    public Enroll getEnrollID() {
-        return enroll;
-    }
+//    public Enroll getEnrollID() {
+//        return enroll;
+//    }
 
 
     public Integer getSubjectID() {
