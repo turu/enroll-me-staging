@@ -40,6 +40,21 @@
                     authorities="ROLE_USER, ROLE_ADMIN" />
 			</security:user-service>
 		</security:authentication-provider>
-	</security:authentication-manager>	
+        <security:authentication-provider ref="daoAuthenticationProvider"/>
+	</security:authentication-manager>
+
+    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="enrollUserDetailsService"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>
+
+    <!-- TODO: implement UserDetailsService -->
+    <bean id="enrollUserDetailsService" class="pl.agh.enrollme.service.EnrollUserDetailsService">
+
+    </bean>
+
+    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+        <constructor-arg value="256"/>
+    </bean>
 
 </beans>
