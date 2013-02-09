@@ -1,14 +1,9 @@
 package pl.agh.enrollme.model;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
-import org.jboss.netty.example.localtime.LocalTimeProtocol;
-import pl.agh.enrollme.utils.Color;
-import pl.agh.enrollme.utils.StupidDate;
+//import pl.agh.enrollme.utils.Color;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author Michal Partyka
@@ -32,7 +27,7 @@ public class Subject implements Serializable {
 
     private Integer teamsCapacity;
 
-    private Color color;
+//    private Color color;
     private String room;
     private String teacher;
 //    private LocalTimeProtocol.DayOfWeek dayOfWeek;
@@ -43,13 +38,13 @@ public class Subject implements Serializable {
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    private StupidDate timeEnd;
 
-    public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, Color color, String room,
-                   String teacher, LocalTimeProtocol.DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
+    public Subject(String name, Integer teamsCapacity, String room,
+                   String teacher) {
 //        this.enroll = enroll;
 //        this.persons = persons;
         this.name = name;
         this.teamsCapacity = teamsCapacity;
-        this.color = color;
+//        this.color = color;
         this.room = room;
         this.teacher = teacher;
 //        this.dayOfWeek = dayOfWeek;
@@ -93,9 +88,9 @@ public class Subject implements Serializable {
 //        this.persons = persons;
 //    }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
+//    public void setColor(Color color) {
+//        this.color = color;
+//    }
 
     public void setRoom(String room) {
         this.room = room;
@@ -138,9 +133,9 @@ public class Subject implements Serializable {
         return room;
     }
 
-    public Color getColor() {
-        return color;
-    }
+//    public Color getColor() {
+//        return color;
+//    }
 
     public Integer getTeamsCapacity() {
         return teamsCapacity;
