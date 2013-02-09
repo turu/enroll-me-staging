@@ -8,7 +8,7 @@
 
 
     <subflow-state id="manageAccount" subflow="main/account-management">
-        <transition on="accountManaged" to="chooseEvent">
+        <transition on="eventChoiceRequested" to="chooseEvent">
         </transition>
         <transition on="adminPanelRequested" to="administer">
         </transition>
