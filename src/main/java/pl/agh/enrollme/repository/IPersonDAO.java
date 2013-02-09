@@ -6,9 +6,9 @@ import pl.agh.enrollme.model.Person;
 
 public interface IPersonDAO {
 
-	void addPerson(Person person);
-	void removePerson(Integer id);
+    void addPerson(Person person);
+    void removePerson(Integer id);
     Person getPerson(Integer id);
-	List<Person> listPeople();
-	
+    List<Person> listPeople();
+
 }
