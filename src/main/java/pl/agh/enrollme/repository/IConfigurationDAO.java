@@ -1,5 +1,6 @@
 package pl.agh.enrollme.repository;
 
+import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.EnrollConfiguration;
 
 /**
@@ -7,5 +8,5 @@ import pl.agh.enrollme.model.EnrollConfiguration;
  */
 public interface IConfigurationDAO {
     void addConfiguration(EnrollConfiguration configuration) throws Exception;
-    EnrollConfiguration getConfigurationByID(Integer id);
+    EnrollConfiguration getConfigurationByID(Enroll enroll);
 }
