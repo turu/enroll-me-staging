@@ -7,10 +7,10 @@
 
     <subflow-state id="chooseEvent" subflow="main/admin-panel/admin-event-selection">
         <transition on="eventToBeAdded" to="manageEvent">
-            <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
+            <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/>
         </transition>
         <transition on="eventChosen" to="manageEvent">
-            <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
+            <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/>
         </transition>
     </subflow-state>
 
