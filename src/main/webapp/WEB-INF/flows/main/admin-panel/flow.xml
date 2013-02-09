@@ -3,7 +3,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <subflow-state id="chooseEvent" subflow="main/admin-panel/event-selection">
+    <subflow-state id="chooseEvent" subflow="main/admin-panel/admin-event-selection">
         <transition on="eventToBeAdded" to="manageEvent">
             <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
         </transition>
@@ -12,7 +12,7 @@
         </transition>
     </subflow-state>
 
-    <subflow-state id="manageEvent" subflow="main/admin-panel/event-management">
+    <subflow-state id="manageEvent" subflow="main/admin-panel/admin-event-management">
         <transition to="chooseEvent"/>
     </subflow-state>
 
