@@ -14,11 +14,13 @@
             -->
 
            <!--  <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/> -->
-            <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent" type="int"/>
+            <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent"
+                 type="pl.agh.enrollme.model.Event"/>
         </transition>
         <transition on="eventToBeConfigured" to="manageEvent">
             <!-- <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/> -->
-            <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent" type="int"/>
+            <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent"
+                 type="pl.agh.enrollme.model.Event"/>
         </transition>
     </subflow-state>
 
