@@ -15,7 +15,8 @@
 <h:form>
     Lorem ipsum
     <p:commandButton value="Choose event" action="proceedToEvents"/>
-    <p:commandButton value="Admin panel" action="proceedToAdminPanel"/>
+
+    <p:commandButton value="Admin panel" action="proceedToAdminPanel" rendered="#{p:ifGranted('ROLE_ADMIN')}"/>
 
 </h:form>
 
