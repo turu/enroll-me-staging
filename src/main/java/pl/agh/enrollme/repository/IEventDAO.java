@@ -8,6 +8,7 @@ import java.util.List;
 public interface IEventDAO {
 
 	void addEvent(Event event);
+    Integer createEventAndReturnID();
 	void removeEvent(Integer id);
 	List<Event> listEvents();
 	

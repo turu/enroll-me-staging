@@ -20,7 +20,15 @@ public class EventDAO implements IEventDAO {
     public void addEvent(Event event) {
         em.persist(event);
     }
-	
+
+    // TODO: czy musi byc Transactional?
+    @Transactional
+    public Integer createEventAndReturnID() {
+        Event event = new Event();
+        addEvent(event);
+        return event.getId();
+    }
+
     @Transactional
     public List<Event> listEvents() {
         CriteriaQuery<Event> c = em.getCriteriaBuilder().createQuery(Event.class);

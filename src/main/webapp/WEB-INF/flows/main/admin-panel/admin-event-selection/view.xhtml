@@ -13,11 +13,11 @@
 
 <ui:define name="content">
 <h:form>
-    <p:dataTable value="${eventList}" var="e">
+    <p:dataTable value="${eventList}" var="e" emptyMessage="There are no events in the database.">
         <p:column headerText="ID">
             #{e.id}
         </p:column>
-        <p:column headerText="First name">
+        <p:column headerText="Name">
             #{e.firstName}
         </p:column>
         <p:column headerText="Last name">
@@ -29,6 +29,9 @@
             </p:commandButton>
         </p:column>
     </p:dataTable>
+    <f:facet name="footer">
+        <p:commandButton value="Create new event..." action="create"/>
+    </f:facet>
 </h:form>
 
 </ui:define>

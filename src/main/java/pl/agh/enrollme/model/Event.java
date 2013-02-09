@@ -6,8 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 
-/// // Please don't ask why I defined this parameter, believe, it's the only way to make it work.
-@Entity //(name = "enrollment0_")
 public class Event implements Serializable {
 
 	@Transient
