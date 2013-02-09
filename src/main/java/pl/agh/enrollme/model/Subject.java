@@ -31,7 +31,10 @@ public class Subject implements Serializable {
     private Integer teamsCapacity;
     private Color color;
     private String room;
-    private String teacher;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Teacher teacher;
+
     private DayOfWeek dayOfWeek;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -41,7 +44,7 @@ public class Subject implements Serializable {
     private StupidDate timeEnd;
 
     public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, Color color, String room,
-                   String teacher, DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
+                   Teacher teacher, DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
         this.enroll = enroll;
         this.persons = persons;
         this.name = name;
@@ -61,10 +64,6 @@ public class Subject implements Serializable {
     public void setSubjectID(Integer subjectID) {
         SubjectID = subjectID;
     }
-
-//    public void setEnrollID(Enroll enroll) {
-//        this.enroll = enroll;
-//    }
 
     public void setName(String name) {
         this.name = name;
@@ -98,7 +97,7 @@ public class Subject implements Serializable {
         this.room = room;
     }
 
-    public void setTeacher(String teacher) {
+    public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 
@@ -127,7 +126,7 @@ public class Subject implements Serializable {
         return dayOfWeek;
     }
 
-    public String getTeacher() {
+    public Teacher getTeacher() {
         return teacher;
     }
 
@@ -146,11 +145,6 @@ public class Subject implements Serializable {
     public String getName() {
         return name;
     }
-
-//    public Enroll getEnrollID() {
-//        return enroll;
-//    }
-
 
     public Integer getSubjectID() {
         return SubjectID;
