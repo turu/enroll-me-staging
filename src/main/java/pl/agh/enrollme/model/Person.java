@@ -17,24 +17,24 @@ import javax.persistence.*;
 @Entity
 public class Person implements Serializable, UserDetails {
 
-	@Transient
-	private static final long serialVersionUID = -5777367229609230476L;
+    @Transient
+    private static final long serialVersionUID = -5777367229609230476L;
 
     @Transient
     private final List<GrantedAuthority> authorityList = new ArrayList<>();
 
-	@Id
-	@GeneratedValue
-	private Integer id = 0;
+    @Id
+    @GeneratedValue
+    private Integer id = 0;
 
     @Column(unique = true)
     private String username = "";
 
     private String password = "";
-	
-	private String firstName = "";
-	
-	private String lastName = "";
+
+    private String firstName = "";
+
+    private String lastName = "";
 
     private Boolean accountNonExpired = false;
 
@@ -47,39 +47,39 @@ public class Person implements Serializable, UserDetails {
     private String rolesToken = "";
 
 
-	public Person() {
-	}
+    public Person() {
+    }
 
     //TODO: adjust constructor to new fields or remove it
-	public Person(int id, String firstName, String lastName) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
+    public Person(int id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
