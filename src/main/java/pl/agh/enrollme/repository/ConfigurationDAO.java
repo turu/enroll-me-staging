@@ -34,6 +34,7 @@ public class ConfigurationDAO implements IConfigurationDAO{
                     "] , removing it");
             em.remove(currentConfiguration);
         }
+
         em.persist(configuration);
         LOGGER.info("configuration persisted succesfully");
     }
