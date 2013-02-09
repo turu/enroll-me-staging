@@ -8,14 +8,16 @@
             <evaluate expression="eventDAO.listEvents()" result="viewScope.eventList"/>
         </on-render>
         <transition on="create" to="eventToBeAdded"/>
+        <transition on="modify" to="eventToBeConfigured"/>
     </view-state>
 
     <end-state id="eventToBeAdded">
-        <output name="eventID" value="eventDAO.createEventAndReturnID()"/>
+        <!-- <output name="eventID" value="eventDAO.createEventAndReturnID()"/> -->
+        <output name="managedEvent" value="eventDAO.createAndReturnEvent()"/>
     </end-state>
 
-    <end-state id="eventChosen">
-        <output name="eventID" value="1"/>
+    <end-state id="eventToBeConfigured">
+        <output name="eventID" value="3"/>
     </end-state>
 
 </flow>

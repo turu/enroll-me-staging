@@ -13,18 +13,14 @@
 
 <ui:define name="content">
 <h:form>
-    <h:outputText value="${flowScope.eventID}"/>
+    <h:outputText value="${managedEvent.id}"/>
 
     <fieldset>
         <legend>Event Configuration</legend>
-        <!-- <p>
-            <h:outputLabel for="firstName">First Name: </h:outputLabel><br/>
-            <p:inputText id="firstName" value="#{person.firstName}" />
-        </p>
         <p>
-            <h:outputLabel for="lastName">Last Name: </h:outputLabel><br/>
-            <p:inputText id="lastName" value="#{person.lastName}" />
-        </p> -->
+            <h:outputLabel for="name">Name: </h:outputLabel><br/>
+            <p:inputText id="name" value="#{managedEvent.name}" />
+        </p>
     </fieldset>
 
 </h:form>

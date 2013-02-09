@@ -21,12 +21,17 @@ public class EventDAO implements IEventDAO {
         em.persist(event);
     }
 
+    @Transactional
+    public Event createAndReturnEvent() {
+        Event event = new Event();
+        addEvent(event);
+        return event;
+    }
+
     // TODO: czy musi byc Transactional?
     @Transactional
     public Integer createEventAndReturnID() {
-        Event event = new Event();
-        addEvent(event);
-        return event.getId();
+        return createAndReturnEvent().getId();
     }
 
     @Transactional

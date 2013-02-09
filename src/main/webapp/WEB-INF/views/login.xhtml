@@ -29,7 +29,7 @@
 	<p:panel header="Login Information">
 		<form name="f" action="${request.contextPath}/app/j_spring_security_check" method="post">
 			<div>
-				<h:outputLabel value="Username:" />
+				<h:outputLabel value="User Name:" />
 				<br />
 				<c:if test="${not empty param.login_error}">
 					<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>

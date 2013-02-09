@@ -7,10 +7,18 @@
 
     <subflow-state id="chooseEvent" subflow="main/admin-panel/admin-event-selection">
         <transition on="eventToBeAdded" to="manageEvent">
-            <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
+            <!--
+                FIXME:
+                Unfortunately, there was no other way but to locate eventID into conversationScope.
+                Otherwise (request/flow) it's not visible in view.xhtml.
+            -->
+
+           <!--  <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/> -->
+            <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent" type="int"/>
         </transition>
-        <transition on="eventChosen" to="manageEvent">
-            <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/>
+        <transition on="eventToBeConfigured" to="manageEvent">
+            <!-- <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/> -->
+            <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent" type="int"/>
         </transition>
     </subflow-state>
 
