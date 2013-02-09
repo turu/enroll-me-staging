@@ -23,7 +23,7 @@ public class Person implements Serializable {
 //    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
 //    private List<Group> groups;
 //
-    @ManyToMany(mappedBy = "persons")
+    @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)
     private List<Subject> subjects;
 
     public Person() {
