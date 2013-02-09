@@ -12,7 +12,6 @@ import java.util.List;
  * @author Michal Partyka
  */
 @Entity
-@Table(name="asdf")
 public class Subject implements Serializable {
     @Transient
     private static final long serialVersionUID = -5771235478609230476L;
