@@ -55,9 +55,9 @@ public class Subject implements Serializable {
 //        this.timeEnd = timeEnd;
     }
 
-//    public void addPerson(Person person) {
-//        persons.add(person);
-//    }
+    public void addPerson(Person person) {
+        persons.add(person);
+    }
 
     public void setSubjectID(Integer subjectID) {
         SubjectID = subjectID;
@@ -75,9 +75,9 @@ public class Subject implements Serializable {
 //        return enroll;
 //    }
 
-//    public List<Person> getPersons() {
-//        return persons;
-//    }
+    public List<Person> getPersons() {
+        return persons;
+    }
 
     public void setTeamsCapacity(Integer teamsCapacity) {
         this.teamsCapacity = teamsCapacity;
@@ -87,9 +87,9 @@ public class Subject implements Serializable {
 //        this.enroll = enroll;
 //    }
 
-//    public void setPersons(List<Person> persons) {
-//        this.persons = persons;
-//    }
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
 
     public void setColor(Color color) {
         this.color = color;
