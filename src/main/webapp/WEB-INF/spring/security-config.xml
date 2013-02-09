@@ -37,7 +37,7 @@
 				<security:user name="pete" password="5d2ea1f70185e4357183bb9c00187219" 
 					authorities="ROLE_USER, ROLE_ANDROID_USER" />
                 <security:user name="admin" password="5d2ea1f70185e4357183bb9c00187219"
-                    authorities="ROLE_ADMIN" />
+                    authorities="ROLE_USER, ROLE_ADMIN" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>	
