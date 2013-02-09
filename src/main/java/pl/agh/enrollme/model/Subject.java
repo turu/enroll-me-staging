@@ -39,8 +39,8 @@ public class Subject implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private StupidDate timeStart;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private StupidDate timeEnd;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private StupidDate timeEnd;
 
     public Subject(String name, Integer teamsCapacity, String room,
                    String teacher) {
@@ -111,16 +111,16 @@ public class Subject implements Serializable {
     public void setTimeStart(StupidDate timeStart) {
         this.timeStart = timeStart;
     }
-//
-//    public void setTimeEnd(StupidDate timeEnd) {
-//        this.timeEnd = timeEnd;
-//    }
 
-//    public StupidDate getTimeEnd() {
-//
-//        return timeEnd;
-//    }
-//
+    public void setTimeEnd(StupidDate timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public StupidDate getTimeEnd() {
+
+        return timeEnd;
+    }
+
     public StupidDate getTimeStart() {
         return timeStart;
     }
