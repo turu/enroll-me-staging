@@ -31,7 +31,6 @@ public class Subject implements Serializable {
     private Color color;
     private String room;
     private String teacher;
-    @Basic
     private LocalTimeProtocol.DayOfWeek dayOfWeek;
 
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
