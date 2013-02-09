@@ -1,10 +1,7 @@
 package pl.agh.enrollme.utils;
 
-import pl.agh.enrollme.model.Subject;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author Michal Partyka
