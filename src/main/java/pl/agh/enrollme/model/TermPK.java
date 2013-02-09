@@ -12,7 +12,6 @@ public class TermPK implements Serializable {
     @Transient
     private static final long serialVersionUID = -5771235478609230476L;
 
-    @Column
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Subject subject;
 
