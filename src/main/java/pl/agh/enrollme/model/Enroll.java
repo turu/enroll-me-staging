@@ -18,21 +18,31 @@ public class Enroll implements Serializable {
 
     private String name;
 
-    //Expire time? (after this date it would be deleted from database... ?)
+    @OneToOne(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private EnrollConfiguration enrollConfiguration;
 
-    public Enroll() {
-        EnrollID = 0;
-        name = "";
+    public EnrollConfiguration getEnrollConfiguration() {
+        return enrollConfiguration;
     }
 
-
-    public Enroll(String name) {
+    public Enroll(String name, EnrollConfiguration enrollConfiguration) {
+        this.enrollConfiguration = enrollConfiguration;
         EnrollID = 0;
         this.name = name;
     }
 
+
     public void setEnrollID(Integer enrollID) {
         EnrollID = enrollID;
+    }
+
+    public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {
+        this.enrollConfiguration = enrollConfiguration;
+    }
+
+    public Enroll() {
+        EnrollID = 0;
+        name = "";
     }
 
     public void setName(String name) {
