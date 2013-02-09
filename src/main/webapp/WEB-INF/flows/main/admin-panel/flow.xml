@@ -3,6 +3,8 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <!-- <secured attributes="ROLE_ADMIN"/> -->
+
     <subflow-state id="chooseEvent" subflow="main/admin-panel/admin-event-selection">
         <transition on="eventToBeAdded" to="manageEvent">
             <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>

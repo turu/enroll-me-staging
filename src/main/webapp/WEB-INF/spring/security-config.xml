@@ -16,7 +16,7 @@
 			default-target-url="/app/main" authentication-failure-url="/app/login?login_error=1" />
 		<security:logout logout-url="/app/logout" logout-success-url="/app/main" />
 		<security:intercept-url pattern="/app/main*" access="ROLE_USER" />
-		<security:intercept-url pattern="/app/admin-panel*" access="ROLE_USER, ROLE_ADMIN"/>
+		<security:intercept-url pattern="/app/admin-panel*" access="ROLE_ADMIN"/>
 	</security:http>
 
 	<!--
@@ -36,6 +36,8 @@
 					authorities="ROLE_USER, ROLE_APPLE_USER" />
 				<security:user name="pete" password="5d2ea1f70185e4357183bb9c00187219" 
 					authorities="ROLE_USER, ROLE_ANDROID_USER" />
+                <security:user name="admin" password="5d2ea1f70185e4357183bb9c00187219"
+                    authorities="ROLE_ADMIN" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>	
