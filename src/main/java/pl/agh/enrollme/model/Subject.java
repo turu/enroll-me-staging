@@ -23,7 +23,7 @@ public class Subject implements Serializable {
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    private Enroll enroll;
 //
-    @ManyToMany
+    @ManyToMany(mappedBy = "subjects")
     private List<Person> persons;
 
     private String name;
