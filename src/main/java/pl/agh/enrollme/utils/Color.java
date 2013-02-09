@@ -1,7 +1,7 @@
 package pl.agh.enrollme.utils;
 
 /**
- * @author: Michal Partyka
+ * @author Michal Partyka
  */
 public enum Color {
     RED, GREEN, WHITE //....

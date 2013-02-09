@@ -1,14 +1,16 @@
 package pl.agh.enrollme.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author Michal Partyka
  */
 @Entity
-public class Enroll {
+public class Enroll implements Serializable {
+
+    @Transient
+    private static final long serialVersionUID = -577123547860923047L;
 
     @Id
     @GeneratedValue
