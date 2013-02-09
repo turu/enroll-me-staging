@@ -7,6 +7,9 @@
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
   <component name="IdProvider" IDEtalkID="070290F1064D8268E26B9549C3E06BEE" />
+  <component name="JsfProjectComponent">
+    <option name="faceletsSupport" value="ENABLED" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
