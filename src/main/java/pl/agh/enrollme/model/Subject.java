@@ -6,6 +6,7 @@ import pl.agh.enrollme.utils.DayOfWeek;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Michal Partyka
@@ -22,8 +23,8 @@ public class Subject implements Serializable {
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    private Enroll enroll;
 //
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subjects")
-//    private List<Person> persons;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subjects")
+    private List<Person> persons;
 
     private String name;
 

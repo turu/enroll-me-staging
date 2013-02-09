@@ -23,8 +23,8 @@ public class Person implements Serializable {
 //    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
 //    private List<Group> groups;
 //
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
-//    private List<Subject> subjects;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
+    private List<Subject> subjects;
 
     public Person() {
         this.id = 0;
