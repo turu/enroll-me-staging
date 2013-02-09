@@ -23,14 +23,12 @@ public class Subject implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Enroll enroll;
-//
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> persons;
 
     private String name;
-
     private Integer teamsCapacity;
-
     private Color color;
     private String room;
     private String teacher;
@@ -42,18 +40,18 @@ public class Subject implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private StupidDate timeEnd;
 
-    public Subject(String name, Integer teamsCapacity, String room,
-                   String teacher) {
-//        this.enroll = enroll;
-//        this.persons = persons;
+    public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, Color color, String room,
+                   String teacher, DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
+        this.enroll = enroll;
+        this.persons = persons;
         this.name = name;
         this.teamsCapacity = teamsCapacity;
-//        this.color = color;
+        this.color = color;
         this.room = room;
         this.teacher = teacher;
-//        this.dayOfWeek = dayOfWeek;
-//        this.timeStart = timeStart;
-//        this.timeEnd = timeEnd;
+        this.dayOfWeek = dayOfWeek;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
     }
 
     public void addPerson(Person person) {
