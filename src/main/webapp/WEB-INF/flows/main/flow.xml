@@ -1,32 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
 	<secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-    <subflow-state id="manageAccount" subflow="account-management">
+    <subflow-state id="manageAccount" subflow="main/account-management">
 		<transition on="accountManaged" to="chooseEvent">
 		</transition>
 	</subflow-state>
-	
-	<subflow-state id="chooseEvent" subflow="event-selection">
-		<transition on="eventEnded" to="seeResults">
+
+	<subflow-state id="chooseEvent" subflow="main/event-selection">
+		<transition on="eventComplete" to="seeResults">
+            <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
 		</transition>
 		<transition on="activeChoosen" to="chooseSubjects">
+            <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
 		</transition>
+        <transition on="eventClosed" to="seeFinalChoice">
+            <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
+        </transition>
 	</subflow-state>
 	
-	<subflow-state id="chooseSubjects" subflow="subject-selection">
+	<subflow-state id="chooseSubjects" subflow="main/subject-selection">
+        <input name="eventID" value="eventID" required="true" type="int"/>
 		<transition on="subjectsChoosen" to="managePreferences">
+            <set name="flowScope.subjectChoice" value="currentEvent.attributes.subjectChoice"
+                 type="pl.agh.enrollme.webflow.model.SubjectChoice"/>
 		</transition>
 	</subflow-state>
 	
-	<subflow-state id="managePreferences" subflow="preferences-management">
+	<subflow-state id="managePreferences" subflow="main/preferences-management">
+        <input name="subjectChoice" value="subjectChoice" required="true"
+               type="pl.agh.enrollme.webflow.model.SubjectChoice"/>
+        <transition to="flowComplete"/>
 	</subflow-state>
-	
-	<subflow-state id="seeResults" subflow="results">
+
+    <subflow-state id="seeFinalChoice" subflow="main/final-choice">
+        <transition to="flowComplete"/>
+    </subflow-state>
+
+	<subflow-state id="seeResults" subflow="main/results">
+        <transition to="flowComplete"/>
 	</subflow-state>
 	
 	<end-state id="flowComplete" view="externalRedirect:servletRelative:/main" />
