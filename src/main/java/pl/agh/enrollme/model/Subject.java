@@ -43,6 +43,9 @@ public class Subject implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private StupidDate timeEnd;
 
+    public Subject() {
+    }
+
     public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, Color color, String room,
                    Teacher teacher, DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
         this.enroll = enroll;
@@ -148,8 +151,5 @@ public class Subject implements Serializable {
 
     public Integer getSubjectID() {
         return SubjectID;
-    }
-
-    public Subject() {
     }
 }

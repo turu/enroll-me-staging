@@ -42,25 +42,25 @@ public class Person implements Serializable {
         subjects.add(subject);
     }
 
-//    public void addGroups(Group group) {
-//        groups.add(group);
-//    }
+    public void addGroups(Group group) {
+        groups.add(group);
+    }
 
     public String getFirstName() {
         return firstName;
     }
 
-//    public void setGroups(List<Group> groups) {
-//        this.groups = groups;
-//    }
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
 
-//    public List<Group> getGroups() {
-//        return groups;
-//    }
+    public List<Group> getGroups() {
+        return groups;
+    }
 
     public List<Subject> getSubjects() {
         return subjects;
