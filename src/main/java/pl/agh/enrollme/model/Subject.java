@@ -2,6 +2,7 @@ package pl.agh.enrollme.model;
 
 import org.jboss.netty.example.localtime.LocalTimeProtocol;
 import pl.agh.enrollme.utils.Color;
+import pl.agh.enrollme.utils.DayOfWeek;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public class Subject implements Serializable {
     private Color color;
     private String room;
     private String teacher;
-    private LocalTimeProtocol.DayOfWeek dayOfWeek;
+    private DayOfWeek dayOfWeek;
 
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    private StupidDate timeStart;
@@ -101,7 +102,7 @@ public class Subject implements Serializable {
         this.teacher = teacher;
     }
 
-    public void setDayOfWeek(LocalTimeProtocol.DayOfWeek dayOfWeek) {
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
@@ -122,7 +123,7 @@ public class Subject implements Serializable {
 //        return timeStart;
 //    }
 
-    public LocalTimeProtocol.DayOfWeek getDayOfWeek() {
+    public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
 
