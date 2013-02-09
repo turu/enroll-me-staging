@@ -12,12 +12,9 @@ public class TermPK implements Serializable {
     @Transient
     private static final long serialVersionUID = -5771235478609230476L;
 
-//    @Column
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Subject subject;
-
     @Column
-    private Integer subject;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Subject subject;
 
     @Column
     private Integer TermPerSubjectID;
@@ -35,7 +32,7 @@ public class TermPK implements Serializable {
         if (!TermPerSubjectID.equals(termPK.TermPerSubjectID)) {
             return false;
         }
-        if (!subject.equals(termPK.subject)) {
+        if (!subject.getSubjectID().equals(termPK.subject.getSubjectID())) {
             return false;
         }
         return true;
@@ -43,12 +40,12 @@ public class TermPK implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = subject.hashCode();
+        int result = subject.getSubjectID().hashCode();
         result = 31 * result + TermPerSubjectID.hashCode();
         return result;
     }
 
-    public Integer getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
@@ -56,7 +53,7 @@ public class TermPK implements Serializable {
         return TermPerSubjectID;
     }
 
-    public void setSubject(Integer subject) {
+    public void setSubject(Subject subject) {
         this.subject = subject;
     }
 
