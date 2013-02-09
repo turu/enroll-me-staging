@@ -8,6 +8,8 @@
         <transition on="proceedToAdminPanel" to="adminPanelRequested"/>
     </view-state>
 
-    <end-state id="accountManaged"/>
+    <end-state id="eventChoiceRequested"/>
+
+    <end-state id="adminPanelRequested"/>
 
 </flow>
