@@ -37,11 +37,11 @@ public class Subject implements Serializable {
     private String teacher;
     private LocalTimeProtocol.DayOfWeek dayOfWeek;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private StupidDate timeStart;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private StupidDate timeStart;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private StupidDate timeEnd;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private StupidDate timeEnd;
 
     public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, Color color, String room,
                    String teacher, LocalTimeProtocol.DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
@@ -53,8 +53,8 @@ public class Subject implements Serializable {
         this.room = room;
         this.teacher = teacher;
         this.dayOfWeek = dayOfWeek;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
+//        this.timeStart = timeStart;
+//        this.timeEnd = timeEnd;
     }
 
 //    public void addPerson(Person person) {
@@ -109,22 +109,22 @@ public class Subject implements Serializable {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public void setTimeStart(StupidDate timeStart) {
-        this.timeStart = timeStart;
-    }
+//    public void setTimeStart(StupidDate timeStart) {
+//        this.timeStart = timeStart;
+//    }
+//
+//    public void setTimeEnd(StupidDate timeEnd) {
+//        this.timeEnd = timeEnd;
+//    }
 
-    public void setTimeEnd(StupidDate timeEnd) {
-        this.timeEnd = timeEnd;
-    }
-
-    public StupidDate getTimeEnd() {
-
-        return timeEnd;
-    }
-
-    public StupidDate getTimeStart() {
-        return timeStart;
-    }
+//    public StupidDate getTimeEnd() {
+//
+//        return timeEnd;
+//    }
+//
+//    public StupidDate getTimeStart() {
+//        return timeStart;
+//    }
 
     public LocalTimeProtocol.DayOfWeek getDayOfWeek() {
         return dayOfWeek;
