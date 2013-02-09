@@ -35,7 +35,7 @@ public class Subject implements Serializable {
     private Color color;
     private String room;
     private String teacher;
-    private LocalTimeProtocol.DayOfWeek dayOfWeek;
+//    private LocalTimeProtocol.DayOfWeek dayOfWeek;
 
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    private StupidDate timeStart;
@@ -52,7 +52,7 @@ public class Subject implements Serializable {
         this.color = color;
         this.room = room;
         this.teacher = teacher;
-        this.dayOfWeek = dayOfWeek;
+//        this.dayOfWeek = dayOfWeek;
 //        this.timeStart = timeStart;
 //        this.timeEnd = timeEnd;
     }
@@ -105,9 +105,9 @@ public class Subject implements Serializable {
         this.teacher = teacher;
     }
 
-    public void setDayOfWeek(LocalTimeProtocol.DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
+//    public void setDayOfWeek(LocalTimeProtocol.DayOfWeek dayOfWeek) {
+//        this.dayOfWeek = dayOfWeek;
+//    }
 
 //    public void setTimeStart(StupidDate timeStart) {
 //        this.timeStart = timeStart;
@@ -126,9 +126,9 @@ public class Subject implements Serializable {
 //        return timeStart;
 //    }
 
-    public LocalTimeProtocol.DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
+//    public LocalTimeProtocol.DayOfWeek getDayOfWeek() {
+//        return dayOfWeek;
+//    }
 
     public String getTeacher() {
         return teacher;
