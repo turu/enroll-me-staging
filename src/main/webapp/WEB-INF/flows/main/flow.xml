@@ -6,16 +6,19 @@
 
 	<secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-    <subflow-state id="adminPanel" subflow="main/admin-panel">
-
-	</subflow-state>
 
     <subflow-state id="manageAccount" subflow="main/account-management">
         <transition on="accountManaged" to="chooseEvent">
         </transition>
+        <transition on="adminPanelRequested" to="administer">
+        </transition>
     </subflow-state>
 
-	<subflow-state id="chooseEvent" subflow="main/event-selection">
+    <subflow-state id="administer" subflow="main/admin-panel">
+
+    </subflow-state>
+
+    <subflow-state id="chooseEvent" subflow="main/event-selection">
 		<transition on="eventComplete" to="seeResults">
             <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
 		</transition>
