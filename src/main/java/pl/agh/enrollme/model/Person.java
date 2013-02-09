@@ -1,6 +1,5 @@
 package pl.agh.enrollme.model;
 
-import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +27,7 @@ public class Person implements Serializable, UserDetails {
 	@GeneratedValue
 	private Integer id = 0;
 
+    @Column(unique = true)
     private String username = "";
 
     private String password = "";
@@ -44,7 +44,7 @@ public class Person implements Serializable, UserDetails {
 
     private Boolean enabled = false;
 
-    private String roles = "";
+    private String rolesToken = "";
 
 
 	public Person() {
@@ -140,12 +140,12 @@ public class Person implements Serializable, UserDetails {
         this.enabled = enabled;
     }
 
-    public String getRoles() {
-        return roles;
+    public String getRolesToken() {
+        return rolesToken;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setRolesToken(String roles) {
+        this.rolesToken = roles;
         updateAuthorityList(roles);
     }
 
