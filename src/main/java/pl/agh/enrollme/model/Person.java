@@ -38,9 +38,9 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-//    public void addSubject(Subject subject) {
-//        subjects.add(subject);
-//    }
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
+    }
 
 //    public void addGroups(Group group) {
 //        groups.add(group);
@@ -54,17 +54,17 @@ public class Person implements Serializable {
 //        this.groups = groups;
 //    }
 
-//    public void setSubjects(List<Subject> subjects) {
-//        this.subjects = subjects;
-//    }
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
 
 //    public List<Group> getGroups() {
 //        return groups;
 //    }
 
-//    public List<Subject> getSubjects() {
-////        return subjects;
-//    }
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
