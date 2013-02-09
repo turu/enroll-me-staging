@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 
+@Entity
 public class Event implements Serializable {
 
 	@Transient
