@@ -58,9 +58,9 @@ public class Person implements Serializable {
         this.subjects = subjects;
     }
 
-    public List<Group> getGroups() {
-        return groups;
-    }
+//    public List<Group> getGroups() {
+//        return groups;
+//    }
 
     public List<Subject> getSubjects() {
         return subjects;
