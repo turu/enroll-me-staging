@@ -28,10 +28,11 @@
                 <f:param name="id" value="#{e.id}"/>
             </p:commandButton>
         </p:column>
+        <f:facet name="footer">
+            <p:commandButton value="Create new event..." action="create"/>
+        </f:facet>
     </p:dataTable>
-    <f:facet name="footer">
-        <p:commandButton value="Create new event..." action="create"/>
-    </f:facet>
+
 </h:form>
 
 </ui:define>
