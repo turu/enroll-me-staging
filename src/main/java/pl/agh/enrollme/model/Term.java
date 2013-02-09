@@ -16,9 +16,8 @@ public class Term implements Serializable {
     @Transient
     private static final long serialVersionUID = -5771235478609230476L;
 
-    @Id
-    @GeneratedValue
-    private Integer termId;
+    @EmbeddedId
+    private TermPK termId;
 
     private DayOfWeek dayOfWeek;
 
@@ -37,8 +36,9 @@ public class Term implements Serializable {
     public Term() {
     }
 
-    public Term(DayOfWeek dayOfWeek, StupidDate startTime, StupidDate endTime,
+    public Term(TermPK termId, DayOfWeek dayOfWeek, StupidDate startTime, StupidDate endTime,
                 Week week, Integer capacity, String room, Teacher teacher) {
+        this.termId = termId;
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -52,9 +52,9 @@ public class Term implements Serializable {
         return serialVersionUID;
     }
 
-//    public TermPK getTermId() {
-//        return termId;
-//    }
+    public TermPK getTermId() {
+        return termId;
+    }
 
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
@@ -84,9 +84,9 @@ public class Term implements Serializable {
         return teacher;
     }
 
-//    public void setTermId(TermPK termId) {
-//        this.termId = termId;
-//    }
+    public void setTermId(TermPK termId) {
+        this.termId = termId;
+    }
 
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
