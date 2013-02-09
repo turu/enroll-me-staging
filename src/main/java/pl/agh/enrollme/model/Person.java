@@ -19,10 +19,10 @@ public class Person implements Serializable {
     private Integer id;
     private String firstName;
     private String lastName;
-//
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
-//    private List<Group> groups;
-//
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
+    private List<Group> groups;
+
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Subject> subjects;
 
