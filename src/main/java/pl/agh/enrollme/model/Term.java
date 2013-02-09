@@ -1,6 +1,7 @@
 package pl.agh.enrollme.model;
 
 import org.jboss.netty.example.localtime.LocalTimeProtocol;
+import pl.agh.enrollme.utils.DayOfWeek;
 import pl.agh.enrollme.utils.StupidDate;
 import pl.agh.enrollme.utils.Week;
 
@@ -18,7 +19,7 @@ public class Term implements Serializable {
     @EmbeddedId
     private TermPK termId;
 
-    private LocalTimeProtocol.DayOfWeek dayOfWeek;
+    private DayOfWeek dayOfWeek;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private StupidDate startTime;
@@ -35,7 +36,7 @@ public class Term implements Serializable {
     public Term() {
     }
 
-    public Term(TermPK termId, LocalTimeProtocol.DayOfWeek dayOfWeek, StupidDate startTime, StupidDate endTime,
+    public Term(TermPK termId, DayOfWeek dayOfWeek, StupidDate startTime, StupidDate endTime,
                 Week week, Integer capacity, String room, Teacher teacher) {
         this.termId = termId;
         this.dayOfWeek = dayOfWeek;
@@ -55,7 +56,7 @@ public class Term implements Serializable {
         return termId;
     }
 
-    public LocalTimeProtocol.DayOfWeek getDayOfWeek() {
+    public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
 
@@ -87,7 +88,7 @@ public class Term implements Serializable {
         this.termId = termId;
     }
 
-    public void setDayOfWeek(LocalTimeProtocol.DayOfWeek dayOfWeek) {
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
