@@ -1,6 +1,6 @@
 package pl.agh.enrollme.model;
 
-//import pl.agh.enrollme.utils.Color;
+import pl.agh.enrollme.utils.Color;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,7 +27,7 @@ public class Subject implements Serializable {
 
     private Integer teamsCapacity;
 
-//    private Color color;
+    private Color color;
     private String room;
     private String teacher;
 //    private LocalTimeProtocol.DayOfWeek dayOfWeek;
@@ -88,9 +88,9 @@ public class Subject implements Serializable {
 //        this.persons = persons;
 //    }
 
-//    public void setColor(Color color) {
-//        this.color = color;
-//    }
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     public void setRoom(String room) {
         this.room = room;
@@ -133,9 +133,9 @@ public class Subject implements Serializable {
         return room;
     }
 
-//    public Color getColor() {
-//        return color;
-//    }
+    public Color getColor() {
+        return color;
+    }
 
     public Integer getTeamsCapacity() {
         return teamsCapacity;
