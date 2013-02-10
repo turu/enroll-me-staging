@@ -1,5 +1,7 @@
 package pl.agh.enrollme.model;
 
+import org.hibernate.metamodel.source.binder.ManyToManyPluralAttributeElementSource;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +13,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-/**
- *  Author: Piotr Turek
- */
+
 @Entity
 public class Person implements Serializable, UserDetails {
 
@@ -27,10 +27,10 @@ public class Person implements Serializable, UserDetails {
     @GeneratedValue
     private Integer id = 0;
 
+    private String password = "";
+
     @Column(unique = true)
     private String username = "";
-
-    private String password = "";
 
     private String firstName = "";
 
@@ -46,6 +46,12 @@ public class Person implements Serializable, UserDetails {
 
     private String rolesToken = "";
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
+    private List<Group> groups;
+
+    @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Subject> subjects;
+    
 
     public Person() {
     }
@@ -57,8 +63,32 @@ public class Person implements Serializable, UserDetails {
         this.lastName = lastName;
     }
 
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
+    }
+
+    public void addGroups(Group group) {
+        groups.add(group);
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+//    public List<Group> getGroups() {
+//        return groups;
+//    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
     }
 
     public void setFirstName(String firstName) {

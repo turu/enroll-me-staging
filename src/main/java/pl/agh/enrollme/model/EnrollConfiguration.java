@@ -1,9 +1,8 @@
 package pl.agh.enrollme.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -16,7 +15,8 @@ public class EnrollConfiguration implements Serializable {
     private static final long serialVersionUID = -5771235478609230476L;
 
     @Id
-    private Integer enroll_ID;
+    @OneToOne(fetch = FetchType.LAZY)
+    Enroll enroll;
 
     private Integer pointsPerTerm;
     private Integer pointsPerSubject;
@@ -24,16 +24,16 @@ public class EnrollConfiguration implements Serializable {
     private Integer additionalPoints;
 
     public EnrollConfiguration() {
-        this.enroll_ID = 0;
+        this.enroll = null;
         this.pointsPerTerm = 0;
         this.pointsPerSubject = 0;
         this.additionalPoints = 0;
         this.minimumPointsPerSubject = 0;
     }
 
-    public EnrollConfiguration(Integer enroll_ID, Integer pointsPerTerm, Integer pointsPerSubject,
+    public EnrollConfiguration(Enroll enroll, Integer pointsPerTerm, Integer pointsPerSubject,
                                Integer minimumPointsPerSubject, Integer additionalPoints) {
-        this.enroll_ID = enroll_ID;
+        this.enroll = enroll;
         this.pointsPerTerm = pointsPerTerm;
         this.pointsPerSubject = pointsPerSubject;
         this.minimumPointsPerSubject = minimumPointsPerSubject;
@@ -73,11 +73,11 @@ public class EnrollConfiguration implements Serializable {
         this.pointsPerTerm = pointsPerTerm;
     }
 
-    public Integer getEnroll_ID() {
-        return enroll_ID;
+    public Enroll getEnroll() {
+        return enroll;
     }
 
-    public void setEnroll_ID(Integer id) {
-        this.enroll_ID = id;
+    public void setEnroll(Enroll enroll) {
+        this.enroll = enroll;
     }
 }
