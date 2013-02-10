@@ -149,8 +149,13 @@ public class Person implements Serializable, UserDetails {
         updateAuthorityList(roles);
     }
 
+    /**
+     * Updates authority list based on rolestoken provided. Uses regex to split roles into tokens.
+     * Accepts role tokens such as: ROLE_1, ROLE_2 :;| ROLE_3:::ROLE_4
+     * @param roles
+     */
     private void updateAuthorityList(String roles) {
-        final String[] split = roles.split("[.,;:|]+");
+        final String[] split = roles.split("[.,;: |]+");
         authorityList.clear();
         for (String token : split) {
             authorityList.add(new SimpleGrantedAuthority(token.trim().toUpperCase()));
