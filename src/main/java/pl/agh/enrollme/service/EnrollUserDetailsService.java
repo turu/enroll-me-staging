@@ -1,5 +1,7 @@
 package pl.agh.enrollme.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +16,8 @@ import pl.agh.enrollme.repository.IPersonDAO;
 @Service
 public class EnrollUserDetailsService implements UserDetailsService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnrollUserDetailsService.class);
+
     @Autowired
     private IPersonDAO personDAO;
 
@@ -22,14 +26,18 @@ public class EnrollUserDetailsService implements UserDetailsService {
         final Person person = personDAO.findByUsername(username);
 
         if (person == null) {
+            LOGGER.info("User " + username + " could not be found in a data source.");
             throw new UsernameNotFoundException("User " + username + " could not be found in a data source.");
         }
 
         UserDetails userDetails = (UserDetails) person;
 
         if (userDetails.getAuthorities().isEmpty()) {
+            LOGGER.info("User " + username + " has no granted authority.");
             throw new UsernameNotFoundException("User " + username + " has no granted authority.");
         }
+
+        LOGGER.info("User " + username + " successfully retrieved from data source.");
 
         return userDetails;
     }
