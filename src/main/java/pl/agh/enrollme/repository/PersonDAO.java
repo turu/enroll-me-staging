@@ -33,6 +33,7 @@ public class PersonDAO implements IPersonDAO {
         return em.createQuery(c).getResultList();
     }
 
+    @Transactional
     @Override
     public Person findByUsername(String username) {
         final TypedQuery<Person> query = em.createQuery("Select p from Person p where p.username = :username",
