@@ -56,7 +56,7 @@ public class ScheduleController implements Serializable {
         Date begin = gc.getTime();
         gc.add(Calendar.HOUR_OF_DAY, 1);
         Date end = gc.getTime();
-        //eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", begin, end));
+        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", begin, end));
     }
 
     public void addEvent(ActionEvent actionEvent) {
