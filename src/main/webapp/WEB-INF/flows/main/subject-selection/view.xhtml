@@ -15,8 +15,7 @@
 </ui:define>
 
 <ui:define name="content">
-    <p:dataTable id="subjectSelection" var="subject" value="#{subjectList}"
-                 selection="#{subjectChoosingService.choosenSubjects}">
+    <p:dataTable id="subjectSelection" var="subject" value="#{subjectList}" rowKey="#{subjectModel.subjectID}">
 
         <f:facet name="header">
             Choose subject for enrolling
@@ -24,11 +23,15 @@
 
         <p:column selectionMode="multiple" style="width:2%" />
 
-        <p:column headerText="Name" style="width:49%">
+        <p:column headerText="ID" style="Width:10%">
+            #{subjectModel.subjectID}
+        </p:column>
+
+        <p:column headerText="Name" style="width:44%">
             #{subject.name}
         </p:column>
 
-        <p:column headerText="Teacher" style="width:49%">
+        <p:column headerText="Teacher" style="width:44%">
             #{subject.teacher.name}
         </p:column>
 

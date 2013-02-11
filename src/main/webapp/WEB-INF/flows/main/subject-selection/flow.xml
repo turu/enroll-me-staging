@@ -5,9 +5,12 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
+    <var name="selectionTableModel" class="pl.agh.enrollme.model.SelectableDataModelForSubjects"/>
+    <var name="subjectModel" class="pl.agh.enrollme.model.Subject"/>
+
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
-    <view-state id="view">
+    <view-state id="view" model="subjectModel">
         <on-render>
             <evaluate expression="subjectChoosingService.getAvailableSubjectForEnrollment(currentEnrollment)"
                       result="viewScope.subjectList"/>
