@@ -77,19 +77,19 @@ public class ScheduleController implements Serializable {
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
-        //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
 
-        //addMessage(message);
+        addMessage(message);
     }
 
     public void onEventResize(ScheduleEntryResizeEvent event) {
-       // FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
+       FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
 
-        //addMessage(message);
+       addMessage(message);
     }
 
     private void addMessage(FacesMessage message) {
-        //FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }
