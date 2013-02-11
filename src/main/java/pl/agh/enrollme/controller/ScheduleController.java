@@ -86,10 +86,6 @@ public class ScheduleController implements Serializable {
        addMessage(message);
     }
 
-    public void onEventRender(ScheduleEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event rendered", "");
-    }
-
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
 
