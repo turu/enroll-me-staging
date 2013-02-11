@@ -6,16 +6,23 @@
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
     <var name="selectionTableModel" class="pl.agh.enrollme.model.SelectableDataModelForSubjects"/>
+
     <var name="subjectModel" class="pl.agh.enrollme.model.Subject"/>
 
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
-    <view-state id="view" model="subjectModel">
+    <view-state id="view">
         <on-render>
-            <evaluate expression="subjectChoosingService.getAvailableSubjectForEnrollment(currentEnrollment)"
-                      result="viewScope.subjectList"/>
+            <evaluate expression="subjectChoosingService.getAvailableSubjectForEnrollment(currentEnrollment)"/>
         </on-render>
-        <transition on="done" to="subjectsChosen"/>
+        <!--<transition on="done" to="subjectsChosen"/>-->
+        <transition on="done" to="renderSubjects"/>
+    </view-state>
+
+    <view-state id="renderSubjects">
+        <on-render>
+            <evaluate expression="subjectChoosingService.getChosenSubjects()" result="viewScope.subjectList"/>
+        </on-render>
     </view-state>
 
     <end-state id="subjectsChosen"/>

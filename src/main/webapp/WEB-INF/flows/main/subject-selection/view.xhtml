@@ -15,32 +15,34 @@
 </ui:define>
 
 <ui:define name="content">
-    <p:dataTable id="subjectSelection" var="subject" value="#{subjectList}" rowKey="#{subjectModel.subjectID}">
+    <h:form>
+        <p:dataTable id="subjectSelection" var="subject" value="#{subjectChoosingService.model}"
+                selection="#{subjectChoosingService.chosenSubjects}">
 
-        <f:facet name="header">
-            Choose subject for enrolling
-        </f:facet>
+            <f:facet name="header">
+                Choose subject for enrolling
+            </f:facet>
 
-        <p:column selectionMode="multiple" style="width:2%" />
+            <p:column selectionMode="multiple" style="width:2%" />
 
-        <p:column headerText="ID" style="Width:10%">
-            #{subjectModel.subjectID}
-        </p:column>
+            <p:column headerText="ID" style="width:10%">
+                #{subjectModel.subjectID}
+            </p:column>
 
-        <p:column headerText="Name" style="width:44%">
-            #{subject.name}
-        </p:column>
+            <p:column headerText="Name" style="width:44%">
+                #{subject.name}
+            </p:column>
 
-        <p:column headerText="Teacher" style="width:44%">
-            #{subject.teacher.name}
-        </p:column>
+            <p:column headerText="Teacher" style="width:44%">
+                #{subject.teacher.degree} #{subject.teacher.firstname} #{subject.teacher.secondname}
+            </p:column>
 
-        <f:facet name="Accept">
-            <p:commandButton id="Submit" value="Submit" icon="ui-icon-check" action="done"/>
-        </f:facet>
+            <f:facet name="footer">
+                <p:commandButton id="Submit" value="Submit" icon="ui-icon-check" action="done" ajax="false"/>
+            </f:facet>
 
-    </p:dataTable>
-
+        </p:dataTable>
+    </h:form>
 
 </ui:define>
 

@@ -2,6 +2,7 @@ package pl.agh.enrollme.service;
 
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.model.Enroll;
+import pl.agh.enrollme.model.SelectableDataModelForSubjects;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.model.Teacher;
 import pl.agh.enrollme.utils.Color;
@@ -16,7 +17,8 @@ import java.util.List;
 @Service
 public class SubjectChoosingService implements ISubjectChoosingService {
 
-    private Subject[] choosenSubjects;
+    private Subject[] chosenSubjects;
+    private SelectableDataModelForSubjects model;
 
     @Override
     public List<Subject> getAvailableSubjectForEnrollment(Enroll enroll) {
@@ -26,17 +28,28 @@ public class SubjectChoosingService implements ISubjectChoosingService {
                 null, null);
         Subject subject2 = new Subject(enroll, null, "Fizyka", 1, Color.RED, "4.11", teacher2, DayOfWeek.FRIDAY,
                 null, null);
+        subject1.setSubjectID(1);
+        subject2.setSubjectID(2);
         List<Subject> subjects = new ArrayList<Subject>(2);
         subjects.add(subject1);
         subjects.add(subject2);
+        model = new SelectableDataModelForSubjects(subjects);
         return subjects;
     }
 
-    public void setChoosenSubjects(Subject[] choosenSubjects) {
-        this.choosenSubjects = choosenSubjects;
+    public void setModel(SelectableDataModelForSubjects model) {
+        this.model = model;
     }
 
-    public Subject[] getChoosenSubjects() {
-        return choosenSubjects;
+    public SelectableDataModelForSubjects getModel() {
+        return model;
+    }
+
+    public void setChosenSubjects(Subject[] chosenSubjects) {
+        this.chosenSubjects = chosenSubjects;
+    }
+
+    public Subject[] getChosenSubjects() {
+        return chosenSubjects;
     }
 }
