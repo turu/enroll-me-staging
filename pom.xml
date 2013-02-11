@@ -228,11 +228,16 @@
             <url>http://download.java.net/maven/2/</url>
             <snapshots><enabled>false</enabled></snapshots>
         </repository>
-        <repository>
+        <!--<repository>
             <id>primefaces</id>
             <name>Prime Technology Repository</name>
             <url>http://repository.primefaces.org</url>
             <layout>default</layout>
+        </repository>-->
+        <repository>
+            <id>lib</id>
+            <name>Projects lib directory</name>
+            <url>file://${project.basedir}/lib/</url>
         </repository>
     </repositories>
 
