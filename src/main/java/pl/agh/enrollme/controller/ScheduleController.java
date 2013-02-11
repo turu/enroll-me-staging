@@ -51,6 +51,14 @@ public class ScheduleController implements Serializable {
 
     private ScheduleModel eventModel;
 
+    public ScheduleEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(ScheduleEvent event) {
+        this.event = event;
+    }
+
     private ScheduleEvent event = new DefaultScheduleEvent();
 
     private String theme;
