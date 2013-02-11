@@ -14,7 +14,9 @@ import java.util.List;
  * @author Michal Partyka
  */
 @Service
-public class SubjectService implements ISubjectService {
+public class SubjectChoosingService implements ISubjectChoosingService {
+
+    private Subject[] choosenSubjects;
 
     @Override
     public List<Subject> getAvailableSubjectForEnrollment(Enroll enroll) {
@@ -28,5 +30,13 @@ public class SubjectService implements ISubjectService {
         subjects.add(subject1);
         subjects.add(subject2);
         return subjects;
+    }
+
+    public void setChoosenSubjects(Subject[] choosenSubjects) {
+        this.choosenSubjects = choosenSubjects;
+    }
+
+    public Subject[] getChoosenSubjects() {
+        return choosenSubjects;
     }
 }

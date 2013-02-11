@@ -8,6 +8,10 @@
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
     <view-state id="view">
+        <on-render>
+            <evaluate expression="subjectChoosingService.getAvailableSubjectForEnrollment(currentEnrollment)"
+                      result="viewScope.subjectList"/>
+        </on-render>
         <transition on="done" to="subjectsChosen"/>
     </view-state>
 

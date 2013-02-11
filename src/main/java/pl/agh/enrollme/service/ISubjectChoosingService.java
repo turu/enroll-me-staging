@@ -8,6 +8,6 @@ import java.util.List;
 /**
  * @author Michal Partyka
  */
-public interface ISubjectService {
+public interface ISubjectChoosingService {
     List<Subject> getAvailableSubjectForEnrollment(Enroll enroll);
 }

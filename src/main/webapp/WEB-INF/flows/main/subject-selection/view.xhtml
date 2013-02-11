@@ -15,7 +15,29 @@
 </ui:define>
 
 <ui:define name="content">
-    A tutaj jest Ala bez kota <h:outputText value="#{currentEnrollment.name}"/>
+    <p:dataTable id="subjectSelection" var="subject" value="#{subjectList}"
+                 selection="#{subjectChoosingService.choosenSubjects}">
+
+        <f:facet name="header">
+            Choose subject for enrolling
+        </f:facet>
+
+        <p:column selectionMode="multiple" style="width:2%" />
+
+        <p:column headerText="Name" style="width:49%">
+            #{subject.name}
+        </p:column>
+
+        <p:column headerText="Teacher" style="width:49%">
+            #{subject.teacher.name}
+        </p:column>
+
+        <f:facet name="Accept">
+            <p:commandButton id="Submit" value="Submit" icon="ui-icon-check" action="done"/>
+        </f:facet>
+
+    </p:dataTable>
+
 
 </ui:define>
 
