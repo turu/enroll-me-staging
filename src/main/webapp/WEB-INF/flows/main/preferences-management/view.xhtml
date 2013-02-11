@@ -15,7 +15,7 @@
         <h:form>
             <p:growl id="messages" showDetail="true" />
 
-            <p:schedule value="#{scheduleController.eventModel}" widgetVar="myschedule">
+            <p:schedule value="#{scheduleController.eventModel}" widgetVar="myschedule" editable="true" >
 
                 <p:ajax event="dateSelect" listener="#{scheduleController.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
                 <p:ajax event="eventSelect" listener="#{scheduleController.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
