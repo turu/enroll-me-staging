@@ -5,6 +5,8 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
+    <var name="scheduleController" class="pl.agh.enrollme.controller.ScheduleController" />
+
     <view-state id="view">
         <transition on="done" to="preferencesApplied"/>
     </view-state>
