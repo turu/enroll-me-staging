@@ -1,6 +1,5 @@
 package pl.agh.enrollme.controller;
 
-import org.primefaces.event.DateSelectEvent;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
@@ -13,7 +12,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 public class ScheduleController implements Serializable {
 
@@ -72,8 +70,8 @@ public class ScheduleController implements Serializable {
         event = (ScheduleEvent) selectEvent.getObject();
     }
 
-    public void onDateSelect(DateSelectEvent selectEvent) {
-        event = new DefaultScheduleEvent("", selectEvent.getDate(), selectEvent.getDate());
+    public void onDateSelect(SelectEvent selectEvent) {
+        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
