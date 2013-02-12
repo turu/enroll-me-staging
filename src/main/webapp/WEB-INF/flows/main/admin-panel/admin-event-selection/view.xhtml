@@ -18,14 +18,11 @@
             #{e.id}
         </p:column>
         <p:column headerText="Name">
-            #{e.firstName}
-        </p:column>
-        <p:column headerText="Last name">
-            #{e.lastName}
+            #{e.name}
         </p:column>
         <p:column headerText="Action">
-            <p:commandButton value="Do something">
-                <f:param name="id" value="#{e.id}"/>
+            <p:commandButton value="Configure..." action="modify">
+                <f:param name="eventID" value="#{e.id}"/>
             </p:commandButton>
         </p:column>
         <f:facet name="footer">

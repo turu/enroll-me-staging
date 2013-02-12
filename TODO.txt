@@ -1,0 +1,38 @@
+
+Pytania:
+	- 
+	- jak robimy z loginami - ka¿dy siê loguje na co chce, tak? sk¹d mamy info o repetentach?
+	- IntelliJ te¿ siê pluje o webflow base-path?
+	
+Git:
+	- snapshot vs commit?
+	
+Heroku:
+	- spróbowaæ heroku run
+	
+Web Flow:
+	- FIXME: C:\Users\Pawe³\Dropbox\Programowanie\Projekty\enroll-me\src\main\webapp\WEB-INF\flows\main\admin-panel\flow.xml - conversationScope	- spróbowaæ requestParameters przy administracji, jak w remove
+		- walidacja - poczytaj
+	- zrobiæ po¿ytek z currentUser.name
+	- p:schedule - trzeba bêdzie copy paste z admin-panela do studenta :p, listenery
+	
+Maile:
+
+Hej,
+
+Piszê w sprawie podzia³u zadañ. Niech ka¿dy odpisze pod t¹ wiadomoœci¹ jakim konkretnie obszarem zajmie siê od jutra. Proponujê równie¿, aby ka¿dy pushowa³ na bie¿¹co branch, na którym pracuje. Dziêki temu bêdziemy widzieli jak kszta³tuj¹ siê elementy powi¹zane z tymi pisanymi przez nas, a tym samym pozwoli to nam unikn¹æ problemów z integracj¹.
+
+To mo¿e zacznê od siebie: zajmê siê flowem preference-management z panelu usera. Ogólny zarys jest taki, ¿e bêdzie tam odpowiednio przygotowany Schedule, na którym bêd¹ terminy pozaznaczane, a userzy bêd¹ przydzielali punkty plus ewentualne niemo¿liwoœci. Szczegó³y wyjd¹ w praniu.
+
+Z tego co mówi³ Micha³, on bierze event-selection i subject-selection.
+
+Jeœli chodzi o pozosta³e flowy/obszary to powiedzia³bym, ¿e account-management ma w tej chwili niski priorytet, bo nie jest to kluczowa funkcjonalnoœæ, a z kolei final-choice i results s¹ silnie powi¹zane z tym co piszê, wiêc dobrze by by³o gdybym najpierw skoñczy³ zanim weŸmiemy siê za nie.
+
+Pozdrawiam,
+Piotrek
+Rafa³ Cymerys
+	
+12:35 AM (9 hours ago)
+		
+to Piotr, me, Micha³
+Ok, to ja póki zrobiê flowy z panelu admina do zarz¹dzania Personami (people-management) i pozwalania im na zapisywanie siê na poszczególne Enrolle, a potem ewentualnie jeszcze do konfiguracji samych zapisów.
