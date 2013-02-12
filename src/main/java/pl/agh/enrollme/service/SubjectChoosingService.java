@@ -22,6 +22,7 @@ public class SubjectChoosingService implements ISubjectChoosingService {
 
     @Override
     public List<Subject> getAvailableSubjectForEnrollment(Enroll enroll) {
+        //TODO: later get from database, enroll.getSubjects() ;-)
         Teacher teacher1 = new Teacher("dr", "Stanisław", "Sobieszko", "4.11");
         Teacher teacher2 = new Teacher("dr", "Stasio", "Mieszko", "4.11");
         Subject subject1 = new Subject(enroll, null, "Analiza", 1, Color.GREEN, "4.33", teacher1, DayOfWeek.MONDAY,

@@ -5,17 +5,12 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-    <var name="selectionTableModel" class="pl.agh.enrollme.model.SelectableDataModelForSubjects"/>
-
-    <var name="subjectModel" class="pl.agh.enrollme.model.Subject"/>
-
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
 
     <decision-state id="enterEventSelection">
         <if test="subjectChoosingService.userAlreadySubmitedSubjects()" then="subjectsChosen" else="view"/>
     </decision-state>
-
 
     <view-state id="view">
         <on-render>

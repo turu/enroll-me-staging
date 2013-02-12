@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface ISubjectChoosingService {
     List<Subject> getAvailableSubjectForEnrollment(Enroll enroll);
+    boolean userAlreadySubmitedSubjects();
 }

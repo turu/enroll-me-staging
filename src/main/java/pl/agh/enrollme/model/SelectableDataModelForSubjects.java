@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * provides model for table in main/subject-selection/view
  * @author Michal Partyka
  */
 public class SelectableDataModelForSubjects extends ListDataModel<Subject> implements SelectableDataModel<Subject>,

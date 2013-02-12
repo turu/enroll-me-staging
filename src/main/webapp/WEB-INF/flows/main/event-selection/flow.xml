@@ -8,8 +8,6 @@
 
     <var name="currentEnrollment" class="pl.agh.enrollme.model.Enroll"/>
 
-
-
     <view-state id="view">
         <on-render>
             <evaluate expression="enrollmentService.getEnrollmentList()" result="viewScope.enrollmentList"/>

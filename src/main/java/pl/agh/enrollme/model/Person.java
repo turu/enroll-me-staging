@@ -53,11 +53,19 @@ public class Person implements Serializable, UserDetails {
     public Person() {
     }
 
-    //TODO: adjust constructor to new fields or remove it
-    public Person(int id, String firstName, String lastName) {
-        this.id = id;
+    public Person(String password, String username, String firstName, String lastName, Boolean accountNonExpired,
+                  Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled, String rolesToken, List<Group> groups, List<Subject> subjects) {
+        this.password = password;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        this.rolesToken = rolesToken;
+        this.groups = groups;
+        this.subjects = subjects;
     }
 
     public void addSubject(Subject subject) {
