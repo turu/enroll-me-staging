@@ -19,7 +19,7 @@
     </end-state>
 
     <end-state id="eventToBeConfigured">
-        <output name="eventID" value="3"/>
+        <output name="managedEvent" value="eventDAO.getEvent(3)"/>
     </end-state>
 
 </flow>

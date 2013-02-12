@@ -35,6 +35,11 @@ public class EventDAO implements IEventDAO {
     }
 
     @Transactional
+    public Event getPerson(Integer id) {
+        return em.find(Event.class, id);
+    }
+
+    @Transactional
     public List<Event> listEvents() {
         CriteriaQuery<Event> c = em.getCriteriaBuilder().createQuery(Event.class);
         Root<Event> from = c.from(Event.class);
