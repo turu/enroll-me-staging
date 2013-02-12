@@ -25,6 +25,12 @@
                 <f:param name="eventID" value="#{e.id}"/>
             </p:commandButton>
         </p:column>
+        <p:column headerText="Action #2">
+            <p:commandButton value="Remove" action="remove">
+                <!-- Set proper requestParameter that will be used in flow -->
+                <f:param name="event" value="#{e}"/>
+            </p:commandButton>
+        </p:column>
         <f:facet name="footer">
             <p:commandButton value="Create new event..." action="create"/>
         </f:facet>

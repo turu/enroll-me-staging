@@ -24,6 +24,7 @@
             <!-- <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent"
                  type="pl.agh.enrollme.model.Event"/> -->
         </transition>
+
     </subflow-state>
 
     <subflow-state id="manageEvent" subflow="main/admin-panel/admin-event-management">

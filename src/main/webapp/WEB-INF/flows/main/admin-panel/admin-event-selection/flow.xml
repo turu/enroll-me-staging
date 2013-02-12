@@ -17,6 +17,10 @@
         <transition on="modify" to="eventToBeConfigured">
             <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
         </transition>
+        <transition on="remove">
+            <evaluate expression="eventDAO.removeEvent(requestParameters.event)"/>
+            <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
+        </transition>
     </view-state>
 
     <end-state id="eventToBeAdded">
