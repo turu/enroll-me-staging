@@ -21,8 +21,10 @@
 
 
     <!--TODO: remove it and make it as subflow with chosenEnrollment input variable!-->
-    <view-state id="configure">
-    </view-state>
+    <subflow-state id="configure" subflow="main/admin-panel/configure-already-created-enrollment">
+        <transition on="cancell" to="list"/>
+        <transition on="updated" to="list"/>
+    </subflow-state>
 
     <end-state id="exit" view="externalRedirect:servletRelative:/main">
     </end-state>

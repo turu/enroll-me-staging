@@ -6,6 +6,9 @@
 
     <secured attributes="ROLE_ADMIN" match="any"/>
 
+    <!--TODO: required true!-->
+    <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
+
     <view-state id="term-management">
         <transition on="submitAndNext" to="termsAssigned"/>
     </view-state>
