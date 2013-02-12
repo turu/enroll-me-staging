@@ -1,6 +1,5 @@
 package pl.agh.enrollme.controller;
 
-import org.primefaces.component.enrollschedule.EnrollSchedule;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
@@ -71,7 +70,6 @@ public class ScheduleController implements Serializable {
 
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
-        EnrollSchedule enrollSchedule = new EnrollSchedule();
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
