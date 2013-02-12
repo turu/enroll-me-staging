@@ -12,10 +12,10 @@
             <evaluate expression="eventDAO.listEvents()" result="viewScope.eventList"/>
         </on-render>
         <transition on="create" to="eventToBeAdded">
-            <set name="managedEvent" value="eventDAO.createAndReturnEvent()"/>
+            <!-- <set name="managedEvent" value="eventDAO.createAndReturnEvent()"/> -->
         </transition>
         <transition on="modify" to="eventToBeConfigured">
-            <set name="managedEvent" value="eventDAO.getEvent(3)"/>
+            <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
         </transition>
     </view-state>
 
