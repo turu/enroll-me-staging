@@ -18,7 +18,7 @@
             <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
         </transition>
         <transition on="remove" to="view">
-            <evaluate expression="eventDAO.removeEvent(eventDAO.getEvent(requestParameters.id))"/>
+            <evaluate expression="eventDAO.removeEvent(requestParameters.id)"/>
             <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
         </transition>
     </view-state>
