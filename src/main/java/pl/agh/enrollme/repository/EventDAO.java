@@ -35,7 +35,7 @@ public class EventDAO implements IEventDAO {
     }
 
     @Transactional
-    public Event getPerson(Integer id) {
+    public Event getEvent(Integer id) {
         return em.find(Event.class, id);
     }
 
