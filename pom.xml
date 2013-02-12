@@ -210,9 +210,9 @@
 
     <repositories>
         <repository>
-            <id>lib</id>
-            <name>Projects lib directory</name>
-            <url>file://${project.basedir}/repo</url>
+            <id>project.local</id>
+            <name>enroll-me</name>
+            <url>file:${project.basedir}/repo</url>
         </repository>
         <repository>
             <id>springsource</id>
