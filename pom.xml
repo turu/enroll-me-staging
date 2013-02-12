@@ -210,6 +210,11 @@
 
     <repositories>
         <repository>
+            <id>lib</id>
+            <name>Projects lib directory</name>
+            <url>file://${project.basedir}/lib/</url>
+        </repository>
+        <repository>
             <id>springsource</id>
             <name>SpringSource Repository</name>
             <url>http://repo.springsource.org/milestone</url>
@@ -234,11 +239,6 @@
             <url>http://repository.primefaces.org</url>
             <layout>default</layout>
         </repository>-->
-        <repository>
-            <id>lib</id>
-            <name>Projects lib directory</name>
-            <url>file://${project.basedir}/lib/</url>
-        </repository>
     </repositories>
 
     <build>
