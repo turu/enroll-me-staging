@@ -79,7 +79,7 @@
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-api:2.1.7" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.1.7" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces:3.5g" level="project" />
+    <orderEntry type="library" name="Maven: org.primefaces:primefaces:3.5h" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:1.4" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.0.0.GA" level="project" />
