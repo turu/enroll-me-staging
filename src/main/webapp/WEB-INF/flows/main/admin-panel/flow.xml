@@ -25,7 +25,7 @@
     </subflow-state>
 
     <subflow-state id="manageEvent" subflow="main/admin-panel/admin-event-management">
-
+        <transition on="managementComplete" to="chooseEvent"/>
     </subflow-state>
 
 </flow>
