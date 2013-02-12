@@ -212,7 +212,7 @@
         <repository>
             <id>lib</id>
             <name>Projects lib directory</name>
-            <url>file://${project.basedir}/lib/</url>
+            <url>file://${project.basedir}/repo</url>
         </repository>
         <repository>
             <id>springsource</id>
