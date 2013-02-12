@@ -19,7 +19,7 @@
             <p:enrollSchedule value="#{scheduleController.eventModel}" widgetVar="myschedule" allDaySlot="false"
                               showWeekends="false" slotMinutes="15" firstHour="8"  >
 
-                <!--<p:ajax event="dateSelect" listener="#{scheduleController.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" /> -->
+                <p:ajax event="dateSelect" listener="#{scheduleController.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
                 <p:ajax event="eventSelect" listener="#{scheduleController.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
                 <!--<p:ajax event="eventMove" listener="#{scheduleController.onEventMove}" update="messages" />
                 <p:ajax event="eventResize" listener="#{scheduleController.onEventResize}" update="messages" /> -->
