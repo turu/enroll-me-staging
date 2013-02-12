@@ -5,21 +5,27 @@
 
     <secured attributes="ROLE_ADMIN"/>
 
+
+
     <view-state id="view">
         <on-render>
             <evaluate expression="eventDAO.listEvents()" result="viewScope.eventList"/>
         </on-render>
-        <transition on="create" to="eventToBeAdded"/>
-        <transition on="modify" to="eventToBeConfigured"/>
+        <transition on="create" to="eventToBeAdded">
+            <set name="managedEvent" value="eventDAO.createAndReturnEvent()"/>
+        </transition>
+        <transition on="modify" to="eventToBeConfigured">
+            <set name="managedEvent" value="eventDAO.getEvent(3)"/>
+        </transition>
     </view-state>
 
     <end-state id="eventToBeAdded">
         <!-- <output name="eventID" value="eventDAO.createEventAndReturnID()"/> -->
-        <output name="managedEvent" value="eventDAO.createAndReturnEvent()"/>
+        <!-- <output name="managedEvent" value="eventDAO.createAndReturnEvent()"/> -->
     </end-state>
 
     <end-state id="eventToBeConfigured">
-        <output name="managedEvent" value="eventDAO.getEvent(3)"/>
+        <!-- <output name="managedEvent" value="eventDAO.getEvent(3)"/> -->
     </end-state>
 
 </flow>
