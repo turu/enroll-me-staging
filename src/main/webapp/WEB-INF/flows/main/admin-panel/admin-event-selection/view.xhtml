@@ -28,7 +28,7 @@
         <p:column headerText="Action #2">
             <p:commandButton value="Remove" action="remove">
                 <!-- Set proper requestParameter that will be used in flow -->
-                <f:param name="event" value="#{e}"/>
+                <f:param name="id" value="#{e.id}"/>
             </p:commandButton>
         </p:column>
         <f:facet name="footer">

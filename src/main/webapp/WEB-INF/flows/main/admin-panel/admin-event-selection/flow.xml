@@ -17,8 +17,9 @@
         <transition on="modify" to="eventToBeConfigured">
             <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
         </transition>
-        <transition on="remove">
-            <evaluate expression="eventDAO.removeEvent(requestParameters.event)"/>
+        <transition on="remove" to="view">
+            <evaluate expression="System.out.println(requestParameters.id)"/>
+            <evaluate expression="eventDAO.removeEvent(eventDAO.getEvent(requestParameters.id))"/>
             <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
         </transition>
     </view-state>
