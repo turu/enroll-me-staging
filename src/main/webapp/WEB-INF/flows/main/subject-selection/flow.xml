@@ -11,19 +11,26 @@
 
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
+
+    <decision-state id="enterEventSelection">
+        <if test="subjectChoosingService.userAlreadySubmitedSubjects()" then="subjectsChosen" else="view"/>
+    </decision-state>
+
+
     <view-state id="view">
         <on-render>
             <evaluate expression="subjectChoosingService.getAvailableSubjectForEnrollment(currentEnrollment)"/>
         </on-render>
-        <!--<transition on="done" to="subjectsChosen"/>-->
-        <transition on="done" to="renderSubjects"/>
+        <transition on="done" to="subjectsChosen">
+            <evaluate expression="subjectDAO.fillCurrentUserSubjectList(subjectChoosingService.chosenSubjects)"/>
+        </transition>
     </view-state>
 
-    <view-state id="renderSubjects">
-        <on-render>
-            <evaluate expression="subjectChoosingService.getChosenSubjects()" result="viewScope.subjectList"/>
-        </on-render>
-    </view-state>
+    <!--<view-state id="renderSubjects">-->
+        <!--<on-render>-->
+            <!--<evaluate expression="subjectChoosingService.getChosenSubjects()" result="viewScope.subjectList"/>-->
+        <!--</on-render>-->
+    <!--</view-state>-->
 
     <end-state id="subjectsChosen"/>
 

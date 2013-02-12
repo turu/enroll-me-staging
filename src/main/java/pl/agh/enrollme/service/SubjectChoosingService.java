@@ -37,6 +37,10 @@ public class SubjectChoosingService implements ISubjectChoosingService {
         return subjects;
     }
 
+    public boolean userAlreadySubmitedSubjects() {
+        return false;
+    }
+
     public void setModel(SelectableDataModelForSubjects model) {
         this.model = model;
     }

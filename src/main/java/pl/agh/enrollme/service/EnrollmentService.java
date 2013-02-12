@@ -18,7 +18,8 @@ public class EnrollmentService implements Serializable, IEnrollmentService {
 
     @Override
     public List<Enroll> getEnrollmentList() {
-        Enroll enroll = new Enroll("Enrollment1", null);
+        //TODO: get it from database currentUser.getEnrolls()
+        Enroll enroll = new Enroll("Enrollment1", null, null);
         EnrollConfiguration enrollConfiguration = new EnrollConfiguration(enroll, 10, 20, 30, 40);
         enroll.setEnrollConfiguration(enrollConfiguration);
         Enroll[] ret = { enroll };
