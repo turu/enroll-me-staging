@@ -11,8 +11,10 @@
 
     <view-state id="term-management">
         <transition on="submitAndNext" to="termsAssigned"/>
+        <transition on="skip" to="skipFurtherConfiguration"/>
     </view-state>
 
     <end-state id="termsAssigned"/>
+    <end-state id="skipFurtherConfiguration"/>
 
 </flow>

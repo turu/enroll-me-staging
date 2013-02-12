@@ -13,7 +13,7 @@
 </ui:define>
 
 <ui:define name="content">
-	<h:form id="mainForm">
+	<h:form id="Configuration">
 		<p:messages />
 		<p>
 			<h:outputLabel for="firstName">First Name: </h:outputLabel><br/>
@@ -24,8 +24,8 @@
 			<h:inputText id="lastName" value="#{userBean.lastName}" />
 		</p>
 		<p>
-			<p:commandButton value="Suggest" action="suggest" update="mainForm"/>&nbsp;
-			<p:commandButton value="Exit" action="exit" update="mainForm"/>
+			<p:commandButton value="Suggest" action="suggest" update="Configuration"/>&nbsp;
+			<p:commandButton value="Exit" action="exit" update="Configuration"/>
 		</p>
 		<hr/>
 	</h:form>

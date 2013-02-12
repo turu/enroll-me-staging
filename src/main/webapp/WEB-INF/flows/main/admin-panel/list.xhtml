@@ -25,9 +25,10 @@
                 <p:column headerText="Name" style="width:50%">
                     #{enrollment.name}
                 </p:column>
-                <p:column headerText="Action" style="width:30%">
-                    <p:commandButton value="Configure" action="configure" ajax="false">
-                        <f:param name="#{chosenEnrollment}" value="#{enrollment}"/>
+                <p:column headerText="Configure" style="width:30%">
+                    <p:commandButton id="Configure" icon="ui-icon-arrowreturnthick-1-e" action="configure"
+                                     ajax="false" value="configure">
+                        <f:setPropertyActionListener value="#{enrollment}" target="#{chosenEnrollment}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>

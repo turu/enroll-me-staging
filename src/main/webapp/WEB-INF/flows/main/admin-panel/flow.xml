@@ -19,9 +19,8 @@
         <transition on="createdEnrollment" to="list"/>
     </subflow-state>
 
-
-    <!--TODO: remove it and make it as subflow with chosenEnrollment input variable!-->
     <subflow-state id="configure" subflow="main/admin-panel/configure-already-created-enrollment">
+        <input name="currentEnrollment" value="chosenEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
         <transition on="cancell" to="list"/>
         <transition on="updated" to="list"/>
     </subflow-state>

@@ -13,15 +13,15 @@
 </ui:define>
 
 <ui:define name="content">
-	<h:form id="mainForm">
+	<h:form id="Configuration">
 		<p:messages/>
 		<h:panelGroup layout="block" styleClass="success" rendered="${not empty emailSuggestion}">
 			<h:outputLabel for="email">Email suggestion: </h:outputLabel>
 			<h:outputText id="email" value="${emailSuggestion}"/>
 		</h:panelGroup>
 		<p>
-		    <p:commandButton value="Edit" action="edit" update="mainForm"/>
-		    <p:commandButton value="Exit" action="exit" update="mainForm" />   
+		    <p:commandButton value="Edit" action="edit" update="Configuration"/>
+		    <p:commandButton value="Exit" action="exit" update="Configuration" />
 		</p>
 	</h:form>
 </ui:define>
