@@ -12,6 +12,10 @@
             <evaluate expression="subjectDAO.getSubjectsWithGroups(currentEnrollment)"
                       result="viewScope.subjectsWithGroupsList"/>
         </on-render>
+        <transition on="join">
+            <evaluate expression="groupDAO.tryToAddCurrentUserToGroup(viewScope.selectedGroup)"/>
+        </transition>
+
         <transition on="exit" to="groupsManaged"/>
     </view-state>
 

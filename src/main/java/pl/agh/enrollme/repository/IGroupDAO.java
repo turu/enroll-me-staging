@@ -14,4 +14,6 @@ import java.util.List;
  */
 public interface IGroupDAO {
     List<Group> getGroups(Subject subject);
+
+    void tryToAddCurrentUserToGroup(Group group);
 }

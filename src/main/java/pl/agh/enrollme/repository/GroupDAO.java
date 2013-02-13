@@ -42,4 +42,9 @@ public class GroupDAO implements IGroupDAO {
         groups.add(new Group(newPeople, subject));
         return groups;
     }
+
+    @Override
+    public void tryToAddCurrentUserToGroup(Group group) {
+        System.out.println(group.getPersons().get(0).getFirstName());
+    }
 }
