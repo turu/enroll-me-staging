@@ -8,6 +8,7 @@ import java.util.List;
  * @author Michal Partyka
  */
 @Entity
+@Table(name = "groups")
 public class Group implements Serializable {
 
     @Transient
