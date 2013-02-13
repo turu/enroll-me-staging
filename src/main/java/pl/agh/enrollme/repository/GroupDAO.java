@@ -33,13 +33,12 @@ public class GroupDAO implements IGroupDAO {
 
         List<Person> newPeople = new ArrayList<Person>();
         Person guy3 = new Person();
-        guy1.setFirstName("Ryszard");
+        guy3.setFirstName("Ryszard");
         newPeople.add(guy3);
         Person guy4 = new Person();
-        guy2.setFirstName("Marian");
+        guy4.setFirstName("Marian");
         newPeople.add(guy4);
 
-        groups.add(new Group(people, subject));
         groups.add(new Group(newPeople, subject));
         return groups;
     }
