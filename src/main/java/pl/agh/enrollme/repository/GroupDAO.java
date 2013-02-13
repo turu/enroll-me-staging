@@ -39,6 +39,7 @@ public class GroupDAO implements IGroupDAO {
         guy2.setFirstName("Marian");
         newPeople.add(guy4);
 
+        groups.add(new Group(people, subject));
         groups.add(new Group(newPeople, subject));
         return groups;
     }

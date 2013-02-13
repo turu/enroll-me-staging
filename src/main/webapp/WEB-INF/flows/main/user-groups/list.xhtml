@@ -26,7 +26,7 @@
 
             <p:column headerText="Available groups" style="width:40%    ">
                 <p:selectOneListbox value="${selectedGroupID}" style="height:100px">
-                    <!-- Fill box with values injected by flow into viewScope variable -->
+
                     <f:selectItems value="${groupDAO.getGroups(subject)}" var="group"
                                    itemLabel="#{group.persons.get(0).firstName}"
                                    itemValue="#{group.id}"/>
