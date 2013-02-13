@@ -57,6 +57,7 @@ public class ScheduleController implements Serializable {
         eventModel.addEvent(newEvent);
         DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("Polish League Match", begin, end);
         newEvent2.setEditable(false);
+        newEvent2.setPossible(false);
         eventModel.addEvent(newEvent2);
     }
 
