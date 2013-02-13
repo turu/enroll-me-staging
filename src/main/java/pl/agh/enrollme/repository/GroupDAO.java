@@ -44,7 +44,7 @@ public class GroupDAO implements IGroupDAO {
     @Override
     public List<Group> getGroups(Subject subject) {
 
-        List<Group> groups = new ArrayList<Group>();
+        /*List<Group> groups = new ArrayList<Group>();
 
         List<Person> people = new ArrayList<Person>();
         Person guy1 = new Person();
@@ -64,8 +64,11 @@ public class GroupDAO implements IGroupDAO {
         guy4.setFirstName("Marian");
         newPeople.add(guy4);
 
-        groups.add(new Group(newPeople, subject));
-        return groups;
+        groups.add(new Group(newPeople, subject));      */
+
+        //return groups;
+        return em.createQuery("FROM Group").getResultList();
+
     }
 
     @Override
