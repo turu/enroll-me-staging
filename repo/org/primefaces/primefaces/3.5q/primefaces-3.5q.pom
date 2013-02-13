@@ -4,5 +4,5 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.primefaces</groupId>
   <artifactId>primefaces</artifactId>
-  <version>3.5p</version>
+  <version>3.5q</version>
 </project>

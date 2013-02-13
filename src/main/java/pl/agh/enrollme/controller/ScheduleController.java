@@ -1,8 +1,6 @@
 package pl.agh.enrollme.controller;
 
-import org.primefaces.event.ScheduleEntryMoveEvent;
-import org.primefaces.event.ScheduleEntryResizeEvent;
-import org.primefaces.event.SelectEvent;
+import org.primefaces.event.*;
 import org.primefaces.model.*;
 
 import javax.faces.application.FacesMessage;
@@ -83,13 +81,13 @@ public class ScheduleController implements Serializable {
                 //" place: " + newEvent.getPlace()));
     }
 
-    public void onEventMove(ScheduleEntryMoveEvent event) {
+    public void onEventMove(EnrollScheduleEntryMoveEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
 
         addMessage(message);
     }
 
-    public void onEventResize(ScheduleEntryResizeEvent event) {
+    public void onEventResize(EnrollScheduleEntryResizeEvent event) {
        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
 
        addMessage(message);
