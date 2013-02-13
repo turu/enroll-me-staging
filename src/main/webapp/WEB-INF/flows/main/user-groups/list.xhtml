@@ -16,12 +16,21 @@
 <ui:define name="content">
     <h:form>
         <p:dataTable id="subjects" var="subject" value="${subjectsWithGroupsList}" style="text-align:center;width:40%">
-            <p:column headerText="Name" style="width:90%    ">
+            <p:column headerText="Name" style="width:40%    ">
                 <h:outputFormat value="#{subject.name}"/>
             </p:column>
 
             <p:column headerText="Team's capacity" style="width:10%    ">
                 <h:outputFormat value="#{subject.teamsCapacity}"/>
+            </p:column>
+
+            <p:column headerText="Available groups" style="width:40%    ">
+                <p:selectOneListbox value="${selectedGroupID}">
+                    <!-- Fill box with values injected by flow into viewScope variable -->
+                    <f:selectItems value="${groupDAO.getGroups(subject)}" var="group"
+                                   itemLabel="#{group.name}"
+                                   itemValue="#{group.id}"/>
+                </p:selectOneListbox>
             </p:column>
             <!-- <p:column style="width:10%">
                 <p:commandButton id="selectEnrollmen" icon="ui-icon-arrowreturnthick-1-e" action="eventChosen"
