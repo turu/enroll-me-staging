@@ -28,9 +28,14 @@
                 <p:selectOneListbox value="${selectedGroupID}" style="height:100px">
 
                     <f:selectItems value="${groupDAO.getGroups(subject)}" var="group"
-                                   itemLabel="#{group.persons.get(0).firstName}"
+                                   itemLabel="#{group.persons.get(0).firstName} #{subject.teamsCapacity == group.persons.size() ? 'full' : group.persons.size()}"
                                    itemValue="#{group.id}"/>
                 </p:selectOneListbox>
+            </p:column>
+
+            <p:column headerText="Actions" style="width:10%    ">
+                <p:commandButton id="join" value="Join selected group"/>
+                <p:commandButton id="create" value="Create new group"/>
             </p:column>
             <!-- <p:column style="width:10%">
                 <p:commandButton id="selectEnrollmen" icon="ui-icon-arrowreturnthick-1-e" action="eventChosen"
