@@ -69,6 +69,7 @@ public class ScheduleController implements Serializable {
         newEvent3.setPlace("2.31");
         newEvent3.setPoints(7);
         newEvent3.setImportance(70);
+        eventModel.addEvent(newEvent3);
     }
 
     public void addEvent(ActionEvent actionEvent) {
