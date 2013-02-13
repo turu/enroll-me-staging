@@ -19,6 +19,7 @@
         <transition on="done" to="subjectsChosen">
             <evaluate expression="subjectDAO.fillCurrentUserSubjectList(subjectChoosingService.chosenSubjects)"/>
         </transition>
+        <transition on="groups" to="groupsManagementRequested"/>
     </view-state>
 
     <!--<view-state id="renderSubjects">-->
@@ -28,5 +29,6 @@
     <!--</view-state>-->
 
     <end-state id="subjectsChosen"/>
+    <end-state id="groupsManagementRequested"/>
 
 </flow>
