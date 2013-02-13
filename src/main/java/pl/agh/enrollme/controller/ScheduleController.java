@@ -56,6 +56,9 @@ public class ScheduleController implements Serializable {
         Date end = gc.getTime();
         DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Champions League Match", begin, end);
         //newEvent.setEditable(false);
+        addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Event1 data:", "importance: " + newEvent.getImportance() +
+        " points: " + newEvent.getPoints() + " possible: " + newEvent.isPossible() + " teacher: " + newEvent.getTeacher() +
+        " place: " + newEvent.getPlace()));
         eventModel.addEvent(newEvent);
         DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("Polish League Match", begin, end);
         //newEvent2.setEditable(false);
