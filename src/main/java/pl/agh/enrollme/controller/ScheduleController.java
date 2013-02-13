@@ -52,10 +52,10 @@ public class ScheduleController implements Serializable {
         Date begin = gc.getTime();
         gc.add(Calendar.HOUR_OF_DAY, 1);
         Date end = gc.getTime();
-        DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Champions League Match", begin, end);
+        DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Analiza", begin, end);
         newEvent.setEditable(false);
         eventModel.addEvent(newEvent);
-        DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("Polish League Match", begin, end);
+        DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("MOwNiT", begin, end);
         newEvent2.setEditable(false);
         newEvent2.setPossible(false);
         eventModel.addEvent(newEvent2);
