@@ -32,17 +32,25 @@
                     <p:inputText id="title" value="#{scheduleController.event.title}" required="true"/>
 
                     <h:outputLabel for="from" value="From:" />
-                    <p:inputMask id="from" value="#{scheduleController.event.startDate}" mask="99/99/9999">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    <p:inputMask id="from" value="#{scheduleController.event.startDate}" mask="99/99/9999 99:99">
+                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
                     </p:inputMask>
 
                     <h:outputLabel for="to" value="To:" />
-                    <p:inputMask id="to" value="#{scheduleController.event.endDate}" mask="99/99/9999">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    <p:inputMask id="to" value="#{scheduleController.event.endDate}" mask="99/99/9999 99:99">
+                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
                     </p:inputMask>
 
-                    <h:outputLabel for="allDay" value="All Day:" />
-                    <h:selectBooleanCheckbox id="allDay" value="#{scheduleController.event.allDay}" />
+                    <h:outputLabel for="teacher" value="Teacher:" />
+                    <p:inputText id="teacher" value="#{scheduleController.event.teacher}" />
+
+                    <h:outputLabel for="place" value="Place:" />
+                    <p:inputText id="place" value="#{scheduleController.event.place}" />
+
+                    <h:outputLabel for="points" value="Points:" />
+                    <p:inputText id="points" value="#{scheduleController.event.points}">
+                        <f:convertNumber type="number"/>
+                    </p:inputText>
 
                     <p:commandButton type="reset" value="Reset" />
                     <p:commandButton value="Save" actionListener="#{scheduleController.addEvent}"
