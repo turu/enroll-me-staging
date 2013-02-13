@@ -52,12 +52,12 @@ public class ScheduleController implements Serializable {
         Date begin = gc.getTime();
         gc.add(Calendar.HOUR_OF_DAY, 1);
         Date end = gc.getTime();
-        //DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Champions League Match", begin, end);
-        //newEvent.setEditable(false);
-        //eventModel.addEvent(newEvent);
-        //DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("Polish League Match", begin, end);
-        //newEvent2.setEditable(false);
-        //eventModel.addEvent(newEvent2);
+        DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Champions League Match", begin, end);
+        newEvent.setEditable(false);
+        eventModel.addEvent(newEvent);
+        DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("Polish League Match", begin, end);
+        newEvent2.setEditable(false);
+        eventModel.addEvent(newEvent2);
     }
 
     public void addEvent(ActionEvent actionEvent) {
