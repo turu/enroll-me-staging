@@ -13,4 +13,7 @@ public interface IEnrollmentDAO {
     void persistEnrollment(Enroll enrollment);
     @Transactional
     void deleteEnrollment(Integer id);
+
+    @Transactional
+    void updateEnrollment(Enroll editedEnrollment);
 }

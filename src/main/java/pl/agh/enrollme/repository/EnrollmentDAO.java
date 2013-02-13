@@ -58,9 +58,16 @@ public class EnrollmentDAO implements IEnrollmentDAO {
     @Override
     @Transactional
     public void deleteEnrollment(Integer id) {
+        System.out.println("[partyks DEBUG] I am here!!!!");
         Enroll enrollment = em.find(Enroll.class, id);
         if (enrollment != null) {
             em.remove(enrollment);
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateEnrollment(Enroll enrollment) {
+        em.merge(enrollment);
     }
 }
