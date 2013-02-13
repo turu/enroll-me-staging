@@ -21,6 +21,8 @@ public class EnrollConfigurationqwe implements Serializable {
 
     private Integer pointsPerTerm;
 
+    private Integer qweqweq;
+
     public EnrollConfigurationqwe() {
         enroll_ID=1;
         pointsPerTerm=0;

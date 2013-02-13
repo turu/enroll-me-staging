@@ -19,7 +19,7 @@ public class Enroll implements Serializable {
 
     private String name;
 
-    @OneToOne(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private EnrollConfiguration enrollConfiguration;
 
     @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

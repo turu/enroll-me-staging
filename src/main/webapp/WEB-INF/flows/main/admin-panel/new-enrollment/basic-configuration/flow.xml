@@ -7,10 +7,18 @@
     <secured attributes="ROLE_ADMIN" match="any"/>
 
     <var name="createdEnrollment" class="pl.agh.enrollme.model.Enroll"/>
+    <var name="enrollmentConfiguration" class="pl.agh.enrollme.model.EnrollConfiguration"/>
 
     <view-state id="basic-configuration">
+        <on-render>
+            <evaluate expression="configurationDAO.getConfigurationByEnrollment(createdEnrollment)" 
+                      result="enrollmentConfiguration" result-type="pl.agh.enrollme.model.EnrollConfiguration"/>
+        </on-render>
         <transition on="setData" to="setConfiguration">
-            <!--TODO: here goes the configuration submitting-->
+            <set name="createdEnrollment.enrollConfiguration" value="enrollmentConfiguration"/>
+            <set name="enrollmentConfiguration.enroll" value="createdEnrollment"/>
+            <!--This should persist both configuration and enrollment becauce of CacadeType.ALL :-)-->
+            <evaluate expression="enrollmentDAO.persistEnrollment(createdEnrollment)"/>
         </transition>
     </view-state>
 
