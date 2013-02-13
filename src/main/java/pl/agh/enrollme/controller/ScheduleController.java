@@ -17,9 +17,9 @@ public class ScheduleController implements Serializable {
 
     private static final long serialVersionUID = 1;
 
-    private ScheduleModel eventModel;
+    private EnrollScheduleModel eventModel;
 
-    private ScheduleEvent event = new DefaultScheduleEvent();
+    private EnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
     private String theme;
 
@@ -31,33 +31,33 @@ public class ScheduleController implements Serializable {
         this.theme = theme;
     }
 
-    public ScheduleModel getEventModel() {
+    public EnrollScheduleModel getEventModel() {
         return eventModel;
     }
 
-    public void setEventModel(ScheduleModel eventModel) {
+    public void setEventModel(EnrollScheduleModel eventModel) {
         this.eventModel = eventModel;
     }
 
-    public ScheduleEvent getEvent() {
+    public EnrollScheduleEvent getEvent() {
         return event;
     }
 
-    public void setEvent(ScheduleEvent event) {
+    public void setEvent(EnrollScheduleEvent event) {
         this.event = event;
     }
 
     public ScheduleController() {
-        eventModel = new DefaultScheduleModel();
+        eventModel = new DefaultEnrollScheduleModel();
         GregorianCalendar gc = new GregorianCalendar(2013, 1, 11, 10, 15);
 
         Date begin = gc.getTime();
         gc.add(Calendar.HOUR_OF_DAY, 1);
         Date end = gc.getTime();
-        DefaultScheduleEvent newEvent = new DefaultScheduleEvent("Champions League Match", begin, end);
+        DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Champions League Match", begin, end);
         //newEvent.setEditable(false);
         eventModel.addEvent(newEvent);
-        DefaultScheduleEvent newEvent2 = new DefaultScheduleEvent("Polish League Match", begin, end);
+        DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("Polish League Match", begin, end);
         //newEvent2.setEditable(false);
         eventModel.addEvent(newEvent2);
     }
@@ -68,15 +68,15 @@ public class ScheduleController implements Serializable {
         else
             eventModel.updateEvent(event);
 
-        event = new DefaultScheduleEvent();
+        event = new DefaultEnrollScheduleEvent();
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (ScheduleEvent) selectEvent.getObject();
+        event = (EnrollScheduleEvent) selectEvent.getObject();
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        event = new DefaultEnrollScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
