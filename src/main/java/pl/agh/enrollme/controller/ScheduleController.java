@@ -54,12 +54,12 @@ public class ScheduleController implements Serializable {
         Date begin = gc.getTime();
         gc.add(Calendar.HOUR_OF_DAY, 1);
         Date end = gc.getTime();
-        DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Champions League Match", begin, end);
+        //DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Champions League Match", begin, end);
         //newEvent.setEditable(false);
-        eventModel.addEvent(newEvent);
-        DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("Polish League Match", begin, end);
+        //eventModel.addEvent(newEvent);
+        //DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("Polish League Match", begin, end);
         //newEvent2.setEditable(false);
-        eventModel.addEvent(newEvent2);
+        //eventModel.addEvent(newEvent2);
     }
 
     public void addEvent(ActionEvent actionEvent) {
@@ -77,10 +77,10 @@ public class ScheduleController implements Serializable {
 
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultEnrollScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
-        EnrollScheduleEvent newEvent = eventModel.getEvents().get(0);
-        addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Event1 data:", "importance: " + newEvent.getImportance() +
-                " points: " + newEvent.getPoints() + " possible: " + newEvent.isPossible() + " teacher: " + newEvent.getTeacher() +
-                " place: " + newEvent.getPlace()));
+        //EnrollScheduleEvent newEvent = eventModel.getEvents().get(0);
+        //addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Event1 data:", "importance: " + newEvent.getImportance() +
+               // " points: " + newEvent.getPoints() + " possible: " + newEvent.isPossible() + " teacher: " + newEvent.getTeacher() +
+                //" place: " + newEvent.getPlace()));
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
