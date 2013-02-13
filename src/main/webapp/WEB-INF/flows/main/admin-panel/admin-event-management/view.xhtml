@@ -13,7 +13,17 @@
 
 <ui:define name="content">
 <h:form>
-    <h:outputText value="${eventID}"/>
+    <h:outputText value="${managedEvent.id}"/>
+
+    <fieldset>
+        <legend>Event Configuration</legend>
+        <p>
+            <!-- <h:outputLabel for="name">Name: </h:outputLabel><br/> -->
+            <!-- <p:inputText id="name" value="#{managedEvent.name}" /> -->
+            <p:commandButton value="OK" action="done"/>
+        </p>
+    </fieldset>
+
 </h:form>
 
 </ui:define>
