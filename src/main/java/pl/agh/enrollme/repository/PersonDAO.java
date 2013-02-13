@@ -8,6 +8,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +18,20 @@ import pl.agh.enrollme.model.Person;
 @Repository
 public class PersonDAO implements IPersonDAO {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonDAO.class);
+
     @PersistenceContext
     EntityManager em;
 
     @Transactional
     public void addPerson(Person person) {
+        LOGGER.debug("Adding person " + person.getFirstName() + " " + person.getLastName());
         em.persist(person);
+    }
+
+    @Transactional
+    public void updatePerson(Person person) {
+        em.merge(person);
     }
 
     @Transactional
@@ -61,7 +71,7 @@ public class PersonDAO implements IPersonDAO {
 
     @Transactional
     public Person getPerson(Integer id) {
-        CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
-        return em.createQuery(c).getSingleResult();
+        LOGGER.debug("Getting person with id " + id);
+        return em.find(Person.class, id);
     }
 }

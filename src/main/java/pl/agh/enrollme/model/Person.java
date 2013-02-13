@@ -33,6 +33,10 @@ public class Person implements Serializable, UserDetails {
 
     private String lastName = "";
 
+
+    @Column(unique = true)
+    private Integer indeks;
+
     private Boolean accountNonExpired = false;
 
     private Boolean accountNonLocked = false;
@@ -53,12 +57,14 @@ public class Person implements Serializable, UserDetails {
     public Person() {
     }
 
-    public Person(String password, String username, String firstName, String lastName, Boolean accountNonExpired,
-                  Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled, String rolesToken, List<Group> groups, List<Subject> subjects) {
+    public Person(String password, String username, String firstName, String lastName, Integer indeks,
+                  Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired,
+                  Boolean enabled, String rolesToken, List<Group> groups, List<Subject> subjects) {
         this.password = password;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.indeks = indeks;
         this.accountNonExpired = accountNonExpired;
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
@@ -74,6 +80,14 @@ public class Person implements Serializable, UserDetails {
 
     public void addGroups(Group group) {
         groups.add(group);
+    }
+
+    public Integer getIndeks() {
+        return indeks;
+    }
+
+    public void setIndeks(Integer indeks) {
+        this.indeks = indeks;
     }
 
     public String getFirstName() {
