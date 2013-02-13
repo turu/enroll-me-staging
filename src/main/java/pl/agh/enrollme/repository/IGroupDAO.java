@@ -16,4 +16,6 @@ public interface IGroupDAO {
     List<Group> getGroups(Subject subject);
 
     void tryToAddCurrentUserToGroup(Group group);
+
+    void addGroup(Subject subject);
 }

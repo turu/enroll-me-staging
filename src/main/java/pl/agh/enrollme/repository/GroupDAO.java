@@ -22,6 +22,11 @@ public class GroupDAO implements IGroupDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupDAO.class.getName());
 
     @Override
+    public void addGroup(Subject subject) {
+        LOGGER.error(subject.getName() + "\n" + "\n");
+    }
+
+    @Override
     public List<Group> getGroups(Subject subject) {
 
         List<Group> groups = new ArrayList<Group>();
@@ -51,6 +56,8 @@ public class GroupDAO implements IGroupDAO {
     @Override
     public void tryToAddCurrentUserToGroup(Group group) {
         //System.out.println(group.getPersons().get(0).getFirstName());
-        LOGGER.info(group.getPersons().get(0).getFirstName());
+        LOGGER.error(group.getPersons().get(0).getFirstName() + "\n" + "\n");
     }
+
+
 }

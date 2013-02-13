@@ -35,7 +35,10 @@
 
             <p:column headerText="Actions" style="width:30%    ">
                 <p:commandButton action="join" value="Join selected group" />
-                <p:commandButton action="create" value="Create new group"/>
+
+                <p:commandButton action="create" value="Create new group">
+                    <f:param name="subject" value="#{subject}"/>
+                </p:commandButton>
             </p:column>
             <!-- <p:column style="width:10%">
                 <p:commandButton id="selectEnrollmen" icon="ui-icon-arrowreturnthick-1-e" action="eventChosen"
