@@ -15,6 +15,7 @@
                       result="enrollmentConfiguration" result-type="pl.agh.enrollme.model.EnrollConfiguration"/>
         </on-render>
         <transition on="setData" to="setConfiguration">
+            <set name="createdEnrollment.enrollmentMode" value="'ACTIVE'"/>
             <set name="createdEnrollment.enrollConfiguration" value="enrollmentConfiguration"/>
             <set name="enrollmentConfiguration.enroll" value="createdEnrollment"/>
             <!--This should persist both configuration and enrollment becauce of CacadeType.ALL :-)-->

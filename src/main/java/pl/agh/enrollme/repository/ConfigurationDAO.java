@@ -37,18 +37,6 @@ public class ConfigurationDAO /*implements IConfigurationDAO*/{
 
     @Transactional
     public EnrollConfiguration getConfigurationByEnrollment(Enroll enrollment) {
-//        // TODO: later change it to the Criteria Query
-//        Query query = em.createQuery("SELECT eC from EnrollConfiguration eC " +
-//                "where eC.enroll = :enrollment").setParameter("enrollment", enrollment);
-//        List<EnrollConfiguration> list = query.getResultList();
-//
-//        if(list != null && list.size() > 0) {
-//            LOGGER.info("Found configuration with given ID [" + enrollment.getEnrollID() + "]");
-//        } else {
-//            LOGGER.info("No configuration for given ID [" + enrollment.getEnrollID() + "]");
-//        }
-//        return ( list != null && list.size()>0 ) ? list.get(0) : new EnrollConfiguration();
-
         EnrollConfiguration configuration = enrollment.getEnrollConfiguration();
         return (configuration == null) ? new EnrollConfiguration() : configuration;
     }
