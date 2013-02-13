@@ -21,8 +21,8 @@
 
                 <p:ajax event="dateSelect" listener="#{scheduleController.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
                 <p:ajax event="eventSelect" listener="#{scheduleController.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
-                <!--<p:ajax event="eventMove" listener="#{scheduleController.onEventMove}" update="messages" />
-                <p:ajax event="eventResize" listener="#{scheduleController.onEventResize}" update="messages" /> -->
+                <p:ajax event="eventMove" listener="#{scheduleController.onEventMove}" update="messages" />
+                <p:ajax event="eventResize" listener="#{scheduleController.onEventResize}" update="messages" />
 
             </p:enrollSchedule>
 
@@ -52,7 +52,16 @@
                         <f:convertNumber type="number"/>
                     </p:inputText>
 
-                    <p:commandButton type="reset" value="Reset" />
+                    <h:outputLabel for="possible" value="Impossibility:"/>
+                    <p:selectBooleanCheckbox id="possible" value="#{scheduleController.event.possible}"/>
+
+                    <!--temporary-->
+                    <h:outputLabel for="importance" value="Importance:"/>
+                    <p:inputText id="importance" value="#{scheduleController.event.importance}">
+                        <f:convertNumber type="number"/>
+                    </p:inputText>
+
+                    <p:commandButton type="reset" value="Discard" />
                     <p:commandButton value="Save" actionListener="#{scheduleController.addEvent}"
                                      oncomplete="myschedule.update();eventDialog.hide();"/>
                 </h:panelGrid>
