@@ -35,10 +35,9 @@
 
     <end-state id="updated"/>
     <end-state id="cancell"/>
-    <end-state id="end"/>
 
     <global-transitions>
-        <transition on="skipFurtherConfiguration" to="end"/>
+        <transition on="skipFurtherConfiguration" to="updated"/>
     </global-transitions>
 
 </flow>
