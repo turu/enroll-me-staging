@@ -13,12 +13,15 @@
 
 <ui:define name="content">
 <h:form>
-    <p:dataTable value="${enrollmentList}" var="enrollment" emptyMessage="There are no events in the database.">
+    <p:dataTable value="${eventList}" var="enrollment" emptyMessage="There are no events in the database.">
         <p:column headerText="ID">
             #{enrollment.id}
         </p:column>
         <p:column headerText="Name">
-            #{enrollment.name}
+            #{enrollment.firstName}
+        </p:column>
+        <p:column headerText="Last name">
+            #{enrollment.lastName}
         </p:column>
         <p:column headerText="Action">
             <p:commandButton value="Do something">

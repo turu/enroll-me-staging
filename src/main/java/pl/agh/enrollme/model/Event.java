@@ -16,31 +16,44 @@ public class Event implements Serializable {
 	@GeneratedValue
 	private Integer id;
 
-	private String name;
+	private String firstName;
 
-    public Event() {
+	private String lastName;
+
+	public Event() {
 		this.id = 0;
-		this.name = "";
+		this.firstName = "";
+		this.lastName = "";
 	}
 
-    public Event(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+	public Event(int id, String firstName, String lastName) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
-    public Integer getId() {
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+	
 }

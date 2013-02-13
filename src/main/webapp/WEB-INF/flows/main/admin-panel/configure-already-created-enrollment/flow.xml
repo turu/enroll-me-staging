@@ -33,11 +33,12 @@
         <transition on="termsAssigned" to="configure-existing-enrollment"/>
     </subflow-state>
 
-    <end-state id="cancell"/>
     <end-state id="updated"/>
+    <end-state id="cancell"/>
+    <end-state id="end"/>
 
     <global-transitions>
-        <transition on="skipFurtherConfiguration" to="updated"/>
+        <transition on="skipFurtherConfiguration" to="end"/>
     </global-transitions>
 
 </flow>
