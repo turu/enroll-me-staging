@@ -18,8 +18,6 @@
 
     </subflow-state>
 
-
-
     <subflow-state id="chooseEvent" subflow="main/event-selection">
 		<transition on="eventComplete" to="seeResults">
             <set value="currentEvent.attributes.currentEnrollment" name="flowScope.currentEnrollment"
@@ -38,7 +36,14 @@
 	<subflow-state id="chooseSubjects" subflow="main/subject-selection">
         <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
 		<transition on="subjectsChosen" to="managePreferences"/>
-	</subflow-state>
+        <transition on="groupsManagementRequested" to="manageUserGroups"/>
+    </subflow-state>
+
+    <subflow-state id="manageUserGroups" subflow="main/user-groups">
+        <input name="currentEnrollment" value="currentEnrollment" required="true"
+               type="pl.agh.enrollme.model.Enroll"/>
+        <transition to="chooseSubjects"/>
+    </subflow-state>
 	
 	<subflow-state id="managePreferences" subflow="main/preferences-management">
         <input name="currentEnrollment" value="currentEnrollment" required="true"

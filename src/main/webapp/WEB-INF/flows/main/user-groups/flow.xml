@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
+
+    <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
+
+    <view-state id="list">
+        <on-render>
+            <evaluate expression="subjectDAO.getSubjectsWithGroups(currentEnrollment)"
+                      result="viewScope.subjectsWithGroupsList"/>
+        </on-render>
+        <transition on="join">
+            <evaluate expression="groupDAO.tryToAddCurrentUserToGroup(viewScope.selectedGroup)"/>
+        </transition>
+
+        <transition on="create">
+            <evaluate expression="groupDAO.addGroup(requestParameters.subject)"/>
+        </transition>
+
+        <transition on="exit" to="groupsManaged"/>
+    </view-state>
+
+    <end-state id="groupsManaged"/>
+
+</flow>
