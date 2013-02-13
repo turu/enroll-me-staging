@@ -9,7 +9,8 @@
 
     <view-state id="list">
         <on-render>
-            <evaluate expression="subjectDAO.getSubjectsWithGroups(currentEnrollment)" result="viewScope.subjectsWithGroups"/>
+            <evaluate expression="subjectDAO.getSubjectsWithGroups(currentEnrollment)"
+                      result="viewScope.subjectsWithGroupsList"/>
         </on-render>
         <transition on="exit" to="groupsManaged"/>
     </view-state>

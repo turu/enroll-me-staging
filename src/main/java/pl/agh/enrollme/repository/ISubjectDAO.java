@@ -11,5 +11,5 @@ import java.util.List;
 public interface ISubjectDAO {
     void fillCurrentUserSubjectList(Subject[] subjects);
 
-    List<Enroll> getSubjectsWithGroups(Enroll enroll);
+    List<Subject> getSubjectsWithGroups(Enroll enroll);
 }

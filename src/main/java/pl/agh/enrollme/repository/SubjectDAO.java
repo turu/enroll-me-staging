@@ -5,6 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Subject;
+import pl.agh.enrollme.model.Teacher;
+import pl.agh.enrollme.utils.Color;
+import pl.agh.enrollme.utils.DayOfWeek;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +26,18 @@ public class SubjectDAO implements ISubjectDAO {
     }
 
     @Override
-    public List<Enroll> getSubjectsWithGroups(Enroll enroll) {
-        List<Enroll> result = new ArrayList<Enroll>();
-        return result;
+    public List<Subject> getSubjectsWithGroups(Enroll enroll) {
+        Teacher teacher1 = new Teacher("dr", "Stanisław", "Sobieszko", "4.11");
+        Teacher teacher2 = new Teacher("dr", "Stasio", "Mieszko", "4.11");
+        Subject subject1 = new Subject(enroll, null, "Analiza", 1, Color.GREEN, "4.33", teacher1, DayOfWeek.MONDAY,
+                null, null);
+        Subject subject2 = new Subject(enroll, null, "Fizyka", 1, Color.RED, "4.11", teacher2, DayOfWeek.FRIDAY,
+                null, null);
+        subject1.setSubjectID(1);
+        subject2.setSubjectID(2);
+        List<Subject> subjects = new ArrayList<Subject>(2);
+        subjects.add(subject1);
+        subjects.add(subject2);
+        return subjects;
     }
 }

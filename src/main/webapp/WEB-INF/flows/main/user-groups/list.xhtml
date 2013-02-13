@@ -6,7 +6,7 @@
 	  			xmlns:p="http://primefaces.org/ui"
 				template="/WEB-INF/layouts/standard.xhtml">
 
-<ui:define name="title"> Join existing groups and create new ones.
+<ui:define name="title"> Join existing groups and create new ones
 </ui:define>
 
 <ui:define name="notes">
@@ -15,7 +15,17 @@
 
 <ui:define name="content">
     <h:form>
-
+        <p:dataTable id="subjects" var="subject" value="${subjectsWithGroupsList}" style="text-align:center;width:40%">
+            <p:column headerText="Name" style="width:90%    ">
+                <h:outputFormat value="#{subject.name}"/>
+            </p:column>
+            <!-- <p:column style="width:10%">
+                <p:commandButton id="selectEnrollmen" icon="ui-icon-arrowreturnthick-1-e" action="eventChosen"
+                                 ajax="false">
+                    <f:setPropertyActionListener value="#{enrollment}" target="#{currentEnrollment}"/>
+                </p:commandButton>
+            </p:column> -->
+        </p:dataTable>
     </h:form>
 
 </ui:define>
