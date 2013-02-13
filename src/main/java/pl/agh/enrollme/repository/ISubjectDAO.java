@@ -12,4 +12,7 @@ public interface ISubjectDAO {
     void fillCurrentUserSubjectList(Subject[] subjects);
 
     List<Subject> getSubjectsByEnrollment(Enroll enrollment);
+
+    List<Subject> getSubjectsWithGroups(Enroll enroll);
+
 }
