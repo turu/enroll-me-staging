@@ -1,5 +1,7 @@
 package pl.agh.enrollme.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
@@ -10,11 +12,14 @@ import pl.agh.enrollme.utils.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @author Michal Partyka
  */
 @Repository
 public class GroupDAO implements IGroupDAO {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GroupDAO.class.getName());
 
     @Override
     public List<Group> getGroups(Subject subject) {
@@ -45,6 +50,7 @@ public class GroupDAO implements IGroupDAO {
 
     @Override
     public void tryToAddCurrentUserToGroup(Group group) {
-        System.out.println(group.getPersons().get(0).getFirstName());
+        //System.out.println(group.getPersons().get(0).getFirstName());
+        LOGGER.info(group.getPersons().get(0).getFirstName());
     }
 }
