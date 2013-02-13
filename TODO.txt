@@ -36,3 +36,69 @@ Rafa³ Cymerys
 		
 to Piotr, me, Micha³
 Ok, to ja póki zrobiê flowy z panelu admina do zarz¹dzania Personami (people-management) i pozwalania im na zapisywanie siê na poszczególne Enrolle, a potem ewentualnie jeszcze do konfiguracji samych zapisów.
+
+
+co do zak³adek - Piotrek podrzuci³ œwietny pomys³ - embeded flowy, to nam rozwi¹¿e wszystkie problemy - piszmy to jako wewnêtrzne flowy w tym oknie gdzie s¹ zak³adki.
+
+Co do grup to napisz po prostu zwyk³ego flowa z widokiem, Piotrek go podepnie pod wybór preferencji (tylko wiadomo teraz to musi byæ fajniejsze ni¿ by³o w tamtym systemie...)
+
+ja sobie wyobra¿am to tak, ¿e listujesz przedmioty w których mo¿na siê zapisywac grupami i rozwijan¹ liste grup z nazwami tych grup (do Entity Group trzeba dodaæ name w takim razie), po wybraniu poka¿¹ siê nazwy osób, które s¹ w danej grupie czyli np.:
+
+Fizyka                        do³¹cz do grupy[lista rozwijana]          [za³ó¿ grupê - button]
+Analiza                      do³¹cz do grupy[lista rozwijana]          [za³ó¿ grupê - button]
+Technika Cyfrowa  MojaGrupaJakaœ[nadal lista rozwijana]    [za³ó¿ grupê - button]  Micha³ Partyka, Piotr Turek   //tutaj ju¿ rozwin¹l grupe u¿ytkownik, ale jeszcze nie submitowa³
+
+                                                                                                            [Submit] - do³¹cza do grupy 
+
+Po naciœniêciu Submit wychodzi z flowa, natomiast po ponownym wejœciu do niego mamy:
+
+Fizyka                            do³¹cz do grupy[lista rozwijana]
+Analiza                          do³¹cz do grupy[lista rozwijana]
+Technika Cyfrowa                MojaGrupaJakaœ                      Micha³ Partyka, Piotr Turek, Pawe³ Lipski   [Change GROUP - button  -> po naciœniêciu wypisujesz go z tej grupy i spowrotem zmieniasz MojaGrupaJakaœ na listê rozwijan¹ do³¹cz do grupy ;-)
+
+To taki szkic, natomiast wydaje mi siê to najbardziej intuicyjnie i najprzyjemniejsze z punktu widzenia usera - a dosyæ trywialne do napisania.
+
+Pozdro!
+
+A i jeszcze jedna sprawa... jak ktoœ zak³ada³ grupê, jest jej adminem to oczywiœcie mo¿e miec mo¿liwoœc usuwania ludzi z grupy wiêc wtedy bêdzie:"
+
+Fizyka          MojaGrupaWKtórejJestemAdminem         Pawe³ Lipski, Micha³ Partyka (x), Piotr Turek (x) 
+Po nacisniêciu na x usunie z grupy danego cz³owieka.
+
+
+Tutaj jest troche rzeczy do napisania - w ka¿dym razie to jest sedno tego systemu - to i wybór preferencji... za to nas ludzie bêd¹ lubiæ :D :D :D, ale raczej nie powinno byæ z tym wszystkim problemu - troche warunkowego renderowania.
+
+event-selection i subject-selection s¹ wrzucone na mastera. Nie ma jeszcze funcjonalnoœci potrzebnej do pokazywania wyników, ale to dodam jak ju¿ bêdziemy mieli mozliwoœæ ich wyœwietlania. 
+
+Zabieram siê teraz za flow, który bêdzie odpowiedzialny za stworzenie nowych zapisów. Button create new event z panelu administratora.
+Pocz¹tkowo chce, ¿eby mo¿na by³o nadaæ Enrollmentowi nazwe i ogóln¹ konfiguracje (new-enroll - zwróci on encjê Enroll, która zostanie przekazana dalej do wszystkich subflowów jako input). Nastepnym krokiem bêdzie przejscie przez wszystkie subflowy, które w panelu admina piszemy - people-managment(Z tym walczy Rafa³ w tej chwili dzielnie), subject-managment(dodawanie do zapisów nowych przedmiotów), terms-managment(dodawanie terminów do zapisów), final-configuration(konfiguracja jeszcze jakby by³a potrzebna). 
+Póki co stworze szkielet tego wszystkiego w oparciu o subflowy - podobnie jak mainflow, nastêpnie postaram siê zaimplementowac subject-managment.
+
+Je¿eli chodzi natomiast o zmiany konfiguracji -> to wykorzysta³bym buttony doSomething w panelu admina -> przycisk taki, otworzy stronê na której bêd¹ znajdowa³y siê zak³adki enroll-conifugraion, people-managment(zapmnia³em o tym Rafa³owi napisaæ, ale powinien miec tez mo¿liwoœæ wyœwietlania preferencji dla danego usera - czyli po prostu preference-managment dla usera XYZ, ale to póŸniej), subject-managment, terms-managment, admin-groups, niemo¿liwoœci-managment. W œrodku w tych zak³adkach wsadzimy flowy, które napiszemy do tworzenia nowego eventu jako embedded flows. 
+Ten szkielet tak¿e postaram siê napisaæ dzisiaj. 
+
+Reasumuj¹c, mój plan na dzisiaj:
+1) szkielet tworzenia nowego enrollmentu.
+2) szkielet zarzadzania gotowym enrollmentem. 
+new-enroll ( ze szkieletu 1 )
+mo¿e subject-managment(ale raczej ju¿ jutro -szkielet1+2)
+
+Z tego co wiem to Rafa³ walczy z people-managment niestety s¹ jakieœ problemy z modelem, nie weidzieæ czemu nie tworzy siê tabela Group (mimo to, ¿e jest identyczna jak reszta encji praktycznie).
+
+Pawe³ walczy z flowem user-groups, który podepniemy do preference-managment, który aktualnie implementuje Piotrek i jeszcze mu to troche zajmie. 
+
+W dalszej kolejnoœci fajnie by by³o gdyby ktoœ napisa³: terms-managment oraz admin-groups.
+
+Proszê meiæ na uwadzê, ¿e wszystkie flowy z panelu admina (poza globalnym zarz¹dzaniem ludziami, które dotyczy wszytkich zapisów) dostaj¹ jako input encjê Enroll. I powinny wszystko wyœwietlaæ w³asnie zgodnie z tym inputem. 
+
+Jak ju¿ bêdziemy mieli to co napisa³em wy¿ej trzeba bêdzie zaj¹c siê te¿ wyœwietlaniem wyników.
+Enroll bêdzie miec dodatkow¹ zmienn¹  Mode, która przyjmuje wartoœci ACTIVE, CLOSED, COMPLETED (active - zapisy, closed - koniec zapisów, comleted - wyœwietlanie zapisów) z poziomu tabeli z enrollmentami z panelu admina powinno sie móc zmieniac ten mode. 
+
+Na Closed bed¹ reagowac flowy z panelu usera - subject-selection, preference-managment, user-groups, które nie pozwol¹ na zmiane dotychczas wyœwietlonych rzeczy. Panel admina natomiast musi zezwoliæ na pobranie plików tekstowych, które wrzucimy do mrówek - generate-ant-files
+
+Na Completed musi reagowaæ te¿ admin panel - bêda musia³y siê pojawiæ flowy : importuj plan, move-people-from-term-to-term, generate-files-with-people-list
+oraz musi tez reagowaæ user-panel, w którym pojawi¹ sie wyniki w odpowiednich miejscach.
+
+Pewnie o czymœ zapomnia³em, ale jakiœ zarys planu jest.
+
+Pozdro!

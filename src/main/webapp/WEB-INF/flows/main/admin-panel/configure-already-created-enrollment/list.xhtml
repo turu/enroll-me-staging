@@ -17,20 +17,21 @@
     </ui:define>
 
     <ui:define name="content">
-
-        <p:dataTable value="${enrollmentList}" var="enrollment">
-            <p:column headerText="ID" style="width:20%">
-                #{enrollment.id}
-            </p:column>
-            <p:column headerText="Name" style="width:50%">
-                #{enrollment.name}
-            </p:column>
-            <p:column headerText="Action" style="width:30%">
-                <p:commandButton value="Configure" action="configure" ajax="false">
-                    <f:param name="#{chosenEnrollment}" value="#{enrollment}"/>
-                </p:commandButton>
-            </p:column>
-        </p:dataTable>
+        <h:form class="span-10">
+            <p:dataTable value="${enrollmentList}" var="enrollment">
+                <p:column headerText="ID" style="width:20%">
+                    #{enrollment.enrollID}
+                </p:column>
+                <p:column headerText="Name" style="width:50%">
+                    #{enrollment.name}
+                </p:column>
+                <p:column headerText="Action" style="width:30%">
+                    <p:commandButton value="Configure" action="configure" ajax="false">
+                        <f:param name="#{chosenEnrollment}" value="#{enrollment}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
 
         <h:form class="span-10">
             <p>

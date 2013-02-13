@@ -9,7 +9,7 @@
 
     <view-state id="view">
         <on-render>
-            <evaluate expression="eventDAO.listEvents()" result="viewScope.eventList"/>
+            <evaluate expression="enrollmentDAO.getEnrollments()" result="viewScope.enrollmentList"/>
         </on-render>
         <transition on="create" to="eventToBeAdded">
             <!-- <set name="managedEvent" value="eventDAO.createAndReturnEvent()"/> -->
@@ -18,7 +18,7 @@
             <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
         </transition>
         <transition on="remove" to="view">
-            <evaluate expression="eventDAO.removeEvent(requestParameters.id)"/>
+            <!-- <evaluate expression="eventDAO.removeEvent(requestParameters.id)"/> -->
             <!-- <set name="managedEvent" value="eventDAO.getEvent(3)"/> -->
         </transition>
     </view-state>

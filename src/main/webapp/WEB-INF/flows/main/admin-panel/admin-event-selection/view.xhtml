@@ -13,22 +13,16 @@
 
 <ui:define name="content">
 <h:form>
-    <p:dataTable value="${eventList}" var="e" emptyMessage="There are no events in the database.">
+    <p:dataTable value="${enrollmentList}" var="enrollment" emptyMessage="There are no events in the database.">
         <p:column headerText="ID">
-            #{e.id}
+            #{enrollment.id}
         </p:column>
         <p:column headerText="Name">
-            #{e.name}
+            #{enrollment.name}
         </p:column>
         <p:column headerText="Action">
-            <p:commandButton value="Configure..." action="modify">
-                <f:param name="eventID" value="#{e.id}"/>
-            </p:commandButton>
-        </p:column>
-        <p:column headerText="Action #2">
-            <p:commandButton value="Remove" action="remove">
-                <!-- Set proper requestParameter that will be used in flow -->
-                <f:param name="id" type="int" value="#{e.id}"/>
+            <p:commandButton value="Do something">
+                <f:param name="id" value="#{enrollment.id}"/>
             </p:commandButton>
         </p:column>
         <f:facet name="footer">

@@ -1,29 +1,24 @@
-package pl.agh.enrollme.service;
+package pl.agh.enrollme.repository;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.EnrollConfiguration;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Michal Partyka
  */
-@Service
-public class EnrollmentService implements Serializable, IEnrollmentService {
-
-    private static final long serialVersionUID = -5771235478609230476L;
-
+@Repository
+public class EnrollmentDAO implements IEnrollmentDAO {
     @Override
-    public List<Enroll> getEnrollmentList() {
-        //TODO: get it from database currentUser.getEnrolls()
+    public List<Enroll> getEnrollments() {
+        //TODO: get it from database
         Enroll enroll = new Enroll("Enrollment1", null, null);
         EnrollConfiguration enrollConfiguration = new EnrollConfiguration(enroll, 10, 20, 30, 40);
         enroll.setEnrollConfiguration(enrollConfiguration);
         Enroll[] ret = { enroll };
-        List<Enroll> list = Arrays.asList(ret);
-        return list;
+        return Arrays.asList(ret);
     }
 }

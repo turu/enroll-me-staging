@@ -5,30 +5,34 @@
 
     <secured attributes="ROLE_ADMIN"/>
 
-    <var name="managedEvent" class="pl.agh.enrollme.model.Event" />
+    <var name="chosenEnrollment" class="pl.agh.enrollme.model.Enroll" />
 
-    <subflow-state id="chooseEvent" subflow="main/admin-panel/admin-event-selection">
-        <transition on="eventToBeAdded" to="manageEvent">
-            <!--
-                FIXME:
-                Unfortunately, there was no other way but to locate eventID into conversationScope.
-                Otherwise (request/flow) it's not visible in view.xhtml.
-            -->
+    <view-state id="list">
+        <on-render>
+            <evaluate expression="enrollmentDAO.enrollments" result="viewScope.enrollmentList"/>
+        </on-render>
+        <transition on="new" to="add"/>
+        <transition on="configure" to="configure"/>
+    </view-state>
 
-           <!--  <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/> -->
-           <!-- <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent"
-                 type="pl.agh.enrollme.model.Event"/> -->
-        </transition>
-        <transition on="eventToBeConfigured" to="manageEvent">
-            <!-- <set value="currentEvent.attributes.eventID" name="conversationScope.eventID" type="int"/> -->
-            <!-- <set value="currentEvent.attributes.managedEvent" name="conversationScope.managedEvent"
-                 type="pl.agh.enrollme.model.Event"/> -->
-        </transition>
-
+    <subflow-state id="add" subflow="main/admin-panel/new-enrollment">
+        <transition on="createdEnrollment" to="list"/>
     </subflow-state>
 
-    <subflow-state id="manageEvent" subflow="main/admin-panel/admin-event-management">
-        <transition on="managementComplete" to="chooseEvent"/>
+
+    <!--TODO: remove it and make it as subflow with chosenEnrollment input variable!-->
+    <subflow-state id="configure" subflow="main/admin-panel/configure-already-created-enrollment">
+        <transition on="cancel" to="list"/>
+        <transition on="updated" to="list"/>
     </subflow-state>
+
+    <end-state id="exit" view="externalRedirect:servletRelative:/main">
+    </end-state>
+
+    <global-transitions>
+        <transition on="exit" to="exit">
+        </transition>
+    </global-transitions>
+
 
 </flow>
