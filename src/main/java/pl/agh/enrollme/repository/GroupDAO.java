@@ -12,6 +12,8 @@ import pl.agh.enrollme.utils.DayOfWeek;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +69,13 @@ public class GroupDAO implements IGroupDAO {
         groups.add(new Group(newPeople, subject));      */
 
         //return groups;
-        return em.createQuery("FROM Group").getResultList();
+        //return em.createQuery("FROM Group").getResultList();
+
+        CriteriaQuery<Group> c = em.getCriteriaBuilder().createQuery(Group.class);
+        /*Root<Event> from =*/ c.from(Group.class);
+        //c.orderBy(em.getCriteriaBuilder().asc(from.get("name")));
+
+        return em.createQuery(c).getResultList();
 
     }
 
