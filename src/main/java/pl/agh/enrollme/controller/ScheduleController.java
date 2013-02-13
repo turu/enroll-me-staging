@@ -86,7 +86,12 @@ public class ScheduleController implements Serializable {
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new DefaultEnrollScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        final Date begin = (Date) selectEvent.getObject();
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.set(begin.getYear(), begin.getMonth(), begin.getDay(), begin.getHours(), begin.getMinutes());
+        gc.add(Calendar.MINUTE, 90);
+        final Date end = gc.getTime();
+        event = new DefaultEnrollScheduleEvent("", begin, end);
     }
 
     public void onEventMove(EnrollScheduleEntryMoveEvent moveEvent) {

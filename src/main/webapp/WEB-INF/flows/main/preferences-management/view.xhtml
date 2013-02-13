@@ -52,14 +52,14 @@
                         <f:convertNumber type="number"/>
                     </p:inputText>
 
-                    <h:outputLabel for="possible" value="Impossibility:"/>
-                    <p:selectBooleanCheckbox id="possible" value="#{scheduleController.event.possible}"/>
-
                     <!--temporary-->
                     <h:outputLabel for="importance" value="Importance:"/>
                     <p:inputText id="importance" value="#{scheduleController.event.importance}">
                         <f:convertNumber type="number"/>
                     </p:inputText>
+
+                    <h:outputLabel for="possible" value="Possible:"/>
+                    <p:selectBooleanCheckbox id="possible" value="#{scheduleController.event.possible}"/>
 
                     <p:commandButton type="reset" value="Discard" />
                     <p:commandButton value="Save" actionListener="#{scheduleController.addEvent}"
