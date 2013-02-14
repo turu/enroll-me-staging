@@ -13,7 +13,7 @@ public class RingBean implements Serializable {
     public RingBean() {
         players = new ArrayList<Player>();
 
-        players.add(new Player("Messi", 10, "messi.jpg", "CF"));
+        players.add(new Player("Messi", 100, "messi.jpg", "CF"));
         players.add(new Player("Bojan", 9, "bojan.jpg", "CF"));
         players.add(new Player("Iniesta", 8, "iniesta.jpg", "CM"));
         players.add(new Player("Villa", 7, "villa.jpg", "CF"));
