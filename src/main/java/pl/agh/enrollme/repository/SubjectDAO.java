@@ -68,6 +68,8 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         List<Subject> subjects = new ArrayList<Subject>(2);
         subjects.add(subject1);
         subjects.add(subject2);
+        em.persist(subject1);
+        em.persist(subject2);
         return subjects;
     }
 }
