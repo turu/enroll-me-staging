@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+//TODO: USED BY ANYONE? ~partyks
 @Repository
 public class EventDAO implements IEventDAO {
 

@@ -6,8 +6,10 @@
 
     <secured attributes="ROLE_ADMIN" match="any"/>
 
-    <!--TODO: required true!-->
+    <var name="newSubject" class="pl.agh.enrollme.model.Subject"/>
+
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
+
 
     <view-state id="subject-management">
         <transition on="submitAndNext" to="subjectsAssigned"/>

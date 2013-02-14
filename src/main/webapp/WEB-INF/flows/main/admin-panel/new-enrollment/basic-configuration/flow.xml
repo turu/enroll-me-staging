@@ -19,7 +19,7 @@
             <set name="createdEnrollment.enrollConfiguration" value="enrollmentConfiguration"/>
             <set name="enrollmentConfiguration.enroll" value="createdEnrollment"/>
             <!--This should persist both configuration and enrollment becauce of CacadeType.ALL :-)-->
-            <evaluate expression="enrollmentDAO.persistEnrollment(createdEnrollment)"/>
+            <evaluate expression="enrollmentDAO.add(createdEnrollment)"/>
         </transition>
     </view-state>
 

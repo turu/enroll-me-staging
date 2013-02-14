@@ -1,15 +1,15 @@
 package pl.agh.enrollme.repository;
 
-import java.util.List;
-
 import pl.agh.enrollme.model.Person;
+
+import java.util.List;
 
 public interface IPersonDAO {
 
-    void addPerson(Person person);
-    void removePerson(Integer id);
-    Person getPerson(Integer id);
-    List<Person> listPeople();
+    void add(Person person);
+    void removeByPK(Object id);
+    Person getByPK(Object id);
+    List<Person> getList();
     Person findByUsername(String username);
 
 }

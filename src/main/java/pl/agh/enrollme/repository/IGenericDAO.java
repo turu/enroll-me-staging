@@ -1,23 +1,28 @@
 package pl.agh.enrollme.repository;
 
 import org.springframework.transaction.annotation.Transactional;
-import pl.agh.enrollme.model.Enroll;
 
 import java.util.List;
 
 /**
  * @author Michal Partyka
  */
-public interface IEnrollmentDAO {
+public interface IGenericDAO<T> {
     @Transactional
-    void update(Enroll toUpdate);
+    void update(T toUpdate);
 
     @Transactional
-    List<Enroll> getList();
+    List<T> getList();
 
     @Transactional
-    <K> void add(Enroll add);
+    void add(T add);
 
     @Transactional
-    void remove(Enroll remove);
+    void remove(T remove);
+
+    @Transactional
+    T getByPK(Object PK);
+
+    @Transactional
+    void removeByPK(Object PK);
 }

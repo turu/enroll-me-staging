@@ -17,14 +17,14 @@ public class EnrollmentService implements Serializable, IEnrollmentService {
     @Autowired
     private IEnrollmentDAO enrollmentDAO;
 
-    private static final long serialVersionUID = -5771235478609230476L;
+private static final long serialVersionUID = -5771235478609230476L;
 
     @Override
     public void onEdit(RowEditEvent event) {
         Enroll editedEnrollment = (Enroll) event.getObject();
 
         if (editedEnrollment != null) {
-            enrollmentDAO.updateEnrollment(editedEnrollment);
+            enrollmentDAO.update(editedEnrollment);
         }
     }
 }
