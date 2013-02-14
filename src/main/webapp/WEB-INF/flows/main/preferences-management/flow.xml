@@ -7,6 +7,7 @@
 
     <var name="scheduleController" class="pl.agh.enrollme.controller.ScheduleController" />
     <var name="ringBean" class="pl.agh.enrollme.controller.RingBean"/>
+    <var name="progressBean" class="pl.agh.enrollme.controller.ProgressBean"/>
 
     <view-state id="view">
         <transition on="done" to="preferencesApplied"/>

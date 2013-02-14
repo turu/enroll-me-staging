@@ -41,7 +41,7 @@
 
                 <p:spacer width="100%" height="10"/>
 
-                <p:progressBar id="prog2" value="#{ringBean.selectedPlayer.id}" labelTemplate="{value}%" ajax="true"/>
+                <p:progressBar id="prog2" value="#{progressBean.progress}" labelTemplate="{value}%" ajax="true"/>
 
                 <p:ring id="barRing" value="#{ringBean.players}" var="player" style="background: transparent !important;" easing="swing">
                         <!--<p:outputPanel layout="block" autoUpdate="true" style="background: transparent !important; opacity: .5 !important;">-->
