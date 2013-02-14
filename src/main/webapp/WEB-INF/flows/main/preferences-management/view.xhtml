@@ -44,7 +44,7 @@
 
                 <p:poll autoStart="true" update="barRing" widgetVar="statPoller" interval="5"/>
 
-                <p:ring id="barRing" value="#{ringBean.players}" var="player" easing="swing" first="#{ringBean.selectedId}">
+                <p:ring id="barRing" value="#{ringBean.players}" var="player" easing="swing" first="1">
                     <p:commandButton
                                      icon="ui-icon-search"
                                      title="View">
@@ -52,8 +52,7 @@
                                                      target="#{ringBean.selectedPlayer}" />
                     </p:commandButton>
                     #{player.name}
-                    <p:progressBar id="pointsProgress" value="#{player.id}" widgetVar="prog2w"
-                        labelTemplate="{value}%" ajax="true" interval="1000"/>
+                    <p:progressBar id="pointsProgress" value="#{player.id}" labelTemplate="{value}%" displayOnly="true" />
                 </p:ring>
             </p:fieldset>
 
