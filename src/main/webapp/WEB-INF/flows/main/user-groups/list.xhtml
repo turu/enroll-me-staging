@@ -28,7 +28,7 @@
                 <p:selectOneListbox value="${selectedGroup}" style="height:100px">
 
                     <f:selectItems value="${groupDAO.getGroups(subject)}" var="group"
-                                   itemLabel="#{group.id} "
+                                   itemLabel="#{group.id} #{group.subject.subjectID}"
                                    itemValue="#{group}"/>
                     <!--
                     #{subject.teamsCapacity == group.persons.size() ? '(full)' : group.persons.size()}
