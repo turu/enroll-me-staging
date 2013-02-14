@@ -34,40 +34,40 @@ public class RingBean implements Serializable {
     }
 
     public class Player implements Serializable {
-        private String messi;
-        private int i;
-        private String s;
+        private String name;
+        private int id;
+        private String image;
         private String cf;
 
         public Player(String messi, int i, String s, String cf) {
-            this.messi = messi;
-            this.i = i;
-            this.s = s;
+            this.name = messi;
+            this.id = i;
+            this.image = s;
             this.cf = cf;
         }
 
-        public String getMessi() {
-            return messi;
+        public String getName() {
+            return name;
         }
 
-        public void setMessi(String messi) {
-            this.messi = messi;
+        public void setName(String messi) {
+            this.name = messi;
         }
 
-        public int getI() {
-            return i;
+        public int getId() {
+            return id;
         }
 
-        public void setI(int i) {
-            this.i = i;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public String getS() {
-            return s;
+        public String getImage() {
+            return image;
         }
 
-        public void setS(String s) {
-            this.s = s;
+        public void setImage(String image) {
+            this.image = image;
         }
 
         public String getCf() {
