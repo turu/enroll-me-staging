@@ -18,42 +18,23 @@
 
     <ui:define name="content">
 
-        <!-- <p:selectOneListbox value="${id}">
-            <f:selectItems value="${enrollmentList}" var="e"
-                           itemLabel="#{e.firstName} #{e.lastName}"
-                           itemValue="#{e.id}"/>
-        </p:selectOneListbox> -->
-
-
-        <p:dataTable value="${enrollmentList}" var="e" selection="#{selectedEnrollment}">
-            <p:column>
-                #{e.id}
+        <p:dataTable value="${enrollmentList}" var="enrollment">
+            <p:column headerText="ID" style="width:20%">
+                #{enrollment.id}
             </p:column>
-            <p:column>
-                #{e.firstName}
+            <p:column headerText="Name" style="width:50%">
+                #{enrollment.name}
             </p:column>
-            <p:column headerText="Action">
-                <h:form>
-                    <h:outputLink value="enrollment-configuration?id=#{e.id}">
-                        Configuration
-                    </h:outputLink>
-                    <p:commandButton value="Configure" action="configure">
-                        <!-- Set proper requestParameter that will be used in flow -->
-                        <f:param name="id" value="#{e.id}"/>
-                    </p:commandButton>
-                </h:form>
+            <p:column headerText="Action" style="width:30%">
+                <p:commandButton value="Configure" action="configure" ajax="false">
+                    <f:param name="#{chosenEnrollment}" value="#{enrollment}"/>
+                </p:commandButton>
             </p:column>
         </p:dataTable>
 
         <h:form class="span-10">
-            <!-- <fieldset>
-                <legend>Details</legend>
-                <p>
-                    There are <h:outputLabel id="count" value="${count}"/> people in database.
-                </p>
-            </fieldset> -->
             <p>
-                <h:commandButton value="New" action="new" />
+                <h:commandButton value="New" action="new"/>
                 <h:commandButton value="Exit" action="exit" />
             </p>
 

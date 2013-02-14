@@ -5,17 +5,36 @@
 
     <secured attributes="ROLE_ADMIN"/>
 
-    <subflow-state id="chooseEvent" subflow="main/admin-panel/admin-event-selection">
-        <transition on="eventToBeAdded" to="manageEvent">
-            <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
+    <var name="chosenEnrollment" class="pl.agh.enrollme.model.Enroll" />
+
+    <view-state id="list">
+        <on-render>
+            <evaluate expression="enrollmentDAO.getEnrollments()" result="viewScope.enrollmentList"/>
+        </on-render>
+        <transition on="new" to="add"/>
+        <transition on="configure" to="configure"/>
+        <transition on="delete">
+            <evaluate expression="enrollmentDAO.deleteEnrollment(requestParameters.id)"/>
         </transition>
-        <transition on="eventChosen" to="manageEvent">
-            <set value="currentEvent.attributes.eventID" name="flowScope.eventID" type="int"/>
-        </transition>
+    </view-state>
+
+    <subflow-state id="add" subflow="main/admin-panel/new-enrollment">
+        <transition on="createdEnrollment" to="list"/>
     </subflow-state>
 
-    <subflow-state id="manageEvent" subflow="main/admin-panel/admin-event-management">
-
+    <subflow-state id="configure" subflow="main/admin-panel/configure-already-created-enrollment">
+        <input name="currentEnrollment" value="chosenEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
+        <transition on="cancell" to="list"/>
+        <transition on="updated" to="list"/>
     </subflow-state>
+
+    <end-state id="exit" view="externalRedirect:servletRelative:/main">
+    </end-state>
+
+    <global-transitions>
+        <transition on="exit" to="exit">
+        </transition>
+    </global-transitions>
+
 
 </flow>

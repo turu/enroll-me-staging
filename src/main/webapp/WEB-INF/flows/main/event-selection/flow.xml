@@ -6,19 +6,25 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
+    <var name="currentEnrollment" class="pl.agh.enrollme.model.Enroll"/>
+
     <view-state id="view">
-    </view-state>
+        <on-render>
+            <evaluate expression="enrollmentService.getEnrollmentList()" result="viewScope.enrollmentList"/>
+        </on-render>
+        <transition on="eventChosen" to="activeChosen"/>
+     </view-state>
 
     <end-state id="activeChosen">
-        <output name="eventID" value="1"/>
+        <output name="currentEnrollment" value="currentEnrollment"/>
     </end-state>
 
     <end-state id="eventClosed">
-        <output name="eventID" value="1"/>
+        <output name="currentEnrollment" value="currentEnrollment"/>
     </end-state>
 
     <end-state id="eventComplete">
-        <output name="eventID" value="1"/>
+        <output name="currentEnrollment" value="currentEnrollment"/>
     </end-state>
 
 </flow>

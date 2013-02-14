@@ -1,17 +1,15 @@
 package pl.agh.enrollme.repository;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import pl.agh.enrollme.model.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import pl.agh.enrollme.model.Person;
+import java.util.List;
 
 @Repository
 public class PersonDAO implements IPersonDAO {
@@ -28,6 +26,7 @@ public class PersonDAO implements IPersonDAO {
     public List<Person> listPeople() {
         CriteriaQuery<Person> c = em.getCriteriaBuilder().createQuery(Person.class);
         Root<Person> from = c.from(Person.class);
+
         c.orderBy(em.getCriteriaBuilder().desc(from.get("lastName")));
 
         return em.createQuery(c).getResultList();

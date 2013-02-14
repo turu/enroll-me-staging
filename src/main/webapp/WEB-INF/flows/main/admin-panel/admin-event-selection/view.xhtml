@@ -13,19 +13,19 @@
 
 <ui:define name="content">
 <h:form>
-    <p:dataTable value="${eventList}" var="e" emptyMessage="There are no events in the database.">
+    <p:dataTable value="${eventList}" var="enrollment" emptyMessage="There are no events in the database.">
         <p:column headerText="ID">
-            #{e.id}
+            #{enrollment.id}
         </p:column>
         <p:column headerText="Name">
-            #{e.firstName}
+            #{enrollment.firstName}
         </p:column>
         <p:column headerText="Last name">
-            #{e.lastName}
+            #{enrollment.lastName}
         </p:column>
         <p:column headerText="Action">
             <p:commandButton value="Do something">
-                <f:param name="id" value="#{e.id}"/>
+                <f:param name="id" value="#{enrollment.id}"/>
             </p:commandButton>
         </p:column>
         <f:facet name="footer">

@@ -5,14 +5,28 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-    <var name="subjectChoice" class="pl.agh.enrollme.webflow.model.SubjectChoice"/>
+    <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
-    <view-state id="view" model="subjectChoice">
-        <transition on="done" to="subjectsChosen"/>
+
+    <decision-state id="enterEventSelection">
+        <if test="subjectChoosingService.userAlreadySubmitedSubjects()" then="subjectsChosen" else="view"/>
+    </decision-state>
+
+    <view-state id="view">
+        <on-render>
+            <evaluate expression="subjectChoosingService.getAvailableSubjectForEnrollment(currentEnrollment)"/>
+        </on-render>
+        <transition on="done" to="subjectsChosen">
+            <evaluate expression="subjectDAO.fillCurrentUserSubjectList(subjectChoosingService.chosenSubjects)"/>
+        </transition>
     </view-state>
 
-    <end-state id="subjectsChosen">
-        <output name="subjectChoice" value="subjectChoice" type="pl.agh.enrollme.webflow.model.SubjectChoice" />
-    </end-state>
+    <!--<view-state id="renderSubjects">-->
+        <!--<on-render>-->
+            <!--<evaluate expression="subjectChoosingService.getChosenSubjects()" result="viewScope.subjectList"/>-->
+        <!--</on-render>-->
+    <!--</view-state>-->
+
+    <end-state id="subjectsChosen"/>
 
 </flow>

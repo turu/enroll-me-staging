@@ -1,17 +1,14 @@
 package pl.agh.enrollme.model;
 
-import org.hibernate.metamodel.source.binder.ManyToManyPluralAttributeElementSource;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.persistence.*;
 
 
 @Entity
@@ -51,16 +48,24 @@ public class Person implements Serializable, UserDetails {
 
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Subject> subjects;
-    
+
 
     public Person() {
     }
 
-    //TODO: adjust constructor to new fields or remove it
-    public Person(int id, String firstName, String lastName) {
-        this.id = id;
+    public Person(String password, String username, String firstName, String lastName, Boolean accountNonExpired,
+                  Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled, String rolesToken, List<Group> groups, List<Subject> subjects) {
+        this.password = password;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        this.rolesToken = rolesToken;
+        this.groups = groups;
+        this.subjects = subjects;
     }
 
     public void addSubject(Subject subject) {

@@ -6,24 +6,24 @@
 	  			xmlns:p="http://primefaces.org/ui"
 				template="/WEB-INF/layouts/standard.xhtml">
 
-<ui:define name="title">Embedded Flow: Confirmation</ui:define>
+<ui:define name="title">Auto-complete</ui:define>
 
 <ui:define name="notes">
+	<h5>Configuration:</h5>
+	<p>
+        There is a place where you can change the configuration of enrolls
+	</p>
 	<hr/>
 </ui:define>
 
 <ui:define name="content">
-	<h:form id="Configuration">
-		<p:messages/>
-		<h:panelGroup layout="block" styleClass="success" rendered="${not empty emailSuggestion}">
-			<h:outputLabel for="email">Email suggestion: </h:outputLabel>
-			<h:outputText id="email" value="${emailSuggestion}"/>
-		</h:panelGroup>
-		<p>
-		    <p:commandButton value="Edit" action="edit" update="Configuration"/>
-		    <p:commandButton value="Exit" action="exit" update="Configuration" />
-		</p>
-	</h:form>
+    <h:form>
+        <p:dataTable id="subjects" var="subject" value="${subjectList}" style="text-align:center;width:40%">
+            <p:column headerText="Name">
+                <h:outputFormat value="#{subject.name}"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
 </ui:define>
 
 </ui:composition>
