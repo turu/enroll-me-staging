@@ -56,6 +56,10 @@ public class RingBean implements Serializable {
         }
 
         public int getId() {
+            if(id < 100) {
+                id = id + 1;
+            }
+
             return id;
         }
 
