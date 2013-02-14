@@ -42,7 +42,7 @@
 
                 <p:spacer width="100%" height="10"/>
 
-                <p:ring id="barRing" value="#{ringBean.players}" var="player" rows="4"
+                <p:ring id="barRing" value="#{ringBean.players}" var="player"
                         easing="swing" first="1" style="text-align: center;">
                     #{player.name}
                     <p:progressBar id="pointsProgress" value="#{player.id}" labelTemplate="{value}%" displayOnly="true" />
@@ -97,7 +97,7 @@
 
                     <p:commandButton type="reset" value="Discard" />
                     <p:commandButton value="Save" actionListener="#{scheduleController.addEvent}"
-                        update=":form:barRing" oncomplete="myschedule.update();eventDialog.hide();"/>
+                        update=":form:barRing:progressBar" oncomplete="myschedule.update();eventDialog.hide();"/>
                 </h:panelGrid>
             </p:dialog>
         </h:form>
