@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
 import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Person;
+import pl.agh.enrollme.repository.IPersonDAO;
+import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.repository.PersonDAO;
 
 import javax.xml.ws.WebServiceContext;
@@ -23,7 +24,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     private final static Logger LOGGER = LoggerFactory.getLogger(PreferencesManagementService.class);
 
     @Autowired
-    private PersonDAO personDAO;
+    private IPersonDAO personDAO;
+
+    @Autowired
+    private ISubjectDAO subjectDAO;
 
     @Override
     public PreferencesManagementController createPreferencesManagementController(Enroll currentEnroll) {
@@ -40,7 +44,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
 
         final Person person = personDAO.findByUsername(userDetails.getUsername());
 
-
+        //TODO: Retrieve subjects choosen by person for currentEnroll.
+        //TODO: Retrieve terms of the subjects.
+        //TODO: Retrieve current preferences of the user (if any)
+        //TODO: Create the controller and pass all the above data to it.
 
     }
 
