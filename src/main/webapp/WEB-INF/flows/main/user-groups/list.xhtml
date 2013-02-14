@@ -17,6 +17,10 @@
     <h:form>
         <p:dataTable id="subjects" var="subject" value="${subjectsWithGroupsList}" style="text-align:center;width:40%">
 
+            <p:column headerText="Enrollment ID" style="width:30%    ">
+                <h:outputFormat value="#{currentEnrollmentID}"/>
+            </p:column>
+
             <p:column headerText="ID" style="width:30%    ">
                 <h:outputFormat value="#{subject.subjectID}"/>
             </p:column>

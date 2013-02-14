@@ -5,11 +5,12 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-    <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
+    <!-- <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/> -->
+    <input name="currentEnrollmentID" type="int" required="true"/>
 
     <view-state id="list">
         <on-render>
-            <evaluate expression="subjectDAO.getSubjectsWithGroups(enrollmentDAO.getEnrollment(0))"
+            <evaluate expression="subjectDAO.getSubjectsWithGroups(enrollmentDAO.getEnrollment(currentEnrollmentID))"
                       result="viewScope.subjectsWithGroupsList"/>
         </on-render>
         <transition on="join">
