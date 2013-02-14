@@ -17,6 +17,9 @@
     <ui:define name="content">
         <h:form>
             <p:dataTable id="enrollments" var="enrollment" value="${enrollmentList}" style="text-align:center;width:40%">
+                <p:column headerText="ID" style="width:90%    ">
+                    <h:outputFormat value="#{enrollment.enrollID}"/>
+                </p:column>
                 <p:column headerText="Name" style="width:90%    ">
                     <h:outputFormat value="#{enrollment.name}"/>
                 </p:column>
