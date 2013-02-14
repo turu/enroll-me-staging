@@ -40,7 +40,7 @@
     </subflow-state>
 
     <subflow-state id="manageUserGroups" subflow="main/user-groups">
-        <input name="currentEnrollmentID" value="currentEnrollment.id" required="true"
+        <input name="currentEnrollmentID" value="currentEnrollment.enrollID" required="true"
                type="pl.agh.enrollme.model.Enroll"/>
         <transition to="chooseSubjects"/>
     </subflow-state>
