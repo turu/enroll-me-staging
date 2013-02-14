@@ -18,7 +18,7 @@ public class Group implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups", cascade = CascadeType.ALL)
     private List<Person> persons;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
