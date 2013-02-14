@@ -33,7 +33,7 @@ public class RingBean implements Serializable {
         this.selectedPlayer = selectedPlayer;
     }
 
-    public class Player {
+    public class Player implements Serializable {
         private String messi;
         private int i;
         private String s;
