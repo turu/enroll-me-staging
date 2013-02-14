@@ -10,6 +10,8 @@ public class RingBean implements Serializable {
 
     private Player selectedPlayer;
 
+    private int selectedId = 0;
+
     public RingBean() {
         players = new ArrayList<Player>();
 
@@ -32,6 +34,17 @@ public class RingBean implements Serializable {
 
     public void setSelectedPlayer(Player selectedPlayer) {
         this.selectedPlayer = selectedPlayer;
+    }
+
+    public int getSelectedId() {
+        if(selectedPlayer != null) {
+            selectedId = players.indexOf(selectedPlayer);
+        }
+        return selectedId;
+    }
+
+    public void setSelectedId(int selectedId) {
+        this.selectedId = selectedId;
     }
 
     public class Player implements Serializable {

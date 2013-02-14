@@ -44,12 +44,11 @@
 
                 <p:poll autoStart="true" update="pointsProgress" widgetVar="statPoller" interval="3" />
 
-                <p:ring id="barRing" value="#{ringBean.players}" var="player" style="background: transparent !important;" easing="swing">
-                        <!--<p:outputPanel layout="block" autoUpdate="true" style="background: transparent !important; opacity: .5 !important;">-->
-                            #{player.name}
-                            <p:progressBar id="pointsProgress" value="#{player.id}" widgetVar="prog2w"
-                               labelTemplate="{value}%" ajax="true" interval="1000"/>
-                        <!--</p:outputPanel>-->
+                <p:ring id="barRing" value="#{ringBean.players}" var="player" easing="swing" first="#{ringBean.selectedId}">
+                    #{player.name}
+                    <p:progressBar id="pointsProgress" value="#{player.id}" widgetVar="prog2w"
+                        labelTemplate="{value}%" ajax="true" interval="1000"/>
+                    <f:setPropertyActionListener value="#{player}" target="#{ringBean.selectedPlayer}"/>
                 </p:ring>
             </p:fieldset>
 
