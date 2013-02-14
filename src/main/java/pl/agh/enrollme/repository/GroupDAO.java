@@ -12,6 +12,7 @@ import pl.agh.enrollme.utils.DayOfWeek;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -27,7 +28,7 @@ public class GroupDAO implements IGroupDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupDAO.class.getName());
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     EntityManager em;
 
     @Override
