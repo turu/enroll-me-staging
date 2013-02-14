@@ -13,8 +13,24 @@
 
     <ui:define name="content">
         <h:form>
+
             <p:growl id="messages" showDetail="true" />
 
+            <p:menubar>
+                <p:menuitem value="Save" action="save" icon="ui-icon-disc"/>
+                <p:menuitem value="Manage Groups" action="groups" icon="ui-icon-gear"/>
+                <p:menuitem value="Reload" action="reload" icon="ui-icon-arrowrefresh-1-w"/>
+                <p:menuitem value="Exit" action="exit" icon="ui-icon-close"/>
+            </p:menubar>
+
+            <p:fieldset legend="Guidelines and Progress" collapsed="true" toggleable="true" toggleSpeed="500">
+                <p:panel header="What to keep in mind while filling the form">
+
+                </p:panel>
+                <p:ring>
+
+                </p:ring>
+            </p:fieldset>
 
             <p:enrollSchedule value="#{scheduleController.eventModel}" widgetVar="myschedule" allDaySlot="false"
                               showWeekends="false" slotMinutes="15" firstHour="8" maxTime="22" periodic="true" autoOpacity="true" >
@@ -27,7 +43,7 @@
             </p:enrollSchedule>
 
             <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-                <h:panelGrid id="eventDetails" columns="2">
+                <h:panelGrid id="eventDetails" columns="2" rows="">
                     <h:outputLabel for="title" value="Title:" />
                     <p:inputText id="title" value="#{scheduleController.event.title}" required="true"/>
 
