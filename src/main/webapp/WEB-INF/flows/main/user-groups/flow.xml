@@ -17,7 +17,7 @@
         </transition>
 
         <transition on="create">
-            <evaluate expression="groupDAO.addGroup(requestParameters.subject)"/>
+            <evaluate expression="groupDAO.addGroup(subjectDAO.getSubject(requestParameters.subjectID))"/>
         </transition>
 
         <transition on="exit" to="groupsManaged"/>

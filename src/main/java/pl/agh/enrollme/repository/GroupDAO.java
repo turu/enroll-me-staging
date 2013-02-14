@@ -82,7 +82,7 @@ public class GroupDAO implements IGroupDAO {
     @Override
     public void tryToAddCurrentUserToGroup(Group group) {
         //System.out.println(group.getPersons().get(0).getFirstName());
-        LOGGER.error(group.getPersons().get(0).getFirstName() + "\n" + "\n");
+        //LOGGER.error(group.getPersons().get(0).getFirstName() + "\n" + "\n");
     }
 
 }

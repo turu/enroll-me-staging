@@ -15,4 +15,5 @@ public interface ISubjectDAO {
 
     List<Subject> getSubjectsWithGroups(Enroll enroll);
 
+    Subject getSubject(Integer id);
 }

@@ -10,6 +10,8 @@ import pl.agh.enrollme.model.Teacher;
 import pl.agh.enrollme.utils.Color;
 import pl.agh.enrollme.utils.DayOfWeek;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         super(Subject.class);
     }
 
+    @PersistenceContext
+    EntityManager em;
+
     @Override
     public void fillCurrentUserSubjectList(Subject[] subjects) {
         //TODO: fill the subjects into databse under currentUser. (for subjects, user.addSubject())...
@@ -39,6 +44,11 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     public List<Subject> getSubjectsByEnrollment(Enroll enrollment) {
         enrollmentDAO.getByPK(enrollment.getEnrollID());
         return enrollment.getSubjects();
+    }
+
+   @Override
+    public Subject getSubject(Integer id) {
+        return em.find(Subject.class, id);
     }
 
     @Override
