@@ -42,12 +42,15 @@
 
                 <p:spacer width="100%" height="10"/>
 
-                <p:poll autoStart="true" update="barRing" widgetVar="statPoller" interval="3"/>
+                <p:poll autoStart="true" update="barRing" widgetVar="statPoller" interval="5"/>
 
                 <p:ring id="barRing" value="#{ringBean.players}" var="player" easing="swing" first="#{ringBean.selectedId}">
-                    <p:poll autoStart="true" interval="1">
-                        <f:setPropertyActionListener value="#{player}" target="#{ringBean.selectedPlayer}"/>
-                    </p:poll>
+                    <p:commandButton update=":form:detail"
+                                     icon="ui-icon-search"
+                                     title="View">
+                        <f:setPropertyActionListener value="#{player}"
+                                                     target="#{ringBean.selectedPlayer}" />
+                    </p:commandButton>
                     #{player.name}
                     <p:progressBar id="pointsProgress" value="#{player.id}" widgetVar="prog2w"
                         labelTemplate="{value}%" ajax="true" interval="1000"/>
