@@ -1,4 +1,4 @@
-package pl.agh.enrollme.controller;
+package pl.agh.enrollme.controller.preferencesmanagement;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

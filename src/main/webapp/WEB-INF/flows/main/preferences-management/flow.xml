@@ -5,9 +5,9 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-    <var name="scheduleController" class="pl.agh.enrollme.controller.ScheduleController" />
-    <var name="ringBean" class="pl.agh.enrollme.controller.RingBean"/>
-    <var name="progressBean" class="pl.agh.enrollme.controller.ProgressBean"/>
+    <var name="scheduleController" class="pl.agh.enrollme.controller.preferencesmanagement.ScheduleController" />
+    <var name="ringBean" class="pl.agh.enrollme.controller.preferencesmanagement.RingBean"/>
+    <var name="progressBean" class="pl.agh.enrollme.controller.preferencesmanagement.ProgressBean"/>
 
     <view-state id="view">
         <transition on="done" to="preferencesApplied"/>

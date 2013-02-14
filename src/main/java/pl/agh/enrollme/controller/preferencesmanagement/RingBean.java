@@ -1,4 +1,4 @@
-package pl.agh.enrollme.controller;
+package pl.agh.enrollme.controller.preferencesmanagement;
 
 import java.io.Serializable;
 import java.util.ArrayList;

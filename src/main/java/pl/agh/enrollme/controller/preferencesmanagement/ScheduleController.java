@@ -1,4 +1,4 @@
-package pl.agh.enrollme.controller;
+package pl.agh.enrollme.controller.preferencesmanagement;
 
 import org.primefaces.event.*;
 import org.primefaces.model.*;
