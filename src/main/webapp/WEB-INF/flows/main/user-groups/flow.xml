@@ -9,7 +9,7 @@
 
     <view-state id="list">
         <on-render>
-            <evaluate expression="subjectDAO.getSubjectsWithGroups(enrollmentDAO.getEnrollment('Enrollment1'))"
+            <evaluate expression="subjectDAO.getSubjectsWithGroups(enrollmentDAO.getEnrollment(0))"
                       result="viewScope.subjectsWithGroupsList"/>
         </on-render>
         <transition on="join">
