@@ -15,11 +15,11 @@ public class RingBean implements Serializable {
 
         players.add(new Player("Messi", 100, "messi.jpg", "CF"));
         players.add(new Player("Bojan", 9, "bojan.jpg", "CF"));
-        players.add(new Player("Iniesta", 8, "iniesta.jpg", "CM"));
+        /*players.add(new Player("Iniesta", 8, "iniesta.jpg", "CM"));
         players.add(new Player("Villa", 7, "villa.jpg", "CF"));
         players.add(new Player("Xavi", 6, "xavi.jpg", "CM"));
         players.add(new Player("Puyol", 5, "puyol.jpg", "CB"));
-        players.add(new Player("Piotr", 77, "turek.jpg", "PT"));
+        players.add(new Player("Piotr", 77, "turek.jpg", "PT"));*/
     }
 
     public List<Player> getPlayers() {
