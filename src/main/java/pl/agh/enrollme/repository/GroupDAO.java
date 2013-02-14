@@ -42,7 +42,7 @@ public class GroupDAO implements IGroupDAO {
         guy2.setFirstName("Edmund");
         people.add(guy2);
 
-        LOGGER.error(subject.getName() + "\n" + "\n");
+        //LOGGER.error(subject.getName() + "\n" + "\n");
         em.persist(new Group(people, subject));
     }
 
