@@ -79,9 +79,13 @@ public class GroupDAO implements IGroupDAO {
         CriteriaQuery<Group> c = em.getCriteriaBuilder().createQuery(Group.class);
         /*Root<Event> from =*/ c.from(Group.class);
         //c.orderBy(em.getCriteriaBuilder().asc(from.get("name")));
-
-        return em.createQuery(c).getResultList();
-
+        //Root<Event> from = c.from(Group.class);
+        //c.where(c. from.get
+        //return em.createQuery().get // .getResultList();
+        return em
+                .createQuery("from Group where subject.subjectID = :id")
+                .setParameter("id", subject.getSubjectID())
+                .getResultList();
     }
 
     @Override
