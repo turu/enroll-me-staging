@@ -84,7 +84,7 @@ public class GroupDAO implements IGroupDAO {
         //return em.createQuery().get // .getResultList();
         return em
                 .createQuery("from Group") //" where subject.subjectID = :id")
-                .setParameter("id", subject.getSubjectID())
+                //.setParameter("id", subject.getSubjectID())
                 .getResultList();
     }
 
