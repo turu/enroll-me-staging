@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
+        <h:form id="form">
 
             <p:growl id="messages" showDetail="true" />
 
@@ -42,17 +42,10 @@
 
                 <p:spacer width="100%" height="10"/>
 
-                <p:poll autoStart="true" update="barRing" widgetVar="statPoller" interval="5"/>
-
                 <p:ring id="barRing" value="#{ringBean.players}" var="player" easing="swing" first="1">
-                    <p:commandButton
-                                     icon="ui-icon-search"
-                                     title="View">
-                        <f:setPropertyActionListener value="#{player}"
-                                                     target="#{ringBean.selectedPlayer}" />
-                    </p:commandButton>
                     #{player.name}
                     <p:progressBar id="pointsProgress" value="#{player.id}" labelTemplate="{value}%" displayOnly="true" />
+                    #{player.image}
                 </p:ring>
             </p:fieldset>
 
@@ -103,7 +96,7 @@
 
                     <p:commandButton type="reset" value="Discard" />
                     <p:commandButton value="Save" actionListener="#{scheduleController.addEvent}"
-                                     oncomplete="myschedule.update();eventDialog.hide();"/>
+                        update=":form:gapField:barRing" oncomplete="myschedule.update();eventDialog.hide();"/>
                 </h:panelGrid>
             </p:dialog>
         </h:form>
