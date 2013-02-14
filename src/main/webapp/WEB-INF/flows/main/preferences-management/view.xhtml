@@ -32,21 +32,21 @@
                 <p:panel id="guidlinesPanel" header="What to keep in mind while filling the form">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Points per term: "/>
-                        <h:outputLabel value="10"/>
+                        <h:outputLabel value="#{currentEnrollment.enrollConfiguration.pointsPerTerm}"/>
                         <h:outputLabel value="Points per subject: "/>
-                        <h:outputLabel value="20"/>
+                        <h:outputLabel value="#{currentEnrollment.enrollConfiguration.pointsPerSubject}"/>
                         <h:outputLabel value="Minimum points per subject: "/>
-                        <h:outputLabel value="4"/>
+                        <h:outputLabel value="#{currentEnrollment.enrollConfiguration.minimumPointsPerSubject}"/>
                         <h:outputLabel value="Extra points: "/>
-                        <h:outputLabel value="10"/>
+                        <h:outputLabel value="#{currentEnrollment.enrollConfiguration.additionalPoints}"/>
                     </h:panelGrid>
                 </p:panel>
 
                 <p:spacer width="100%" height="10"/>
 
-                <div style="text-align: center;">Below you can track your progress as you distribute points:</div>
+                <div style="text-align: center;"><h3>Below you can track your progress as you distribute points:</h3></div>
 
-                <p:ring id="barRing" value="#{ringBean.players}" var="player"
+                <p:ring id="barRing" value="#{ringController.players}" var="player"
                         easing="swing" first="1" style="text-align: center;">
                     #{player.name}
                     <p:progressBar id="pointsProgress" value="#{player.id}" labelTemplate="{value}%" displayOnly="true" />
