@@ -35,12 +35,12 @@ public class GroupDAO implements IGroupDAO {
     public void addGroup(Subject subject) {
 
         List<Person> people = new ArrayList<Person>();
-        Person guy1 = new Person();
+        /*Person guy1 = new Person();
         guy1.setUsername("eduardo");
         people.add(guy1);
         Person guy2 = new Person();
         guy2.setUsername("edmundo");
-        people.add(guy2);
+        people.add(guy2);*/
 
         //LOGGER.error(subject.getName() + "\n" + "\n");
         em.persist(new Group(people, subject));
