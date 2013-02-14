@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.model.Teacher;
@@ -34,6 +35,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     EntityManager em;
 
     @Override
+    @Transactional
     public void fillCurrentUserSubjectList(Subject[] subjects) {
         //TODO: fill the subjects into databse under currentUser. (for subjects, user.addSubject())...
         System.out.println(( (UserDetails) SecurityContextHolder.getContext().getAuthentication().
@@ -46,12 +48,14 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         return enrollment.getSubjects();
     }
 
-   @Override
+    @Override
+    @Transactional
     public Subject getSubject(Integer id) {
         return em.find(Subject.class, id);
     }
 
     @Override
+    @Transactional
     public List<Subject> getSubjectsWithGroups(Enroll enroll) {
         Teacher teacher1 = new Teacher("dr", "Stanisław", "Sobieszko", "4.11");
         Teacher teacher2 = new Teacher("dr", "Stasio", "Mieszko", "4.11");
