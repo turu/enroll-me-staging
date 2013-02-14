@@ -11,5 +11,5 @@ import java.util.List;
 public interface IEnrollmentService {
     void onEdit(RowEditEvent event);
 
-    List<Enroll> getEnrollmentList();
+    //List<Enroll> getEnrollmentList();
 }
