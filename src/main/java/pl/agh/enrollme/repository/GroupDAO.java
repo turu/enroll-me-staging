@@ -36,10 +36,10 @@ public class GroupDAO implements IGroupDAO {
 
         List<Person> people = new ArrayList<Person>();
         Person guy1 = new Person();
-        guy1.setFirstName("Edward");
+        guy1.setUsername("eduardo");
         people.add(guy1);
         Person guy2 = new Person();
-        guy2.setFirstName("Edmund");
+        guy2.setUsername("edmundo");
         people.add(guy2);
 
         //LOGGER.error(subject.getName() + "\n" + "\n");
