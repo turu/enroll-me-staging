@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.utils.Color;
 import pl.agh.enrollme.utils.DayOfWeek;
@@ -30,8 +31,9 @@ public class GroupDAO implements IGroupDAO {
     EntityManager em;
 
     @Override
+    @Transactional
     public void addGroup(Subject subject) {
-        // LOGGER.error(subject.getName() + "\n" + "\n");
+
         List<Person> people = new ArrayList<Person>();
         Person guy1 = new Person();
         guy1.setFirstName("Edward");
@@ -40,10 +42,12 @@ public class GroupDAO implements IGroupDAO {
         guy2.setFirstName("Edmund");
         people.add(guy2);
 
+        LOGGER.error(subject.getName() + "\n" + "\n");
         em.persist(new Group(people, subject));
     }
 
     @Override
+    @Transactional
     public List<Group> getGroups(Subject subject) {
 
         /*List<Group> groups = new ArrayList<Group>();
@@ -80,6 +84,7 @@ public class GroupDAO implements IGroupDAO {
     }
 
     @Override
+    @Transactional
     public void tryToAddCurrentUserToGroup(Group group) {
         //System.out.println(group.getPersons().get(0).getFirstName());
         //LOGGER.error(group.getPersons().get(0).getFirstName() + "\n" + "\n");

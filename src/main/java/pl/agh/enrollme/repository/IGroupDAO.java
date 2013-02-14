@@ -1,5 +1,6 @@
 package pl.agh.enrollme.repository;
 
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Group;
 import pl.agh.enrollme.model.Subject;
 
@@ -13,9 +14,10 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface IGroupDAO {
+    @Transactional
     List<Group> getGroups(Subject subject);
-
+    @Transactional
     void tryToAddCurrentUserToGroup(Group group);
-
+    @Transactional
     void addGroup(Subject subject);
 }
