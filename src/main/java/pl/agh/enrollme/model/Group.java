@@ -22,14 +22,14 @@ public class Group implements Serializable {
     private List<Person> persons;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Subject subjects;
+    private Subject subject;
 
     public Group() {
     }
 
     public Group(List<Person> persons, Subject subjects) {
         this.persons = persons;
-        this.subjects = subjects;
+        this.subject = subjects;
     }
 
     void addPerson(Person person) {
@@ -44,8 +44,8 @@ public class Group implements Serializable {
         return persons;
     }
 
-    public Subject getSubjects() {
-        return subjects;
+    public Subject getSubject() {
+        return subject;
     }
 
     public void setId(Integer id) {
@@ -56,7 +56,7 @@ public class Group implements Serializable {
         this.persons = persons;
     }
 
-    public void setSubjects(Subject subject) {
-        this.subjects = subject;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }
