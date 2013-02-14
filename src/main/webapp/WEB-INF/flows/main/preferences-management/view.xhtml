@@ -42,7 +42,7 @@
 
                 <p:spacer width="100%" height="10"/>
 
-                <p:poll autoStart="true" update="pointsProgress" widgetVar="statPoller" interval="3" />
+                <p:poll autoStart="true" update="barRing" widgetVar="statPoller" interval="3" />
 
                 <p:ring id="barRing" value="#{ringBean.players}" var="player" easing="swing" first="#{ringBean.selectedId}">
                     #{player.name}
