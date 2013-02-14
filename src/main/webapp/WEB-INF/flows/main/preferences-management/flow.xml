@@ -6,7 +6,7 @@
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
     <var name="scheduleController" class="pl.agh.enrollme.controller.preferencesmanagement.ScheduleController" />
-    <var name="ringBean" class="pl.agh.enrollme.controller.preferencesmanagement.RingBean"/>
+    <var name="ringBean" class="pl.agh.enrollme.controller.preferencesmanagement.RingController"/>
     <var name="progressBean" class="pl.agh.enrollme.controller.preferencesmanagement.ProgressBean"/>
 
     <view-state id="view">

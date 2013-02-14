@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RingBean implements Serializable {
+public class RingController implements Serializable {
 
     private List<Player> players;
 
@@ -12,7 +12,7 @@ public class RingBean implements Serializable {
 
     private int selectedId = 0;
 
-    public RingBean() {
+    public RingController() {
         players = new ArrayList<Player>();
 
         players.add(new Player("Messi", 100, "messi.jpg", "CF"));
