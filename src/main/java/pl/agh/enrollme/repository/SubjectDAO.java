@@ -63,8 +63,8 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
                 null, null);
         Subject subject2 = new Subject(enroll, null, "PSI 2", 4, Color.RED, "4.11", teacher2, DayOfWeek.FRIDAY,
                 null, null);
-        subject1.setSubjectID(1);
-        subject2.setSubjectID(2);
+        //subject1.setSubjectID(1);
+        //subject2.setSubjectID(2);
         List<Subject> subjects = new ArrayList<Subject>(2);
         subjects.add(subject1);
         subjects.add(subject2);
