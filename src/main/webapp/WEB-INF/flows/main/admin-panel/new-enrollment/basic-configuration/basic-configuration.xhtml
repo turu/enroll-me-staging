@@ -13,6 +13,17 @@
 
 <ui:define name="content">
 <h:form>
+    <p:fieldset>
+        Name <p:inputText value="#{createdEnrollment.name}"/>
+        <br/>
+        Maximum amount of pts per termin: <p:inputText value="#{enrollmentConfiguration.pointsPerTerm}"/>
+        <br/>
+        Maximum amount of pts per subject:<p:inputText value="#{enrollmentConfiguration.pointsPerSubject}"/>
+        <br/>
+        Minimum amount of pts per subject:<p:inputText value="#{enrollmentConfiguration.minimumPointsPerSubject}"/>
+        <br/>
+        Additional points for whichever subject:<p:inputText value="#{enrollmentConfiguration.additionalPoints}"/>
+    </p:fieldset>
     <p:commandButton value="---> next" action="setData" ajax="false"/>
 </h:form>
 

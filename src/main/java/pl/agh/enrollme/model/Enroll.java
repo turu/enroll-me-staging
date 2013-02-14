@@ -1,5 +1,7 @@
 package pl.agh.enrollme.model;
 
+import pl.agh.enrollme.utils.EnrollmentMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -18,8 +20,9 @@ public class Enroll implements Serializable {
     private Integer EnrollID;
 
     private String name;
+    private EnrollmentMode enrollmentMode;
 
-    @OneToOne(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private EnrollConfiguration enrollConfiguration;
 
     @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -29,11 +32,20 @@ public class Enroll implements Serializable {
         return enrollConfiguration;
     }
 
-    public Enroll(String name, EnrollConfiguration enrollConfiguration, List<Subject> subjects) {
+    public Enroll(String name, EnrollmentMode enrollmentMode, EnrollConfiguration enrollConfiguration, List<Subject> subjects) {
+        this.enrollmentMode = enrollmentMode;
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
         EnrollID = 0;
         this.name = name;
+    }
+
+    public void setEnrollmentMode(EnrollmentMode enrollmentMode) {
+        this.enrollmentMode = enrollmentMode;
+    }
+
+    public EnrollmentMode getEnrollmentMode() {
+        return enrollmentMode;
     }
 
     public void setSubjects(List<Subject> subjects) {

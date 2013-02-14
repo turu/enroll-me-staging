@@ -1,12 +1,12 @@
 package pl.agh.enrollme.service;
 
+import org.primefaces.event.RowEditEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.model.Enroll;
-import pl.agh.enrollme.model.EnrollConfiguration;
+import pl.agh.enrollme.repository.IEnrollmentDAO;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Michal Partyka
@@ -14,16 +14,17 @@ import java.util.List;
 @Service
 public class EnrollmentService implements Serializable, IEnrollmentService {
 
+    @Autowired
+    private IEnrollmentDAO enrollmentDAO;
+
     private static final long serialVersionUID = -5771235478609230476L;
 
     @Override
-    public List<Enroll> getEnrollmentList() {
-        //TODO: get it from database currentUser.getEnrolls()
-        Enroll enroll = new Enroll("Enrollment1", null, null);
-        EnrollConfiguration enrollConfiguration = new EnrollConfiguration(enroll, 10, 20, 30, 40);
-        enroll.setEnrollConfiguration(enrollConfiguration);
-        Enroll[] ret = { enroll };
-        List<Enroll> list = Arrays.asList(ret);
-        return list;
+    public void onEdit(RowEditEvent event) {
+        Enroll editedEnrollment = (Enroll) event.getObject();
+
+        if (editedEnrollment != null) {
+            enrollmentDAO.updateEnrollment(editedEnrollment);
+        }
     }
 }

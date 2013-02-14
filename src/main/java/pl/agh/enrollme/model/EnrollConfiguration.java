@@ -1,7 +1,5 @@
 package pl.agh.enrollme.model;
 
-import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,8 +13,11 @@ public class EnrollConfiguration implements Serializable {
     private static final long serialVersionUID = -5771235478609230476L;
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
-    Enroll enroll;
+    @GeneratedValue
+    private Integer ID;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Enroll enroll;
 
     private Integer pointsPerTerm;
     private Integer pointsPerSubject;
@@ -38,6 +39,15 @@ public class EnrollConfiguration implements Serializable {
         this.pointsPerSubject = pointsPerSubject;
         this.minimumPointsPerSubject = minimumPointsPerSubject;
         this.additionalPoints = additionalPoints;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public Integer getID() {
+
+        return ID;
     }
 
     public void setPointsPerSubject(Integer pointsPerSubject) {
