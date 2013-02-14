@@ -16,7 +16,7 @@
             <evaluate expression="groupDAO.tryToAddCurrentUserToGroup(viewScope.selectedGroup)"/>
         </transition>
 
-        <transition on="create">
+        <transition on="create" to="list">
             <evaluate expression="groupDAO.addGroup(subjectDAO.getSubject(requestParameters.subjectID))"/>
         </transition>
 
