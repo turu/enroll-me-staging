@@ -22,6 +22,8 @@ public class RingBean implements Serializable {
         players.add(new Player("Xavi", 6, "xavi.jpg", "CM"));
         players.add(new Player("Puyol", 5, "puyol.jpg", "CB"));
         players.add(new Player("Piotr", 77, "turek.jpg", "PT"));
+        players.add(new Player("sadasd", 88, "asdads.jap", "AS"));
+        players.add(new Player("Mownit", 0, "czech.jap", "CZ"));
     }
 
     public List<Player> getPlayers() {
