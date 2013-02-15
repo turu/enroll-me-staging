@@ -19,7 +19,7 @@ public class Subject implements Serializable {
 
     @Id
     @GeneratedValue
-    private Integer SubjectID;
+    private Integer SubjectID=0;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Enroll enroll;
