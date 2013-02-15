@@ -12,6 +12,13 @@
 
 
     <view-state id="subject-management">
+        <on-render>
+            <evaluate expression="subjectDAO.getSubjectsByEnrollment(currentEnrollment)" result="viewScope.subjectList"/>
+        </on-render>
+        <transition on="add">
+            <set name="newSubject.enroll" value="currentEnrollment"/>
+            <evaluate expression="subjectDAO.add(newSubject)"/>
+        </transition>
         <transition on="submitAndNext" to="subjectsAssigned"/>
         <transition on="skip" to="skipFurtherConfiguration"/>
     </view-state>

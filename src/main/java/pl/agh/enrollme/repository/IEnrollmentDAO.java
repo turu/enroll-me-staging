@@ -20,4 +20,7 @@ public interface IEnrollmentDAO {
 
     @Transactional
     void remove(Enroll remove);
+
+    @Transactional
+    Enroll getByPK(Object PK);
 }
