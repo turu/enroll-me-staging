@@ -19,7 +19,7 @@
     <ui:define name="content">
         <h:form id="mainForm" class="span-10">
             <p:dataTable id="enrollments" value="${enrollmentList}" var="enrollment"
-                         emptyMessage="No enrollments in database" editable="true" sortBy="#{enrollment.name}">
+                         emptyMessage="No enrollments in database" editable="true"">
 
                 <p:ajax event="rowEdit" listener="#{enrollmentService.onEdit}" update="enrollments"/>
 
