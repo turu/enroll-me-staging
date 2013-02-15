@@ -12,7 +12,9 @@
             <evaluate expression="enrollmentDAO.getList()" result="viewScope.enrollmentList"/>
         </on-render>
         <transition on="new" to="add"/>
-        <transition on="configure" to="configure"/>
+        <transition on="configure" to="configure">
+            <evaluate expression="enrollmentDAO.getByPK(chosenEnrollment.enrollID)" result="chosenEnrollment"/>
+        </transition>
         <transition on="delete">
             <evaluate expression="enrollmentDAO.remove(chosenEnrollment)"/>
         </transition>
