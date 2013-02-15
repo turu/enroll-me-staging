@@ -54,7 +54,7 @@
         <p:dataTable value="${subjectList}" var="subject"  id="subjects"
                      emptyMessage="No subjects to show" editable="true">
 
-            <p:ajax event="rowEdit" listener="#{subjectService.onEdit}" update="enrollments"/>
+            <p:ajax event="rowEdit" listener="#{subjectService.onEdit}" update="subjects"/>
 
             <p:column headerText="Name">
                 <p:cellEditor>
