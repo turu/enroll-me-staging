@@ -17,7 +17,7 @@
         </on-render>
         <transition on="add">
             <set name="newSubject.enroll" value="currentEnrollment"/>
-            <evaluate expression="subjectDAO.add(newSubject)"/>
+            <!--<evaluate expression="subjectDAO.add(newSubject)"/>-->
             <evaluate expression="currentEnrollment.addSubject(newSubject)"/>
             <evaluate expression="enrollmentDAO.update(currentEnrollment)"/>
             <set name="newSubject" value="new pl.agh.enrollme.model.Subject()"/>
