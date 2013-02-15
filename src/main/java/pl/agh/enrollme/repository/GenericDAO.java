@@ -86,6 +86,10 @@ public class GenericDAO<T> implements IGenericDAO<T> {
         }
     }
 
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
     public Class<T> getType() {
         return type;
     }

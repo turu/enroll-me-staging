@@ -12,4 +12,10 @@ public class EnrollmentDAO extends GenericDAO<Enroll> implements IEnrollmentDAO 
     public EnrollmentDAO() {
         super(Enroll.class);
     }
+
+    //Onlyfor debug TODO: remove later
+    public void testByID(Integer id) {
+        Enroll enroll = getEntityManager().find(Enroll.class, id);
+        enroll.getSubjects();
+    }
 }
