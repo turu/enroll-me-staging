@@ -13,6 +13,7 @@ import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.model.Term;
 import pl.agh.enrollme.repository.IPersonDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
+import pl.agh.enrollme.repository.ITermDAO;
 
 import javax.xml.ws.WebServiceContext;
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     @Autowired
     private ISubjectDAO subjectDAO;
 
+    @Autowired
+    private ITermDAO termDAO;
+
     @Override
     public PreferencesManagementController createPreferencesManagementController(Enroll currentEnroll) {
         final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -42,12 +46,11 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             userDetails = (UserDetails) principal;
         } else {
             LOGGER.warn("Principal " + principal + " is not an instance of UserDetails!");
-            //TODO: Add some exception handling (throw it actually)
+            throw new SecurityException("Principal " + principal + " is not an instance of UserDetails!");
         }
 
         final Person person = personDAO.findByUsername(userDetails.getUsername());
 
-        //TODO: Retrieve terms of the subjects.
         //TODO: Retrieve current preferences of the user (if any)
         //TODO: Create the controller and pass all the above data to it.
 
@@ -65,6 +68,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
 
         //list of terms to display
         final List<Term> terms = new ArrayList<>();
+
+        for (Subject s : subjects) {
+            terms.addAll(termDAO.getTermsBySubject(s));
+        }
 
         return null;
 
