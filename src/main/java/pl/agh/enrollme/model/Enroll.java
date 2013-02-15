@@ -4,6 +4,7 @@ import pl.agh.enrollme.utils.EnrollmentMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class Enroll implements Serializable {
     private EnrollConfiguration enrollConfiguration;
 
     @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Subject> subjects;
+    private List<Subject> subjects = new ArrayList<>();
 
     public EnrollConfiguration getEnrollConfiguration() {
         return enrollConfiguration;
