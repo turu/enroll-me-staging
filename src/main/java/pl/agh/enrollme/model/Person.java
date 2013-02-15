@@ -53,6 +53,9 @@ public class Person implements Serializable, UserDetails {
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Subject> subjects;
 
+    @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Enroll> availableEnrolls;
+
 
     public Person() {
     }
@@ -94,6 +97,14 @@ public class Person implements Serializable, UserDetails {
         return firstName;
     }
 
+    public List<Enroll> getAvailableEnrolls() {
+        return availableEnrolls;
+    }
+
+    public void setAvailableEnrolls(List<Enroll> availableEnrolls) {
+        this.availableEnrolls = availableEnrolls;
+    }
+
     public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
@@ -102,9 +113,9 @@ public class Person implements Serializable, UserDetails {
         this.subjects = subjects;
     }
 
-//    public List<Group> getGroups() {
-//        return groups;
-//    }
+    public List<Group> getGroups() {
+        return groups;
+    }
 
     public List<Subject> getSubjects() {
         return subjects;
