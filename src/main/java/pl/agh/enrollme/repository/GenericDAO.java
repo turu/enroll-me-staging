@@ -74,6 +74,7 @@ public class GenericDAO<T> implements IGenericDAO<T> {
     @Transactional
     @Override
     public T getByPK(Object PK) {
+        System.out.println("[partyks DEBUG] I have returned some object by PK");
         return em.find(type, PK);
     }
 
