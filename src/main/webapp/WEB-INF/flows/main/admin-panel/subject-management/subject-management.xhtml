@@ -43,8 +43,10 @@
 
             <f:facet name="footer">
                 <p:row>
-                    <p:commandButton action="add" value="Add"
+                    <p:column colspan="5">
+                        <p:commandButton action="add" value="Add"
                                      update=":mainForm:peopleTable :mainForm:addPanel :mainForm:messages"/>
+                    </p:column>
                 </p:row>
             </f:facet>
         </p:panelGrid>
