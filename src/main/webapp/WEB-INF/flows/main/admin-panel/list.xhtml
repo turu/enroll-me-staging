@@ -21,7 +21,7 @@
             <p:dataTable id="enrollments" value="${enrollmentList}" var="enrollment"
                          emptyMessage="No enrollments in database" editable="true">
 
-                <p:ajax event="rowEdit" listener="#{enrollmentService.onEdit}" update="enrollments"/>
+                <p:ajax event="rowEdit" listener="#{enrollmentService.onEdit}"/>
 
                 <p:column headerText="Name" style="width:50%" filterBy="#{enrollment.name}"
                           filterMatchMode="startsWith">
