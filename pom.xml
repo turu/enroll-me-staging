@@ -144,7 +144,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>3.5</version>
+            <version>3.5zb</version>
         </dependency>
         <!-- File uploads -->
         <dependency>
@@ -210,6 +210,11 @@
 
     <repositories>
         <repository>
+            <id>project.local</id>
+            <name>enroll-me</name>
+            <url>file:${project.basedir}/repo</url>
+        </repository>
+        <repository>
             <id>springsource</id>
             <name>SpringSource Repository</name>
             <url>http://repo.springsource.org/milestone</url>
@@ -228,12 +233,12 @@
             <url>http://download.java.net/maven/2/</url>
             <snapshots><enabled>false</enabled></snapshots>
         </repository>
-        <repository>
+        <!--<repository>
             <id>primefaces</id>
             <name>Prime Technology Repository</name>
             <url>http://repository.primefaces.org</url>
             <layout>default</layout>
-        </repository>
+        </repository>-->
     </repositories>
 
     <build>

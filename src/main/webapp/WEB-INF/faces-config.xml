@@ -8,4 +8,8 @@
 		<message-bundle>JsfMessageResources</message-bundle>
 	</application>
 
+    <lifecycle>
+        <phase-listener>pl.agh.enrollme.RequestContextPhaseListener</phase-listener>
+    </lifecycle>
+
 </faces-config>

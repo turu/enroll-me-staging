@@ -33,6 +33,8 @@ public class Term implements Serializable {
     private Week week;
     private Integer capacity;
     private String room;
+    private String type;        //type of activity: f.e lecture, lab, ex etc
+    private Boolean certain;    //if true, an event is not part of the ongoing enrollment and cannot be assigned points
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Teacher teacher;
@@ -118,5 +120,21 @@ public class Term implements Serializable {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Boolean getCertain() {
+        return certain;
+    }
+
+    public void setCertain(Boolean certain) {
+        this.certain = certain;
     }
 }
