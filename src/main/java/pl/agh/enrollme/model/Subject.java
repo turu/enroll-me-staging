@@ -1,6 +1,5 @@
 package pl.agh.enrollme.model;
 
-import org.jboss.netty.example.localtime.LocalTimeProtocol;
 import pl.agh.enrollme.utils.Color;
 import pl.agh.enrollme.utils.DayOfWeek;
 import pl.agh.enrollme.utils.StupidDate;
@@ -21,7 +20,7 @@ public class Subject implements Serializable {
     @GeneratedValue
     private Integer SubjectID=0;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Enroll enroll;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
