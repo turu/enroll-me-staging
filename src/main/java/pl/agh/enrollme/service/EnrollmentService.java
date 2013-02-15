@@ -20,10 +20,10 @@ public class EnrollmentService implements Serializable, IEnrollmentService {
 
 private static final long serialVersionUID = -5771235478609230476L;
 
-    /*@Override
-    public List<Enroll> getEnrollmentList() {
-        return enrollmentDAO.getEnrollments();
-    } */
+    @Override
+    public List<Enroll> getEnrollments() {
+        return enrollmentDAO.getList();
+    }
 
     @Override
     public void onEdit(RowEditEvent event) {
