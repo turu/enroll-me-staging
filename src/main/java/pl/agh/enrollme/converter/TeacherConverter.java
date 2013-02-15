@@ -20,7 +20,8 @@ public class TeacherConverter implements Converter {
         Integer ID = Integer.parseInt(value);
         System.out.println("[partyks DEBUG] after parsing:" + ID);
 
-        return teacherDAO.getByPK(ID);
+//        return teacherDAO.getByPK(ID);
+        return teacherDAO.getByPK(117);
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
