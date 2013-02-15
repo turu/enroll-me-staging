@@ -18,6 +18,8 @@
         <transition on="add">
             <set name="newSubject.enroll" value="currentEnrollment"/>
             <evaluate expression="subjectDAO.add(newSubject)"/>
+            <evaluate expression="currentEnrollment.addSubject(currentEnrollment)"/>
+            <evaluate expression="enrollmentDAO.update(currentEnrollment)"/>
         </transition>
         <transition on="submitAndNext" to="subjectsAssigned"/>
         <transition on="skip" to="skipFurtherConfiguration"/>

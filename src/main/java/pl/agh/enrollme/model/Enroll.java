@@ -40,6 +40,10 @@ public class Enroll implements Serializable {
         this.name = name;
     }
 
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
+    }
+
     public void setEnrollmentMode(EnrollmentMode enrollmentMode) {
         this.enrollmentMode = enrollmentMode;
     }
