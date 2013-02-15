@@ -52,15 +52,42 @@
         </p:panelGrid>
 
         <p:dataTable value="${subjectList}" var="subject"  id="subjects"
-                     emptyMessage="No subjects to show">
+                     emptyMessage="No subjects to show" editable="true">
+
+            <p:ajax event="rowEdit" listener="#{subjectService.onEdit}" update="enrollments"/>
+
             <p:column headerText="Name">
-                <h:outputText value="#{subject.name}"/>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{subject.name}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{subject.name}" style="width:95%"/>
+                    </f:facet>
+                </p:cellEditor>
             </p:column>
-            <p:column headerText="capacity">
-                <h:outputText value="#{subject.teamsCapacity}"/>
+            <p:column headerText="Teams Capacity">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{subject.teamsCapacity}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{subject.teamsCapacity}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Room">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{subject.room}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{subject.room}"/>
+                    </f:facet>
+                </p:cellEditor>
             </p:column>
             <p:column>
-                <h:outputText value="#{subject.room}"/>
+                <p:rowEditor/>
             </p:column>
         </p:dataTable>
 
