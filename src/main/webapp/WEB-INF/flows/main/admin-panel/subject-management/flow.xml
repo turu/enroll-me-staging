@@ -13,6 +13,7 @@
 
     <view-state id="subject-management">
         <on-render>
+            <evaluate expression="enrollmentDAO.getByPK(currentEnrollment.enrollID)" result="currentEnrollment"/>
             <evaluate expression="subjectDAO.getSubjectsByEnrollment(currentEnrollment)" result="viewScope.subjectList"/>
         </on-render>
         <transition on="add">
