@@ -7,7 +7,7 @@ import pl.agh.enrollme.model.Teacher;
  * @author Michal Partyka
  */
 @Repository
-public class TeacherDAO extends GenericDAO<Teacher> {
+public class TeacherDAO extends GenericDAO<Teacher> implements ITeacherDAO {
     public TeacherDAO() {
         super(Teacher.class);
     }
