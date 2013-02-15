@@ -56,6 +56,19 @@
     </h:form>
 
     <h:form>
+        <p:dataTable value="${subjectList}" var="subject"  id="subjects"
+                     emptyMessage="No subjects to show">
+            <p:column headerText="Name">
+                <h:outputText value="#{subject.name}"/>
+            </p:column>
+            <p:column headerText="capacity">
+                <h:outputText value="#{subject.teamsCapacity}"/>
+            </p:column>
+            <p:column>
+                <h:outputText value="#{subject.room}"/>
+            </p:column>
+        </p:dataTable>
+
         <p:commandButton value="Submit" action="submitAndNext" ajax="false"/>
         <p:commandButton value="End" action="skip" ajax="false"/>
     </h:form>
