@@ -1,6 +1,7 @@
 package pl.agh.enrollme.repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.model.Term;
 
@@ -23,6 +24,7 @@ public class TermDAO extends GenericDAO<Term> implements ITermDAO {
     }
 
     @Override
+    @Transactional
     public List<Term> getTermsBySubject(Subject subject) {
         final TypedQuery<Term> query = em.createQuery("Select t from Term t where t.subject = :subject",
                 Term.class).setParameter("subject", subject);
