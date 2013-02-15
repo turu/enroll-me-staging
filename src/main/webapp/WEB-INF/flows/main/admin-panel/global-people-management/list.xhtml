@@ -112,7 +112,7 @@
                     <p:commandLink value="Reset" action="reset-password"
                                      update=":#{p:component('passwordResetContent')}"
                                      oncomplete="passwordResetDialog.show()">
-                        <f:param name="id" value="#{person.id}"/>
+                        <f:setPropertyActionListener target="#{passwordResetPerson}" value="#{person}"/>
                     </p:commandLink>
                 </p:column>
 
@@ -120,7 +120,7 @@
                     <p:rowEditor/>
                     <p:commandLink value="Delete" action="delete" update=":#{p:component('deleteDialogContent')}"
                                    oncomplete="deleteDialog.show()">
-                        <f:param name="id" value="#{person.id}"/>
+                        <f:setPropertyActionListener target="#{deletePerson}" value="#{person}"/>
                     </p:commandLink>
                 </p:column>
             </p:dataTable>
@@ -132,7 +132,7 @@
                 <p:outputPanel id="passwordResetContent">
                     <p>
                         <h:outputText value="Reseting password for
-                                ${passwordResetPerson.firstName} ${passwordResetPerson.lastName}"/>
+                                #{passwordResetPerson.firstName} #{passwordResetPerson.lastName}"/>
                     </p>
                     <p>
                         <h:outputText value="New password:" for="passwordResetField"/>
@@ -152,7 +152,7 @@
                 <p:outputPanel id="deleteDialogContent">
                     <p>
                         <h:outputText value="Are you sure you want to delete person
-                                ${deletePerson.indeks} ${deletePerson.firstName} ${deletePerson.lastName}?"/>
+                                #{deletePerson.indeks} #{deletePerson.firstName} #{deletePerson.lastName}?"/>
                     </p>
                     <p>
                         <p:commandButton value="Delete" action="delete-accept"
