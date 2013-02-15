@@ -19,7 +19,7 @@
         <p:dataTable id="subjects" var="subject" value="${subjectsWithGroupsList}" style="text-align:center;width:40%">
 
             <p:column headerText="Enrollment ID" style="width:30%    ">
-                <!-- <h:outputLabel value="#{currentEnrollmentID}"/> -->
+                <!-- <h:outputLabel value="# {currentEnrollmentID}"/> -->
             </p:column>
 
             <p:column headerText="ID" style="width:30%    ">
@@ -37,11 +37,11 @@
             <p:column headerText="Available groups" style="width:30%    ">
                 <p:selectOneListbox value="${selectedGroup}" style="height:100px">
 
-                    <f:selectItems value="${groupDAO.getGroups(subject)}" var="group"
-                                   itemLabel="#{group.id} {group.subject.subjectID}"
-                                   itemValue="#{group}"/>
+                    <!-- <f:selectItems value="$ {groupDAO.getGroups(subject)}" var="group"
+                                   itemLabel="# {group.id} {group.subject.subjectID}"
+                                   itemValue="# {group}"/> -->
                     <!--
-                    #{subject.teamsCapacity == group.persons.size() ? '(full)' : group.persons.size()}
+                    # {subject.teamsCapacity == group.persons.size() ? '(full)' : group.persons.size()}
                     -->
                 </p:selectOneListbox>
             </p:column>
