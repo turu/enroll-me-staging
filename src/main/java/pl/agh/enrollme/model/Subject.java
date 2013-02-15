@@ -6,6 +6,7 @@ import pl.agh.enrollme.utils.StupidDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class Subject implements Serializable {
     private Enroll enroll;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Person> persons;
+    private List<Person> persons = new ArrayList<>();
 
     private String name;
     private Integer teamsCapacity;
