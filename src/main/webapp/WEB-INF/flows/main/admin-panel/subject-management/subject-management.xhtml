@@ -16,7 +16,7 @@
         <p:panelGrid id="addSubject">
             <f:facet name="header">
                 <p:row>
-                    <p:column colspan="5">Add new subject</p:column>
+                    <p:column colspan="5">Add new subject2</p:column>
                 </p:row>
                 <p:row>
                     <p:column>Name</p:column>
@@ -40,13 +40,11 @@
                     <p:inputText value="#{newSubject.room}"/>
                 </p:column>
             </p:row>
+            <br/>
 
-            <f:facet name="footer">
-                <p:row>
                     <p:commandButton action="add" value="Add"
                                      update=":mainForm:peopleTable :mainForm:addPanel :mainForm:messages"/>
-                </p:row>
-            </f:facet>
+            <br/>
         </p:panelGrid>
     </h:form>
 
