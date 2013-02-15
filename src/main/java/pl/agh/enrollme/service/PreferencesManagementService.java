@@ -7,11 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController;
-import pl.agh.enrollme.model.Enroll;
-import pl.agh.enrollme.model.Person;
-import pl.agh.enrollme.model.Subject;
-import pl.agh.enrollme.model.Term;
+import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.IPersonDAO;
+import pl.agh.enrollme.repository.IStudentPointsPerTermDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 
@@ -36,6 +34,9 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     @Autowired
     private ITermDAO termDAO;
 
+    @Autowired
+    private IStudentPointsPerTermDAO pointsDao;
+
     @Override
     public PreferencesManagementController createPreferencesManagementController(Enroll currentEnroll) {
         final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -50,12 +51,13 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         }
 
         final Person person = personDAO.findByUsername(userDetails.getUsername());
-
-        //TODO: Retrieve current preferences of the user (if any)
-        //TODO: Create the controller and pass all the above data to it.
+        LOGGER.debug(person + " person retrieved from database");
 
         final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(currentEnroll);
+        LOGGER.debug("Subjects of " + currentEnroll + " enrollment retrieved: " + subjectsByEnrollment);
+
         final List<Subject> personSubjects = person.getSubjects();
+        LOGGER.debug("Subjects of " + person + " person retrieved: " + personSubjects);
 
         //list of subjects belonging to the currentEnrollment, choosen by person
         final List<Subject> subjects = new ArrayList<>();
@@ -65,6 +67,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
                 subjects.add(subject);
             }
         }
+        LOGGER.debug("Intersection found: " + subjects);
 
         //list of terms to display
         final List<Term> terms = new ArrayList<>();
@@ -72,6 +75,17 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         for (Subject s : subjects) {
             terms.addAll(termDAO.getTermsBySubject(s));
         }
+        LOGGER.debug("Terms retrieved: " + terms);
+
+        //list of currently assigned points
+        final List<StudentPointsPerTerm> points = new ArrayList<>();
+
+        for (Term t : terms) {
+            points.add(pointsDao.getByPersonAndTerm(person, t));
+        }
+        LOGGER.debug("Current preferences retrieved: " + points);
+
+        //TODO: Create the controller and pass all the above data to it.
 
         return null;
 
