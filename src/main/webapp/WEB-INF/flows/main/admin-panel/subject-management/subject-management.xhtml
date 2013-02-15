@@ -45,14 +45,12 @@
                 <p:row>
                     <p:column colspan="5">
                         <p:commandButton action="add" value="Add"
-                                     update=":subjectManagement:addSubject" />
+                                     update=":subjectManagement:addSubject :subjectManagement:subjects" />
                     </p:column>
                 </p:row>
             </f:facet>
         </p:panelGrid>
-    </h:form>
 
-    <h:form>
         <p:dataTable value="${subjectList}" var="subject"  id="subjects"
                      emptyMessage="No subjects to show">
             <p:column headerText="Name">
