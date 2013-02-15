@@ -70,10 +70,10 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         subjects.add(subject2);
         //em.merge(enroll);
         //em.persist(enroll);
-        em.merge(subject1);
-        //em.persist(subject1);
-        em.merge(subject2);
-        //em.persist(subject2);
+        //em.merge(subject1);
+        em.persist(subject1);
+        //em.merge(subject2);
+        em.persist(subject2);
         return subjects;
     }
 }
