@@ -28,7 +28,7 @@ public class GroupDAO implements IGroupDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupDAO.class.getName());
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     EntityManager em;
 
     @Override
@@ -43,7 +43,7 @@ public class GroupDAO implements IGroupDAO {
         guy2.setUsername("edmundo");
         people.add(guy2);*/
 
-        //LOGGER.error(subject.getName() + "\n" + "\n");
+        // LOGGER.error(subject.getName() + "\n" + "\n");
         System.out.println("======================================== " + subject.getSubjectID().toString());
         //em.merge(subject);
         em.persist(new Group(people, subject));
