@@ -148,19 +148,19 @@
             </p:dialog>
 
             <!-- Dialog used to confirm deleting person -->
-            <p:dialog widgetVar="deleteDialog" header="Confirm delete" modal="true">
+            <p:confirmDialog widgetVar="deleteDialog" header="Confirm delete" modal="true">
                 <p:outputPanel id="deleteDialogContent">
                     <p>
                         <h:outputText value="Are you sure you want to delete person
                                 #{deletePerson.indeks} #{deletePerson.firstName} #{deletePerson.lastName}?"/>
                     </p>
                     <p>
-                        <p:commandButton value="Delete" action="delete-accept"
+                        <p:commandButton id="confirm" value="Delete" action="delete-accept"
                                          update=":mainForm:peopleTable" oncomplete="deleteDialog.hide()"/>
-                        <p:commandButton value="Cancel" action="delete-cancel" oncomplete="deleteDialog.hide()"/>
+                        <p:commandButton id="decline" value="Cancel" action="delete-cancel" oncomplete="deleteDialog.hide()"/>
                     </p>
                 </p:outputPanel>
-            </p:dialog>
+            </p:confirmDialog>
         </h:form>
     </ui:define>
 
