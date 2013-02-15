@@ -11,12 +11,16 @@
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
     <view-state id="subject-management">
+        <var name="selectedTeacher" class="pl.agh.enrollme.model.Teacher"/>
+
         <on-render>
             <!--<evaluate expression="enrollmentDAO.getByPK(currentEnrollment.enrollID)" result="currentEnrollment"/>-->
             <evaluate expression="subjectDAO.getSubjectsByEnrollment(currentEnrollment)" result="viewScope.subjectList"/>
+            <evaluate expression="teacherDAO.getList()" result="viewScope.teacherList"/>
         </on-render>
         <transition on="add">
             <set name="newSubject.enroll" value="currentEnrollment"/>
+            <set name="newSubject.teacher" value="selectedTeacher"/>
             <!--<evaluate expression="subjectDAO.add(newSubject)"/>-->
             <evaluate expression="currentEnrollment.addSubject(newSubject)"/>
             <evaluate expression="enrollmentDAO.update(currentEnrollment)"/>

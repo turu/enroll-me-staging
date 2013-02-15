@@ -10,7 +10,6 @@
 
     <view-state id="list">
         <on-render>
-            <!--<evaluate expression="enrollmentDAO.testByID(178)"/>-->
             <evaluate expression="enrollmentDAO.getList()" result="viewScope.enrollmentList"/>
         </on-render>
         <transition on="new" to="add"/>

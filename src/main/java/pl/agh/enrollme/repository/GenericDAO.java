@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class GenericDAO<T> implements IGenericDAO<T> {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Autowired

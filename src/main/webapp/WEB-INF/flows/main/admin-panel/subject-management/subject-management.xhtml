@@ -33,8 +33,12 @@
                 <p:column>
                     <p:inputText value="#{newSubject.teamsCapacity}"/>
                 </p:column>
-                <p:column>
-                    TEACHER GOES HERE! (but later...)
+                    <p:selectOneMenu value="#{selectedTeacher}" >
+                    <f:selectItems value="#{teacherList}"
+                                   var="teacher"
+                                   itemLabel="#{teacher.firstName}+#{teacher.lastName}"
+                                   itemValue="#{teacher}" />
+                    </p:selectOneMenu>
                 </p:column>
                 <p:column>
                     <p:inputText value="#{newSubject.room}"/>

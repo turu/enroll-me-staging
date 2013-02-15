@@ -23,10 +23,10 @@ public class Enroll implements Serializable {
     private String name;
     private EnrollmentMode enrollmentMode;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private EnrollConfiguration enrollConfiguration;
 
-    @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Subject> subjects = new ArrayList<>();
 
     public EnrollConfiguration getEnrollConfiguration() {
