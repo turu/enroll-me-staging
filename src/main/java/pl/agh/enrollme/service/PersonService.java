@@ -1,7 +1,14 @@
 package pl.agh.enrollme.service;
 
+import org.primefaces.event.RowEditEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.model.Person;
+import pl.agh.enrollme.repository.IPersonDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +16,13 @@ import java.util.List;
 @Service
 public class PersonService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonService.class);
+
+    @Autowired
+    private IPersonDAO personDAO;
+
 	private static List<Person> cache = new ArrayList<Person>();
-	
+
 	static {
 //		cache.add(new Person(0, "Jamie", "Carr"));
 //		cache.add(new Person(1, "Jean", "Cobbs"));
@@ -36,5 +48,21 @@ public class PersonService {
 		}
 		return results;
 	}
+
+    public void onEdit(RowEditEvent event) {
+        LOGGER.debug("Row edited");
+        Person editedPerson = (Person)event.getObject();
+
+        if (editedPerson != null) {
+            LOGGER.debug("Updating person with id " + editedPerson.getId());
+            personDAO.updatePerson(editedPerson);
+        }
+    }
+
+    public void setEncodedPassword(Person person, String password) {
+        PasswordEncoder encoder = new Md5PasswordEncoder();
+        String encodedPassword = encoder.encodePassword(password, null);
+        person.setPassword(encodedPassword);
+    }
 	
 }
