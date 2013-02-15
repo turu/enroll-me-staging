@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Michal Partyka
  */
-public interface ITeacherDAO {
+public interface ITeacherDAO extends IGenericDAO {
     void update(Teacher teacher);
     void add(Teacher teacher);
     List<Teacher> getList();
