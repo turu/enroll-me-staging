@@ -26,12 +26,12 @@
 
         <transition on="reset-password">
             <set name="newPassword" value="new java.lang.String()"/>
-            <set name="viewScope.passwordResetPerson" value="personDAO.getByPK(requestParameters.id)"/>
+            <set name="viewScope.passwordResetPerson" value="personDAO.getByPK(Integer.valueOf(requestParameters.id))"/>
         </transition>
 
         <transition on="reset-password-accept">
             <evaluate expression="personService.setEncodedPassword(viewScope.passwordResetPerson, newPassword)"/>
-            <evaluate expression="personDAO.update(viewScope.passwordResetPerson)"/>
+            <evaluate expression="personDAO.update(Integer.valueOf(viewScope.passwordResetPerson))"/>
             <set name="viewScope.passwordResetPerson" value="null"/>
         </transition>
 
