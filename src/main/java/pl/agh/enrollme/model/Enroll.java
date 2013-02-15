@@ -28,6 +28,9 @@ public class Enroll implements Serializable {
     @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Subject> subjects;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Person> persons;
+
     public EnrollConfiguration getEnrollConfiguration() {
         return enrollConfiguration;
     }
@@ -58,6 +61,14 @@ public class Enroll implements Serializable {
 
     public void setEnrollID(Integer enrollID) {
         this.enrollID = enrollID;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 
     public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {

@@ -13,6 +13,19 @@
 
 <ui:define name="content">
     <h:form>
+        <p:dataTable value="#{personEnrollPermissionService.selectableModel}" var="person"
+                     selection="#{personEnrollPermissionService.peopleAllowedToEnroll}">
+            <p:column selectionMode="multiple"/>
+            <p:column headerText="Indeks">
+                <h:outputText value="#{person.indeks}"/>
+            </p:column>
+            <p:column headerText="First name">
+                <h:outputText value="#{person.firstName}"/>
+            </p:column>
+            <p:column headerText="Last name">
+                <h:outputText value="#{person.lastName}"/>
+            </p:column>
+        </p:dataTable>
         <p:commandButton value="Submit" action="submitAndNext" ajax="false"/>
         <p:commandButton value="End" action="skip" ajax="false"/>
     </h:form>
