@@ -28,14 +28,14 @@ public class EnrollUserDetailsService implements UserDetailsService {
         final Person person = personDAO.findByUsername(username);
 
         if (person == null) {
-            LOGGER.info("User " + username + " could not be found in a data source.");
+            LOGGER.warn("User " + username + " could not be found in a data source.");
             throw new UsernameNotFoundException("User " + username + " could not be found in a data source.");
         }
 
         UserDetails userDetails = (UserDetails) person;
 
         if (userDetails.getAuthorities().isEmpty()) {
-            LOGGER.info("User " + username + " has no granted authority.");
+            LOGGER.warn("User " + username + " has no granted authority.");
             throw new UsernameNotFoundException("User " + username + " has no granted authority.");
         }
 
