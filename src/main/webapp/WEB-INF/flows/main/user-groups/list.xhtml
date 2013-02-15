@@ -26,7 +26,7 @@
             <p:column headerText="ID" style="width:30%    ">
                 <h:outputFormat value="#{subject.subjectID}"/>
             </p:column>
-           <!--
+
             <p:column headerText="Name" style="width:30%    ">
                 <h:outputFormat value="#{subject.name}"/>
             </p:column>
@@ -42,7 +42,7 @@
                                    itemLabel="# {group.id} {group.subject.subjectID}"
                                    itemValue="# {group}"/>
 
-                    # {subject.teamsCapacity == group.persons.size() ? '(full)' : group.persons.size()}
+                    <!-- # {subject.teamsCapacity == group.persons.size() ? '(full)' : group.persons.size()} -->
 
                 </p:selectOneListbox>
             </p:column>
@@ -60,7 +60,7 @@
                     <f:setPropertyActionListener value="# {enrollment}" target="# {currentEnrollment}"/>
                 </p:commandButton>
             </p:column>
-            -->
+
         </p:dataTable>
 
     </h:form>
