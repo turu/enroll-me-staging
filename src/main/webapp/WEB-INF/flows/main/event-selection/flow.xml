@@ -10,6 +10,7 @@
 
     <view-state id="view">
         <on-render>
+            <!--TODO: later getListByPerson!!!!! - after Rafał make people-management view-->
             <evaluate expression="enrollmentDAO.getList()" result="viewScope.enrollmentList"/>
         </on-render>
         <transition on="eventChosen" to="activeChosen"/>
