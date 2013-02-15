@@ -16,11 +16,15 @@ public class TeacherConverter implements Converter {
     ITeacherDAO teacherDAO;
 
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        System.out.println("[partyks DEBUG] Get for parsing:" + value);
         Integer ID = Integer.parseInt(value);
+        System.out.println("[partyks DEBUG] after parsing:" + ID);
+
         return teacherDAO.getByPK(ID);
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
+        System.out.println("[partyks DEBUG] returned as: " + ((Teacher) value).getTeacherID().toString());
         return ((Teacher) value).getTeacherID().toString();
 	}
 
