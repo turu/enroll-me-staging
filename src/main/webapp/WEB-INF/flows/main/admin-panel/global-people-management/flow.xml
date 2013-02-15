@@ -31,7 +31,7 @@
 
         <transition on="reset-password-accept">
             <evaluate expression="personService.setEncodedPassword(viewScope.passwordResetPerson, newPassword)"/>
-            <evaluate expression="personDAO.update(Integer.valueOf(viewScope.passwordResetPerson))"/>
+            <evaluate expression="personDAO.update(viewScope.passwordResetPerson)"/>
             <set name="viewScope.passwordResetPerson" value="null"/>
         </transition>
 
@@ -41,7 +41,7 @@
 
         <!-- Deleting people -->
         <transition on="delete">
-            <set name="viewScope.deletePerson" value="personDAO.getByPK(requestParameters.id)"/>
+            <set name="viewScope.deletePerson" value="personDAO.getByPK(Integer.valueOf(requestParameters.id))"/>
         </transition>
 
         <transition on="delete-accept">
