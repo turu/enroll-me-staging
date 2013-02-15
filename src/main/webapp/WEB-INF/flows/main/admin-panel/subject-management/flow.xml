@@ -10,11 +10,6 @@
 
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
-    <on-start>
-        <evaluate expression="Hibernate.initiliaze(currentEnrollment.subjects)"/>
-    </on-start>
-
-
     <view-state id="subject-management">
         <on-render>
             <evaluate expression="enrollmentDAO.getByPK(currentEnrollment.enrollID)" result="currentEnrollment"/>
