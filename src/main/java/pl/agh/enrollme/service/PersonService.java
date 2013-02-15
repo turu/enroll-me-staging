@@ -55,7 +55,7 @@ public class PersonService {
 
         if (editedPerson != null) {
             LOGGER.debug("Updating person with id " + editedPerson.getId());
-            personDAO.updatePerson(editedPerson);
+            personDAO.update(editedPerson);
         }
     }
 

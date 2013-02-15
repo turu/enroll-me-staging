@@ -13,11 +13,12 @@
         <var name="newPassword" class="java.lang.String"/>
 
         <on-render>
-            <evaluate expression="personDAO.listPeople()" result="viewScope.peopleList"/>
+            <evaluate expression="personDAO.getList()" result="viewScope.peopleList"/>
         </on-render>
 
         <transition on="add">
-            <evaluate expression="personDAO.addPerson(newPerson)"/>
+            <evaluate expression="personService.setEncodedPassword(newPerson, newPerson.password)"/>
+            <evaluate expression="personDAO.add(newPerson)"/>
             <set name="newPerson" value="new pl.agh.enrollme.model.Person()"/>
         </transition>
 
@@ -25,12 +26,12 @@
 
         <transition on="reset-password">
             <set name="newPassword" value="new java.lang.String()"/>
-            <set name="viewScope.passwordResetPerson" value="personDAO.getPerson(requestParameters.id)"/>
+            <set name="viewScope.passwordResetPerson" value="personDAO.getByPK(requestParameters.id)"/>
         </transition>
 
         <transition on="reset-password-accept">
             <evaluate expression="personService.setEncodedPassword(viewScope.passwordResetPerson, newPassword)"/>
-            <evaluate expression="personDAO.updatePerson(viewScope.passwordResetPerson)"/>
+            <evaluate expression="personDAO.update(viewScope.passwordResetPerson)"/>
             <set name="viewScope.passwordResetPerson" value="null"/>
         </transition>
 
@@ -40,11 +41,11 @@
 
         <!-- Deleting people -->
         <transition on="delete">
-            <set name="viewScope.deletePerson" value="personDAO.getPerson(requestParameters.id)"/>
+            <set name="viewScope.deletePerson" value="personDAO.getByPK(requestParameters.id)"/>
         </transition>
 
         <transition on="delete-accept">
-            <evaluate expression="personDAO.removePerson(viewScope.deletePerson.id)"/>
+            <evaluate expression="personDAO.removeByPK(viewScope.deletePerson.id)"/>
             <set name="viewScope.deletePerson" value="null"/>
         </transition>
 

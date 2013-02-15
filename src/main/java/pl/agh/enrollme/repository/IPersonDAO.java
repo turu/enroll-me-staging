@@ -7,6 +7,7 @@ import java.util.List;
 public interface IPersonDAO {
 
     void add(Person person);
+    void update(Person person);
     void removeByPK(Object id);
     Person getByPK(Object id);
     List<Person> getList();
