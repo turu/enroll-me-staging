@@ -118,7 +118,7 @@
 
                 <p:column>
                     <p:rowEditor/>
-                    <p:commandLink value="Delete" action="delete" update=":#{p:component('deleteDialogContent')}"
+                    <p:commandLink value="Delete" action="delete" update=":#{p:component('deleteDialog')}"
                                    oncomplete="deleteDialog.show()">
                         <f:setPropertyActionListener target="#{deletePerson}" value="#{person}"/>
                     </p:commandLink>
@@ -148,18 +148,12 @@
             </p:dialog>
 
             <!-- Dialog used to confirm deleting person -->
-            <p:confirmDialog widgetVar="deleteDialog" header="Confirm delete" modal="true">
-                <p:outputPanel id="deleteDialogContent">
-                    <p>
-                        <h:outputText value="Are you sure you want to delete person
-                                #{deletePerson.indeks} #{deletePerson.firstName} #{deletePerson.lastName}?"/>
-                    </p>
-                    <p>
+            <p:confirmDialog id="deleteDialog" widgetVar="deleteDialog" header="Confirm delete" modal="true"
+                             message="Are you sure you want to delete person
+                                #{deletePerson.indeks} #{deletePerson.firstName} #{deletePerson.lastName}?">
                         <p:commandButton id="confirm" value="Delete" action="delete-accept"
                                          update=":mainForm:peopleTable" oncomplete="deleteDialog.hide()"/>
                         <p:commandButton id="decline" value="Cancel" action="delete-cancel" oncomplete="deleteDialog.hide()"/>
-                    </p>
-                </p:outputPanel>
             </p:confirmDialog>
         </h:form>
     </ui:define>
