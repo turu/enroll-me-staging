@@ -13,6 +13,8 @@
 
 <ui:define name="content">
     <h:form id="subjectManagement">
+        <p:messages id="messages"/>
+
         <p:panelGrid id="addSubject">
             <f:facet name="header">
                 <p:row>
@@ -49,8 +51,8 @@
             <f:facet name="footer">
                 <p:row>
                     <p:column colspan="5">
-                        <p:commandButton action="add" value="Add"
-                                     update=":subjectManagement:addSubject :subjectManagement:subjects" />
+                        <p:commandButton action="add" value="Add" update=":subjectManagement:addSubject
+                        :subjectManagement:subjects :subjectManagement:messages" />
                     </p:column>
                 </p:row>
             </f:facet>
