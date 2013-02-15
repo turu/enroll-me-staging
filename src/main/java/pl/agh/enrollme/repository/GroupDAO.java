@@ -46,7 +46,7 @@ public class GroupDAO implements IGroupDAO {
         // LOGGER.error(subject.getName() + "\n" + "\n");
         System.out.println("======================================== " + subject.getSubjectID().toString());
         //em.merge(subject);
-        em.persist(new Group(people, subject));
+        em.merge(new Group(people, subject));
     }
 
     @Override
