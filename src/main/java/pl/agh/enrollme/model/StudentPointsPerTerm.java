@@ -28,6 +28,8 @@ public class StudentPointsPerTerm implements Serializable {
     @Column(nullable = true)
     private String reason;
 
+    private Boolean assigned;   //if true, person has been assigned given term
+
     public StudentPointsPerTerm() {
     }
 

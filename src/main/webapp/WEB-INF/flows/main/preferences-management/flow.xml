@@ -7,7 +7,6 @@
 
     <var name="scheduleController" class="pl.agh.enrollme.controller.preferencesmanagement.ScheduleController" />
     <var name="ringController" class="pl.agh.enrollme.controller.preferencesmanagement.RingController"/>
-    <var name="progressBean" class="pl.agh.enrollme.controller.preferencesmanagement.ProgressBean"/>
 
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
     
