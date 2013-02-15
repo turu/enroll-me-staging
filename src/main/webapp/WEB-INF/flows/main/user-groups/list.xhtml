@@ -15,11 +15,11 @@
 
 <ui:define name="content">
     <h:form>
-        <!-- <h:outputLabel value="#{currentEnrollmentID ? -3456 : currentEnrollmentID}"/> -->
+        <!-- <h:outputLabel value="# {currentEnrollmentID ? -3456 : currentEnrollmentID}"/> -->
         <p:dataTable id="subjects" var="subject" value="${subjectsWithGroupsList}" style="text-align:center;width:40%">
 
             <p:column headerText="Enrollment ID" style="width:30%    ">
-
+                <h:outputLabel value="#{currentEnrollmentID}"/>
             </p:column>
 
             <p:column headerText="ID" style="width:30%    ">
