@@ -7,6 +7,10 @@
 
     <var name="chosenEnrollment" class="pl.agh.enrollme.model.Enroll" />
 
+    <on-start>
+        <evaluate expression="enrollmentDAO.testByID(178)"/>
+    </on-start>
+
     <view-state id="list">
         <on-render>
             <evaluate expression="enrollmentDAO.getList()" result="viewScope.enrollmentList"/>
