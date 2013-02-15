@@ -1,5 +1,6 @@
 package pl.agh.enrollme.repository;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import pl.agh.enrollme.model.Enroll;
 
@@ -13,6 +14,12 @@ public class EnrollmentDAO extends GenericDAO<Enroll> implements IEnrollmentDAO 
         super(Enroll.class);
     }
 
+    public Enroll getByPK(Object PK) {
+        Enroll enrollment = super.getByPK(PK);
+        Hibernate.initialize(enrollment.getSubjects());
+        return enrollment;
+    }
+    
     //Onlyfor debug TODO: remove later
     public void testByID(Integer id) {
         Enroll enroll = getEntityManager().find(Enroll.class, id);
