@@ -121,4 +121,20 @@ public class Term implements Serializable {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Boolean getCertain() {
+        return certain;
+    }
+
+    public void setCertain(Boolean certain) {
+        this.certain = certain;
+    }
 }
