@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @author Michal Partyka
  */
 @Entity
+@Table(name = "enrollconf1_")
 public class EnrollConfiguration implements Serializable {
 
     @Transient

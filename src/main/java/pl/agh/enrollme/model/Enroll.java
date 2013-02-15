@@ -17,7 +17,7 @@ public class Enroll implements Serializable {
 
     @Id
     @GeneratedValue
-    private Integer EnrollID;
+    private Integer enrollID;
 
     private String name;
     private EnrollmentMode enrollmentMode;
@@ -36,7 +36,7 @@ public class Enroll implements Serializable {
         this.enrollmentMode = enrollmentMode;
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
-        EnrollID = 0;
+        enrollID = 0;
         this.name = name;
     }
 
@@ -57,7 +57,7 @@ public class Enroll implements Serializable {
     }
 
     public void setEnrollID(Integer enrollID) {
-        EnrollID = enrollID;
+        this.enrollID = enrollID;
     }
 
     public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {
@@ -65,7 +65,7 @@ public class Enroll implements Serializable {
     }
 
     public Enroll() {
-        EnrollID = 0;
+        enrollID = 0;
         name = "";
     }
 
@@ -75,7 +75,7 @@ public class Enroll implements Serializable {
 
     public Integer getEnrollID() {
 
-        return EnrollID;
+        return enrollID;
     }
 
     public String getName() {

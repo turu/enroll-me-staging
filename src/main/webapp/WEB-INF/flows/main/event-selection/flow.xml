@@ -10,9 +10,10 @@
 
     <view-state id="view">
         <on-render>
-            <evaluate expression="enrollmentService.getEnrollmentList()" result="viewScope.enrollmentList"/>
+            <evaluate expression="enrollmentService.getEnrollments()" result="viewScope.enrollmentList"/>
         </on-render>
         <transition on="eventChosen" to="activeChosen"/>
+        <transition on="groups" to="groupsManagementRequested"/>
      </view-state>
 
     <end-state id="activeChosen">

@@ -7,6 +7,7 @@ import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.repository.IEnrollmentDAO;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Michal Partyka
@@ -18,6 +19,11 @@ public class EnrollmentService implements Serializable, IEnrollmentService {
     private IEnrollmentDAO enrollmentDAO;
 
 private static final long serialVersionUID = -5771235478609230476L;
+
+    @Override
+    public List<Enroll> getEnrollments() {
+        return enrollmentDAO.getList();
+    }
 
     @Override
     public void onEdit(RowEditEvent event) {

@@ -19,7 +19,7 @@ public class Subject implements Serializable {
 
     @Id
     @GeneratedValue
-    private Integer SubjectID;
+    private Integer subjectID;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Enroll enroll;
@@ -65,7 +65,7 @@ public class Subject implements Serializable {
     }
 
     public void setSubjectID(Integer subjectID) {
-        SubjectID = subjectID;
+        this.subjectID = subjectID;
     }
 
     public void setName(String name) {
@@ -150,6 +150,6 @@ public class Subject implements Serializable {
     }
 
     public Integer getSubjectID() {
-        return SubjectID;
+        return subjectID;
     }
 }
