@@ -7,11 +7,11 @@
     <secured attributes="ROLE_ADMIN" match="any"/>
 
     <var name="newSubject" class="pl.agh.enrollme.model.Subject"/>
+    <var name="selectedTeacher" class="pl.agh.enrollme.model.Teacher"/>
 
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
     <view-state id="subject-management">
-        <var name="selectedTeacher" class="pl.agh.enrollme.model.Teacher"/>
 
         <on-render>
             <!--<evaluate expression="enrollmentDAO.getByPK(currentEnrollment.enrollID)" result="currentEnrollment"/>-->
