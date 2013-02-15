@@ -9,7 +9,11 @@ import pl.agh.enrollme.model.Subject;
  * @author Michal Partyka
  */
 @Repository
-public class SubjectDAO implements ISubjectDAO {
+public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
+
+    public SubjectDAO() {
+        super(Subject.class);
+    }
 
     @Override
     public void fillCurrentUserSubjectList(Subject[] subjects) {

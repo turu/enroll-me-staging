@@ -1,7 +1,5 @@
 package pl.agh.enrollme.model;
 
-import com.sun.faces.spi.SerializationProvider;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,20 +17,32 @@ public class Teacher implements Serializable {
 
     @Id
     @GeneratedValue
-    private Integer TeacherID;
+    private Integer TeacherID=0;
 
     private String degree;
-    private String firstname;
-    private String secondname;
+    private String firstName;
+    private String secondName;
     private String room;
+
+    //For a while:
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "TeacherID=" + TeacherID +
+                ", degree='" + degree + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", room='" + room + '\'' +
+                '}';
+    }
 
     public Teacher() {
     }
 
-    public Teacher(String degree, String firstname, String secondname, String room) {
+    public Teacher(String degree, String firstName, String secondName, String room) {
         this.degree = degree;
-        this.firstname = firstname;
-        this.secondname = secondname;
+        this.firstName = firstName;
+        this.secondName = secondName;
         this.room = room;
     }
 
@@ -44,12 +54,12 @@ public class Teacher implements Serializable {
         this.degree = degree;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstname) {
+        this.firstName = firstname;
     }
 
-    public void setSecondname(String secondname) {
-        this.secondname = secondname;
+    public void setSecondName(String secondname) {
+        this.secondName = secondname;
     }
 
     public void setRoom(String room) {
@@ -64,12 +74,12 @@ public class Teacher implements Serializable {
         return degree;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getSecondname() {
-        return secondname;
+    public String getSecondName() {
+        return secondName;
     }
 
     public String getRoom() {

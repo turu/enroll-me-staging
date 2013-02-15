@@ -17,12 +17,11 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form class="span-10">
+        <h:form id="mainForm" class="span-10">
             <p:dataTable id="enrollments" value="${enrollmentList}" var="enrollment"
-                         emptyMessage="No enrollments in database" editable="true">
+                         emptyMessage="No enrollments in database" editable="true" sortBy="#{enrollment.name}">
 
-                <p:ajax event="rowEdit" listener="#{enrollmentService.onEdit}"/>
-
+                <p:ajax event="rowEdit" listener="#{enrollmentService.onEdit}" update="enrollments"/>
 
                 <p:column headerText="Name" style="width:50%" filterBy="#{enrollment.name}"
                           filterMatchMode="startsWith">
@@ -45,8 +44,8 @@
                 <!--TODO: any ideas how to make it with ajax? ~partyks-->
 
                 <p:column headerText="Delete" style="width:10%">
-                    <p:commandButton id="Delete" icon="ui-icon-close" action="delete" ajax="false">
-                        <f:param value="#{enrollment.enrollID}" name="id"/>
+                    <p:commandButton id="Delete" icon="ui-icon-close" action="delete" update=":mainForm:enrollments">
+                        <f:setPropertyActionListener value="#{enrollment}" target="#{chosenEnrollment}"/>
                     </p:commandButton>
                 </p:column>
                 <p:column headerText="Mode">
@@ -72,8 +71,9 @@
 
         <h:form class="span-10">
             <p>
-                <h:commandButton value="New" action="new"/>
+                <p:commandButton value="New" action="new"/>
                 <h:commandButton value="Exit" action="exit" />
+                <h:commandButton value="Teachers" action="teachers"/>
             </p>
 
         </h:form>

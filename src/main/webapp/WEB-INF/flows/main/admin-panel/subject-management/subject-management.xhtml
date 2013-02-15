@@ -12,6 +12,44 @@
 </ui:define>
 
 <ui:define name="content">
+    <h:form id="subjectManagement">
+        <p:panelGrid id="addSubject">
+            <f:facet name="header">
+                <p:row>
+                    <p:column colspan="5">Add new subject</p:column>
+                </p:row>
+                <p:row>
+                    <p:column>Name</p:column>
+                    <p:column>Teams capacity</p:column>
+                    <p:column>Teacher</p:column>
+                    <p:column>Room</p:column>
+                </p:row>
+            </f:facet>
+
+            <p:row>
+                <p:column>
+                    <p:inputText value="#{newSubject.name}"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{newSubject.teamsCapacity}"/>
+                </p:column>
+                <p:column>
+                    <!--TODO: ONE SELECT MENU - TEACHER-->
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{newSubject.room}"/>
+                </p:column>
+            </p:row>
+
+            <f:facet name="footer">
+                <p:row>
+                    <p:commandButton action="add" value="Add"
+                                     update=":mainForm:peopleTable :mainForm:addPanel :mainForm:messages"/>
+                </p:row>
+            </f:facet>
+        </p:panelGrid>
+    </h:form>
+
     <h:form>
         <p:commandButton value="Submit" action="submitAndNext" ajax="false"/>
         <p:commandButton value="End" action="skip" ajax="false"/>
