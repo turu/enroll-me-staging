@@ -13,7 +13,6 @@ import pl.agh.enrollme.repository.IStudentPointsPerTermDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 
-import javax.xml.ws.WebServiceContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +34,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     private ITermDAO termDAO;
 
     @Autowired
-    private IStudentPointsPerTermDAO pointsDao;
+    private IStudentPointsPerTermDAO pointsDAO;
 
     @Override
-    public PreferencesManagementController createPreferencesManagementController(Enroll currentEnroll) {
+    public PreferencesManagementController createPreferencesManagementController(Enroll enroll) {
         final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         UserDetails userDetails = null;
@@ -53,8 +52,11 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         final Person person = personDAO.findByUsername(userDetails.getUsername());
         LOGGER.debug(person + " person retrieved from database");
 
-        final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(currentEnroll);
-        LOGGER.debug("Subjects of " + currentEnroll + " enrollment retrieved: " + subjectsByEnrollment);
+        //Enroll configuration of the current enroll
+        final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
+
+        final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(enroll);
+        LOGGER.debug("Subjects of " + enroll + " enrollment retrieved: " + subjectsByEnrollment);
 
         final List<Subject> personSubjects = person.getSubjects();
         LOGGER.debug("Subjects of " + person + " person retrieved: " + personSubjects);
@@ -81,11 +83,14 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         final List<StudentPointsPerTerm> points = new ArrayList<>();
 
         for (Term t : terms) {
-            points.add(pointsDao.getByPersonAndTerm(person, t));
+            points.add(pointsDAO.getByPersonAndTerm(person, t));
         }
         LOGGER.debug("Current preferences retrieved: " + points);
 
         //TODO: Create the controller and pass all the above data to it.
+
+        final PreferencesManagementController preferencesController =
+                new PreferencesManagementController(enroll, enrollConfiguration, subjects, terms);
 
         return null;
 
