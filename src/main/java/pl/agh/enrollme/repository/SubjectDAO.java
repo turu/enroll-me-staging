@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Enroll;
+import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.model.Teacher;
 import pl.agh.enrollme.utils.DayOfWeek;
@@ -40,6 +41,8 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         //TODO: fill the subjects into databse under currentUser. (for subjects, user.addSubject())...
         LOGGER.debug(((UserDetails) SecurityContextHolder.getContext().getAuthentication().
                 getPrincipal()).getUsername());
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person = (Person) userDetails;
     }
 
     @Override
