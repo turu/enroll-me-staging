@@ -66,5 +66,13 @@ public class PersonService {
         String encodedPassword = encoder.encodePassword(password, null);
         person.setPassword(encodedPassword);
     }
+
+    public void setBooleans(Person person, Boolean enabled, Boolean credentialsNonExpired, Boolean accountNonExpired,
+                            Boolean accountNonLocked) {
+        person.setEnabled(enabled);
+        person.setAccountNonExpired(accountNonExpired);
+        person.setAccountNonLocked(accountNonLocked);
+        person.setCredentialsNonExpired(credentialsNonExpired);
+    }
 	
 }
