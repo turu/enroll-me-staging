@@ -126,13 +126,19 @@ public class ProgressRingController implements Serializable {
                 value = 0;
             }
 
-            if (value >= enrollConfiguration.getPointsPerSubject()) {
-                extraPointsUsed += p.getPoints();
-            } else if (value + p.getPoints() > enrollConfiguration.getPointsPerSubject()) {
-                extraPointsUsed += p.getPoints() - (enrollConfiguration.getPointsPerSubject() - value);
+            int assignedPoints = p.getPoints();
+            //we treat impossibility as a zero-point term
+            if (assignedPoints == -1) {
+                assignedPoints = 0;
             }
 
-            pointsMap.put(subject.getSubjectID(), value + p.getPoints());
+            if (value >= enrollConfiguration.getPointsPerSubject()) {
+                extraPointsUsed += assignedPoints;
+            } else if (value + assignedPoints > enrollConfiguration.getPointsPerSubject()) {
+                extraPointsUsed += assignedPoints - (enrollConfiguration.getPointsPerSubject() - value);
+            }
+
+            pointsMap.put(subject.getSubjectID(), value + assignedPoints);
         }
 
     }
