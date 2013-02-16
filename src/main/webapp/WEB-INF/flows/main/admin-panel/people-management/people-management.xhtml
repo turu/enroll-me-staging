@@ -61,21 +61,104 @@
     </h:form>
 
     <h:form id="mainForm">
-        <p:dataTable value="#{personEnrollPermissionService.selectableModel}" var="person"
-                     selection="#{personEnrollPermissionService.peopleAllowedToEnroll}" id="peopleTable">
-            <p:column selectionMode="multiple"/>
-            <p:column headerText="Indeks">
-                <h:outputText value="#{person.indeks}"/>
+        <p:dataTable value="#{personEnrollPermissionService.selectableModel}" var="person" editable="true"
+                     selection="#{personEnrollPermissionService.peopleAllowedToEnroll}" id="peopleTable"
+                     emptyMessage="No people to show">
+            <p:ajax event="rowEdit" listener="#{personService.onEdit}"/>
+
+            <!-- Checkboxes to select people -->
+            <p:column selectionMode="multiple" style="width: 2%;"/>
+
+            <p:column headerText="Indeks" style="width:15%; text-align:center;"
+                      sortBy="#{person.indeks}" filterBy="#{person.indeks}" filterMatchMode="startsWith">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{person.indeks}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{person.indeks}" style="width:100%"/>
+                    </f:facet>
+                </p:cellEditor>
             </p:column>
-            <p:column headerText="First name">
-                <h:outputText value="#{person.firstName}"/>
+            <p:column headerText="First name" sortBy="#{person.firstName}" filterBy="#{person.firstName}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{person.firstName}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{person.firstName}" style="width:100%"/>
+                    </f:facet>
+                </p:cellEditor>
             </p:column>
-            <p:column headerText="Last name">
-                <h:outputText value="#{person.lastName}"/>
+            <p:column headerText="Last name" sortBy="#{person.lastName}" filterBy="#{person.lastName}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{person.lastName}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{person.lastName}" style="width:100%"/>
+                    </f:facet>
+                </p:cellEditor>
             </p:column>
+            <p:column headerText="Username" sortBy="#{person.username}" filterBy="#{person.username}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{person.username}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{person.username}" style="width:100%"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Password" style="text-align:center;">
+                <p:commandLink value="Reset" action="reset-password"
+                               update=":#{p:component('passwordResetContent')}"
+                               oncomplete="passwordResetDialog.show()">
+                    <f:setPropertyActionListener target="#{passwordResetPerson}" value="#{person}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column>
+                <p:rowEditor/>
+                <p:commandLink value="Delete" action="delete" update=":#{p:component('deleteDialog')}"
+                               oncomplete="deleteDialog.show()">
+                    <f:setPropertyActionListener target="#{deletePerson}" value="#{person}"/>
+                </p:commandLink>
+            </p:column>
+
         </p:dataTable>
+
         <p:commandButton value="Submit" action="submitAndNext" ajax="false"/>
         <p:commandButton value="End" action="skip" ajax="false"/>
+
+        <!-- Dialog used to set new password for person -->
+        <p:dialog widgetVar="passwordResetDialog" header="Reset password" modal="true">
+            <p:outputPanel id="passwordResetContent">
+                <p>
+                    <h:outputText value="Reseting password for
+                                #{passwordResetPerson.firstName} #{passwordResetPerson.lastName}"/>
+                </p>
+                <p>
+                    <h:outputText value="New password:" for="passwordResetField"/>
+                    <p:password id="passwordResetField" value="#{newPassword}"/>
+                </p>
+                <p>
+                    <p:commandButton value="Save" action="reset-password-accept"
+                                     oncomplete="passwordResetDialog.hide()"/>
+                    <p:commandButton value="Cancel" action="reset-password-cancel"
+                                     oncomplete="passwordResetDialog.hide()"/>
+                </p>
+            </p:outputPanel>
+        </p:dialog>
+
+        <!-- Dialog used to confirm deleting person -->
+        <p:confirmDialog id="deleteDialog" widgetVar="deleteDialog" header="Confirm delete" modal="true"
+                         message="Are you sure you want to delete person
+                                #{deletePerson.indeks} #{deletePerson.firstName} #{deletePerson.lastName}?">
+            <p:commandButton id="confirm" value="Delete" action="delete-accept"
+                             update=":mainForm:peopleTable" oncomplete="deleteDialog.hide()"/>
+            <p:commandButton id="decline" value="Cancel" action="delete-cancel" oncomplete="deleteDialog.hide()"/>
+        </p:confirmDialog>
     </h:form>
 
 </ui:define>

@@ -68,6 +68,7 @@ public class PersonEnrollPermissionService {
     public void addNewPerson(Person person, Enroll enroll) {
         LOGGER.debug("Adding new person");
         personDAO.add(person);
+        ((List<Person>)selectableModel.getWrappedData()).add(person);
         peopleAllowedToEnroll.add(person);
     }
 
