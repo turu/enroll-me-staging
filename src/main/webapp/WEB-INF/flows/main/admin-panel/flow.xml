@@ -7,13 +7,16 @@
 
     <var name="chosenEnrollment" class="pl.agh.enrollme.model.Enroll" />
 
+
     <view-state id="list">
         <on-render>
             <evaluate expression="enrollmentDAO.getList()" result="viewScope.enrollmentList"/>
         </on-render>
         <transition on="new" to="add"/>
+        <transition on="configure" to="configure">
+            <evaluate expression="enrollmentDAO.getByPK(chosenEnrollment.enrollID)" result="chosenEnrollment"/>
+        </transition>
         <transition on="global-people-management" to="global-people-management"/>
-        <transition on="configure" to="configure"/>
         <transition on="delete">
             <evaluate expression="enrollmentDAO.remove(chosenEnrollment)"/>
         </transition>

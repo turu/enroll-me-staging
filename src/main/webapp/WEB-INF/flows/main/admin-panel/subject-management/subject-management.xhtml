@@ -13,6 +13,8 @@
 
 <ui:define name="content">
     <h:form id="subjectManagement">
+        <p:messages id="messages"/>
+
         <p:panelGrid id="addSubject">
             <f:facet name="header">
                 <p:row>
@@ -34,7 +36,12 @@
                     <p:inputText value="#{newSubject.teamsCapacity}"/>
                 </p:column>
                 <p:column>
-                    TEACHER GOES HERE! (but later...)
+                    <p:selectOneMenu value="#{selectedTeacher}" converter="#{teacherConverter}">
+                        <f:selectItems value="#{teacherList}"
+                                       var="teacher"
+                                       itemLabel="#{teacher.degree} #{teacher.firstName} #{teacher.secondName}"
+                                       itemValue="#{teacher}" />
+                    </p:selectOneMenu>
                 </p:column>
                 <p:column>
                     <p:inputText value="#{newSubject.room}"/>
@@ -43,14 +50,71 @@
 
             <f:facet name="footer">
                 <p:row>
-                    <p:commandButton action="add" value="Add"
-                                     update=":mainForm:peopleTable :mainForm:addPanel :mainForm:messages"/>
+                    <p:column colspan="5">
+                        <p:commandButton action="add" value="Add" update=":subjectManagement:addSubject
+                        :subjectManagement:subjects :subjectManagement:messages"/>
+                    </p:column>
                 </p:row>
             </f:facet>
         </p:panelGrid>
-    </h:form>
 
-    <h:form>
+        <p:dataTable value="${subjectList}" var="subject"  id="subjects"
+                     emptyMessage="No subjects to show" editable="true">
+
+            <p:ajax event="rowEdit" listener="#{subjectService.onEdit}" update="subjects"/>
+
+            <p:column headerText="Name">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{subject.name}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{subject.name}" style="width:95%"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Teams Capacity">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{subject.teamsCapacity}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{subject.teamsCapacity}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Teacher">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{subject.teacher.degree} #{subject.teacher.firstName}
+                        #{subject.teacher.secondName}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu value="#{subject.teacher}" converter="#{teacherConverter}">
+                            <f:selectItems value="#{teacherList}"
+                                           var="teacher"
+                                           itemLabel="#{teacher.degree} #{teacher.firstName} #{teacher.secondName}"
+                                           itemValue="#{teacher}" />
+                        </p:selectOneMenu>
+
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Room">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{subject.room}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{subject.room}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:rowEditor/>
+            </p:column>
+        </p:dataTable>
+        <p:commandButton value="Teachers" action="teachers" ajax="false"/>
         <p:commandButton value="Submit" action="submitAndNext" ajax="false"/>
         <p:commandButton value="End" action="skip" ajax="false"/>
     </h:form>

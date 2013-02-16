@@ -85,4 +85,21 @@ public class Teacher implements Serializable {
     public String getRoom() {
         return room;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Teacher)) return false;
+
+        Teacher teacher = (Teacher) o;
+
+        if (!TeacherID.equals(teacher.TeacherID)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return TeacherID.hashCode();
+    }
 }

@@ -1,6 +1,5 @@
 package pl.agh.enrollme.model;
 
-import org.jboss.netty.example.localtime.LocalTimeProtocol;
 import pl.agh.enrollme.utils.DayOfWeek;
 import pl.agh.enrollme.utils.StupidDate;
 import pl.agh.enrollme.utils.Week;
@@ -19,6 +18,7 @@ public class Term implements Serializable {
     @EmbeddedId
     private TermPK termId;
 
+    //Mapping from EmbeddedID!
     @MapsId("subject")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Subject subject;

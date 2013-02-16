@@ -17,8 +17,5 @@ public interface ISubjectDAO {
     List<Subject> getSubjectsByEnrollment(Enroll enrollment);
 
     @Transactional
-    List<Subject> getSubjectsWithGroups(Enroll enroll);
-
-    @Transactional
-    Subject getSubject(Integer id);
+    void update(Subject update);
 }
