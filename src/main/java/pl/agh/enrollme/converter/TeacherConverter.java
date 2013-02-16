@@ -19,6 +19,9 @@ public class TeacherConverter implements Converter {
         System.out.println("[partyks DEBUG] Get for parsing:" + value);
         Integer ID = Integer.parseInt(value);
         System.out.println("[partyks DEBUG] after parsing:" + ID);
+        if(teacherDAO == null) {
+            throw new UnsupportedOperationException("KUPA");
+        }
         Teacher aaa = teacherDAO.getByPK(117);
 
 //        return teacherDAO.getByPK(ID);
