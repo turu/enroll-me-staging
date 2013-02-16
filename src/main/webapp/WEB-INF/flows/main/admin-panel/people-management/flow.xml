@@ -13,6 +13,10 @@
         <var name="newPerson" class="pl.agh.enrollme.model.Person"/>
         <!-- Stores new password when using "Reset password" feature -->
         <var name="newPassword" class="java.lang.String"/>
+        <!-- Stores person to be deleted -->
+        <var name="deletePerson" class="pl.agh.enrollme.model.Person"/>
+        <!-- Stores person whose password is to be deleted -->
+        <var name="passwordResetPerson" class="pl.agh.enrollme.model.Person"/>
 
         <on-entry>
             <evaluate expression="personEnrollPermissionService.prepareForEnroll(currentEnrollment)"/>
