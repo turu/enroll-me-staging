@@ -19,7 +19,7 @@
             <p:panelGrid id="addPanel">
                 <f:facet name="header">
                     <p:row>
-                        <p:column colspan="10">Add new person</p:column>
+                        <p:column colspan="6">Add new person</p:column>
                     </p:row>
                     <p:row>
                         <p:column>Indeks</p:column>
@@ -28,10 +28,10 @@
                         <p:column>Username</p:column>
                         <p:column>Password</p:column>
                         <p:column>Roles Token</p:column>
-                        <p:column>Enabled</p:column>
+                        <!--<p:column>Enabled</p:column>
                         <p:column>Credentials Non Expired</p:column>
                         <p:column>Account Non Locked</p:column>
-                        <p:column>Account Non Expired</p:column>
+                        <p:column>Account Non Expired</p:column>-->
                     </p:row>
                 </f:facet>
 
@@ -54,7 +54,7 @@
                     <p:column>
                         <p:inputText value="#{newPerson.rolesToken}"/>
                     </p:column>
-                    <p:column>
+                    <!--<p:column>
                         <p:selectBooleanCheckbox value="#{newPerson.enabled}"/>
                     </p:column>
                     <p:column>
@@ -65,12 +65,12 @@
                     </p:column>
                     <p:column>
                         <p:selectBooleanCheckbox value="#{newPerson.accountNonExpired}"/>
-                    </p:column>
+                    </p:column> -->
                 </p:row>
 
                 <f:facet name="footer">
                     <p:row>
-                        <p:column colspan="10" style="text-align:right;">
+                        <p:column colspan="6" style="text-align:right;">
                             <p:commandButton action="add" value="Add" ajax="false"
                                              update=":mainForm:peopleTable :addForm:addPanel :messages"/>
                             <p:commandButton value="Clear" type="reset"/>
@@ -145,7 +145,7 @@
                         </f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="Enabled">
+                <!--<p:column headerText="Enabled">
                     <p:selectBooleanCheckbox value="#{person.enabled}"/>
                 </p:column>
                 <p:column headerText="Credentials Non Expired">
@@ -156,7 +156,7 @@
                 </p:column>
                 <p:column headerText="Account Non Expired">
                     <p:selectBooleanCheckbox value="#{person.accountNonExpired}"/>
-                </p:column>
+                </p:column>-->
 
                 <p:column>
                     <p:rowEditor/>
@@ -167,7 +167,7 @@
                 </p:column>
             </p:dataTable>
 
-            <p:commandButton value="Finished" action="finished" ajax="false"/>
+            <p:commandButton value="Finished" action="finished" ajax="true"/>
 
             <!-- Dialog used to set new password for person -->
             <p:dialog widgetVar="passwordResetDialog" header="Reset password" modal="true">
