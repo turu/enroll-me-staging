@@ -1,5 +1,7 @@
 package pl.agh.enrollme.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +22,7 @@ import java.util.List;
  */
 @Repository
 public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
+    private final static Logger LOGGER = LoggerFactory.getLogger(SubjectDAO.class.getName());
 
     @Autowired
     IEnrollmentDAO enrollmentDAO;
@@ -35,7 +38,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Transactional
     public void fillCurrentUserSubjectList(Subject[] subjects) {
         //TODO: fill the subjects into databse under currentUser. (for subjects, user.addSubject())...
-        System.out.println(( (UserDetails) SecurityContextHolder.getContext().getAuthentication().
+        LOGGER.debug(((UserDetails) SecurityContextHolder.getContext().getAuthentication().
                 getPrincipal()).getUsername());
     }
 
