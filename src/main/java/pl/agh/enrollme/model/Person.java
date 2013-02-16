@@ -255,9 +255,9 @@ public class Person implements Serializable, UserDetails {
                 ", credentialsNonExpired=" + credentialsNonExpired +
                 ", enabled=" + enabled +
                 ", rolesToken='" + rolesToken + '\'' +
-                ", groups=" + groups +
-                ", subjects=" + subjects +
-                ", availableEnrolls=" + availableEnrolls +
+                //", groups=" + groups +
+                //", subjects=" + subjects +
+                //", availableEnrolls=" + availableEnrolls +
                 '}';
     }
 }
