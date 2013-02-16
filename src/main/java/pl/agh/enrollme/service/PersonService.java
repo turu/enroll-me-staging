@@ -61,6 +61,7 @@ public class PersonService {
     }
 
     public void setEncodedPassword(Person person, String password) {
+        LOGGER.debug("Jestem w setencodedpassword");
         PasswordEncoder encoder = new ShaPasswordEncoder(256);
         String encodedPassword = encoder.encodePassword(password, null);
         person.setPassword(encodedPassword);
