@@ -53,7 +53,7 @@ public class PersonEnrollPermissionService {
         /* Getting enroll again from database, so that lazyLoading would fetch persons properly.
          * Correct me if there's nicer way to do this; merging detached object doesn't work. */
         Enroll retrievedEnroll = enrollmentDAO.getByPK(enroll.getEnrollID());
-        peopleAllowedToEnroll.clear();
+        peopleAllowedToEnroll.clear();  /* I think view scoping makes this unnecessary, but I'll keep it just in case */
         peopleAllowedToEnroll.addAll(retrievedEnroll.getPersons());
 
     }
@@ -62,24 +62,32 @@ public class PersonEnrollPermissionService {
      * Stores current selection in database using DAO.
      * @param enroll enroll in which selection should be saved
      */
-    public void saveCurrentSelectionIntoEnroll(Enroll enroll) {
+    public void saveSelection(Enroll enroll) {
         enroll.setPersons(peopleAllowedToEnroll);
         enrollmentDAO.update(enroll);
     }
 
-    public void addNewPerson(Person person, Enroll enroll) {
+    public void addAndSelectPerson(Person person, Enroll enroll) {
         LOGGER.debug("Adding new person");
         personDAO.add(person);
         ((List<Person>)selectableModel.getWrappedData()).add(person);
         peopleAllowedToEnroll.add(person);
     }
 
+    /**
+     * Handles selection in DataTable.
+     * @param event selection event
+     */
     public void onSelect(SelectEvent event) {
         Person person = (Person)event.getObject();
         LOGGER.debug("Selected " + person.getFirstName() + " " + person.getLastName());
         peopleAllowedToEnroll.add(person);
     }
 
+    /**
+     * Handles selection in DataTable.
+     * @param event unselection event
+     */
     public void onUnselect(UnselectEvent event) {
         Person person = (Person)event.getObject();
         LOGGER.debug("Unselected " + person.getFirstName() + " " + person.getLastName());
@@ -93,7 +101,7 @@ public class PersonEnrollPermissionService {
     public void setPeopleAllowedToEnroll(List<Person> peopleAllowedToEnroll) {
         /* Selection is managed by listeners.
          * Provided getter is used to allow table to get list of people it should render as selected,
-         * but getter does nothing as it could break our selection
+         * but getter does nothing as it could break our selection.
          */
     }
 

@@ -20,8 +20,7 @@
 
         <transition on="add">
             <evaluate expression="personService.setEncodedPassword(newPerson, newPerson.password)"/>
-            <evaluate expression="personEnrollPermissionService.addNewPerson(newPerson, currentEnrollment)"/>
-            <!-- Reloads list of people -->
+            <evaluate expression="personEnrollPermissionService.addAndSelectPerson(newPerson, currentEnrollment)"/>
             <set name="newPerson" value="new pl.agh.enrollme.model.Person()"/>
         </transition>
 
@@ -51,7 +50,7 @@
         </transition>
 
         <transition on="submitAndNext" to="peopleAssigned">
-            <evaluate expression="personEnrollPermissionService.saveCurrentSelectionIntoEnroll(currentEnrollment)"/>
+            <evaluate expression="personEnrollPermissionService.saveSelection(currentEnrollment)"/>
         </transition>
         <transition on="skip" to="skipFurtherConfiguration"/>
     </view-state>
