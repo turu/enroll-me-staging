@@ -5,10 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Person;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
@@ -84,6 +81,10 @@ public class GenericDAO<T> implements IGenericDAO<T> {
         if (removeThis != null) {
             em.remove(removeThis);
         }
+    }
+
+    protected EntityManager getEntityManager() {
+        return em;
     }
 
     public Class<T> getType() {

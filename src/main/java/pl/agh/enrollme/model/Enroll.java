@@ -4,6 +4,7 @@ import pl.agh.enrollme.utils.EnrollmentMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +23,11 @@ public class Enroll implements Serializable {
     private String name;
     private EnrollmentMode enrollmentMode;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private EnrollConfiguration enrollConfiguration;
 
-    @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Subject> subjects;
+    @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Subject> subjects = new ArrayList<>();
 
     public EnrollConfiguration getEnrollConfiguration() {
         return enrollConfiguration;
@@ -38,6 +39,10 @@ public class Enroll implements Serializable {
         this.subjects = subjects;
         enrollID = 0;
         this.name = name;
+    }
+
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
     }
 
     public void setEnrollmentMode(EnrollmentMode enrollmentMode) {

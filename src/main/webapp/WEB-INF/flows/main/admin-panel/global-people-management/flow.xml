@@ -12,6 +12,11 @@
         <!-- Stores new password when using "Reset password" feature -->
         <var name="newPassword" class="java.lang.String"/>
 
+        <!-- Stores person to be deleted -->
+        <var name="deletePerson" class="pl.agh.enrollme.model.Person"/>
+        <!-- Stores person whose password is to be deleted -->
+        <var name="passwordResetPerson" class="pl.agh.enrollme.model.Person"/>
+
         <on-render>
             <evaluate expression="personDAO.getList()" result="viewScope.peopleList"/>
         </on-render>
@@ -26,31 +31,25 @@
 
         <transition on="reset-password">
             <set name="newPassword" value="new java.lang.String()"/>
-            <set name="viewScope.passwordResetPerson" value="personDAO.getByPK(requestParameters.id)"/>
         </transition>
 
         <transition on="reset-password-accept">
-            <evaluate expression="personService.setEncodedPassword(viewScope.passwordResetPerson, newPassword)"/>
-            <evaluate expression="personDAO.update(viewScope.passwordResetPerson)"/>
-            <set name="viewScope.passwordResetPerson" value="null"/>
+            <evaluate expression="personService.setEncodedPassword(passwordResetPerson, newPassword)"/>
+            <evaluate expression="personDAO.update(passwordResetPerson)"/>
         </transition>
 
         <transition on="reset-password-cancel">
-            <set name="viewScope.passwordResetPerson" value="null"/>
         </transition>
 
         <!-- Deleting people -->
         <transition on="delete">
-            <set name="viewScope.deletePerson" value="personDAO.getByPK(requestParameters.id)"/>
         </transition>
 
         <transition on="delete-accept">
-            <evaluate expression="personDAO.removeByPK(viewScope.deletePerson.id)"/>
-            <set name="viewScope.deletePerson" value="null"/>
+            <evaluate expression="personDAO.remove(deletePerson)"/>
         </transition>
 
         <transition on="delete-cancel">
-            <set name="viewScope.deletePerson" value="null"/>
         </transition>
 
         <transition on="finished" to="finished"/>

@@ -1,12 +1,12 @@
 package pl.agh.enrollme.model;
 
-import org.jboss.netty.example.localtime.LocalTimeProtocol;
 import pl.agh.enrollme.utils.Color;
 import pl.agh.enrollme.utils.DayOfWeek;
 import pl.agh.enrollme.utils.StupidDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,20 +19,20 @@ public class Subject implements Serializable {
 
     @Id
     @GeneratedValue
-    private Integer subjectID;
+    private Integer SubjectID=0;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Enroll enroll;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Person> persons;
+    private List<Person> persons = new ArrayList<>();
 
     private String name;
     private Integer teamsCapacity;
     private String color;
     private String room;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Teacher teacher;
 
     private DayOfWeek dayOfWeek;
@@ -44,6 +44,7 @@ public class Subject implements Serializable {
     private StupidDate timeEnd;
 
     public Subject() {
+        teacher = new Teacher("","","","");
     }
 
     public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, String color, String room,
@@ -65,7 +66,7 @@ public class Subject implements Serializable {
     }
 
     public void setSubjectID(Integer subjectID) {
-        this.subjectID = subjectID;
+        SubjectID = subjectID;
     }
 
     public void setName(String name) {
@@ -150,6 +151,6 @@ public class Subject implements Serializable {
     }
 
     public Integer getSubjectID() {
-        return subjectID;
+        return SubjectID;
     }
 }
