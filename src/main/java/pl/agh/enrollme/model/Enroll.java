@@ -106,7 +106,6 @@ public class Enroll implements Serializable {
                 ", enrollmentMode=" + enrollmentMode +
                 ", enrollConfiguration=" + enrollConfiguration +
                 ", subjects=" + subjects +
-                ", persons=" + persons +
                 '}';
     }
 }
