@@ -19,6 +19,10 @@ public class PreferencesManagementController implements Serializable {
      */
     private ProgressRingController ringController;
 
+    public PreferencesManagementController(ScheduleController scheduleController, ProgressRingController ringController) {
+
+    }
+
     public ScheduleController getScheduleController() {
         return scheduleController;
     }

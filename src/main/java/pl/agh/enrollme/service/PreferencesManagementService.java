@@ -7,6 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController;
+import pl.agh.enrollme.controller.preferencesmanagement.ProgressRingController;
+import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
 import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.IPersonDAO;
 import pl.agh.enrollme.repository.IStudentPointsPerTermDAO;
@@ -87,12 +89,19 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         }
         LOGGER.debug("Current preferences retrieved: " + points);
 
-        //TODO: Create the controller and pass all the above data to it.
+        //creating progress ring controller
+        final ProgressRingController ringController = new ProgressRingController(enrollConfiguration, subjects);
+        LOGGER.debug("ProgressRingController created: " + ringController);
+
+        //creating schedule controller
+        final ScheduleController scheduleController = new ScheduleController(enrollConfiguration, subjects, terms, points);
+        LOGGER.debug("ScheduleController created: " + scheduleController);
 
         final PreferencesManagementController preferencesController =
-                new PreferencesManagementController(enroll, enrollConfiguration, subjects, terms);
+                new PreferencesManagementController(scheduleController, ringController);
+        LOGGER.debug("PreferencesManagementController created: " + preferencesController);
 
-        return null;
+        return preferencesController;
 
     }
 
