@@ -33,11 +33,12 @@ public class StudentPointsPerTerm implements Serializable {
     public StudentPointsPerTerm() {
     }
 
-    public StudentPointsPerTerm(Term term, Person person, Integer points, String reason) {
+    public StudentPointsPerTerm(Term term, Person person, Integer points, String reason, Boolean assigned) {
         this.term = term;
         this.person = person;
         this.points = points;
         this.reason = reason;
+        this.assigned = assigned;
     }
 
     public void setPoints(Integer points) {

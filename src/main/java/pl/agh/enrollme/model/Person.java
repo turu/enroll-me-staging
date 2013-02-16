@@ -143,6 +143,7 @@ public class Person implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        updateAuthorityList(rolesToken);
         return authorityList;
     }
 

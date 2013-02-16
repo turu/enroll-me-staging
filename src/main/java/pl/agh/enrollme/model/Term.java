@@ -43,7 +43,7 @@ public class Term implements Serializable {
     }
 
     public Term(TermPK termId, DayOfWeek dayOfWeek, StupidDate startTime, StupidDate endTime,
-                Week week, Integer capacity, String room, Teacher teacher) {
+                Week week, Integer capacity, String room, Teacher teacher, String type, Boolean certain) {
         this.termId = termId;
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
@@ -52,6 +52,8 @@ public class Term implements Serializable {
         this.capacity = capacity;
         this.room = room;
         this.teacher = teacher;
+        this.type = type;
+        this.certain = certain;
     }
 
     public static long getSerialVersionUID() {
@@ -136,5 +138,13 @@ public class Term implements Serializable {
 
     public void setCertain(Boolean certain) {
         this.certain = certain;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.repository.IPersonDAO;
@@ -60,7 +61,7 @@ public class PersonService {
     }
 
     public void setEncodedPassword(Person person, String password) {
-        PasswordEncoder encoder = new Md5PasswordEncoder();
+        PasswordEncoder encoder = new ShaPasswordEncoder(256);
         String encodedPassword = encoder.encodePassword(password, null);
         person.setPassword(encodedPassword);
     }

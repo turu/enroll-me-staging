@@ -2,6 +2,10 @@ package pl.agh.enrollme.controller.preferencesmanagement;
 
 import org.primefaces.event.*;
 import org.primefaces.model.*;
+import pl.agh.enrollme.model.EnrollConfiguration;
+import pl.agh.enrollme.model.StudentPointsPerTerm;
+import pl.agh.enrollme.model.Subject;
+import pl.agh.enrollme.model.Term;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -10,6 +14,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class ScheduleController implements Serializable {
 
@@ -20,6 +25,9 @@ public class ScheduleController implements Serializable {
     private EnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
     private String theme;
+
+    public ScheduleController(EnrollConfiguration enrollConfiguration, List<Subject> subjects, List<Term> terms, List<StudentPointsPerTerm> points) {
+    }
 
     public String getTheme() {
         return theme;

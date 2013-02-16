@@ -17,7 +17,11 @@ public class PreferencesManagementController implements Serializable {
     /**
      * Controller object used to controll Statistics Ring Component
      */
-    private RingController ringController;
+    private ProgressRingController ringController;
+
+    public PreferencesManagementController(ScheduleController scheduleController, ProgressRingController ringController) {
+
+    }
 
     public ScheduleController getScheduleController() {
         return scheduleController;
@@ -27,11 +31,11 @@ public class PreferencesManagementController implements Serializable {
         this.scheduleController = scheduleController;
     }
 
-    public RingController getRingController() {
+    public ProgressRingController getRingController() {
         return ringController;
     }
 
-    public void setRingController(RingController ringController) {
+    public void setRingController(ProgressRingController ringController) {
         this.ringController = ringController;
     }
 

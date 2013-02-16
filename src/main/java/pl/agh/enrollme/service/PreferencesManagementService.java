@@ -7,16 +7,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController;
-import pl.agh.enrollme.model.Enroll;
-import pl.agh.enrollme.model.Person;
-import pl.agh.enrollme.model.Subject;
-import pl.agh.enrollme.model.Term;
+import pl.agh.enrollme.controller.preferencesmanagement.ProgressRingController;
+import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
+import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.IPersonDAO;
+import pl.agh.enrollme.repository.IStudentPointsPerTermDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
+import pl.agh.enrollme.repository.ITermDAO;
 
-import javax.xml.ws.WebServiceContext;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Piotr Turek
@@ -32,8 +34,14 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     @Autowired
     private ISubjectDAO subjectDAO;
 
+    @Autowired
+    private ITermDAO termDAO;
+
+    @Autowired
+    private IStudentPointsPerTermDAO pointsDAO;
+
     @Override
-    public PreferencesManagementController createPreferencesManagementController(Enroll currentEnroll) {
+    public PreferencesManagementController createPreferencesManagementController(Enroll enroll) {
         final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         UserDetails userDetails = null;
@@ -42,17 +50,20 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             userDetails = (UserDetails) principal;
         } else {
             LOGGER.warn("Principal " + principal + " is not an instance of UserDetails!");
-            //TODO: Add some exception handling (throw it actually)
+            throw new SecurityException("Principal " + principal + " is not an instance of UserDetails!");
         }
 
         final Person person = personDAO.findByUsername(userDetails.getUsername());
+        LOGGER.debug(person + " person retrieved from database");
 
-        //TODO: Retrieve terms of the subjects.
-        //TODO: Retrieve current preferences of the user (if any)
-        //TODO: Create the controller and pass all the above data to it.
+        //Enroll configuration of the current enroll
+        final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
 
-        final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(currentEnroll);
+        final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(enroll);
+        LOGGER.debug("Subjects of " + enroll + " enrollment retrieved: " + subjectsByEnrollment);
+
         final List<Subject> personSubjects = person.getSubjects();
+        LOGGER.debug("Subjects of " + person + " person retrieved: " + personSubjects);
 
         //list of subjects belonging to the currentEnrollment, choosen by person
         final List<Subject> subjects = new ArrayList<>();
@@ -62,12 +73,59 @@ public class PreferencesManagementService implements IPreferencesManagementServi
                 subjects.add(subject);
             }
         }
+        LOGGER.debug("Intersection found: " + subjects);
 
         //list of terms to display
         final List<Term> terms = new ArrayList<>();
 
-        return null;
+        for (Subject s : subjects) {
+            terms.addAll(termDAO.getTermsBySubject(s));
+        }
+        LOGGER.debug("Terms retrieved (" + terms.size() + " of them): " + terms);
 
+        //list of currently assigned points
+        final List<StudentPointsPerTerm> points = new ArrayList<>();
+
+        for (Term t : terms) {
+            points.add(pointsDAO.getByPersonAndTerm(person, t));
+        }
+        LOGGER.debug("Current preferences retrieved (" + points.size() + " of them): " + points);
+
+        //create missing point per terms so that every term has its sppt (they can be missing because it's the first
+        //the user entered preferences-management or there were some zero-point sppt that didn't get persisted)
+        createMissingSPPT(terms, points, person);
+        LOGGER.debug("Missing point per terms created, there are " + points.size() + " in total.");
+
+        //creating progress ring controller
+        final ProgressRingController ringController = new ProgressRingController(enrollConfiguration, subjects, terms, points);
+        LOGGER.debug("ProgressRingController created: " + ringController);
+
+        //creating schedule controller
+        final ScheduleController scheduleController = new ScheduleController(enrollConfiguration, subjects, terms, points);
+        LOGGER.debug("ScheduleController created: " + scheduleController);
+
+        final PreferencesManagementController preferencesController =
+                new PreferencesManagementController(scheduleController, ringController);
+        LOGGER.debug("PreferencesManagementController created: " + preferencesController);
+
+        return preferencesController;
+
+    }
+
+    private void createMissingSPPT(List<Term> terms, List<StudentPointsPerTerm> points, Person person) {
+        Map<TermPK, Boolean> termsPresent = new HashMap<TermPK, Boolean>();
+
+        for (StudentPointsPerTerm sppt : points) {
+            final Term term = sppt.getTerm();
+            termsPresent.put(term.getTermId(), true);
+        }
+
+        for (Term term : terms) {
+            Boolean hasPoints = termsPresent.get(term.getTermId());
+            if (hasPoints == null || hasPoints == false) {
+                points.add(new StudentPointsPerTerm(term, person, 0, "", false));
+            }
+        }
     }
 
 }

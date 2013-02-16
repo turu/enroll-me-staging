@@ -5,18 +5,20 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-    <var name="scheduleController" class="pl.agh.enrollme.controller.preferencesmanagement.ScheduleController" />
-    <var name="ringController" class="pl.agh.enrollme.controller.preferencesmanagement.RingController"/>
-
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
     
-    <on-start>
+    <!--<on-start>
         <evaluate expression="preferencesManagementService.createPreferencesManagementController(currentEnrollment)"
-                  result="preferencesController"
+                  result="flowScope.preferencesController"
                   result-type="pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController"/>
-    </on-start>
+    </on-start>-->
 
     <view-state id="view">
+        <on-render>
+            <evaluate expression="preferencesManagementService.createPreferencesManagementController(currentEnrollment)"
+                      result="viewScope.preferencesController"
+                      result-type="pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController"/>
+        </on-render>
         <transition on="done" to="preferencesApplied"/>
     </view-state>
 
