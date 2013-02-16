@@ -87,6 +87,10 @@ public class ProgressRingController implements Serializable {
         this.points = points;
     }
 
+    public List<ProgressToken> getProgressTokens() {
+        return progressTokens;
+    }
+
     /**
      * Updates used values and state of progress tokens
      */
