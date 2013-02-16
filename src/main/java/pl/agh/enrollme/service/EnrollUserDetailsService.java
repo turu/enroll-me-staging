@@ -39,6 +39,8 @@ public class EnrollUserDetailsService implements UserDetailsService {
         if (userDetails.getAuthorities().isEmpty()) {
             LOGGER.warn("User " + username + " has no granted authority.");
             throw new UsernameNotFoundException("User " + username + " has no granted authority.");
+        } else {
+            LOGGER.debug("User granted authorities: " + userDetails.getAuthorities());
         }
 
         LOGGER.info("User " + username + " successfully retrieved from data source.");
