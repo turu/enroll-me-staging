@@ -25,9 +25,9 @@ public class SubjectChoosingService implements ISubjectChoosingService {
         //TODO: later get from database, enroll.getSubjects() ;-)
         Teacher teacher1 = new Teacher("dr", "Stanisław", "Sobieszko", "4.11");
         Teacher teacher2 = new Teacher("dr", "Stasio", "Mieszko", "4.11");
-        Subject subject1 = new Subject(enroll, null, "Analiza", 1, Color.GREEN, "4.33", teacher1, DayOfWeek.MONDAY,
+        Subject subject1 = new Subject(enroll, null, "Analiza", 1, "#00ffff", "4.33", teacher1, DayOfWeek.MONDAY,
                 null, null);
-        Subject subject2 = new Subject(enroll, null, "Fizyka", 1, Color.RED, "4.11", teacher2, DayOfWeek.FRIDAY,
+        Subject subject2 = new Subject(enroll, null, "Fizyka", 1, "#ff0000", "4.11", teacher2, DayOfWeek.FRIDAY,
                 null, null);
         subject1.setSubjectID(1);
         subject2.setSubjectID(2);
