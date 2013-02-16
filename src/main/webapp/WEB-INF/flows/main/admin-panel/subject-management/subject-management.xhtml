@@ -36,7 +36,7 @@
                     <p:inputText value="#{newSubject.teamsCapacity}"/>
                 </p:column>
                 <p:column>
-                    <p:selectOneMenu value="#{selectedTeacher}" converter="teacherConverter">
+                    <p:selectOneMenu value="#{selectedTeacher}" converter="#{teacherConverter}">
                         <f:selectItems value="#{teacherList}"
                                        var="teacher"
                                        itemLabel="#{teacher.degree} #{teacher.firstName} #{teacher.secondName}"
