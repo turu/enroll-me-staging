@@ -1,6 +1,7 @@
 package pl.agh.enrollme.service;
 
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,7 @@ public class PersonEnrollPermissionService {
         peopleAllowedToEnroll.add(person);
     }
 
-    public void onUnselect(SelectEvent event) {
+    public void onUnselect(UnselectEvent event) {
         Person person = (Person)event.getObject();
         LOGGER.debug("Unselected " + person.getFirstName() + " " + person.getLastName());
         peopleAllowedToEnroll.remove(person);
