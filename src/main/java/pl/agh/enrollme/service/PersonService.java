@@ -69,6 +69,7 @@ public class PersonService {
 
     public void setBooleans(Person person, Boolean enabled, Boolean credentialsNonExpired, Boolean accountNonExpired,
                             Boolean accountNonLocked) {
+        LOGGER.debug("Jestem w setBooleans");
         person.setEnabled(enabled);
         person.setAccountNonExpired(accountNonExpired);
         person.setAccountNonLocked(accountNonLocked);
