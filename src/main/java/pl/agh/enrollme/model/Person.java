@@ -37,15 +37,15 @@ public class Person implements Serializable, UserDetails {
     @Column(unique = true)
     private Integer indeks;
 
-    private Boolean accountNonExpired = false;
+    private Boolean accountNonExpired = true;
 
-    private Boolean accountNonLocked = false;
+    private Boolean accountNonLocked = true;
 
-    private Boolean credentialsNonExpired = false;
+    private Boolean credentialsNonExpired = true;
 
-    private Boolean enabled = false;
+    private Boolean enabled = true;
 
-    private String rolesToken = "";
+    private String rolesToken = "ROLE_USER";
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
     private List<Group> groups;
