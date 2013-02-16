@@ -87,8 +87,36 @@ public class ProgressRingController implements Serializable {
         this.points = points;
     }
 
+    /**
+     * Updates used values and state of progress tokens
+     */
+    public void update() {
+        updatePointsUsage();
+        updateProgressTokens();
+    }
+
+    /**
+     * Updates state of progress tokens
+     */
+    private void updateProgressTokens() {
+        for (ProgressToken token : progressTokens) {
+            final int id = token.getId();
+            int used = 0;
+            if (id == -1) {
+                used = extraPointsUsed;
+            } else {
+                used = pointsMap.get(id);
+            }
+            token.setPointsUsed(used);
+        }
+    }
+
+    /**
+     * Updates points used per progress token
+     */
     private void updatePointsUsage() {
         pointsMap.clear();
+        extraPointsUsed = 0;
 
         for (StudentPointsPerTerm p : points) {
             final Term term = p.getTerm();
@@ -97,12 +125,21 @@ public class ProgressRingController implements Serializable {
             if(value == null) {
                 value = 0;
             }
+
+            if (value >= enrollConfiguration.getPointsPerSubject()) {
+                extraPointsUsed += p.getPoints();
+            } else if (value + p.getPoints() > enrollConfiguration.getPointsPerSubject()) {
+                extraPointsUsed += p.getPoints() - (enrollConfiguration.getPointsPerSubject() - value);
+            }
+
             pointsMap.put(subject.getSubjectID(), value + p.getPoints());
         }
 
-
     }
 
+    /**
+     * Creates progress tokens after points usage has been calculated
+     */
     private void createProgressTokens() {
         final ProgressToken extraToken = new ProgressToken(-1, "Extra",
                 enrollConfiguration.getAdditionalPoints(), 0, extraPointsUsed);
