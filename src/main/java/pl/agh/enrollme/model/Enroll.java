@@ -97,4 +97,16 @@ public class Enroll implements Serializable {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Enroll{" +
+                "enrollID=" + enrollID +
+                ", name='" + name + '\'' +
+                ", enrollmentMode=" + enrollmentMode +
+                ", enrollConfiguration=" + enrollConfiguration +
+                ", subjects=" + subjects +
+                ", persons=" + persons +
+                '}';
+    }
 }

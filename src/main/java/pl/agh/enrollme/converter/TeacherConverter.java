@@ -16,7 +16,7 @@ import javax.faces.convert.Converter;
 @Service
 @ViewScoped
 public class TeacherConverter implements Converter {
-    Logger LOGGER = LoggerFactory.getLogger(TeacherConverter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TeacherConverter.class.getName());
 
     @Autowired
     ITeacherDAO teacherDAO;
