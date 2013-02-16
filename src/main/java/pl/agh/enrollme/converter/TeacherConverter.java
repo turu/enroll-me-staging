@@ -9,8 +9,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 //@FacesConverter(value="teacherConverter")
+@FacesConverter(value = "teacherConverter")
 @Service
 @ViewScoped
 public class TeacherConverter implements Converter {
