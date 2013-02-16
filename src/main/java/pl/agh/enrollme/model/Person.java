@@ -1,5 +1,6 @@
 package pl.agh.enrollme.model;
 
+import org.hibernate.annotations.OnDelete;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,7 +54,7 @@ public class Person implements Serializable, UserDetails {
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Subject> subjects;
 
-    @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<Enroll> availableEnrolls;
 
 
