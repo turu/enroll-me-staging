@@ -20,7 +20,7 @@
 
         <transition on="add">
             <evaluate expression="personService.setEncodedPassword(newPerson, newPerson.password)"/>
-            <evaluate expression="personEnrollPermissionService.addAndSelectPerson(newPerson, currentEnrollment)"/>
+            <evaluate expression="personEnrollPermissionService.addAndSelectPerson(newPerson)"/>
             <set name="newPerson" value="new pl.agh.enrollme.model.Person()"/>
         </transition>
 
@@ -43,7 +43,7 @@
         </transition>
 
         <transition on="delete-accept">
-            <evaluate expression="personDAO.remove(deletePerson)"/>
+            <evaluate expression="personEnrollPermissionService.delete(deletePerson)"/>
         </transition>
 
         <transition on="delete-cancel">

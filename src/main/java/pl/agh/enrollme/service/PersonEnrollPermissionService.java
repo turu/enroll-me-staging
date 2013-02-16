@@ -67,11 +67,26 @@ public class PersonEnrollPermissionService {
         enrollmentDAO.update(enroll);
     }
 
-    public void addAndSelectPerson(Person person, Enroll enroll) {
+    /**
+     * Adds new person to database and marks it as selected.
+     * @param person person to be added.
+     */
+    public void addAndSelectPerson(Person person) {
         LOGGER.debug("Adding new person");
         personDAO.add(person);
         ((List<Person>)selectableModel.getWrappedData()).add(person);
         peopleAllowedToEnroll.add(person);
+    }
+
+    /**
+     * Deletes person from database also removing it from underlying model and list of selected people.
+     * @param person person to be deleted
+     */
+    public void delete(Person person) {
+        LOGGER.debug("Removing person with id " + person.getId());
+        personDAO.remove(person);
+        ((List<Person>)selectableModel.getWrappedData()).remove(person);
+        peopleAllowedToEnroll.remove(person);
     }
 
     /**
@@ -98,11 +113,12 @@ public class PersonEnrollPermissionService {
         return peopleAllowedToEnroll;
     }
 
+    /**
+     *  Selection is managed by listeners.
+     * Provided getter is used to allow table to get list of people it should render as selected,
+     * but setter does nothing as it could break our selection.
+     */
     public void setPeopleAllowedToEnroll(List<Person> peopleAllowedToEnroll) {
-        /* Selection is managed by listeners.
-         * Provided getter is used to allow table to get list of people it should render as selected,
-         * but getter does nothing as it could break our selection.
-         */
     }
 
     public SelectablePersonDataModel getSelectableModel() {
