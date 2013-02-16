@@ -64,7 +64,7 @@
         <p:dataTable value="#{personEnrollPermissionService.selectableModel}" var="person" editable="true"
                      selection="#{personEnrollPermissionService.peopleAllowedToEnroll}" id="peopleTable"
                      emptyMessage="No people to show">
-            <p:ajax event="rowSelect" listener="#{personEnrollPermissionService.onSelect}"/>
+            <p:ajax event="rowSelectCheckbox" listener="#{personEnrollPermissionService.onSelect}"/>
             <p:ajax event="rowEdit" listener="#{personService.onEdit}"/>
 
             <!-- Checkboxes to select people -->
