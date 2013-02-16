@@ -74,10 +74,15 @@ public class PersonEnrollPermissionService {
     }
 
     public void onSelect(SelectEvent event) {
-        LOGGER.debug("Row selected");
         Person person = (Person)event.getObject();
-
         LOGGER.debug("Selected " + person.getFirstName() + " " + person.getLastName());
+        peopleAllowedToEnroll.add(person);
+    }
+
+    public void onUnselect(SelectEvent event) {
+        Person person = (Person)event.getObject();
+        LOGGER.debug("Unselected " + person.getFirstName() + " " + person.getLastName());
+        peopleAllowedToEnroll.remove(person);
     }
 
     public List<Person> getPeopleAllowedToEnroll() {
@@ -85,8 +90,10 @@ public class PersonEnrollPermissionService {
     }
 
     public void setPeopleAllowedToEnroll(List<Person> peopleAllowedToEnroll) {
-        LOGGER.debug("Set allowed people - total " + peopleAllowedToEnroll.size());
-        this.peopleAllowedToEnroll = peopleAllowedToEnroll;
+        /* Selection is managed by listeners.
+         * Provided getter is used to allow table to get list of people it should render as selected,
+         * but getter does nothing as it could break our selection
+         */
     }
 
     public SelectablePersonDataModel getSelectableModel() {

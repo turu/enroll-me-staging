@@ -65,6 +65,7 @@
                      selection="#{personEnrollPermissionService.peopleAllowedToEnroll}" id="peopleTable"
                      emptyMessage="No people to show">
             <p:ajax event="rowSelectCheckbox" listener="#{personEnrollPermissionService.onSelect}"/>
+            <p:ajax event="rowUnselectCheckbox" listener="#{personEnrollPermissionService.onUnselect}"/>
             <p:ajax event="rowEdit" listener="#{personService.onEdit}"/>
 
             <!-- Checkboxes to select people -->
