@@ -19,7 +19,7 @@
             <p:panelGrid id="addPanel">
                 <f:facet name="header">
                     <p:row>
-                        <p:column colspan="5">Add new person</p:column>
+                        <p:column colspan="10">Add new person</p:column>
                     </p:row>
                     <p:row>
                         <p:column>Indeks</p:column>
@@ -27,6 +27,11 @@
                         <p:column>Last name</p:column>
                         <p:column>Username</p:column>
                         <p:column>Password</p:column>
+                        <p:column>Roles Token</p:column>
+                        <p:column>Enabled</p:column>
+                        <p:column>Credentials Non Expired</p:column>
+                        <p:column>Account Non Locked</p:column>
+                        <p:column>Account Non Expired</p:column>
                     </p:row>
                 </f:facet>
 
@@ -46,11 +51,26 @@
                     <p:column>
                         <p:password value="#{newPerson.password}"/>
                     </p:column>
+                    <p:column>
+                        <p:inputText value="#{newPerson.rolesToken}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox value="#{newPerson.enabled}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox value="#{newPerson.credentialsNonExpired}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox value="#{newPerson.accountNonLocked}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox value="#{newPerson.accountNonExpired}"/>
+                    </p:column>
                 </p:row>
 
                 <f:facet name="footer">
                     <p:row>
-                        <p:column colspan="5" style="text-align:right;">
+                        <p:column colspan="10" style="text-align:right;">
                             <p:commandButton action="add" value="Add"
                                              update=":mainForm:peopleTable :addForm:addPanel :messages"/>
                             <p:commandButton value="Clear" type="reset"/>
@@ -114,6 +134,28 @@
                                      oncomplete="passwordResetDialog.show()">
                         <f:setPropertyActionListener target="#{passwordResetPerson}" value="#{person}"/>
                     </p:commandLink>
+                </p:column>
+                <p:column headerText="Roles Token" sortBy="#{person.rolesToken}" filterBy="#{person.rolesToken}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{person.rolesToken}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{person.rolesToken}" style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Enabled">
+                    <p:selectBooleanCheckbox value="#{newPerson.enabled}"/>
+                </p:column>
+                <p:column headerText="Credentials Non Expired">
+                    <p:selectBooleanCheckbox value="#{newPerson.credentialsNonExpired}"/>
+                </p:column>
+                <p:column headerText="Account Non Locked">
+                    <p:selectBooleanCheckbox value="#{newPerson.accountNonLocked}"/>
+                </p:column>
+                <p:column headerText="Account Non Expired">
+                    <p:selectBooleanCheckbox value="#{newPerson.accountNonExpired}"/>
                 </p:column>
 
                 <p:column>
