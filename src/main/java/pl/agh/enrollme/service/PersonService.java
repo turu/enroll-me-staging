@@ -61,9 +61,19 @@ public class PersonService {
     }
 
     public void setEncodedPassword(Person person, String password) {
+        LOGGER.debug("Jestem w setencodedpassword");
         PasswordEncoder encoder = new ShaPasswordEncoder(256);
         String encodedPassword = encoder.encodePassword(password, null);
         person.setPassword(encodedPassword);
+    }
+
+    public void setBooleans(Person person, Boolean enabled, Boolean credentialsNonExpired, Boolean accountNonExpired,
+                            Boolean accountNonLocked) {
+        LOGGER.debug("Jestem w setBooleans");
+        person.setEnabled(enabled);
+        person.setAccountNonExpired(accountNonExpired);
+        person.setAccountNonLocked(accountNonLocked);
+        person.setCredentialsNonExpired(credentialsNonExpired);
     }
 	
 }

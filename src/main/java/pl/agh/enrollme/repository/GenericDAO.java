@@ -40,6 +40,7 @@ public class GenericDAO<T> implements IGenericDAO<T> {
     @Transactional
     @Override
     public void add(T add) {
+        System.out.println("WDAO " + add);
         if(em.find(type, entityManagerFactory.getPersistenceUnitUtil().getIdentifier(add)) != null) {
             em.merge(add);
             return;
