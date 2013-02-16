@@ -1,107 +1,126 @@
 package pl.agh.enrollme.controller.preferencesmanagement;
 
 import pl.agh.enrollme.model.EnrollConfiguration;
+import pl.agh.enrollme.model.StudentPointsPerTerm;
 import pl.agh.enrollme.model.Subject;
+import pl.agh.enrollme.model.Term;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+/**
+ * This class is used as a controller for the Progress Ring component from preferences-management view.
+ * Author: Piotr Turek
+ */
 public class ProgressRingController implements Serializable {
 
-    private List<Player> players;
+    private static final long serialVersionUID = 6578477862668112963L;
 
-    private Player selectedPlayer;
+    private EnrollConfiguration enrollConfiguration;
 
-    private int selectedId = 0;
+    private List<Subject> subjects;
 
-    public ProgressRingController() {
-        players = new ArrayList<Player>();
+    private List<Term> terms;
 
-        players.add(new Player("Messi", 100, "messi.jpg", "CF"));
-        players.add(new Player("Bojan", 9, "bojan.jpg", "CF"));
-        players.add(new Player("Iniesta", 8, "iniesta.jpg", "CM"));
-        players.add(new Player("Villa", 7, "villa.jpg", "CF"));
-        players.add(new Player("Xavi", 6, "xavi.jpg", "CM"));
-        players.add(new Player("Puyol", 5, "puyol.jpg", "CB"));
-        players.add(new Player("Piotr", 77, "turek.jpg", "PT"));
-        players.add(new Player("sadasd", 88, "asdads.jap", "AS"));
-        players.add(new Player("Mownit", 0, "czech.jap", "CZ"));
+    private List<StudentPointsPerTerm> points;
+
+    /**
+     * This is a list of ProgressToken instances used by the Ring component.
+     * They encapsulate current state of the process.
+     */
+    private List<ProgressToken> progressTokens = new ArrayList<>();
+
+    /**
+     * A map used to hold current amounts of used points per subject. SubjectID works as a key.
+     */
+    private Map<Integer, Integer> pointsMap = new HashMap<>();
+
+    /**
+     * How many extra points have been used.
+     */
+    private int extraPointsUsed = 0;
+
+
+    public ProgressRingController(EnrollConfiguration enrollConfiguration, List<Subject> subjects, List<Term> terms,
+                                  List<StudentPointsPerTerm> points) {
+        this.enrollConfiguration = enrollConfiguration;
+        this.subjects = subjects;
+        this.terms = terms;
+        this.points = points;
+
+        updatePointsUsage();
+        createProgressTokens();
     }
 
-    public ProgressRingController(EnrollConfiguration enrollConfiguration, List<Subject> subjects) {
+    public EnrollConfiguration getEnrollConfiguration() {
+        return enrollConfiguration;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {
+        this.enrollConfiguration = enrollConfiguration;
     }
 
-    public Player getSelectedPlayer() {
-        return selectedPlayer;
+    public List<Subject> getSubjects() {
+        return subjects;
     }
 
-    public void setSelectedPlayer(Player selectedPlayer) {
-        this.selectedPlayer = selectedPlayer;
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 
-    public int getSelectedId() {
-        if(selectedPlayer != null) {
-            selectedId = players.indexOf(selectedPlayer);
-        }
-        return selectedId;
+    public List<Term> getTerms() {
+        return terms;
     }
 
-    public void setSelectedId(int selectedId) {
-        this.selectedId = selectedId;
+    public void setTerms(List<Term> terms) {
+        this.terms = terms;
     }
 
-    public class Player implements Serializable {
-        private String name;
-        private int id;
-        private String image;
-        private String cf;
+    public List<StudentPointsPerTerm> getPoints() {
+        return points;
+    }
 
-        public Player(String messi, int i, String s, String cf) {
-            this.name = messi;
-            this.id = i;
-            this.image = s;
-            this.cf = cf;
-        }
+    public void setPoints(List<StudentPointsPerTerm> points) {
+        this.points = points;
+    }
 
-        public String getName() {
-            return name;
-        }
+    private void updatePointsUsage() {
+        pointsMap.clear();
 
-        public void setName(String messi) {
-            this.name = messi;
-        }
-
-        public int getId() {
-            if(id < 100) {
-                id = id + 1;
+        for (StudentPointsPerTerm p : points) {
+            final Term term = p.getTerm();
+            final Subject subject = term.getSubject();
+            Integer value = pointsMap.get(subject.getSubjectID());
+            if(value == null) {
+                value = 0;
             }
-
-            return id;
+            pointsMap.put(subject.getSubjectID(), value + p.getPoints());
         }
 
-        public void setId(int id) {
-            this.id = id;
+
+    }
+
+    private void createProgressTokens() {
+        final ProgressToken extraToken = new ProgressToken(-1, "Extra",
+                enrollConfiguration.getAdditionalPoints(), 0, extraPointsUsed);
+
+        progressTokens.add(extraToken);
+
+        for (Subject s : subjects) {
+            final ProgressToken token = new ProgressToken(s.getSubjectID(), s.getName(),
+                    enrollConfiguration.getPointsPerSubject(),enrollConfiguration.getMinimumPointsPerSubject(),
+                    pointsMap.get(s.getSubjectID()), s.getColor());
+
+            progressTokens.add(token);
         }
 
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-        public String getCf() {
-            return cf;
-        }
-
-        public void setCf(String cf) {
-            this.cf = cf;
+        //if there are exactly 2 progress tokens, clone the second one (to prevent unwanted behaviour of the ring component)
+        if (progressTokens.size() == 2) {
+            progressTokens.add(progressTokens.get(1));
         }
     }
+
 }

@@ -139,4 +139,12 @@ public class Term implements Serializable {
     public void setCertain(Boolean certain) {
         this.certain = certain;
     }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 }
