@@ -59,14 +59,8 @@
                allDaySlot="false" showWeekends="false" slotMinutes="15" firstHour="8" maxTime="22"
                periodic="true" autoOpacity="true" >
 
-                <p:ajax event="dateSelect" listener="#{preferencesController.scheduleController.onDateSelect}"
-                        update="eventDetails" oncomplete="eventDialog.show()" />
                 <p:ajax event="eventSelect" listener="#{preferencesController.scheduleController.onEventSelect}"
                         update="eventDetails" oncomplete="eventDialog.show()" />
-                <p:ajax event="eventMove" listener="#{preferencesController.scheduleController.onEventMove}"
-                        update="messages" />
-                <p:ajax event="eventResize" listener="#{preferencesController.scheduleController.onEventResize}"
-                        update="messages" />
 
             </p:enrollSchedule>
 
