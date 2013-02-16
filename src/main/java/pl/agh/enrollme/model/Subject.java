@@ -29,7 +29,7 @@ public class Subject implements Serializable {
 
     private String name;
     private Integer teamsCapacity;
-    private Color color;
+    private String color;
     private String room;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -46,7 +46,7 @@ public class Subject implements Serializable {
     public Subject() {
     }
 
-    public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, Color color, String room,
+    public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, String color, String room,
                    Teacher teacher, DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
         this.enroll = enroll;
         this.persons = persons;
@@ -92,7 +92,7 @@ public class Subject implements Serializable {
         this.persons = persons;
     }
 
-    public void setColor(Color color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
@@ -137,7 +137,7 @@ public class Subject implements Serializable {
         return room;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 

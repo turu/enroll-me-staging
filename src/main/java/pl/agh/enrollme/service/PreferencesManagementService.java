@@ -90,7 +90,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         LOGGER.debug("Current preferences retrieved: " + points);
 
         //creating progress ring controller
-        final ProgressRingController ringController = new ProgressRingController(enrollConfiguration, subjects);
+        final ProgressRingController ringController = new ProgressRingController(enrollConfiguration, subjects, terms, points);
         LOGGER.debug("ProgressRingController created: " + ringController);
 
         //creating schedule controller
