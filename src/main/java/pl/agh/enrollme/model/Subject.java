@@ -1,12 +1,12 @@
 package pl.agh.enrollme.model;
 
-import org.jboss.netty.example.localtime.LocalTimeProtocol;
 import pl.agh.enrollme.utils.Color;
 import pl.agh.enrollme.utils.DayOfWeek;
 import pl.agh.enrollme.utils.StupidDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ public class Subject implements Serializable {
     private Color color;
     private String room;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Teacher teacher;
 
     private DayOfWeek dayOfWeek;

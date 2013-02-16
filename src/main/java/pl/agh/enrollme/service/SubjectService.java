@@ -10,12 +10,11 @@ import pl.agh.enrollme.repository.ISubjectDAO;
  * @author Michal Partyka
  */
 @Service
-public class SubjectService implements IEnrollmentService {
+public class SubjectService {
 
     @Autowired
     private ISubjectDAO subjectDAO;
 
-    @Override
     public void onEdit(RowEditEvent event) {
         Subject editedEnrollment = (Subject) event.getObject();
 

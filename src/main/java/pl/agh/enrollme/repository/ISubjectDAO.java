@@ -18,4 +18,10 @@ public interface ISubjectDAO {
 
     @Transactional
     void update(Subject update);
+
+    @Transactional
+    List<Subject> getSubjectsWithGroups(Enroll enroll);
+
+    @Transactional
+    Subject getSubject(Integer id);
 }
