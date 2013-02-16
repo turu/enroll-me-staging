@@ -12,13 +12,6 @@
         <!-- Stores new password when using "Reset password" feature -->
         <var name="newPassword" class="java.lang.String"/>
 
-        <on-render>
-            <set name="viewScope.enabled" value="false" type="java.lang.Boolean"/>
-            <set name="viewScope.credentialsNonExpired" value="false" type="java.lang.Boolean"/>
-            <set name="viewScope.accountNonLocked" value="false" type="java.lang.Boolean"/>
-            <set name="viewScope.accountNonExpired" value="false" type="java.lang.Boolean"/>
-        </on-render>
-
         <!-- Stores person to be deleted -->
         <var name="deletePerson" class="pl.agh.enrollme.model.Person"/>
         <!-- Stores person whose password is to be deleted -->
@@ -26,6 +19,10 @@
 
         <on-render>
             <evaluate expression="personDAO.getList()" result="viewScope.peopleList"/>
+            <set name="viewScope.enabled" value="false" type="java.lang.Boolean"/>
+            <set name="viewScope.credentialsNonExpired" value="false" type="java.lang.Boolean"/>
+            <set name="viewScope.accountNonLocked" value="false" type="java.lang.Boolean"/>
+            <set name="viewScope.accountNonExpired" value="false" type="java.lang.Boolean"/>
         </on-render>
 
         <transition on="add">
