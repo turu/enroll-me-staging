@@ -239,4 +239,25 @@ public class Person implements Serializable, UserDetails {
     public int hashCode() {
         return username.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "authorityList=" + authorityList +
+                ", id=" + id +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", indeks=" + indeks +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                ", rolesToken='" + rolesToken + '\'' +
+                ", groups=" + groups +
+                ", subjects=" + subjects +
+                ", availableEnrolls=" + availableEnrolls +
+                '}';
+    }
 }
