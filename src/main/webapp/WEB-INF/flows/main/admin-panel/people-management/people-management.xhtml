@@ -12,9 +12,57 @@
 </ui:define>
 
 <ui:define name="content">
-    <h:form>
+    <p:messages id="messages"/>
+
+    <h:form id="addForm">
+        <!-- Form for adding new people -->
+        <p:panelGrid id="addPanel">
+            <f:facet name="header">
+                <p:row>
+                    <p:column colspan="5">Add new person</p:column>
+                </p:row>
+                <p:row>
+                    <p:column>Indeks</p:column>
+                    <p:column>First name</p:column>
+                    <p:column>Last name</p:column>
+                    <p:column>Username</p:column>
+                    <p:column>Password</p:column>
+                </p:row>
+            </f:facet>
+
+            <p:row>
+                <p:column>
+                    <p:inputText value="#{newPerson.indeks}" required="true"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{newPerson.firstName}" required="true"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{newPerson.lastName}" required="true"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{newPerson.username}" required="true"/>
+                </p:column>
+                <p:column>
+                    <p:password value="#{newPerson.password}"/>
+                </p:column>
+            </p:row>
+
+            <f:facet name="footer">
+                <p:row>
+                    <p:column colspan="5" style="text-align:right;">
+                        <p:commandButton action="add" value="Add"
+                                         update=":mainForm:peopleTable :addForm:addPanel :messages"/>
+                        <p:commandButton value="Clear" type="reset"/>
+                    </p:column>
+                </p:row>
+            </f:facet>
+        </p:panelGrid>
+    </h:form>
+
+    <h:form id="mainForm">
         <p:dataTable value="#{personEnrollPermissionService.selectableModel}" var="person"
-                     selection="#{personEnrollPermissionService.peopleAllowedToEnroll}">
+                     selection="#{personEnrollPermissionService.peopleAllowedToEnroll}" id="peopleTable">
             <p:column selectionMode="multiple"/>
             <p:column headerText="Indeks">
                 <h:outputText value="#{person.indeks}"/>

@@ -65,6 +65,13 @@ public class PersonEnrollPermissionService {
         enrollmentDAO.update(enroll);
     }
 
+    public void addNewPerson(Person person, Enroll enroll) {
+        LOGGER.debug("Adding new person");
+        personDAO.add(person);
+        enroll.getPersons().add(person);
+        enrollmentDAO.update(enroll);
+    }
+
     public List<Person> getPeopleAllowedToEnroll() {
         return peopleAllowedToEnroll;
     }

@@ -9,9 +9,23 @@
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
     <view-state id="people-management">
+        <!-- Object to be filled with new person details when creating new user using form -->
+        <var name="newPerson" class="pl.agh.enrollme.model.Person"/>
+        <!-- Stores new password when using "Reset password" feature -->
+        <var name="newPassword" class="java.lang.String"/>
+
         <on-render>
             <evaluate expression="personEnrollPermissionService.prepareForEnroll(currentEnrollment)"/>
         </on-render>
+
+        <transition on="add">
+            <evaluate expression="personService.setEncodedPassword(newPerson, newPerson.password)"/>
+            <evaluate expression="personEnrollPermissionService.addNewPerson(newPerson, currentEnrollment)"/>
+            <!-- Reloads list of people -->
+            <evaluate expression="personEnrollPermissionService.prepareForEnroll(currentEnrollment)"/>
+            <set name="newPerson" value="new pl.agh.enrollme.model.Person()"/>
+        </transition>
+
         <transition on="submitAndNext" to="peopleAssigned">
             <evaluate expression="personEnrollPermissionService.saveCurrentSelectionIntoEnroll(currentEnrollment)"/>
         </transition>
