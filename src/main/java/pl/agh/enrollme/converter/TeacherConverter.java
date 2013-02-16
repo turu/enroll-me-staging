@@ -3,7 +3,6 @@ package pl.agh.enrollme.converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.agh.enrollme.model.Teacher;
 import pl.agh.enrollme.repository.ITeacherDAO;
-import pl.agh.enrollme.repository.TeacherDAO;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -13,12 +12,14 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value="teacherConverter")
 public class TeacherConverter implements Converter {
 
-    ITeacherDAO teacherDAO = new TeacherDAO();
+    @Autowired
+    ITeacherDAO teacherDAO;
 
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
         System.out.println("[partyks DEBUG] Get for parsing:" + value);
         Integer ID = Integer.parseInt(value);
         System.out.println("[partyks DEBUG] after parsing:" + ID);
+        Teacher aaa = teacherDAO.getByPK(117);
 
 //        return teacherDAO.getByPK(ID);
         return teacherDAO.getByPK(117);
