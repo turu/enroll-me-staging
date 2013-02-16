@@ -1,16 +1,16 @@
 package pl.agh.enrollme.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import pl.agh.enrollme.model.Teacher;
 import pl.agh.enrollme.repository.ITeacherDAO;
 import pl.agh.enrollme.repository.TeacherDAO;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value="teacherConverter")
+//@FacesConverter(value="teacherConverter")
+@ManagedBean
 public class TeacherConverter implements Converter {
 
     ITeacherDAO teacherDAO = new TeacherDAO();
