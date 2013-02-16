@@ -72,6 +72,9 @@ public class GenericDAO<T> implements IGenericDAO<T> {
     @Override
     public T getByPK(Object PK) {
         System.out.println("[partyks DEBUG] I have returned some object by PK");
+        if(em == null) {
+            throw new UnsupportedOperationException("KUPA2");
+        }
         return em.find(type, PK);
     }
 
