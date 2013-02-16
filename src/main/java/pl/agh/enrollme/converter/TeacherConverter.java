@@ -1,6 +1,7 @@
 package pl.agh.enrollme.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.agh.enrollme.model.Teacher;
 import pl.agh.enrollme.repository.ITeacherDAO;
 
@@ -12,7 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 //@FacesConverter(value="teacherConverter")
-@ManagedBean
+@Repository
 public class TeacherConverter implements Converter {
 
     @Autowired
