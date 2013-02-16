@@ -14,9 +14,9 @@
         <!-- Stores new password when using "Reset password" feature -->
         <var name="newPassword" class="java.lang.String"/>
 
-        <on-render>
+        <on-entry>
             <evaluate expression="personEnrollPermissionService.prepareForEnroll(currentEnrollment)"/>
-        </on-render>
+        </on-entry>
 
         <transition on="add">
             <evaluate expression="personService.setEncodedPassword(newPerson, newPerson.password)"/>
