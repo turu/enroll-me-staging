@@ -1,5 +1,6 @@
 package pl.agh.enrollme.service;
 
+import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,13 @@ public class PersonEnrollPermissionService {
         personDAO.add(person);
         ((List<Person>)selectableModel.getWrappedData()).add(person);
         peopleAllowedToEnroll.add(person);
+    }
+
+    public void onSelect(SelectEvent event) {
+        LOGGER.debug("Row selected");
+        Person person = (Person)event.getObject();
+
+        LOGGER.debug("Selected " + person.getFirstName() + " " + person.getLastName());
     }
 
     public List<Person> getPeopleAllowedToEnroll() {

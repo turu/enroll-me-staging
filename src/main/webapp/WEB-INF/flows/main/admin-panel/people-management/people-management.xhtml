@@ -14,7 +14,7 @@
 <ui:define name="content">
     <p:messages id="messages"/>
 
-    <h:form id="mainForm">
+    <h:form id="addForm">
         <!-- Form for adding new people -->
         <p:panelGrid id="addPanel">
             <f:facet name="header">
@@ -52,16 +52,19 @@
                 <p:row>
                     <p:column colspan="5" style="text-align:right;">
                         <p:commandButton action="add" value="Add"
-                                         update=":mainForm:peopleTable :mainForm:addPanel :messages"/>
+                                         update=":mainForm:peopleTable :addForm:addPanel :messages"/>
                         <p:commandButton value="Clear" type="reset"/>
                     </p:column>
                 </p:row>
             </f:facet>
         </p:panelGrid>
+    </h:form>
 
+    <h:form id="mainForm">
         <p:dataTable value="#{personEnrollPermissionService.selectableModel}" var="person" editable="true"
                      selection="#{personEnrollPermissionService.peopleAllowedToEnroll}" id="peopleTable"
                      emptyMessage="No people to show">
+            <p:ajax event="rowSelect" listener="#{personEnrollPermissionService.onSelect}"/>
             <p:ajax event="rowEdit" listener="#{personService.onEdit}"/>
 
             <!-- Checkboxes to select people -->
