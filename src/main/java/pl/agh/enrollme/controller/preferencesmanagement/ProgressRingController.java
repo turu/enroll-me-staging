@@ -1,5 +1,8 @@
 package pl.agh.enrollme.controller.preferencesmanagement;
 
+import pl.agh.enrollme.model.EnrollConfiguration;
+import pl.agh.enrollme.model.Subject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,9 @@ public class ProgressRingController implements Serializable {
         players.add(new Player("Piotr", 77, "turek.jpg", "PT"));
         players.add(new Player("sadasd", 88, "asdads.jap", "AS"));
         players.add(new Player("Mownit", 0, "czech.jap", "CZ"));
+    }
+
+    public ProgressRingController(EnrollConfiguration enrollConfiguration, List<Subject> subjects) {
     }
 
     public List<Player> getPlayers() {
