@@ -27,6 +27,8 @@ public class EnrollUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final Person person = personDAO.findByUsername(username);
 
+        LOGGER.debug("User " + person.getFirstName() + person.getLastName() + "'s roles token: " + person.getRolesToken());
+
         if (person == null) {
             LOGGER.warn("User " + username + " could not be found in a data source.");
             throw new UsernameNotFoundException("User " + username + " could not be found in a data source.");
