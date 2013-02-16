@@ -18,6 +18,7 @@ public class ProgressToken implements Serializable {
     private int maxPoints;
     private int minPoints;
     private int pointsUsed;
+    private int progress;
 
 
     public ProgressToken(int id, String name, int maxPoints, int minPoints, int pointsUsed) {
@@ -79,5 +80,14 @@ public class ProgressToken implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public int getProgress() {
+        progress = (int)(((double)pointsUsed / (double)maxPoints) * 100);
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 }
