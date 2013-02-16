@@ -86,7 +86,17 @@
             <p:column headerText="Teacher">
                 <p:cellEditor>
                     <f:facet name="output">
-                        <h:outputText value="#{subject.teamsCapacity}"/>
+                        <h:outputText value="#{subject.teacher.degree} #{subject.teacher.firstName}
+                        #{subject.teacher.secondName}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu value="#{subject.teacher}" converter="#{teacherConverter}">
+                            <f:selectItems value="#{teacherList}"
+                                           var="teacher"
+                                           itemLabel="#{teacher.degree} #{teacher.firstName} #{teacher.secondName}"
+                                           itemValue="#{teacher}" />
+                        </p:selectOneMenu>
+
                     </f:facet>
                 </p:cellEditor>
             </p:column>
