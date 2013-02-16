@@ -6,11 +6,15 @@
 
     <secured attributes="ROLE_ADMIN" match="any"/>
 
-    <!--TODO: required true!-->
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
     <view-state id="people-management">
-        <transition on="submitAndNext" to="peopleAssigned"/>
+        <on-render>
+            <evaluate expression="personEnrollPermissionService.prepareForEnroll(currentEnrollment)"/>
+        </on-render>
+        <transition on="submitAndNext" to="peopleAssigned">
+            <evaluate expression="personEnrollPermissionService.saveCurrentSelectionIntoEnroll(currentEnrollment)"/>
+        </transition>
         <transition on="skip" to="skipFurtherConfiguration"/>
     </view-state>
 
