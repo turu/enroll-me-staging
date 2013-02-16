@@ -8,6 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 //@FacesConverter(value="teacherConverter")
 @ManagedBean
@@ -16,10 +18,16 @@ public class TeacherConverter implements Converter {
     @Autowired
     ITeacherDAO teacherDAO;
 
+    @PersistenceContext
+    EntityManager em;
+
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
         System.out.println("[partyks DEBUG] Get for parsing:" + value);
         Integer ID = Integer.parseInt(value);
         System.out.println("[partyks DEBUG] after parsing:" + ID);
+        if(em == null) {
+            throw new UnsupportedOperationException("KUPA3");
+        }
         if(teacherDAO == null) {
             throw new UnsupportedOperationException("KUPA");
         }
