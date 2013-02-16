@@ -53,7 +53,7 @@ public class Person implements Serializable, UserDetails {
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Subject> subjects;
 
-    @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)
     private List<Enroll> availableEnrolls;
 
 
