@@ -44,6 +44,7 @@ public class EnrollUserDetailsService implements UserDetailsService {
         }
 
         LOGGER.info("User " + username + " successfully retrieved from data source.");
+        LOGGER.debug("User password = " + userDetails.getPassword());
 
         return userDetails;
     }
