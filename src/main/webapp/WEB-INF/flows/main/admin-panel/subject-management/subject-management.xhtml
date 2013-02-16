@@ -36,7 +36,7 @@
                     <p:inputText value="#{newSubject.teamsCapacity}"/>
                 </p:column>
                 <p:column>
-                    <p:selectOneMenu value="#{selectedTeacher}" converter="teacherConverter">
+                    <p:selectOneMenu value="#{selectedTeacher}" converter="#{teacherConverter}">
                         <f:selectItems value="#{teacherList}"
                                        var="teacher"
                                        itemLabel="#{teacher.degree} #{teacher.firstName} #{teacher.secondName}"
@@ -52,7 +52,7 @@
                 <p:row>
                     <p:column colspan="5">
                         <p:commandButton action="add" value="Add" update=":subjectManagement:addSubject
-                        :subjectManagement:subjects :subjectManagement:messages" ajax="false"/>
+                        :subjectManagement:subjects :subjectManagement:messages"/>
                     </p:column>
                 </p:row>
             </f:facet>
@@ -80,6 +80,13 @@
                     </f:facet>
                     <f:facet name="input">
                         <p:inputText value="#{subject.teamsCapacity}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Teacher">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{subject.teamsCapacity}"/>
                     </f:facet>
                 </p:cellEditor>
             </p:column>

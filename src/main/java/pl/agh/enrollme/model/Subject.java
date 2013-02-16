@@ -44,6 +44,7 @@ public class Subject implements Serializable {
     private StupidDate timeEnd;
 
     public Subject() {
+        teacher = new Teacher("","","","");
     }
 
     public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, Color color, String room,
