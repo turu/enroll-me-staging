@@ -28,9 +28,14 @@
         </transition>
         <transition on="submitAndNext" to="subjectsAssigned"/>
         <transition on="skip" to="skipFurtherConfiguration"/>
+        <transition on="teachers" to="teachers"/>
     </view-state>
 
     <end-state id="subjectsAssigned"/>
     <end-state id="skipFurtherConfiguration"/>
+
+    <subflow-state id="teachers" subflow="main/admin-panel/teacher-management">
+        <transition on="teachersEdited" to="subject-management"/>
+    </subflow-state>
 
 </flow>
