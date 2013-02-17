@@ -94,9 +94,12 @@ public class ScheduleController implements Serializable {
                     ". " + teacher.getSecondName();
             event.setTeacher(teacherString);
 
+            t.getSubject().getColor();
+
             event.setTitle(t.getSubject().getName());
             event.setPossible(p.getPoints() == -1 ? false : true);
             //event.setImportance(event.getPoints() / );
+            event.setColor()
         }
     }
 
