@@ -2,6 +2,8 @@ package pl.agh.enrollme.controller.preferencesmanagement;
 
 import org.primefaces.event.*;
 import org.primefaces.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.utils.DayOfWeek;
 
@@ -19,12 +21,18 @@ public class ScheduleController implements Serializable {
 
     private static final long serialVersionUID = -740843017652008075L;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleController.class);
+
+    //Custom container model for the EnrollSchedule component
     private EnrollScheduleModel eventModel = new DefaultEnrollScheduleModel();
 
+    //Custom event model for the EnrollSchedule component
     private EnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
+    //Schedule theme: as of today, unused
     private String theme;
 
+    //Enroll data
     private EnrollConfiguration enrollConfiguration;
 
     private List<Subject> subjects;
@@ -32,6 +40,7 @@ public class ScheduleController implements Serializable {
     private List<Term> terms;
 
     private List<StudentPointsPerTerm> points;
+    //Enroll data end
 
     //Mapping from Term to StudentPointsPerTerm
     private Map<Term, StudentPointsPerTerm> termToPointsMap = new HashMap<>();
@@ -68,6 +77,8 @@ public class ScheduleController implements Serializable {
             termToPointsMap.put(p.getTerm(), p);
         }
 
+        int id = 0;
+
         //preprocess terms, computing scope of enrollment, creating events etc.
         for (Term t : terms) {
             if (t.getDayOfWeek() == DayOfWeek.SATURDAY || t.getDayOfWeek() == DayOfWeek.SUNDAY) {
@@ -87,19 +98,47 @@ public class ScheduleController implements Serializable {
                 event.setPoints(p.getPoints());
             }
 
+            //setting event's place
             event.setPlace(t.getRoom());
 
             Teacher teacher = t.getTeacher();
             String teacherString = teacher.getDegree() + " " + teacher.getFirstName().charAt(0) +
                     ". " + teacher.getSecondName();
+            //setting event's teacher
             event.setTeacher(teacherString);
 
-            t.getSubject().getColor();
+            final Subject subject = t.getSubject();
 
-            event.setTitle(t.getSubject().getName());
-            event.setPossible(p.getPoints() == -1 ? false : true);
-            //event.setImportance(event.getPoints() / );
-            event.setColor()
+            //setting event's title to subjects' name
+            event.setTitle(subject.getName());
+
+            //setting event possibility
+            event.setPossible(p.getPoints() != -1);
+
+            //setting event importance as percent of total points available to this event
+            event.setImportance((int) ((double) event.getPoints() / (double) enrollConfiguration.getPointsPerTerm() * 100));
+
+            //setting event's color to that of event's subject
+            event.setColor(subject.getColor()); //TODO: support setting colors in event model
+
+            //setting event's type
+            event.setType(t.getType()); //TODO: support setting event's type in event model
+
+            //setting whether event is static or not
+            event.setStatic(t.getCertain()); //TODO: support setting event as static (without rendering points, reacting to select event...)
+
+            //event's shouldn't be editable
+            event.setEditable(false);
+
+            //setting event's id
+            event.setId(String.valueOf(id));
+
+            //adding event to the container
+            eventModel.addEvent(event);
+
+            //next id ...
+            id++;
+
         }
     }
 
@@ -168,4 +207,45 @@ public class ScheduleController implements Serializable {
     }
 
 
+    //Getters for Schedule attributes
+    public boolean isShowWeekends() {
+        return showWeekends;
+    }
+
+    public boolean isPeriodic() {
+        return periodic;
+    }
+
+    public int getSlotMinutes() {
+        return slotMinutes;
+    }
+
+    public int getFirstHour() {
+        return firstHour;
+    }
+
+    public int getMinTime() {
+        return minTime;
+    }
+
+    public int getMaxTime() {
+        return maxTime;
+    }
+
+    public String getInitialDate() {
+        return initialDate;
+    }
+
+    public String getLeftHeaderTemplate() {
+        return leftHeaderTemplate;
+    }
+
+    public String getCenterHeaderTemplate() {
+        return centerHeaderTemplate;
+    }
+
+    public String getRightHeaderTemplate() {
+        return rightHeaderTemplate;
+    }
+    //Getters for Schedule attributes end
 }
