@@ -25,7 +25,6 @@
 
             <p:spacer width="100%" height="10"/>
 
-            <div style="width: 100%; overflow: scroll">
             <p:enrollSchedule value="#{scheduleController.eventModel}" widgetVar="myschedule"
                               allDaySlot="false" showWeekends="false" slotMinutes="15" firstHour="8" maxTime="22"
                               periodic="true" autoOpacity="true" >
@@ -40,7 +39,6 @@
                         update="messages" />
 
             </p:enrollSchedule>
-            </div>
 
             <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
                 <h:panelGrid id="eventDetails" columns="2">
