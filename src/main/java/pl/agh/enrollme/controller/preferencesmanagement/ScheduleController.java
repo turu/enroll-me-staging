@@ -119,16 +119,16 @@ public class ScheduleController implements Serializable {
             event.setImportance((int) ((double) event.getPoints() / (double) enrollConfiguration.getPointsPerTerm() * 100));
 
             //setting event's color to that of event's subject
-            event.setColor(subject.getColor()); //TODO: support setting colors in event model
+            event.setColor(subject.getColor());
 
             //setting event's type
-            event.setType(t.getType()); //TODO: support setting event's type in event model
+            event.setActivityType(t.getType());
 
             //setting whether event is static or not
-            event.setInteractive(!t.getCertain()); //TODO: support setting event as static (reacting to select event...)
+            event.setInteractive(!t.getCertain());
 
             //setting whether to display points or not
-            event.setShowPoints(t.getCertain()); //TODO: support setting whether points should be displayed or not
+            event.setShowPoints(t.getCertain());
 
             //event's shouldn't be editable
             event.setEditable(false);
