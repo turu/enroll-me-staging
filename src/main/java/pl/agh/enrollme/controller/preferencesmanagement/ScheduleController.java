@@ -125,20 +125,16 @@ public class ScheduleController implements Serializable {
             event.setType(t.getType()); //TODO: support setting event's type in event model
 
             //setting whether event is static or not
-            event.setStatic(t.getCertain()); //TODO: support setting event as static (without rendering points, reacting to select event...)
+            event.setStatic(t.getCertain()); //TODO: support setting event as static (reacting to select event...)
+
+            //setting whether to display points or not
+            event.setShowPoints(t.getCertain()); //TODO: support setting whether points should be displayed or not
 
             //event's shouldn't be editable
             event.setEditable(false);
 
-            //setting event's id
-            event.setId(String.valueOf(id));
-
             //adding event to the container
             eventModel.addEvent(event);
-
-            //next id ...
-            id++;
-
         }
     }
 
