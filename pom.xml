@@ -144,7 +144,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>3.5zt</version>
+            <version>3.5zu</version>
         </dependency>
         <!-- File uploads -->
         <dependency>
