@@ -27,7 +27,7 @@
 
             <p:enrollSchedule value="#{scheduleController.eventModel}" widgetVar="myschedule"
                               allDaySlot="false" showWeekends="false" slotMinutes="15" firstHour="8" maxTime="22"
-                              periodic="true" autoOpacity="true" >
+                              periodic="true" autoOpacity="true" weekViewWidth="1500" >
 
                 <p:ajax event="dateSelect" listener="#{scheduleController.onDateSelect}"
                         update="eventDetails" oncomplete="eventDialog.show()" />
