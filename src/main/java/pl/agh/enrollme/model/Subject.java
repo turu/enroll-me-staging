@@ -1,6 +1,5 @@
 package pl.agh.enrollme.model;
 
-import pl.agh.enrollme.utils.Color;
 import pl.agh.enrollme.utils.DayOfWeek;
 import pl.agh.enrollme.utils.StupidDate;
 
@@ -152,5 +151,13 @@ public class Subject implements Serializable {
 
     public Integer getSubjectID() {
         return SubjectID;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "SubjectID=" + SubjectID +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

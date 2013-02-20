@@ -16,6 +16,7 @@ import pl.agh.enrollme.utils.DayOfWeek;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +29,9 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Autowired
     IEnrollmentDAO enrollmentDAO;
 
+    @Autowired
+    IPersonDAO personDAO;
+
     public SubjectDAO() {
         super(Subject.class);
     }
@@ -38,16 +42,23 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Override
     @Transactional
     public void fillCurrentUserSubjectList(Subject[] subjects) {
-        //TODO: fill the subjects into databse under currentUser. (for subjects, user.addSubject())...
-        LOGGER.debug(((UserDetails) SecurityContextHolder.getContext().getAuthentication().
-                getPrincipal()).getUsername());
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person = (Person) userDetails;
+
+        LOGGER.debug("User: " + person.getUsername() + " [" + person.getIndeks() + "] submitted subjects: " +
+                Arrays.asList(subjects));
+
+        Person currentUser = em.find(Person.class, person.getId());
+        for (Subject subject : subjects) {
+            currentUser.addSubject(em.find(Subject.class, subject.getSubjectID()));
+        }
+        em.merge(currentUser);
     }
 
     @Override
     @Transactional
     public List<Subject> getSubjectsByEnrollment(Enroll enrollment) {
+        LOGGER.debug("getSubjectsByEnrollment: enrollment: " + enrollment.getEnrollID() + " " + enrollment.getName());
         enrollmentDAO.getByPK(enrollment.getEnrollID());
         return enrollment.getSubjects();
     }

@@ -18,16 +18,19 @@ public class Enroll implements Serializable {
 
     @Id
     @GeneratedValue
-    private Integer EnrollID;
+    private Integer enrollID;
 
     private String name;
     private EnrollmentMode enrollmentMode;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private EnrollConfiguration enrollConfiguration;
 
-    @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Subject> subjects = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Person> persons;
 
     public EnrollConfiguration getEnrollConfiguration() {
         return enrollConfiguration;
@@ -37,8 +40,12 @@ public class Enroll implements Serializable {
         this.enrollmentMode = enrollmentMode;
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
-        EnrollID = 0;
+        enrollID = 0;
         this.name = name;
+    }
+
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
     }
 
     public void setEnrollmentMode(EnrollmentMode enrollmentMode) {
@@ -58,7 +65,15 @@ public class Enroll implements Serializable {
     }
 
     public void setEnrollID(Integer enrollID) {
-        EnrollID = enrollID;
+        this.enrollID = enrollID;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 
     public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {
@@ -66,7 +81,7 @@ public class Enroll implements Serializable {
     }
 
     public Enroll() {
-        EnrollID = 0;
+        enrollID = 0;
         name = "";
     }
 
@@ -76,7 +91,7 @@ public class Enroll implements Serializable {
 
     public Integer getEnrollID() {
 
-        return EnrollID;
+        return enrollID;
     }
 
     public String getName() {

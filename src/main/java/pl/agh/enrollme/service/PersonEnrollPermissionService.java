@@ -1,5 +1,7 @@
 package pl.agh.enrollme.service;
 
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,7 @@ public class PersonEnrollPermissionService {
         /* Getting enroll again from database, so that lazyLoading would fetch persons properly.
          * Correct me if there's nicer way to do this; merging detached object doesn't work. */
         Enroll retrievedEnroll = enrollmentDAO.getByPK(enroll.getEnrollID());
-        peopleAllowedToEnroll.clear();
+        peopleAllowedToEnroll.clear();  /* I think view scoping makes this unnecessary, but I'll keep it just in case */
         peopleAllowedToEnroll.addAll(retrievedEnroll.getPersons());
 
     }
@@ -60,18 +62,63 @@ public class PersonEnrollPermissionService {
      * Stores current selection in database using DAO.
      * @param enroll enroll in which selection should be saved
      */
-    public void saveCurrentSelectionIntoEnroll(Enroll enroll) {
+    public void saveSelection(Enroll enroll) {
         enroll.setPersons(peopleAllowedToEnroll);
         enrollmentDAO.update(enroll);
+    }
+
+    /**
+     * Adds new person to database and marks it as selected.
+     * @param person person to be added.
+     */
+    public void addAndSelectPerson(Person person) {
+        LOGGER.debug("Adding new person");
+        personDAO.add(person);
+        ((List<Person>)selectableModel.getWrappedData()).add(person);
+        peopleAllowedToEnroll.add(person);
+    }
+
+    /**
+     * Deletes person from database also removing it from underlying model and list of selected people.
+     * @param person person to be deleted
+     */
+    public void delete(Person person) {
+        LOGGER.debug("Removing person with id " + person.getId());
+        personDAO.remove(person);
+        ((List<Person>)selectableModel.getWrappedData()).remove(person);
+        peopleAllowedToEnroll.remove(person);
+    }
+
+    /**
+     * Handles selection in DataTable.
+     * @param event selection event
+     */
+    public void onSelect(SelectEvent event) {
+        Person person = (Person)event.getObject();
+        LOGGER.debug("Selected " + person.getFirstName() + " " + person.getLastName());
+        peopleAllowedToEnroll.add(person);
+    }
+
+    /**
+     * Handles selection in DataTable.
+     * @param event unselection event
+     */
+    public void onUnselect(UnselectEvent event) {
+        Person person = (Person)event.getObject();
+        LOGGER.debug("Unselected " + person.getFirstName() + " " + person.getLastName());
+        peopleAllowedToEnroll.remove(person);
     }
 
     public List<Person> getPeopleAllowedToEnroll() {
         return peopleAllowedToEnroll;
     }
 
+    /**
+     *  Selection is managed by listeners.
+     * Provided getter is used to allow table to get list of people it should render as selected,
+     * but setter does nothing as it could break our selection.
+     */
     public void setPeopleAllowedToEnroll(List<Person> peopleAllowedToEnroll) {
-        LOGGER.debug("Set allowed people - total " + peopleAllowedToEnroll.size());
-        this.peopleAllowedToEnroll = peopleAllowedToEnroll;
     }
 
     public SelectablePersonDataModel getSelectableModel() {

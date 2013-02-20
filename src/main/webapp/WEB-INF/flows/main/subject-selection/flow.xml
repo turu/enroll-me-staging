@@ -9,15 +9,16 @@
 
 
     <decision-state id="enterEventSelection">
-        <if test="subjectChoosingService.userAlreadySubmitedSubjects()" then="subjectsChosen" else="view"/>
+        <if test="subjectChoosingController.userAlreadySubmitedSubjects()" then="subjectsChosen" else="view"/>
     </decision-state>
+
 
     <view-state id="view">
         <on-render>
-            <evaluate expression="subjectChoosingService.getAvailableSubjectForEnrollment(currentEnrollment)"/>
+            <evaluate expression="subjectChoosingController.createModel(currentEnrollment)"/>
         </on-render>
         <transition on="done" to="subjectsChosen">
-            <evaluate expression="subjectDAO.fillCurrentUserSubjectList(subjectChoosingService.chosenSubjects)"/>
+            <evaluate expression="subjectDAO.fillCurrentUserSubjectList(subjectChoosingController.chosenSubjects)"/>
         </transition>
         <transition on="groups" to="groupsManagementRequested"/>
     </view-state>

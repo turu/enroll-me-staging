@@ -9,6 +9,7 @@ public interface IPersonDAO {
     void add(Person person);
     void update(Person person);
     void removeByPK(Object id);
+    void remove(Person person);
     Person getByPK(Object id);
     List<Person> getList();
     Person findByUsername(String username);
