@@ -1,5 +1,7 @@
 package pl.agh.enrollme.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,8 @@ import java.util.Set;
 @ViewScoped
 public class GroupManagementService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GroupManagementService.class);
+
     @Autowired
     private IEnrollmentDAO enrollmentDAO;
 
@@ -28,6 +32,8 @@ public class GroupManagementService {
 
     @Transactional
     public void prepareForEnrollment(Enroll enrollment) {
+        LOGGER.debug("Preparing for enrollment " + enrollment.getEnrollID());
+
         Enroll retrievedEnrollment = enrollmentDAO.getByPK(enrollment.getEnrollID());
 
         List<Subject> subjects = retrievedEnrollment.getSubjects();
