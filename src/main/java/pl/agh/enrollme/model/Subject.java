@@ -27,6 +27,9 @@ public class Subject implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> persons = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
+    private List<Group> groups;
+
     private String name;
     private Integer teamsCapacity;
     private String color;
@@ -153,4 +156,29 @@ public class Subject implements Serializable {
     public Integer getSubjectID() {
         return SubjectID;
     }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    @Override
+    public int hashCode() {
+        return getSubjectID();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Subject)) {
+            return false;
+        }
+
+        Subject other = (Subject)o;
+
+        return getSubjectID() == other.getSubjectID();
+    }
+
 }
