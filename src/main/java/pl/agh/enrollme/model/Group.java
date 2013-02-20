@@ -19,6 +19,8 @@ public class Group implements Serializable {
     @GeneratedValue
     private Integer id;
 
+    private String name;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> persons = new ArrayList<>();
 
@@ -31,6 +33,14 @@ public class Group implements Serializable {
     public Group(List<Person> persons, Subject subjects) {
         this.persons = persons;
         this.subject = subjects;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     void addPerson(Person person) {
@@ -60,4 +70,5 @@ public class Group implements Serializable {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
 }

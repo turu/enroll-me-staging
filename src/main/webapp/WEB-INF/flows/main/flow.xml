@@ -40,7 +40,7 @@
     </subflow-state>
 
     <subflow-state id="manageUserGroups" subflow="main/group-management">
-        <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
+        <input name="currentEnrollment" value="enrollmentDAO.getByPK(50)" required="true" type="pl.agh.enrollme.model.Enroll"/>
     </subflow-state>
 	
 	<subflow-state id="managePreferences" subflow="main/preferences-management">

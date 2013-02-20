@@ -15,15 +15,19 @@
 
 <ui:define name="content">
     <h:form>
-
-        <h:outputLabel value="# {currentEnrollmentID ? -3456 : currentEnrollmentID}"/>
         <p:dataTable id="subjects" value="${subjects}" var="subject">
 
             <p:column headerText="Name">
                 <h:outputText value="#{subject.name}"/>
             </p:column>
             <p:column headerText="Teacher">
-
+                <h:outputText value="#{subject.teacher.name}"/>
+            </p:column>
+            <p:column>
+                <p:selectOneMenu>
+                    <f:selectItems value="#{groupManagementService.getGroupsForSubject(subject)}" var="group"
+                                   itemLabel="#{group.name}"/>
+                </p:selectOneMenu>
             </p:column>
 
         </p:dataTable>

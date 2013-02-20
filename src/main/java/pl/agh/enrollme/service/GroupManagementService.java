@@ -48,4 +48,8 @@ public class GroupManagementService {
     public Set<Subject> getSubjects() {
         return groups.keySet();
     }
+
+    public List<Group> groupsForSubject(Subject subject) {
+        return groups.get(subject);
+    }
 }
