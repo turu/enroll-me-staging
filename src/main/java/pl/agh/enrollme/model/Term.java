@@ -6,6 +6,7 @@ import pl.agh.enrollme.utils.Week;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Michal Partyka
@@ -23,12 +24,8 @@ public class Term implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Subject subject;
 
-    private DayOfWeek dayOfWeek;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private StupidDate startTime;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private StupidDate endTime;
+    private Date startTime;
+    private Date endTime;
 
     private Week week;
     private Integer capacity;
@@ -42,10 +39,9 @@ public class Term implements Serializable {
     public Term() {
     }
 
-    public Term(TermPK termId, DayOfWeek dayOfWeek, StupidDate startTime, StupidDate endTime,
+    public Term(TermPK termId, DayOfWeek dayOfWeek, Date startTime, Date endTime,
                 Week week, Integer capacity, String room, Teacher teacher, String type, Boolean certain) {
         this.termId = termId;
-        this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
         this.endTime = endTime;
         this.week = week;
@@ -64,15 +60,11 @@ public class Term implements Serializable {
         return termId;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public StupidDate getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public StupidDate getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
@@ -96,15 +88,11 @@ public class Term implements Serializable {
         this.termId = termId;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public void setStartTime(StupidDate startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(StupidDate endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
