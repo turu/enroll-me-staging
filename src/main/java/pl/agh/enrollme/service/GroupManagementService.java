@@ -42,8 +42,8 @@ public class GroupManagementService {
         }
     }
 
-    public Set<Subject> getSubjects() {
-        return new HashSet<>(groups.keySet());
+    public List<Subject> getSubjects() {
+        return new ArrayList<>(groups.keySet());
     }
 
     public List<Group> groupsForSubject(Subject subject) {
