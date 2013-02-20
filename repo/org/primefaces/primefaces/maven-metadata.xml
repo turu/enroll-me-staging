@@ -3,10 +3,10 @@
   <groupId>org.primefaces</groupId>
   <artifactId>primefaces</artifactId>
   <versioning>
-    <release>3.5zx</release>
+    <release>3.5zy</release>
     <versions>
-      <version>3.5zx</version>
+      <version>3.5zy</version>
     </versions>
-    <lastUpdated>20130218081629</lastUpdated>
+    <lastUpdated>20130220203413</lastUpdated>
   </versioning>
 </metadata>
