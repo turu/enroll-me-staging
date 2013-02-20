@@ -46,7 +46,7 @@ public class GroupManagementService {
         return new ArrayList<>(groups.keySet());
     }
 
-    public List<Group> groupsForSubject(Subject subject) {
+    public List<Group> getGoupsForSubject(Subject subject) {
         return groups.get(subject);
     }
 }
