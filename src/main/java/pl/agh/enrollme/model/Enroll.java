@@ -18,19 +18,16 @@ public class Enroll implements Serializable {
 
     @Id
     @GeneratedValue
-    private Integer enrollID;
+    private Integer EnrollID;
 
     private String name;
     private EnrollmentMode enrollmentMode;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private EnrollConfiguration enrollConfiguration;
 
-    @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Subject> subjects = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Person> persons;
 
     public EnrollConfiguration getEnrollConfiguration() {
         return enrollConfiguration;
@@ -40,12 +37,8 @@ public class Enroll implements Serializable {
         this.enrollmentMode = enrollmentMode;
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
-        enrollID = 0;
+        EnrollID = 0;
         this.name = name;
-    }
-
-    public void addSubject(Subject subject) {
-        subjects.add(subject);
     }
 
     public void setEnrollmentMode(EnrollmentMode enrollmentMode) {
@@ -65,15 +58,7 @@ public class Enroll implements Serializable {
     }
 
     public void setEnrollID(Integer enrollID) {
-        this.enrollID = enrollID;
-    }
-
-    public List<Person> getPersons() {
-        return persons;
-    }
-
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
+        EnrollID = enrollID;
     }
 
     public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {
@@ -81,7 +66,7 @@ public class Enroll implements Serializable {
     }
 
     public Enroll() {
-        enrollID = 0;
+        EnrollID = 0;
         name = "";
     }
 
@@ -91,21 +76,10 @@ public class Enroll implements Serializable {
 
     public Integer getEnrollID() {
 
-        return enrollID;
+        return EnrollID;
     }
 
     public String getName() {
         return name;
-    }
-
-    @Override
-    public String toString() {
-        return "Enroll{" +
-                "enrollID=" + enrollID +
-                ", name='" + name + '\'' +
-                ", enrollmentMode=" + enrollmentMode +
-                ", enrollConfiguration=" + enrollConfiguration +
-                ", subjects=" + subjects +
-                '}';
     }
 }
