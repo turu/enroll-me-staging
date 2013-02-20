@@ -67,12 +67,17 @@ public class TestScheduleController implements Serializable {
         newEvent.setEditable(false);
         newEvent.setTeacher("dr W. Frydrych");
         newEvent.setPlace("s. 3.27");
+        newEvent.setActivityType("Wykład");
+        newEvent.setShowPoints(false);
+        newEvent.setInteractive(false);
         eventModel.addEvent(newEvent);
         DefaultEnrollScheduleEvent newEvent2 = new DefaultEnrollScheduleEvent("MOwNiT", begin, end);
         newEvent2.setEditable(false);
         newEvent2.setPossible(false);
         newEvent2.setTeacher("dr W. Czech");
         newEvent2.setPlace("s. 3.23");
+        newEvent2.setActivityType("Dupa");
+        newEvent2.setColor("#00ff00");
         eventModel.addEvent(newEvent2);
         DefaultEnrollScheduleEvent newEvent3 = new DefaultEnrollScheduleEvent("PSI", begin, end);
         newEvent3.setEditable(false);
@@ -80,6 +85,7 @@ public class TestScheduleController implements Serializable {
         newEvent3.setPlace("2.31");
         newEvent3.setPoints(7);
         newEvent3.setImportance(70);
+        newEvent3.setActivityType("Lab");
         eventModel.addEvent(newEvent3);
     }
 
