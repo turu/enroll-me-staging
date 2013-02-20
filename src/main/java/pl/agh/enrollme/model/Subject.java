@@ -30,35 +30,22 @@ public class Subject implements Serializable {
     private String name;
     private Integer teamsCapacity;
     private String color;
-    private String room;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Teacher teacher;
-
-    private DayOfWeek dayOfWeek;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private StupidDate timeStart;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private StupidDate timeEnd;
 
     public Subject() {
         teacher = new Teacher("","","","");
     }
 
-    public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, String color, String room,
-                   Teacher teacher, DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
+    public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, String color,
+                   Teacher teacher) {
         this.enroll = enroll;
         this.persons = persons;
         this.name = name;
         this.teamsCapacity = teamsCapacity;
         this.color = color;
-        this.room = room;
         this.teacher = teacher;
-        this.dayOfWeek = dayOfWeek;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
     }
 
     public void addPerson(Person person) {
@@ -97,45 +84,12 @@ public class Subject implements Serializable {
         this.color = color;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public void setTimeStart(StupidDate timeStart) {
-        this.timeStart = timeStart;
-    }
-
-    public void setTimeEnd(StupidDate timeEnd) {
-        this.timeEnd = timeEnd;
-    }
-
-    public StupidDate getTimeEnd() {
-
-        return timeEnd;
-    }
-
-    public StupidDate getTimeStart() {
-        return timeStart;
-    }
-
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
     public Teacher getTeacher() {
         return teacher;
-    }
-
-    public String getRoom() {
-        return room;
     }
 
     public String getColor() {

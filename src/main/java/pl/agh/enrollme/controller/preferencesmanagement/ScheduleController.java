@@ -59,6 +59,7 @@ public class ScheduleController implements Serializable {
     private String leftHeaderTemplate = "";
     private String centerHeaderTemplate = "";
     private String rightHeaderTemplate = "";
+    private int weekViewWidth = 0;
 
 
     public ScheduleController(EnrollConfiguration enrollConfiguration, List<Subject> subjects, List<Term> terms,
