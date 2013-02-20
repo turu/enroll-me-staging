@@ -34,11 +34,9 @@ public class GroupManagementService {
     public void prepareForEnrollment(Enroll enrollment) {
         LOGGER.debug("Preparing for enrollment " + enrollment.getEnrollID());
 
-        Enroll retrievedEnrollment = enrollmentDAO.getByPK(enrollment.getEnrollID());
-
-        LOGGER.debug("Retrieved from database is null - " + (retrievedEnrollment == null));
-
-        List<Subject> subjects = retrievedEnrollment.getSubjects();
+        /* If something crashes here, somebody's probably changed FetchType to LAZY.
+         * Just synchronize enrollment with db then */
+        List<Subject> subjects = enrollment.getSubjects();
 
         groups = new HashMap<>();
 
