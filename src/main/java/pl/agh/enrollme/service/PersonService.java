@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.repository.IPersonDAO;
@@ -75,5 +77,10 @@ public class PersonService {
         person.setAccountNonLocked(accountNonLocked);
         person.setCredentialsNonExpired(credentialsNonExpired);
     }
-	
+
+    public Person getCurrentUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person = (Person)userDetails;
+        return person;
+    }
 }

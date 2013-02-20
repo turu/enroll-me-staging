@@ -29,7 +29,7 @@ public class SelectablePersonDataModel extends ListDataModel<Person> implements 
         List<Person> people = (List<Person>)getWrappedData();
 
         for (Person p : people) {
-            if (p.getId() == key) {
+            if (p.getId().equals(key)) {
                 return p;
             }
         }
