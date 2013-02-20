@@ -1,11 +1,14 @@
 package pl.agh.enrollme.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.agh.enrollme.model.Person;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
  * @author Michal Partyka
  */
 public class GenericDAO<T> implements IGenericDAO<T> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericDAO.class.getName());
 
     @PersistenceContext
     private EntityManager em;
@@ -34,6 +38,7 @@ public class GenericDAO<T> implements IGenericDAO<T> {
     @Transactional
     @Override
     public void update(T toUpdate) {
+        LOGGER.debug("Object provided for update " + toUpdate.toString());
         em.merge(toUpdate);
     }
 
