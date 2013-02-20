@@ -36,6 +36,8 @@ public class GroupManagementService {
 
         Enroll retrievedEnrollment = enrollmentDAO.getByPK(enrollment.getEnrollID());
 
+        LOGGER.debug("Retrieved from database is null - " + (retrievedEnrollment == null));
+
         List<Subject> subjects = retrievedEnrollment.getSubjects();
 
         groups = new HashMap<>();
