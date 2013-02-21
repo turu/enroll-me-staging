@@ -63,6 +63,7 @@ public class GroupManagementController implements Serializable {
     }
 
     public boolean isCurrentUserInGroupForSubject(Subject subject) {
-
+        // TODO
+        return false;
     }
 }
