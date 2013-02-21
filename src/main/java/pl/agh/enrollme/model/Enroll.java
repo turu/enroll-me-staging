@@ -29,7 +29,7 @@ public class Enroll implements Serializable {
     @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Subject> subjects = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private List<Person> persons;
 
     public EnrollConfiguration getEnrollConfiguration() {
