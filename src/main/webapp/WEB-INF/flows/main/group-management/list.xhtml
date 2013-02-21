@@ -24,7 +24,7 @@
             </p:column>
             <p:column>
                 <p:selectOneMenu>
-                    <f:selectItems value="#{groupManagementService.getGroupsForSubject(subject)}" var="group"
+                    <f:selectItems value="#{controller.getGroupsForSubject(subject)}" var="group"
                                    itemLabel="#{group.name}"/>
                 </p:selectOneMenu>
                 <p:commandButton value="New" action="createNewGroup" oncomplete="createNewGroupDialog.show()"
@@ -37,7 +37,7 @@
         <p:dialog widgetVar="createNewGroupDialog">
             <p:outputPanel id="createNewGroupDialogContent">
                 <h:outputText value="Please enter name for new group:" for="newGroupName"/>
-                <p:inputText id="newGroupName" value="#{newGroup.name}"/>
+                <p:inputText id="newGroupName" value="#{newGroupName}"/>
                 <p:commandButton action="createNewGroupConfirm" oncomplete="createNewGroupDialog.hide()"/>
             </p:outputPanel>
         </p:dialog>
