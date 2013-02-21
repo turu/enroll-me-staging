@@ -15,8 +15,8 @@
 
 <ui:define name="content">
     <h:form>
-        <p:dataTable id="subjectSelection" var="subject" value="#{subjectChoosingService.model}"
-                selection="#{subjectChoosingService.chosenSubjects}">
+        <p:dataTable id="subjectSelection" var="subject" value="#{subjectChoosingController.model}"
+                selection="#{subjectChoosingController.chosenSubjects}">
 
             <f:facet name="header">
                 Choose subject for enrolling. <br/>

@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @author Michal Partyka
  */
 @Entity
+//TODO: WHAT THE FUCK IS THAT!!!!!????? ~partyks
 @Table(name = "enrollconf1_")
 public class EnrollConfiguration implements Serializable {
 
@@ -51,16 +52,39 @@ public class EnrollConfiguration implements Serializable {
         return ID;
     }
 
+    /**
+     * @param pointsPerSubject points available for whole subject
+     */
     public void setPointsPerSubject(Integer pointsPerSubject) {
         this.pointsPerSubject = pointsPerSubject;
     }
 
+    /**
+     * @param minimumPointsPerSubject minimum amount of points which user must submit for every subject
+     */
     public void setMinimumPointsPerSubject(Integer minimumPointsPerSubject) {
         this.minimumPointsPerSubject = minimumPointsPerSubject;
     }
 
+    /**
+     * @param additionalPoints additional amount of points which user can submit for any subject he/she wants
+     */
     public void setAdditionalPoints(Integer additionalPoints) {
         this.additionalPoints = additionalPoints;
+    }
+
+    /**
+     * @param pointsPerTerm maximum number of points user can submit for every single term
+     */
+    public void setPointsPerTerm(Integer pointsPerTerm) {
+        this.pointsPerTerm = pointsPerTerm;
+    }
+
+    /**
+     * @param enroll enroll which this configuration concerns
+     */
+    public void setEnroll(Enroll enroll) {
+        this.enroll = enroll;
     }
 
     public Integer getPointsPerSubject() {
@@ -80,15 +104,7 @@ public class EnrollConfiguration implements Serializable {
         return pointsPerTerm;
     }
 
-    public void setPointsPerTerm(Integer pointsPerTerm) {
-        this.pointsPerTerm = pointsPerTerm;
-    }
-
     public Enroll getEnroll() {
         return enroll;
-    }
-
-    public void setEnroll(Enroll enroll) {
-        this.enroll = enroll;
     }
 }

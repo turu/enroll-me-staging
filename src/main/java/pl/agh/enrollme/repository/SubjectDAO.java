@@ -16,6 +16,7 @@ import pl.agh.enrollme.utils.DayOfWeek;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +29,9 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Autowired
     IEnrollmentDAO enrollmentDAO;
 
+    @Autowired
+    IPersonDAO personDAO;
+
     public SubjectDAO() {
         super(Subject.class);
     }
@@ -37,29 +41,46 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
     @Override
     @Transactional
+    /**
+     * Add subjects to the current user subjects list
+     * @param subjects - array of subjects.
+     */
     public void fillCurrentUserSubjectList(Subject[] subjects) {
-        //TODO: fill the subjects into databse under currentUser. (for subjects, user.addSubject())...
-        LOGGER.debug(((UserDetails) SecurityContextHolder.getContext().getAuthentication().
-                getPrincipal()).getUsername());
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person = (Person) userDetails;
+
+        LOGGER.debug("User: " + person.getUsername() + " [" + person.getIndeks() + "] submitted subjects: " +
+                Arrays.asList(subjects));
+
+        Person currentUser = personDAO.getByPK(person.getId());
+        for (Subject subject : subjects) {
+            LOGGER.debug("add new subject to student: " + subject);
+            currentUser.addSubject(getByPK(subject.getSubjectID()));
+        }
+        em.merge(currentUser);
     }
 
     @Override
     @Transactional
+    /**
+     * @return list of subjects assigned to the given enrollment
+     */
     public List<Subject> getSubjectsByEnrollment(Enroll enrollment) {
+        LOGGER.debug("getSubjectsByEnrollment: enrollment: " + enrollment.getEnrollID() + " " + enrollment.getName());
         enrollmentDAO.getByPK(enrollment.getEnrollID());
         return enrollment.getSubjects();
     }
 
     @Override
     @Transactional
+    @Deprecated
     public Subject getSubject(Integer id) {
         return em.find(Subject.class, id);
     }
 
     @Override
     @Transactional
+    @Deprecated
     public List<Subject> getSubjectsWithGroups(Enroll enroll) {
         Teacher teacher1 = new Teacher("dr", "Stanisław", "Sobieszko", "4.11");
         Teacher teacher2 = new Teacher("dr", "Stasio", "Mieszko", "4.11");

@@ -6,6 +6,7 @@
 
 	<secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
+    <var name="currentEnrollment" class="pl.agh.enrollme.model.Enroll"/>
 
     <subflow-state id="manageAccount" subflow="main/account-management">
         <transition on="eventChoiceRequested" to="chooseEvent">
@@ -17,6 +18,7 @@
     <subflow-state id="administer" subflow="main/admin-panel">
 
     </subflow-state>
+
 
     <subflow-state id="chooseEvent" subflow="main/event-selection">
 		<transition on="eventComplete" to="seeResults">
