@@ -63,6 +63,7 @@ public class ScheduleController implements Serializable {
     private String centerHeaderTemplate = "title";
     private String rightHeaderTemplate = "month, agendaWeek, agendaDay";
     private int weekViewWidth = 1500;
+    private String view = "agendaWeek";
 
 
     public ScheduleController(EnrollConfiguration enrollConfiguration, List<Subject> subjects, List<Term> terms,
@@ -121,7 +122,6 @@ public class ScheduleController implements Serializable {
                 maxDate = endTime;
             }
 
-            //TODO: compute contents of left, center, right headers based on the above data
             StudentPointsPerTerm p = termToPointsMap.get(t);
             DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
             eventToTermMap.put(event.getId(), t);
@@ -178,6 +178,17 @@ public class ScheduleController implements Serializable {
             this.firstHour = minHour;
             this.maxTime = maxHour != 23 ? maxHour + 1 : maxHour;
             this.initialDate = minDate.getTime();
+
+            //infering right header contents and default view
+            if (minDate.get(Calendar.YEAR) == maxDate.get(Calendar.YEAR)
+                    && minDate.get(Calendar.DAY_OF_YEAR) == maxDate.get(Calendar.DAY_OF_YEAR)) {
+                this.rightHeaderTemplate = "agendaDay";
+                this.view = "agendaDay";
+            } else if (minDate.get(Calendar.YEAR) == maxDate.get(Calendar.YEAR)
+                    && minDate.get(Calendar.WEEK_OF_YEAR) == maxDate.get(Calendar.WEEK_OF_YEAR)) {
+                this.rightHeaderTemplate = "agendaWeek, agendaDay";
+                this.view = "agendaWeek";
+            }
         }
     }
 
@@ -297,6 +308,10 @@ public class ScheduleController implements Serializable {
 
     public int getWeekViewWidth() {
         return weekViewWidth;
+    }
+
+    public String getView() {
+        return view;
     }
     //Getters for Schedule attributes end
 }
