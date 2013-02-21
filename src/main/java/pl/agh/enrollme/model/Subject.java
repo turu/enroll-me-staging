@@ -23,8 +23,13 @@ public class Subject implements Serializable {
     @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> persons = new ArrayList<>();
 
+    @Column(unique = true, nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private Integer teamsCapacity;
+
+    @Column(nullable = false)
     private String color;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -119,13 +124,13 @@ public class Subject implements Serializable {
 
         Subject subject = (Subject) o;
 
-        if (!SubjectID.equals(subject.SubjectID)) return false;
+        if (!name.equals(subject.name)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return SubjectID.hashCode();
+        return name.hashCode();
     }
 }
