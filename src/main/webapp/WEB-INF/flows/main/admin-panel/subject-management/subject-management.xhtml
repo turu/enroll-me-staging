@@ -24,7 +24,7 @@
                     <p:column>Name</p:column>
                     <p:column>Teams capacity</p:column>
                     <p:column>Teacher</p:column>
-                    <p:column>Room</p:column>
+                    <p:column>Color</p:column>
                 </p:row>
             </f:facet>
 
@@ -44,7 +44,7 @@
                     </p:selectOneMenu>
                 </p:column>
                 <p:column>
-                    <p:inputText value="#{newSubject.room}"/>
+                    <p:colorPicker id="coolorChooser" value="#{newSubject.color}" widgetVar="picker" />
                 </p:column>
             </p:row>
 
@@ -100,13 +100,13 @@
                     </f:facet>
                 </p:cellEditor>
             </p:column>
-            <p:column headerText="Room">
+            <p:column headerText="Color">
                 <p:cellEditor>
                     <f:facet name="output">
-                        <h:outputText value="#{subject.room}"/>
+                        <h:outputText value="#{subject.color}"/>
                     </f:facet>
                     <f:facet name="input">
-                        <p:inputText value="#{subject.room}"/>
+                        <p:colorPicker value="#{subject.color}"/>
                     </f:facet>
                 </p:cellEditor>
             </p:column>
