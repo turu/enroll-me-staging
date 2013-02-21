@@ -10,6 +10,7 @@ import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.repository.IEnrollmentDAO;
 import pl.agh.enrollme.repository.IPersonDAO;
+import pl.agh.enrollme.repository.ISubjectDAO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class GroupManagementController implements Serializable {
 //
 //    @Autowired
 //    private IPersonDAO personDAO;
+
+    @Autowired
+    private transient ISubjectDAO subjectDAO;
 
     Map<Subject, List<Group>> groups;
 
@@ -56,8 +60,15 @@ public class GroupManagementController implements Serializable {
         groups = new HashMap<>();
 
         for (Subject subject : subjects) {
-            groups.put(subject, subject.getGroups());
+            groups.put(subject, groupsForSubject(subject));
         }
+    }
+
+    @Transactional
+    private List<Group> groupsForSubject(Subject subject) {
+        Subject retrievedSubject = subjectDAO.getByPK(subject.getSubjectID());
+        List<Group> groups = retrievedSubject.getGroups();
+        return groups;
     }
 
     public List<Subject> getSubjects() {
