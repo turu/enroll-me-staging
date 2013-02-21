@@ -363,7 +363,7 @@ public class ScheduleController implements Serializable {
             setEventImportance(event);
 
             //setting event's color to that of event's subject
-            event.setColor(subject.getColor());
+            event.setColor("#" + subject.getColor());
 
             //setting event's type
             event.setActivityType(t.getType());
