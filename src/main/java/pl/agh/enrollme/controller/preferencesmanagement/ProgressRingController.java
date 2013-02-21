@@ -91,6 +91,14 @@ public class ProgressRingController implements Serializable {
         return progressTokens;
     }
 
+    public Map<Integer, Integer> getPointsMap() {
+        return pointsMap;
+    }
+
+    public int getExtraPointsUsed() {
+        return extraPointsUsed;
+    }
+
     /**
      * Updates used values and state of progress tokens
      */
