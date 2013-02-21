@@ -6,8 +6,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/standard.xhtml">
 
-    <ui:define name="title">Preferences Management <br/>
-        Attention! Changes you make to your preferences will not be saved until YOU save them. Save your changes frequently or perish!
+    <ui:define name="title">Preferences Management <br/><br/>
+        <b>Attention!</b> Changes you make to your preferences will not be saved until YOU save them. Save your changes frequently or perish!
     </ui:define>
 
     <ui:define name="notes">
@@ -20,10 +20,10 @@
             <p:growl id="messages" showDetail="true" />
 
             <p:menubar>
-                <p:menuitem value="Save" action="save" icon="ui-icon-disc"/>
-                <p:menuitem value="Manage Groups" action="groups" icon="ui-icon-gear"/>
-                <p:menuitem value="Reload" action="reload" icon="ui-icon-arrowrefresh-1-w"/>
-                <p:menuitem value="Exit" action="done" icon="ui-icon-close"/>
+                <p:menuitem value="Save" action="save" icon="ui-icon-disc" ajax="false"/>
+                <p:menuitem value="Manage Groups" action="groups" icon="ui-icon-gear" ajax="false"/>
+                <p:menuitem value="Reload" action="reload" icon="ui-icon-arrowrefresh-1-w" ajax="false"/>
+                <p:menuitem value="Exit" action="done" icon="ui-icon-close" ajax="false"/>
             </p:menubar>
 
             <p:spacer width="100%" height="10"/>

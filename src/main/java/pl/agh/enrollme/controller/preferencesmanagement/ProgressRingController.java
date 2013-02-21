@@ -118,12 +118,17 @@ public class ProgressRingController implements Serializable {
     private void updateProgressTokens() {
         for (ProgressToken token : progressTokens) {
             final int id = token.getId();
-            int used = 0;
+
+            Integer used = 0;
             if (id == -1) {
                 used = extraPointsUsed;
             } else {
                 used = pointsMap.get(id);
+                if (used == null) {
+                    used = 0;
+                }
             }
+
             token.setPointsUsed(used);
             LOGGER.debug("Token: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
                     ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor() + " updated");
