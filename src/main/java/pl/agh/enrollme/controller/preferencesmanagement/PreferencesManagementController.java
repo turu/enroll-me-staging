@@ -20,7 +20,8 @@ public class PreferencesManagementController implements Serializable {
     private ProgressRingController ringController;
 
     public PreferencesManagementController(ScheduleController scheduleController, ProgressRingController ringController) {
-
+        this.scheduleController = scheduleController;
+        this.ringController = ringController;
     }
 
     public ScheduleController getScheduleController() {

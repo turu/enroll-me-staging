@@ -10,10 +10,8 @@ import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementCon
 import pl.agh.enrollme.controller.preferencesmanagement.ProgressRingController;
 import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
 import pl.agh.enrollme.model.*;
-import pl.agh.enrollme.repository.IPersonDAO;
-import pl.agh.enrollme.repository.IStudentPointsPerTermDAO;
-import pl.agh.enrollme.repository.ISubjectDAO;
-import pl.agh.enrollme.repository.ITermDAO;
+import pl.agh.enrollme.repository.*;
+import pl.agh.enrollme.utils.EnrollmentMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,21 +38,16 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     @Autowired
     private IStudentPointsPerTermDAO pointsDAO;
 
+    @Autowired
+    private IEnrollmentDAO enrollDAO;
+
+    @Autowired
+    private PersonService personService;
+
     @Override
-    public PreferencesManagementController createPreferencesManagementController(Enroll enroll) {
-        final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        UserDetails userDetails = null;
-
-        if(principal instanceof UserDetails) {
-            userDetails = (UserDetails) principal;
-        } else {
-            LOGGER.warn("Principal " + principal + " is not an instance of UserDetails!");
-            throw new SecurityException("Principal " + principal + " is not an instance of UserDetails!");
-        }
-
-        final Person person = personDAO.findByUsername(userDetails.getUsername());
-        LOGGER.debug(person + " person retrieved from database");
+    public ScheduleController createScheduleController(Enroll enroll) {
+        final Person person = personService.getCurrentUser();
+        LOGGER.debug(person + " person retrieved from security context");
 
         //Enroll configuration of the current enroll
         final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
@@ -62,7 +55,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(enroll);
         LOGGER.debug("Subjects of " + enroll + " enrollment retrieved: " + subjectsByEnrollment);
 
-        final List<Subject> personSubjects = person.getSubjects();
+        final List<Subject> personSubjects = subjectDAO.getSubjectsByPerson(person);
         LOGGER.debug("Subjects of " + person + " person retrieved: " + personSubjects);
 
         //list of subjects belonging to the currentEnrollment, choosen by person
@@ -101,15 +94,40 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         LOGGER.debug("ProgressRingController created: " + ringController);
 
         //creating schedule controller
-        final ScheduleController scheduleController = new ScheduleController(enrollConfiguration, subjects, terms, points);
+        final ScheduleController scheduleController = new ScheduleController(ringController, enrollConfiguration, subjects, terms, points);
         LOGGER.debug("ScheduleController created: " + scheduleController);
 
-        final PreferencesManagementController preferencesController =
-                new PreferencesManagementController(scheduleController, ringController);
-        LOGGER.debug("PreferencesManagementController created: " + preferencesController);
+        return scheduleController;
 
-        return preferencesController;
+    }
 
+    @Override
+    public boolean saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController) {
+        currentEnroll = enrollDAO.getByPK(currentEnroll.getEnrollID());
+
+        if (currentEnroll.getEnrollmentMode() == EnrollmentMode.CLOSED
+                || currentEnroll.getEnrollmentMode()  == EnrollmentMode.COMPLETED) {
+            return false;
+        }
+
+        final List<StudentPointsPerTerm> termPoints = scheduleController.getPoints();
+
+        for (StudentPointsPerTerm termPoint : termPoints) {
+            final StudentPointsPerTerm byPK = pointsDAO.getByPK(termPoint.getId());
+
+            //termPoint is not present in the database
+            if (byPK == null && termPoint.getPoints() != 0) {
+                pointsDAO.add(termPoint);
+            } else { //is present in the database
+                if (termPoint.getPoints() == 0) {
+                    pointsDAO.remove(termPoint);
+                } else {
+                    pointsDAO.update(termPoint);
+                }
+            }
+        }
+
+        return true;
     }
 
     private void createMissingSPPT(List<Term> terms, List<StudentPointsPerTerm> points, Person person) {

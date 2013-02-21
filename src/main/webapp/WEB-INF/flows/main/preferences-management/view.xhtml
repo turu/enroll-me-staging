@@ -9,6 +9,7 @@
     <ui:define name="title">Preferences Management</ui:define>
 
     <ui:define name="notes">
+        Attention! Changes you make to your preferences will not be saved until YOU save them. Save your changes frequently or perish!
     </ui:define>
 
     <ui:define name="content">
@@ -20,7 +21,7 @@
                 <p:menuitem value="Save" action="save" icon="ui-icon-disc"/>
                 <p:menuitem value="Manage Groups" action="groups" icon="ui-icon-gear"/>
                 <p:menuitem value="Reload" action="reload" icon="ui-icon-arrowrefresh-1-w"/>
-                <p:menuitem value="Exit" action="exit" icon="ui-icon-close"/>
+                <p:menuitem value="Exit" action="done" icon="ui-icon-close"/>
             </p:menubar>
 
             <p:spacer width="100%" height="10"/>
@@ -29,16 +30,17 @@
 
                 <p:ajax event="toggle" update="barRing"/>
 
+                <!-- This panel contains basic information about ongoing enrollment -->
                 <p:panel id="guidlinesPanel" header="What to keep in mind while filling the form">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Points per term: "/>
-                        <h:outputLabel value="#{currentEnrollment.enrollConfiguration.pointsPerTerm}"/>
+                        <h:outputLabel value="#{scheduleController.enrollConfiguration.pointsPerTerm}"/>
                         <h:outputLabel value="Points per subject: "/>
-                        <h:outputLabel value="#{currentEnrollment.enrollConfiguration.pointsPerSubject}"/>
+                        <h:outputLabel value="#{scheduleController.enrollConfiguration.pointsPerSubject}"/>
                         <h:outputLabel value="Minimum points per subject: "/>
-                        <h:outputLabel value="#{currentEnrollment.enrollConfiguration.minimumPointsPerSubject}"/>
+                        <h:outputLabel value="#{scheduleController.enrollConfiguration.minimumPointsPerSubject}"/>
                         <h:outputLabel value="Extra points: "/>
-                        <h:outputLabel value="#{currentEnrollment.enrollConfiguration.additionalPoints}"/>
+                        <h:outputLabel value="#{scheduleController.enrollConfiguration.additionalPoints}"/>
                     </h:panelGrid>
                 </p:panel>
 
@@ -46,7 +48,8 @@
 
                 <div style="text-align: center;"><h3>Below you can track your progress as you distribute points:</h3></div>
 
-                <p:ring id="barRing" value="#{preferencesController.ringController.progressTokens}" var="progressToken"
+                <!-- The ring is used to display statistics -->
+                <p:ring id="barRing" value="#{scheduleController.ringController.progressTokens}" var="progressToken"
                         easing="swing" first="0" style="text-align: center;">
                     #{progressToken.name}
                     <p:progressBar id="pointsProgress" value="#{progressToken.progress}" labelTemplate="{value}%"
@@ -55,62 +58,63 @@
                 </p:ring>
             </p:fieldset>
 
-            <p:enrollSchedule value="#{preferencesController.scheduleController.eventModel}" widgetVar="myschedule"
-               allDaySlot="false" showWeekends="false" slotMinutes="15" firstHour="8" maxTime="22"
-               periodic="true" autoOpacity="true" >
+            <!-- Custom schedule component based on the Schedule component -->
+            <p:enrollSchedule value="#{scheduleController.eventModel}" widgetVar="schedule"
+               allDaySlot="false"
+               showWeekends="${scheduleController.showWeekends}"
+               slotMinutes="${scheduleController.slotMinutes}"
+               firstHour="${scheduleController.firstHour}"
+               minTime="${scheduleController.minTime}"
+               maxTime="${scheduleController.maxTime}"
+               initialDate="${scheduleController.initialDate}"
+               periodic="${scheduleController.periodic}"
+               leftHeaderTemplate="${scheduleController.leftHeaderTemplate}"
+               centerHeaderTemplate="${scheduleController.centerHeaderTemplate}"
+               rightHeaderTemplate="${scheduleController.leftHeaderTemplate}"
+               weekViewWidth="${scheduleController.weekViewWidth}"
+               view="${scheduleController.view}"
+               autoOpacity="true"
+            >
 
-                <p:ajax event="dateSelect" listener="#{preferencesController.scheduleController.onDateSelect}"
+                <p:ajax event="eventSelect" listener="#{scheduleController.onEventSelect}"
                         update="eventDetails" oncomplete="eventDialog.show()" />
-                <p:ajax event="eventSelect" listener="#{preferencesController.scheduleController.onEventSelect}"
-                        update="eventDetails" oncomplete="eventDialog.show()" />
-                <p:ajax event="eventMove" listener="#{preferencesController.scheduleController.onEventMove}"
-                        update="messages" />
-                <p:ajax event="eventResize" listener="#{preferencesController.scheduleController.onEventResize}"
-                        update="messages" />
 
             </p:enrollSchedule>
 
-            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+            <p:dialog widgetVar="eventDialog" header="Term Details" showEffect="clip" hideEffect="clip" modal="true">
                 <h:panelGrid id="eventDetails" columns="2">
-                    <h:outputLabel for="title" value="Title:" />
-                    <p:inputText id="title" value="#{preferencesController.scheduleController.event.title}"
-                                 required="true"/>
+                    <h:outputText value="Subject's name: "/>
+                    <h:outputText value="#{scheduleController.event.title}"/>
+                    <h:outputText value="Start time: "/>
+                    <h:outputText value="#{scheduleController.event.startDate}"/>
+                    <h:outputText value="End time: "/>
+                    <h:outputText value="#{scheduleController.event.endDate}"/>
+                    <h:outputText value="Teacher: "/>
+                    <h:outputText value="#{scheduleController.event.teacher}"/>
+                    <h:outputText value="Place: "/>
+                    <h:outputText value="#{scheduleController.event.place}"/>
+                    <h:outputText value="Type of activity: "/>
+                    <h:outputText value="#{scheduleController.event.activityType}"/>
 
-                    <h:outputLabel for="from" value="From:" />
-                    <p:inputMask id="from" value="#{preferencesController.scheduleController.event.startDate}"
-                                 mask="99/99/9999 99:99">
-                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
-                    </p:inputMask>
+                    <p:outputLabel value="Assigned points: " for="pointsSpinner"/>
+                    <p:spinner id="pointsSpinner" title="Adjust number of points assigned to this term"
+                               value="#{scheduleController.event.points}" size="2" maxlength="2"
+                               min="0" max="#{scheduleController.eventPointsRange}"/>
 
-                    <h:outputLabel for="to" value="To:" />
-                    <p:inputMask id="to" value="#{preferencesController.scheduleController.event.endDate}"
-                                 mask="99/99/9999 99:99">
-                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
-                    </p:inputMask>
+                    <p:outputLabel value="Impossibility" for="impossibilityChkbx"/>
+                    <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{!scheduleController.event.possible}"
+                               widgetVar="impossibilityWidget" />
 
-                    <h:outputLabel for="teacher" value="Teacher:" />
-                    <p:inputText id="teacher" value="#{preferencesController.scheduleController.event.teacher}" />
+                    <p:panel id="reasonPanel" header="Enter substantiation below" visible="${!scheduleController.event.possible}">
+                        <p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"
+                               maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>
 
-                    <h:outputLabel for="place" value="Place:" />
-                    <p:inputText id="place" value="#{preferencesController.scheduleController.event.place}" />
-
-                    <h:outputLabel for="points" value="Points:" />
-                    <p:inputText id="points" value="#{preferencesController.scheduleController.event.points}">
-                        <f:convertNumber type="number"/>
-                    </p:inputText>
-
-                    <!--temporary-->
-                    <h:outputLabel for="importance" value="Importance:"/>
-                    <p:inputText id="importance" value="#{preferencesController.scheduleController.event.importance}">
-                        <f:convertNumber type="number"/>
-                    </p:inputText>
-
-                    <h:outputLabel for="possible" value="Possible:"/>
-                    <p:selectBooleanCheckbox id="possible" value="#{preferencesController.scheduleController.event.possible}"/>
+                        <h:outputText id="reasonCounter"/>
+                    </p:panel>
 
                     <p:commandButton type="reset" value="Discard" />
-                    <p:commandButton value="Save" actionListener="#{preferencesController.scheduleController.addEvent}"
-                        update=":form:barRing" oncomplete="myschedule.update();eventDialog.hide();"/>
+                    <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
+                        update=":form:barRing" oncomplete="schedule.update();eventDialog.hide();"/>
                 </h:panelGrid>
             </p:dialog>
         </h:form>
