@@ -40,21 +40,13 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     @Autowired
     private IStudentPointsPerTermDAO pointsDAO;
 
+    @Autowired
+    private PersonService personService;
+
     @Override
     public PreferencesManagementController createPreferencesManagementController(Enroll enroll) {
-        final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        UserDetails userDetails = null;
-
-        if(principal instanceof UserDetails) {
-            userDetails = (UserDetails) principal;
-        } else {
-            LOGGER.warn("Principal " + principal + " is not an instance of UserDetails!");
-            throw new SecurityException("Principal " + principal + " is not an instance of UserDetails!");
-        }
-
-        final Person person = personDAO.findByUsername(userDetails.getUsername());
-        LOGGER.debug(person + " person retrieved from database");
+        final Person person = personService.getCurrentUser();
+        LOGGER.debug(person + " person retrieved from security context");
 
         //Enroll configuration of the current enroll
         final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
@@ -62,7 +54,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(enroll);
         LOGGER.debug("Subjects of " + enroll + " enrollment retrieved: " + subjectsByEnrollment);
 
-        final List<Subject> personSubjects = person.getSubjects();
+        final List<Subject> personSubjects = subjectDAO.getSubjectsByPerson(person);
         LOGGER.debug("Subjects of " + person + " person retrieved: " + personSubjects);
 
         //list of subjects belonging to the currentEnrollment, choosen by person
