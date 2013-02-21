@@ -78,7 +78,9 @@ public class Person implements Serializable, UserDetails {
     }
 
     public void addSubject(Subject subject) {
-        subjects.add(subject);
+        if (!subjects.contains(subject)) {
+            subjects.add(subject);
+        }
     }
 
     public void addGroups(Group group) {
