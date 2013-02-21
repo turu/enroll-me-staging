@@ -47,10 +47,10 @@ public class Person implements Serializable, UserDetails {
 
     private String rolesToken = "ROLE_USER";
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Group> groups;
 
-    @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Subject> subjects;
 
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)

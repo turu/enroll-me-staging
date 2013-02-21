@@ -1,9 +1,5 @@
 package pl.agh.enrollme.model;
 
-import pl.agh.enrollme.utils.Color;
-import pl.agh.enrollme.utils.DayOfWeek;
-import pl.agh.enrollme.utils.StupidDate;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,44 +20,33 @@ public class Subject implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Enroll enroll;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Person> persons = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
-    private List<Group> groups;
-
+    @Column(unique = true, nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private Integer teamsCapacity;
+
+    @Column(nullable = false)
     private String color;
-    private String room;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Teacher teacher;
-
-    private DayOfWeek dayOfWeek;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private StupidDate timeStart;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private StupidDate timeEnd;
 
     public Subject() {
         teacher = new Teacher("","","","");
     }
 
-    public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, String color, String room,
-                   Teacher teacher, DayOfWeek dayOfWeek, StupidDate timeStart, StupidDate timeEnd) {
+    public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, String color,
+                   Teacher teacher) {
         this.enroll = enroll;
         this.persons = persons;
         this.name = name;
         this.teamsCapacity = teamsCapacity;
         this.color = color;
-        this.room = room;
         this.teacher = teacher;
-        this.dayOfWeek = dayOfWeek;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
     }
 
     public void addPerson(Person person) {
@@ -100,45 +85,12 @@ public class Subject implements Serializable {
         this.color = color;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public void setTimeStart(StupidDate timeStart) {
-        this.timeStart = timeStart;
-    }
-
-    public void setTimeEnd(StupidDate timeEnd) {
-        this.timeEnd = timeEnd;
-    }
-
-    public StupidDate getTimeEnd() {
-
-        return timeEnd;
-    }
-
-    public StupidDate getTimeStart() {
-        return timeStart;
-    }
-
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
     public Teacher getTeacher() {
         return teacher;
-    }
-
-    public String getRoom() {
-        return room;
     }
 
     public String getColor() {
@@ -157,28 +109,28 @@ public class Subject implements Serializable {
         return SubjectID;
     }
 
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
-
     @Override
-    public int hashCode() {
-        return getSubjectID();
+    public String toString() {
+        return "Subject{" +
+                "SubjectID=" + SubjectID +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Subject)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Subject)) return false;
 
-        Subject other = (Subject)o;
+        Subject subject = (Subject) o;
 
-        return getSubjectID() == other.getSubjectID();
+        if (!name.equals(subject.name)) return false;
+
+        return true;
     }
 
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

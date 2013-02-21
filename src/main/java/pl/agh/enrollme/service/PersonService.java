@@ -79,8 +79,18 @@ public class PersonService {
     }
 
     public Person getCurrentUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Person person = (Person)userDetails;
-        return person;
+        final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        UserDetails userDetails = null;
+
+        if(principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        } else {
+            LOGGER.warn("Principal " + principal + " is not an instance of UserDetails!");
+            throw new SecurityException("Principal " + principal + " is not an instance of UserDetails!");
+        }
+
+        return (Person) userDetails;
     }
+	
 }

@@ -1,5 +1,7 @@
 package pl.agh.enrollme.controller.preferencesmanagement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.agh.enrollme.model.EnrollConfiguration;
 import pl.agh.enrollme.model.StudentPointsPerTerm;
 import pl.agh.enrollme.model.Subject;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class ProgressRingController implements Serializable {
 
     private static final long serialVersionUID = 6578477862668112963L;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProgressRingController.class);
 
     private EnrollConfiguration enrollConfiguration;
 
@@ -91,12 +95,21 @@ public class ProgressRingController implements Serializable {
         return progressTokens;
     }
 
+    public Map<Integer, Integer> getPointsMap() {
+        return pointsMap;
+    }
+
+    public int getExtraPointsUsed() {
+        return extraPointsUsed;
+    }
+
     /**
      * Updates used values and state of progress tokens
      */
     public void update() {
         updatePointsUsage();
         updateProgressTokens();
+        LOGGER.debug("Progress Ring updated");
     }
 
     /**
@@ -112,7 +125,11 @@ public class ProgressRingController implements Serializable {
                 used = pointsMap.get(id);
             }
             token.setPointsUsed(used);
+            LOGGER.debug("Token: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
+                    ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor() + " updated");
+
         }
+        LOGGER.debug("Tokens updated");
     }
 
     /**
@@ -121,6 +138,7 @@ public class ProgressRingController implements Serializable {
     private void updatePointsUsage() {
         pointsMap.clear();
         extraPointsUsed = 0;
+        LOGGER.debug("Usage data cleared");
 
         for (StudentPointsPerTerm p : points) {
             final Term term = p.getTerm();
@@ -138,13 +156,16 @@ public class ProgressRingController implements Serializable {
 
             if (value >= enrollConfiguration.getPointsPerSubject()) {
                 extraPointsUsed += assignedPoints;
+                LOGGER.debug("Extra points usage updated to " + extraPointsUsed);
             } else if (value + assignedPoints > enrollConfiguration.getPointsPerSubject()) {
                 extraPointsUsed += assignedPoints - (enrollConfiguration.getPointsPerSubject() - value);
+                LOGGER.debug("Extra points usage updated to " + extraPointsUsed);
             }
 
             pointsMap.put(subject.getSubjectID(), value + assignedPoints);
+            LOGGER.debug("Subject " + subject.getName() + " usage updated to " + pointsMap.get(subject.getSubjectID()));
         }
-
+        LOGGER.debug("Point usage computed");
     }
 
     /**
@@ -155,11 +176,15 @@ public class ProgressRingController implements Serializable {
                 enrollConfiguration.getAdditionalPoints(), 0, extraPointsUsed);
 
         progressTokens.add(extraToken);
+        LOGGER.debug("Extra token added");
 
         for (Subject s : subjects) {
             final ProgressToken token = new ProgressToken(s.getSubjectID(), s.getName(),
                     enrollConfiguration.getPointsPerSubject(),enrollConfiguration.getMinimumPointsPerSubject(),
                     pointsMap.get(s.getSubjectID()), s.getColor());
+
+            LOGGER.debug("New token created: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
+            ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor());
 
             progressTokens.add(token);
         }
@@ -167,7 +192,11 @@ public class ProgressRingController implements Serializable {
         //if there are exactly 2 progress tokens, clone the second one (to prevent unwanted behaviour of the ring component)
         if (progressTokens.size() == 2) {
             progressTokens.add(progressTokens.get(1));
+            final ProgressToken token = progressTokens.get(2);
+            LOGGER.debug("Additional token created: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
+                    ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor());
         }
+        LOGGER.debug("Tokens created");
     }
 
 }

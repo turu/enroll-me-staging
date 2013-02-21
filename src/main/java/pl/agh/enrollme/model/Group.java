@@ -19,9 +19,7 @@ public class Group implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    private String name;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Person> persons = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -30,23 +28,9 @@ public class Group implements Serializable {
     public Group() {
     }
 
-    public Group(String name, List<Person> persons, Subject subject) {
-        this.name = name;
-        this.persons = persons;
-        this.subject = subject;
-    }
-
     public Group(List<Person> persons, Subject subjects) {
         this.persons = persons;
         this.subject = subjects;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     void addPerson(Person person) {
@@ -76,5 +60,4 @@ public class Group implements Serializable {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
-
 }

@@ -8,18 +8,22 @@
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
     
     <!--<on-start>
-        <evaluate expression="preferencesManagementService.createPreferencesManagementController(currentEnrollment)"
+        <evaluate expression="preferencesManagementService.createScheduleController(currentEnrollment)"
                   result="flowScope.preferencesController"
                   result-type="pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController"/>
     </on-start>-->
 
     <view-state id="view">
         <on-render>
-            <evaluate expression="preferencesManagementService.createPreferencesManagementController(currentEnrollment)"
-                      result="viewScope.preferencesController"
-                      result-type="pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController"/>
+            <evaluate expression="preferencesManagementService.createScheduleController(currentEnrollment)"
+                      result="viewScope.scheduleController"
+                      result-type="pl.agh.enrollme.controller.preferencesmanagement.ScheduleController"/>
         </on-render>
         <transition on="done" to="preferencesApplied"/>
+        <transition on="save">
+            <evaluate expression="preferencesManagementService.saveScheduleController(currentEnrollment, scheduleController)"
+                      result="viewScope.saveResult" result-type="java.lang.Boolean"/>
+        </transition>
     </view-state>
 
     <end-state id="preferencesApplied" />

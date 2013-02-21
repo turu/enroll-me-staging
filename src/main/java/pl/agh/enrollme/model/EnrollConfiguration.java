@@ -7,7 +7,6 @@ import java.io.Serializable;
  * @author Michal Partyka
  */
 @Entity
-@Table(name = "enrollconf1_")
 public class EnrollConfiguration implements Serializable {
 
     @Transient
@@ -24,6 +23,8 @@ public class EnrollConfiguration implements Serializable {
     private Integer pointsPerSubject;
     private Integer minimumPointsPerSubject;
     private Integer additionalPoints;
+    private Integer weekViewWidth;
+    private Boolean periodic;
 
     public EnrollConfiguration() {
         this.enroll = null;
@@ -31,15 +32,20 @@ public class EnrollConfiguration implements Serializable {
         this.pointsPerSubject = 0;
         this.additionalPoints = 0;
         this.minimumPointsPerSubject = 0;
+        this.periodic = true;
+        this.weekViewWidth = 1500;
     }
 
     public EnrollConfiguration(Enroll enroll, Integer pointsPerTerm, Integer pointsPerSubject,
-                               Integer minimumPointsPerSubject, Integer additionalPoints) {
+                               Integer minimumPointsPerSubject, Integer additionalPoints,
+                               Boolean periodic, Integer weekViewWidth) {
         this.enroll = enroll;
         this.pointsPerTerm = pointsPerTerm;
         this.pointsPerSubject = pointsPerSubject;
         this.minimumPointsPerSubject = minimumPointsPerSubject;
         this.additionalPoints = additionalPoints;
+        this.periodic = periodic;
+        this.weekViewWidth = weekViewWidth;
     }
 
     public void setID(Integer ID) {
@@ -51,16 +57,39 @@ public class EnrollConfiguration implements Serializable {
         return ID;
     }
 
+    /**
+     * @param pointsPerSubject points available for whole subject
+     */
     public void setPointsPerSubject(Integer pointsPerSubject) {
         this.pointsPerSubject = pointsPerSubject;
     }
 
+    /**
+     * @param minimumPointsPerSubject minimum amount of points which user must submit for every subject
+     */
     public void setMinimumPointsPerSubject(Integer minimumPointsPerSubject) {
         this.minimumPointsPerSubject = minimumPointsPerSubject;
     }
 
+    /**
+     * @param additionalPoints additional amount of points which user can submit for any subject he/she wants
+     */
     public void setAdditionalPoints(Integer additionalPoints) {
         this.additionalPoints = additionalPoints;
+    }
+
+    /**
+     * @param pointsPerTerm maximum number of points user can submit for every single term
+     */
+    public void setPointsPerTerm(Integer pointsPerTerm) {
+        this.pointsPerTerm = pointsPerTerm;
+    }
+
+    /**
+     * @param enroll enroll which this configuration concerns
+     */
+    public void setEnroll(Enroll enroll) {
+        this.enroll = enroll;
     }
 
     public Integer getPointsPerSubject() {
@@ -80,15 +109,23 @@ public class EnrollConfiguration implements Serializable {
         return pointsPerTerm;
     }
 
-    public void setPointsPerTerm(Integer pointsPerTerm) {
-        this.pointsPerTerm = pointsPerTerm;
-    }
-
     public Enroll getEnroll() {
         return enroll;
     }
 
-    public void setEnroll(Enroll enroll) {
-        this.enroll = enroll;
+    public boolean getPeriodic() {
+        return periodic;
+    }
+
+    public void setPeriodic(boolean periodic) {
+        this.periodic = periodic;
+    }
+
+    public Integer getWeekViewWidth() {
+        return weekViewWidth;
+    }
+
+    public void setWeekViewWidth(Integer weekViewWidth) {
+        this.weekViewWidth = weekViewWidth;
     }
 }
