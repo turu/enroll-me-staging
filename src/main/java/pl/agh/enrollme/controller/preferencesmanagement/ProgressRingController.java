@@ -181,10 +181,16 @@ public class ProgressRingController implements Serializable {
         for (Subject s : subjects) {
             LOGGER.debug("subjectID=" + s.getSubjectID() + ", subjectName=" + s.getName() +
                     ", pps=" + enrollConfiguration.getPointsPerSubject() + ", mpps=" + enrollConfiguration.getMinimumPointsPerSubject() +
-            ", pointsUsed=" + pointsMap.get(s.getSubjectID()) + ", subjectColor" + s.getColor());
+            ", pointsUsed=" + pointsMap.get(s.getSubjectID()) + ", subjectColor=#" + s.getColor());
+
+            Integer pointsUsed = pointsMap.get(s.getSubjectID());
+            if (pointsUsed == null) {
+                pointsUsed = 0;
+            }
+
             final ProgressToken token = new ProgressToken(s.getSubjectID(), s.getName(),
                     enrollConfiguration.getPointsPerSubject(),enrollConfiguration.getMinimumPointsPerSubject(),
-                    pointsMap.get(s.getSubjectID()), s.getColor());
+                    pointsUsed, s.getColor());
 
             LOGGER.debug("New token created: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
             ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor());
