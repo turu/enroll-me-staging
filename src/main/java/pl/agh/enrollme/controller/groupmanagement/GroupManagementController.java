@@ -71,7 +71,7 @@ public class GroupManagementController implements Serializable {
 
         LOGGER.debug("Retrieved groups for subject " + subject.getName());
 
-        return groups;
+        return new ArrayList<>(groups);
     }
 
     public List<Subject> getSubjects() {
