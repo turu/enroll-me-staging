@@ -23,11 +23,14 @@ public class ScheduleController implements Serializable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleController.class);
 
+    //Progress Ring Controller (statistics controller)
+    private ProgressRingController progressController;
+
     //Custom container model for the EnrollSchedule component
     private EnrollScheduleModel eventModel = new DefaultEnrollScheduleModel();
 
     //Custom event model for the EnrollSchedule component; currently selected event
-    private EnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
+    private DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
     //Current reason (of impossibility)
     private String reason = "";
@@ -66,8 +69,9 @@ public class ScheduleController implements Serializable {
     private String view = "agendaWeek";
 
 
-    public ScheduleController(EnrollConfiguration enrollConfiguration, List<Subject> subjects, List<Term> terms,
-                              List<StudentPointsPerTerm> points) {
+    public ScheduleController(ProgressRingController progressController, EnrollConfiguration enrollConfiguration,
+                              List<Subject> subjects, List<Term> terms, List<StudentPointsPerTerm> points) {
+        this.progressController = progressController;
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
         this.terms = terms;
@@ -75,8 +79,189 @@ public class ScheduleController implements Serializable {
 
         this.periodic = enrollConfiguration.getPeriodic();
         this.weekViewWidth = enrollConfiguration.getWeekViewWidth();
+
         preprocessTerms();
     }
+
+
+    public ProgressRingController getProgressController() {
+        return progressController;
+    }
+
+    public void setProgressController(ProgressRingController progressController) {
+        this.progressController = progressController;
+    }
+
+    public EnrollScheduleModel getEventModel() {
+        return eventModel;
+    }
+
+    public void setEventModel(EnrollScheduleModel eventModel) {
+        this.eventModel = eventModel;
+    }
+
+    public DefaultEnrollScheduleEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(DefaultEnrollScheduleEvent event) {
+        this.event = event;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public void onEventSelect(SelectEvent selectEvent) {
+        event = (DefaultEnrollScheduleEvent) selectEvent.getObject();
+    }
+
+    private void addMessage(FacesMessage message) {
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    /**
+     * Updates current event (kept in event field)
+     */
+    public boolean updateEvent(ActionEvent actionEvent) {
+        final Term term = eventToTermMap.get(event);
+        final StudentPointsPerTerm termPoints = termToPointsMap.get(term);
+        final int extraPointsLeft = enrollConfiguration.getAdditionalPoints() - progressController.getExtraPointsUsed();
+        final int pointsDelta = event.getPoints() - termPoints.getPoints();
+
+        if (!event.isPossible()) {
+            final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice Changed",
+                    "You've just set an impossibility. It will be reviewed by a year representative." +
+                            " Remember to save your changes frequently!!!");
+            addMessage(message);
+            termPoints.setReason(reason);
+            termPoints.setPoints(-1);
+            progressController.update();
+            event.setShowPoints(false);
+            eventModel.updateEvent(event);
+            return true;
+        }
+
+        if (termPoints.getPoints() > enrollConfiguration.getPointsPerTerm()) {
+            final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
+                    "You surpassed limit of points per term. Change rejected.");
+            addMessage(message);
+            return false;
+        }
+
+        if (termPoints.getPoints() + pointsDelta > enrollConfiguration.getPointsPerSubject() + extraPointsLeft) {
+            final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
+                    "You surpassed limit of points per subject. Change rejected.");
+            addMessage(message);
+            return false;
+        }
+
+        termPoints.setPoints(termPoints.getPoints() + pointsDelta);
+        event.setShowPoints(true);
+        setEventImportance(event);
+        event.setPossible(true);
+        final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice Changed",
+                "You've just altered your choice (points delta: " + pointsDelta + "). Currently there are " +
+                        event.getPoints() + " points assigned to this term. Remember to save your changes frequently!");
+
+        eventModel.updateEvent(event);
+        return true;
+    }
+
+
+    //Enroll data getters and setters begin
+    public EnrollConfiguration getEnrollConfiguration() {
+        return enrollConfiguration;
+    }
+
+    public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {
+        this.enrollConfiguration = enrollConfiguration;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    public List<Term> getTerms() {
+        return terms;
+    }
+
+    public void setTerms(List<Term> terms) {
+        this.terms = terms;
+    }
+
+    public List<StudentPointsPerTerm> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<StudentPointsPerTerm> points) {
+        this.points = points;
+    }
+    //Enroll data getters and setters end
+
+
+    //Getters for Schedule attributes begin
+    public boolean isShowWeekends() {
+        return showWeekends;
+    }
+
+    public boolean isPeriodic() {
+        return periodic;
+    }
+
+    public int getSlotMinutes() {
+        return slotMinutes;
+    }
+
+    public int getFirstHour() {
+        return firstHour;
+    }
+
+    public int getMinTime() {
+        return minTime;
+    }
+
+    public int getMaxTime() {
+        return maxTime;
+    }
+
+    public Date getInitialDate() {
+        return initialDate;
+    }
+
+    public String getLeftHeaderTemplate() {
+        return leftHeaderTemplate;
+    }
+
+    public String getCenterHeaderTemplate() {
+        return centerHeaderTemplate;
+    }
+
+    public String getRightHeaderTemplate() {
+        return rightHeaderTemplate;
+    }
+
+    public int getWeekViewWidth() {
+        return weekViewWidth;
+    }
+
+    public String getView() {
+        return view;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+    //Getters for Schedule attributes end
+
 
     private void preprocessTerms() {
         //create mapping: Term -> StudentPointsPerTerm to allow for efficient access to data
@@ -151,7 +336,7 @@ public class ScheduleController implements Serializable {
             event.setPossible(p.getPoints() != -1);
 
             //setting event importance as percent of total points available to this event
-            event.setImportance((int) ((double) event.getPoints() / (double) enrollConfiguration.getPointsPerTerm() * 100));
+            setEventImportance(event);
 
             //setting event's color to that of event's subject
             event.setColor(subject.getColor());
@@ -163,7 +348,7 @@ public class ScheduleController implements Serializable {
             event.setInteractive(!t.getCertain());
 
             //setting whether to display points or not
-            event.setShowPoints(t.getCertain());
+            event.setShowPoints(!t.getCertain() && event.isPossible());
 
             //event's shouldn't be editable
             event.setEditable(false);
@@ -192,126 +377,8 @@ public class ScheduleController implements Serializable {
         }
     }
 
-    public String getTheme() {
-        return theme;
+    private void setEventImportance(DefaultEnrollScheduleEvent event) {
+        event.setImportance((int) ((double) event.getPoints() / (double) enrollConfiguration.getPointsPerTerm() * 100));
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    public EnrollScheduleModel getEventModel() {
-        return eventModel;
-    }
-
-    public void setEventModel(EnrollScheduleModel eventModel) {
-        this.eventModel = eventModel;
-    }
-
-    public EnrollScheduleEvent getEvent() {
-        return event;
-    }
-
-    public void setEvent(EnrollScheduleEvent event) {
-        this.event = event;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public void onEventSelect(SelectEvent selectEvent) {
-        event = (EnrollScheduleEvent) selectEvent.getObject();
-    }
-
-    private void addMessage(FacesMessage message) {
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    public EnrollConfiguration getEnrollConfiguration() {
-        return enrollConfiguration;
-    }
-
-    public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {
-        this.enrollConfiguration = enrollConfiguration;
-    }
-
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
-    }
-
-    public List<Term> getTerms() {
-        return terms;
-    }
-
-    public void setTerms(List<Term> terms) {
-        this.terms = terms;
-    }
-
-    public List<StudentPointsPerTerm> getPoints() {
-        return points;
-    }
-
-    public void setPoints(List<StudentPointsPerTerm> points) {
-        this.points = points;
-    }
-
-
-    //Getters for Schedule attributes
-    public boolean isShowWeekends() {
-        return showWeekends;
-    }
-
-    public boolean isPeriodic() {
-        return periodic;
-    }
-
-    public int getSlotMinutes() {
-        return slotMinutes;
-    }
-
-    public int getFirstHour() {
-        return firstHour;
-    }
-
-    public int getMinTime() {
-        return minTime;
-    }
-
-    public int getMaxTime() {
-        return maxTime;
-    }
-
-    public Date getInitialDate() {
-        return initialDate;
-    }
-
-    public String getLeftHeaderTemplate() {
-        return leftHeaderTemplate;
-    }
-
-    public String getCenterHeaderTemplate() {
-        return centerHeaderTemplate;
-    }
-
-    public String getRightHeaderTemplate() {
-        return rightHeaderTemplate;
-    }
-
-    public int getWeekViewWidth() {
-        return weekViewWidth;
-    }
-
-    public String getView() {
-        return view;
-    }
-    //Getters for Schedule attributes end
 }

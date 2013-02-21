@@ -44,7 +44,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     private PersonService personService;
 
     @Override
-    public PreferencesManagementController createPreferencesManagementController(Enroll enroll) {
+    public ScheduleController createScheduleController(Enroll enroll) {
         final Person person = personService.getCurrentUser();
         LOGGER.debug(person + " person retrieved from security context");
 
@@ -93,14 +93,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         LOGGER.debug("ProgressRingController created: " + ringController);
 
         //creating schedule controller
-        final ScheduleController scheduleController = new ScheduleController(enrollConfiguration, subjects, terms, points);
+        final ScheduleController scheduleController = new ScheduleController(ringController, enrollConfiguration, subjects, terms, points);
         LOGGER.debug("ScheduleController created: " + scheduleController);
 
-        final PreferencesManagementController preferencesController =
-                new PreferencesManagementController(scheduleController, ringController);
-        LOGGER.debug("PreferencesManagementController created: " + preferencesController);
-
-        return preferencesController;
+        return scheduleController;
 
     }
 

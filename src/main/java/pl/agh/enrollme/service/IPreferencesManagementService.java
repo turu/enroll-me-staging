@@ -1,6 +1,7 @@
 package pl.agh.enrollme.service;
 
 import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController;
+import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
 import pl.agh.enrollme.model.Enroll;
 
 /**
@@ -13,6 +14,6 @@ public interface IPreferencesManagementService {
      * @param currentEnroll
      * @return
      */
-    PreferencesManagementController createPreferencesManagementController(Enroll currentEnroll);
+    ScheduleController createScheduleController(Enroll currentEnroll);
 
 }
