@@ -30,6 +30,12 @@ public class Group implements Serializable {
     public Group() {
     }
 
+    public Group(String name, List<Person> persons, Subject subject) {
+        this.name = name;
+        this.persons = persons;
+        this.subject = subject;
+    }
+
     public Group(List<Person> persons, Subject subjects) {
         this.persons = persons;
         this.subject = subjects;

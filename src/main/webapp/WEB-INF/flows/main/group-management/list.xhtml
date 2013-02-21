@@ -27,7 +27,10 @@
                     <f:selectItems value="#{groupManagementService.getGroupsForSubject(subject)}" var="group"
                                    itemLabel="#{group.name}"/>
                 </p:selectOneMenu>
-                <p:commandButton value="New" action="createNewGroup" onclick="createNewGroupDialog.show()"/>
+                <p:commandButton value="New" action="createNewGroup" oncomplete="createNewGroupDialog.show()"
+                                 update="createNewGroupDialogContent">
+                    <f:setPropertyActionListener value="#{subject}" target="#{newGroupSubject}"/>
+                </p:commandButton>
             </p:column>
         </p:dataTable>
 

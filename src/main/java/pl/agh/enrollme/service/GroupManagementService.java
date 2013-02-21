@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.controller.groupmanagement.GroupManagementController;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Group;
+import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.repository.IEnrollmentDAO;
+import pl.agh.enrollme.repository.IPersonDAO;
 
 import javax.faces.bean.ViewScoped;
 import java.util.*;
@@ -25,9 +27,25 @@ public class GroupManagementService {
     @Autowired
     private IEnrollmentDAO enrollmentDAO;
 
+    @Autowired
+    private IPersonDAO personDAO;
+
 
     public GroupManagementController newControllerForEnroll(Enroll enroll) {
         GroupManagementController controller = new GroupManagementController(enroll);
         return controller;
+    }
+
+    public void createGroup(String name, Subject subject) {
+        List<Person> people = new ArrayList<>();
+
+        Person currentPerson = personDAO.getCurrentUser();
+        people.add(currentPerson);
+
+        Group group = new Group(name, people, subject);
+
+        currentPerson.addGroups(group);
+
+        personDAO.update(currentPerson);
     }
 }
