@@ -105,7 +105,7 @@
                     <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{!scheduleController.event.possible}"
                                widgetVar="impossibilityWidget" />
 
-                    <p:panel id="reasonPanel" header="Enter substantiation below" visible="#{}">
+                    <p:panel id="reasonPanel" header="Enter substantiation below" visible="${!scheduleController.event.possible}">
                         <p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"
                                maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>
 
