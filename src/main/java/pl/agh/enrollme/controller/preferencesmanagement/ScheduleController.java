@@ -26,8 +26,11 @@ public class ScheduleController implements Serializable {
     //Custom container model for the EnrollSchedule component
     private EnrollScheduleModel eventModel = new DefaultEnrollScheduleModel();
 
-    //Custom event model for the EnrollSchedule component
+    //Custom event model for the EnrollSchedule component; currently selected event
     private EnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
+
+    //Current reason (of impossibility)
+    private String reason = "";
 
     //Schedule theme: as of today, unused
     private String theme;
@@ -45,21 +48,21 @@ public class ScheduleController implements Serializable {
     //Mapping from Term to StudentPointsPerTerm
     private Map<Term, StudentPointsPerTerm> termToPointsMap = new HashMap<>();
 
-    //Mapping from Event to Term
-    private Map<DefaultEnrollScheduleEvent, Term> eventToTermMap = new HashMap<>();
+    //Mapping from EventID to Term
+    private Map<String, Term> eventToTermMap = new HashMap<>();
 
     //Schedule component attributes
     private boolean showWeekends = false;
     private boolean periodic = true;
-    private int slotMinutes = 15;
+    private int slotMinutes = 15;           //TODO: add necessary field to enroll so that slotMinutes can be adjusted
     private int firstHour = 8;
     private int minTime = 8;
     private int maxTime = 22;
-    private String initialDate = "";
-    private String leftHeaderTemplate = "";
-    private String centerHeaderTemplate = "";
-    private String rightHeaderTemplate = "";
-    private int weekViewWidth = 0;
+    private Date initialDate = new Date();
+    private String leftHeaderTemplate = "prev, next";
+    private String centerHeaderTemplate = "title";
+    private String rightHeaderTemplate = "month, agendaWeek, agendaDay";
+    private int weekViewWidth = 1500;
 
 
     public ScheduleController(EnrollConfiguration enrollConfiguration, List<Subject> subjects, List<Term> terms,
@@ -69,6 +72,8 @@ public class ScheduleController implements Serializable {
         this.terms = terms;
         this.points = points;
 
+        this.periodic = enrollConfiguration.getPeriodic();
+        this.weekViewWidth = enrollConfiguration.getWeekViewWidth();
         preprocessTerms();
     }
 
@@ -78,19 +83,48 @@ public class ScheduleController implements Serializable {
             termToPointsMap.put(p.getTerm(), p);
         }
 
-        int id = 0;
+        int minHour = Integer.MAX_VALUE;
+        int maxHour = Integer.MIN_VALUE;
+        GregorianCalendar minDate = new GregorianCalendar();
+        minDate.setTimeInMillis(Long.MAX_VALUE);
+        GregorianCalendar maxDate = new GregorianCalendar();
+        maxDate.setTimeInMillis(Long.MIN_VALUE);
 
         //preprocess terms, computing scope of enrollment, creating events etc.
         for (Term t : terms) {
-            if (t.getDayOfWeek() == DayOfWeek.SATURDAY || t.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            GregorianCalendar startTime = new GregorianCalendar();
+            startTime.setTime(t.getStartTime());
+            GregorianCalendar endTime = new GregorianCalendar();
+            endTime.setTime(t.getEndTime());
+
+            //if term starts on a Saturday or Sunday, set showWeekends to true
+            if(startTime.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || startTime.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
                 showWeekends = true;
             }
-            //TODO: how is t.getStart|EndTime() represented ??
-            //TODO: infer firstHour, minTime, maxTime, initialDate, slotMinutes from starting and ending times of terms
+
+            final int termStartHour = startTime.get(Calendar.HOUR_OF_DAY);
+            final int termEndHour = endTime.get(Calendar.HOUR_OF_DAY);
+
+            if (termStartHour < minHour) {
+                minHour = termStartHour;
+            }
+
+            if (termEndHour > maxHour) {
+                maxHour = termEndHour;
+            }
+
+            if (startTime.before(minDate)) {
+                minDate = startTime;
+            }
+
+            if (endTime.after(maxDate)) {
+                maxDate = endTime;
+            }
+
             //TODO: compute contents of left, center, right headers based on the above data
             StudentPointsPerTerm p = termToPointsMap.get(t);
             DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
-            eventToTermMap.put(event, t);
+            eventToTermMap.put(event.getId(), t);
 
             //setting event's points
             if (p.getPoints() == -1) {
@@ -134,8 +168,16 @@ public class ScheduleController implements Serializable {
             //event's shouldn't be editable
             event.setEditable(false);
 
-            //adding event to the container
+            //adding event to the model
             eventModel.addEvent(event);
+        }
+
+        //update time fields, but only if there were some events added, otherwise use defaults
+        if (terms.size() > 0) {
+            this.minTime = minHour;
+            this.firstHour = minHour;
+            this.maxTime = maxHour != 23 ? maxHour + 1 : maxHour;
+            this.initialDate = minDate.getTime();
         }
     }
 
@@ -161,6 +203,14 @@ public class ScheduleController implements Serializable {
 
     public void setEvent(EnrollScheduleEvent event) {
         this.event = event;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
@@ -229,7 +279,7 @@ public class ScheduleController implements Serializable {
         return maxTime;
     }
 
-    public String getInitialDate() {
+    public Date getInitialDate() {
         return initialDate;
     }
 
@@ -243,6 +293,10 @@ public class ScheduleController implements Serializable {
 
     public String getRightHeaderTemplate() {
         return rightHeaderTemplate;
+    }
+
+    public int getWeekViewWidth() {
+        return weekViewWidth;
     }
     //Getters for Schedule attributes end
 }

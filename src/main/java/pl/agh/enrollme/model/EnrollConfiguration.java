@@ -24,6 +24,8 @@ public class EnrollConfiguration implements Serializable {
     private Integer pointsPerSubject;
     private Integer minimumPointsPerSubject;
     private Integer additionalPoints;
+    private Integer weekViewWidth;
+    private Boolean periodic;
 
     public EnrollConfiguration() {
         this.enroll = null;
@@ -31,6 +33,8 @@ public class EnrollConfiguration implements Serializable {
         this.pointsPerSubject = 0;
         this.additionalPoints = 0;
         this.minimumPointsPerSubject = 0;
+        this.periodic = true;
+        this.weekViewWidth = 1500;
     }
 
     public EnrollConfiguration(Enroll enroll, Integer pointsPerTerm, Integer pointsPerSubject,
@@ -90,5 +94,21 @@ public class EnrollConfiguration implements Serializable {
 
     public void setEnroll(Enroll enroll) {
         this.enroll = enroll;
+    }
+
+    public boolean getPeriodic() {
+        return periodic;
+    }
+
+    public void setPeriodic(boolean periodic) {
+        this.periodic = periodic;
+    }
+
+    public int getWeekViewWidth() {
+        return weekViewWidth;
+    }
+
+    public void setWeekViewWidth(Integer weekViewWidth) {
+        this.weekViewWidth = weekViewWidth;
     }
 }
