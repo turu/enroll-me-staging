@@ -3,10 +3,13 @@ package pl.agh.enrollme.controller.groupmanagement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Group;
+import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.repository.IEnrollmentDAO;
+import pl.agh.enrollme.repository.IPersonDAO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +25,9 @@ public class GroupManagementController implements Serializable {
 
     @Autowired
     private IEnrollmentDAO enrollmentDAO;
+
+    @Autowired
+    private IPersonDAO personDAO;
 
     Map<Subject, List<Group>> groups;
 
@@ -62,8 +68,19 @@ public class GroupManagementController implements Serializable {
         return groups.get(subject);
     }
 
+    @Transactional
     public boolean isCurrentUserInGroupForSubject(Subject subject) {
-        // TODO
+        Person currentUser = personDAO.getCurrentUser();
+
+        List<Group> groups = currentUser.getGroups();
+
+        for (Group g : groups) {
+            Subject groupSubject = g.getSubject();
+            if (groupSubject.getSubjectID().equals(subject)) {
+                return true;
+            }
+        }
+
         return false;
     }
 }
