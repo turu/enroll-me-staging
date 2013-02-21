@@ -24,8 +24,8 @@
             </p:column>
             <p:column>
                 <p:selectOneMenu>
-                    <f:selectItems value="#{controller.getGroupsForSubject(subject)}" var="group"
-                                   itemLabel="#{group.name}"/>
+                    <f:selectItems value="#{controller.getGroupsForSubject(subject)}" var="g"
+                                   itemLabel="#{g.name}"/>
                 </p:selectOneMenu>
                 <p:commandButton value="New" action="createNewGroup" oncomplete="createNewGroupDialog.show()"
                                  update="createNewGroupDialogContent">

@@ -79,6 +79,7 @@ public class GroupManagementController implements Serializable {
     }
 
     public List<Group> getGroupsForSubject(Subject subject) {
+        LOGGER.debug("Getting groups for subject " + subject.getName());
         return groups.get(subject);
     }
 
