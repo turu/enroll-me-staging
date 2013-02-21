@@ -1,8 +1,5 @@
 package pl.agh.enrollme.model;
 
-import pl.agh.enrollme.utils.DayOfWeek;
-import pl.agh.enrollme.utils.StupidDate;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -113,5 +110,22 @@ public class Subject implements Serializable {
                 "SubjectID=" + SubjectID +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Subject)) return false;
+
+        Subject subject = (Subject) o;
+
+        if (!SubjectID.equals(subject.SubjectID)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return SubjectID.hashCode();
     }
 }
