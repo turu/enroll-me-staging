@@ -121,7 +121,7 @@ public class EnrollConfiguration implements Serializable {
         this.periodic = periodic;
     }
 
-    public int getWeekViewWidth() {
+    public Integer getWeekViewWidth() {
         return weekViewWidth;
     }
 
