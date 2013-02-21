@@ -35,8 +35,9 @@ public class ScheduleController implements Serializable {
     //Current reason (of impossibility)
     private String reason = "";
 
-    //Schedule theme: as of today, unused
-    private String theme;
+    //Maximum number of points to display in the choice edition dialog while editing current event
+    private int eventPointsRange = 0;
+
 
     //Enroll data
     private EnrollConfiguration enrollConfiguration;
@@ -67,6 +68,8 @@ public class ScheduleController implements Serializable {
     private String rightHeaderTemplate = "month, agendaWeek, agendaDay";
     private int weekViewWidth = 1500;
     private String view = "agendaWeek";
+    //Schedule theme: as of today, unused
+    private String theme;
 
 
     public ScheduleController(ProgressRingController progressController, EnrollConfiguration enrollConfiguration,
@@ -116,12 +119,34 @@ public class ScheduleController implements Serializable {
         this.reason = reason;
     }
 
-    public void onEventSelect(SelectEvent selectEvent) {
-        event = (DefaultEnrollScheduleEvent) selectEvent.getObject();
+    public int getEventPointsRange() {
+        return eventPointsRange;
+    }
+
+    public void setEventPointsRange(int eventPointsRange) {
+        this.eventPointsRange = eventPointsRange;
     }
 
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    /**
+     * Event triggered when user clicks on a term
+     * @param selectEvent
+     */
+    public void onEventSelect(SelectEvent selectEvent) {
+        event = (DefaultEnrollScheduleEvent) selectEvent.getObject();
+
+        final Term term = eventToTermMap.get(event);
+        final StudentPointsPerTerm termPoints = termToPointsMap.get(term);
+        final Subject subject = term.getSubject();
+        final Map<Integer, Integer> pointsMap = progressController.getPointsMap();
+
+        reason = termPoints.getReason();
+        eventPointsRange = enrollConfiguration.getPointsPerSubject() - pointsMap.get(subject.getSubjectID())
+                + termPoints.getPoints();
+        eventPointsRange = Math.min(eventPointsRange, enrollConfiguration.getPointsPerTerm());
     }
 
     /**
@@ -309,7 +334,6 @@ public class ScheduleController implements Serializable {
 
             StudentPointsPerTerm p = termToPointsMap.get(t);
             DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
-            eventToTermMap.put(event.getId(), t);
 
             //setting event's points
             if (p.getPoints() == -1) {
@@ -355,6 +379,8 @@ public class ScheduleController implements Serializable {
 
             //adding event to the model
             eventModel.addEvent(event);
+
+            eventToTermMap.put(event.getId(), t);
         }
 
         //update time fields, but only if there were some events added, otherwise use defaults
