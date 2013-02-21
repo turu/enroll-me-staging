@@ -10,10 +10,8 @@ import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementCon
 import pl.agh.enrollme.controller.preferencesmanagement.ProgressRingController;
 import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
 import pl.agh.enrollme.model.*;
-import pl.agh.enrollme.repository.IPersonDAO;
-import pl.agh.enrollme.repository.IStudentPointsPerTermDAO;
-import pl.agh.enrollme.repository.ISubjectDAO;
-import pl.agh.enrollme.repository.ITermDAO;
+import pl.agh.enrollme.repository.*;
+import pl.agh.enrollme.utils.EnrollmentMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +37,9 @@ public class PreferencesManagementService implements IPreferencesManagementServi
 
     @Autowired
     private IStudentPointsPerTermDAO pointsDAO;
+
+    @Autowired
+    private IEnrollmentDAO enrollDAO;
 
     @Autowired
     private PersonService personService;
@@ -98,6 +99,35 @@ public class PreferencesManagementService implements IPreferencesManagementServi
 
         return scheduleController;
 
+    }
+
+    @Override
+    public boolean saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController) {
+        currentEnroll = enrollDAO.getByPK(currentEnroll.getEnrollID());
+
+        if (currentEnroll.getEnrollmentMode() == EnrollmentMode.CLOSED
+                || currentEnroll.getEnrollmentMode()  == EnrollmentMode.COMPLETED) {
+            return false;
+        }
+
+        final List<StudentPointsPerTerm> termPoints = scheduleController.getPoints();
+
+        for (StudentPointsPerTerm termPoint : termPoints) {
+            final StudentPointsPerTerm byPK = pointsDAO.getByPK(termPoint.getId());
+
+            //termPoint is not present in the database
+            if (byPK == null && termPoint.getPoints() != 0) {
+                pointsDAO.add(termPoint);
+            } else { //is present in the database
+                if (termPoint.getPoints() == 0) {
+                    pointsDAO.remove(termPoint);
+                } else {
+                    pointsDAO.update(termPoint);
+                }
+            }
+        }
+
+        return true;
     }
 
     private void createMissingSPPT(List<Term> terms, List<StudentPointsPerTerm> points, Person person) {
