@@ -45,6 +45,9 @@ public class Enroll implements Serializable {
     }
 
     public void addSubject(Subject subject) {
+        if(subjects.contains(subject)) {
+            return;
+        }
         subjects.add(subject);
     }
 
