@@ -1,5 +1,7 @@
 package pl.agh.enrollme.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,7 +49,8 @@ public class Person implements Serializable, UserDetails {
 
     private String rolesToken = "ROLE_USER";
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Group> groups;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

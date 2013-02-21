@@ -40,6 +40,7 @@ public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
     }
 
     @Override
+    @Transactional
     public Person getCurrentUser() {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person = (Person)userDetails;

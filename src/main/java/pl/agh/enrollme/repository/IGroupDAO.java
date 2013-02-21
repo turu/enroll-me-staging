@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 11:38
  * To change this template use File | Settings | File Templates.
  */
-public interface IGroupDAO {
+public interface IGroupDAO extends IGenericDAO<Group> {
     @Transactional
     List<Group> getGroups(Subject subject);
     @Transactional

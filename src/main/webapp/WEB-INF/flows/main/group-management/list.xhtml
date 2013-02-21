@@ -22,23 +22,26 @@
             <p:column headerText="Teacher">
                 <h:outputText value="#{subject.teacher.degree} #{subject.teacher.firstName} #{subject.teacher.secondName}"/>
             </p:column>
-            <p:column>
+            <p:column headerText="Group">
                 <p:selectOneMenu>
-                    <f:selectItems value="#{controller.getGroupsForSubject(subject)}" var="g"
-                                   itemLabel="#{g.name}"/>
+                    <f:selectItems value="#{controller.getGroupsForSubject(subject)}" var="groups"
+                                   itemLabel="#{groups.name}"/>
                 </p:selectOneMenu>
                 <p:commandButton value="New" action="createNewGroup" oncomplete="createNewGroupDialog.show()"
-                                 update="createNewGroupDialogContent">
+                                 update=":#{p:component('createNewGroupDialogContent')}">
                     <f:setPropertyActionListener value="#{subject}" target="#{newGroupSubject}"/>
                 </p:commandButton>
             </p:column>
-        </p:dataTable>
+         </p:dataTable>
 
         <p:dialog widgetVar="createNewGroupDialog">
             <p:outputPanel id="createNewGroupDialogContent">
-                <h:outputText value="Please enter name for new group:" for="newGroupName"/>
-                <p:inputText id="newGroupName" value="#{newGroupName}"/>
-                <p:commandButton action="createNewGroupConfirm" oncomplete="createNewGroupDialog.hide()"/>
+                <p>
+                    <h:outputText value="Please enter name for new group:" for="newGroupName"/>
+                    <p:inputText id="newGroupName" value="#{newGroupName}"/>
+                </p>
+                <p:commandButton value="Create" action="createNewGroupConfirm"
+                                 oncomplete="createNewGroupDialog.hide()" update=":#{p:component('subjects')}"/>
             </p:outputPanel>
         </p:dialog>
     </h:form>

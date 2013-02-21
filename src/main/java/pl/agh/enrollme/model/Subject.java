@@ -1,5 +1,8 @@
 package pl.agh.enrollme.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +25,11 @@ public class Subject implements Serializable {
 
     @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Person> persons = new ArrayList<>();
+
+    // TODO Optimize!!!
+    @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT) // exception without it
+    private List<Group> groups;
 
     @Column(unique = true, nullable = false)
     private String name;
@@ -107,6 +115,14 @@ public class Subject implements Serializable {
 
     public Integer getSubjectID() {
         return SubjectID;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     @Override

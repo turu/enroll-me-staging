@@ -11,6 +11,7 @@ import pl.agh.enrollme.model.Group;
 import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.repository.IEnrollmentDAO;
+import pl.agh.enrollme.repository.IGroupDAO;
 import pl.agh.enrollme.repository.IPersonDAO;
 
 import javax.faces.bean.ViewScoped;
@@ -30,22 +31,29 @@ public class GroupManagementService {
     @Autowired
     private IPersonDAO personDAO;
 
+    @Autowired
+    private IGroupDAO groupDAO;
+
 
     public GroupManagementController newControllerForEnroll(Enroll enroll) {
         GroupManagementController controller = new GroupManagementController(enroll);
         return controller;
     }
 
+    @Transactional
     public void createGroup(String name, Subject subject) {
         List<Person> people = new ArrayList<>();
 
         Person currentPerson = personDAO.getCurrentUser();
-        people.add(currentPerson);
+
+        LOGGER.debug("Creating new group (" + name + ", " + currentPerson.getId() + ", " + subject.getName() + ")");
 
         Group group = new Group(name, people, subject);
 
+        /*
+         * It happens during transaction and currentPerson is not detached, so this one should store group in database.
+         */
         currentPerson.addGroups(group);
-
-        personDAO.update(currentPerson);
     }
+
 }

@@ -24,12 +24,16 @@ import java.util.List;
  * @author Michal Partyka
  */
 @Repository
-public class GroupDAO implements IGroupDAO {
+public class GroupDAO extends GenericDAO<Group> implements IGroupDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupDAO.class.getName());
 
     @PersistenceContext
     EntityManager em;
+
+    public GroupDAO() {
+        super(Group.class);
+    }
 
     @Override
     @Transactional

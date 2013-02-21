@@ -8,7 +8,6 @@ import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Group;
 import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.Subject;
-import pl.agh.enrollme.repository.IEnrollmentDAO;
 import pl.agh.enrollme.repository.IPersonDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
 
@@ -27,13 +26,14 @@ public class GroupManagementController implements Serializable {
 //    @Autowired
 //    private IEnrollmentDAO enrollmentDAO;
 //
-//    @Autowired
-//    private IPersonDAO personDAO;
+    @Autowired
+    private transient IPersonDAO personDAO;
 
     @Autowired
     private transient ISubjectDAO subjectDAO;
 
     Map<Subject, List<Group>> groups;
+    Map<Subject, Group> chosenGroups;
 
     private Enroll enroll;
 
@@ -60,18 +60,37 @@ public class GroupManagementController implements Serializable {
         groups = new HashMap<>();
 
         for (Subject subject : subjects) {
-            groups.put(subject, groupsForSubject(subject));
+            groups.put(subject, fetchGroupsForSubject(subject));
         }
+
+        chosenGroups = fetchChosenGroups();
     }
 
     @Transactional
-    private List<Group> groupsForSubject(Subject subject) {
+    private List<Group> fetchGroupsForSubject(Subject subject) {
         Subject retrievedSubject = subjectDAO.getByPK(subject.getSubjectID());
         List<Group> groups = retrievedSubject.getGroups();
 
         LOGGER.debug("Retrieved groups for subject " + subject.getName());
 
         return new ArrayList<>(groups);
+    }
+
+    @Transactional
+    private Map<Subject, Group> fetchChosenGroups() {
+        Map<Subject, Group> result = new HashMap<>();
+        LOGGER.debug("Fetching chosen groups");
+
+        Person currentPerson = personDAO.getCurrentUser();
+
+        for (Group g : currentPerson.getGroups()) {
+            Subject subject = g.getSubject();
+            result.put(subject, g);
+        }
+
+        LOGGER.debug(result.size() + " fetched");
+
+        return result;
     }
 
     public List<Subject> getSubjects() {
