@@ -23,11 +23,11 @@ import java.util.Map;
 public class GroupManagementController implements Serializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupManagementController.class);
 
-    @Autowired
-    private IEnrollmentDAO enrollmentDAO;
-
-    @Autowired
-    private IPersonDAO personDAO;
+//    @Autowired
+//    private IEnrollmentDAO enrollmentDAO;
+//
+//    @Autowired
+//    private IPersonDAO personDAO;
 
     Map<Subject, List<Group>> groups;
 
@@ -68,19 +68,19 @@ public class GroupManagementController implements Serializable {
         return groups.get(subject);
     }
 
-    @Transactional
-    public boolean isCurrentUserInGroupForSubject(Subject subject) {
-        Person currentUser = personDAO.getCurrentUser();
-
-        List<Group> groups = currentUser.getGroups();
-
-        for (Group g : groups) {
-            Subject groupSubject = g.getSubject();
-            if (groupSubject.getSubjectID().equals(subject)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
+//    @Transactional
+//    public boolean isCurrentUserInGroupForSubject(Subject subject) {
+//        Person currentUser = personDAO.getCurrentUser();
+//
+//        List<Group> groups = currentUser.getGroups();
+//
+//        for (Group g : groups) {
+//            Subject groupSubject = g.getSubject();
+//            if (groupSubject.getSubjectID().equals(subject)) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 }
