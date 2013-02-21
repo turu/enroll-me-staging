@@ -68,6 +68,9 @@ public class GroupManagementController implements Serializable {
     private List<Group> groupsForSubject(Subject subject) {
         Subject retrievedSubject = subjectDAO.getByPK(subject.getSubjectID());
         List<Group> groups = retrievedSubject.getGroups();
+
+        LOGGER.debug("Retrieved groups for subject " + subject.getName());
+
         return groups;
     }
 
