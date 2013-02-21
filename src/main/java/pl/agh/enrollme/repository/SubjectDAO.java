@@ -41,6 +41,10 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
     @Override
     @Transactional
+    /**
+     * Add subjects to the current user subjects list
+     * @param subjects - array of subjects.
+     */
     public void fillCurrentUserSubjectList(Subject[] subjects) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person = (Person) userDetails;
@@ -57,6 +61,9 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
     @Override
     @Transactional
+    /**
+     * @return list of subjects assigned to the given enrollment
+     */
     public List<Subject> getSubjectsByEnrollment(Enroll enrollment) {
         LOGGER.debug("getSubjectsByEnrollment: enrollment: " + enrollment.getEnrollID() + " " + enrollment.getName());
         enrollmentDAO.getByPK(enrollment.getEnrollID());
@@ -65,12 +72,14 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
     @Override
     @Transactional
+    @Deprecated
     public Subject getSubject(Integer id) {
         return em.find(Subject.class, id);
     }
 
     @Override
     @Transactional
+    @Deprecated
     public List<Subject> getSubjectsWithGroups(Enroll enroll) {
         Teacher teacher1 = new Teacher("dr", "Stanisław", "Sobieszko", "4.11");
         Teacher teacher2 = new Teacher("dr", "Stasio", "Mieszko", "4.11");
