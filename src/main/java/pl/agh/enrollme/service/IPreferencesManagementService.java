@@ -16,4 +16,6 @@ public interface IPreferencesManagementService {
      */
     ScheduleController createScheduleController(Enroll currentEnroll);
 
+    boolean saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController);
+
 }
