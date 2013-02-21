@@ -49,7 +49,7 @@
                 <div style="text-align: center;"><h3>Below you can track your progress as you distribute points:</h3></div>
 
                 <!-- The ring is used to display statistics -->
-                <p:ring id="barRing" value="#{scheduleController.ringController.progressTokens}" var="progressToken"
+                <p:ring id="barRing" value="#{scheduleController.progressController.progressTokens}" var="progressToken"
                         easing="swing" first="0" style="text-align: center;">
                     #{progressToken.name}
                     <p:progressBar id="pointsProgress" value="#{progressToken.progress}" labelTemplate="{value}%"
