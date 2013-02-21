@@ -35,6 +35,11 @@ public class SubjectChoosingController implements ISubjectChoosingService {
         return false;
     }
 
+    @Override
+    public List<Subject> getAvailableSubjectForEnrollment(Enroll enroll) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public void setModel(SelectableDataModel<Subject> model) {
         this.model = model;
     }
