@@ -179,6 +179,9 @@ public class ProgressRingController implements Serializable {
         LOGGER.debug("Extra token added");
 
         for (Subject s : subjects) {
+            LOGGER.debug("subjectID=" + s.getSubjectID() + ", subjectName=" + s.getName() +
+                    ", pps=" + enrollConfiguration.getPointsPerSubject() + ", mpps=" + enrollConfiguration.getMinimumPointsPerSubject() +
+            ", pointsUsed=" + pointsMap.get(s.getSubjectID()) + ", subjectColor" + s.getColor());
             final ProgressToken token = new ProgressToken(s.getSubjectID(), s.getName(),
                     enrollConfiguration.getPointsPerSubject(),enrollConfiguration.getMinimumPointsPerSubject(),
                     pointsMap.get(s.getSubjectID()), s.getColor());
