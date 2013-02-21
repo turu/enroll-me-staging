@@ -50,7 +50,7 @@ public class Person implements Serializable, UserDetails {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.ALL)
     private List<Group> groups;
 
-    @ManyToMany(mappedBy = "persons", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Subject> subjects;
 
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)

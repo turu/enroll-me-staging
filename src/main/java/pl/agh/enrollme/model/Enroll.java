@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * @author Michal Partyka
+ * Class represents single Enrollment
  */
 @Entity
 public class Enroll implements Serializable {
@@ -48,6 +49,9 @@ public class Enroll implements Serializable {
         subjects.add(subject);
     }
 
+    /**
+     * @param enrollmentMode defines either enroll is completed, closed or currently open
+     */
     public void setEnrollmentMode(EnrollmentMode enrollmentMode) {
         this.enrollmentMode = enrollmentMode;
     }
@@ -56,6 +60,9 @@ public class Enroll implements Serializable {
         return enrollmentMode;
     }
 
+    /**
+     * @param subjects subjects available for this enrollment
+     */
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
@@ -64,6 +71,9 @@ public class Enroll implements Serializable {
         return subjects;
     }
 
+    /**
+     * @param enrollID primary key
+     */
     public void setEnrollID(Integer enrollID) {
         this.enrollID = enrollID;
     }
@@ -72,10 +82,16 @@ public class Enroll implements Serializable {
         return persons;
     }
 
+    /**
+     * @param persons list of people who are allowed for this enrollment
+     */
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 
+    /**
+     * @param enrollConfiguration object enrollConfiguration - configuration of this enrollment
+     */
     public void setEnrollConfiguration(EnrollConfiguration enrollConfiguration) {
         this.enrollConfiguration = enrollConfiguration;
     }
@@ -85,6 +101,9 @@ public class Enroll implements Serializable {
         name = "";
     }
 
+    /**
+     * @param name name of the enrollment
+     */
     public void setName(String name) {
         this.name = name;
     }
