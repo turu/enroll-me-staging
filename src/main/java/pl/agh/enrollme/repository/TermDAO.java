@@ -26,8 +26,8 @@ public class TermDAO extends GenericDAO<Term> implements ITermDAO {
     @Override
     @Transactional
     public List<Term> getTermsBySubject(Subject subject) {
-        final TypedQuery<Term> query = em.createQuery("Select t from Term t where t.subject = :subject",
-                Term.class).setParameter("subject", subject);
+        final TypedQuery<Term> query = em.createQuery("Select t from Term t where t.subject.id = :subject_id",
+                Term.class).setParameter("subject_id", subject.getSubjectID());
 
         return query.getResultList();
     }
