@@ -4,6 +4,8 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import pl.agh.enrollme.model.Enroll;
 
+import java.util.List;
+
 /**
  * @author Michal Partyka
  */

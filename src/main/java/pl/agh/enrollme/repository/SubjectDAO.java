@@ -46,6 +46,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
      * @param subjects - array of subjects.
      */
     public void fillCurrentUserSubjectList(Subject[] subjects) {
+        //TODO: change to getCurrentUser()
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person = (Person) userDetails;
 

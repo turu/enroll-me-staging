@@ -1,4 +1,4 @@
-package pl.agh.enrollme.service;
+package pl.agh.enrollme.controller;
 
 import org.primefaces.model.SelectableDataModel;
 import org.slf4j.LoggerFactory;
@@ -7,12 +7,18 @@ import org.springframework.stereotype.Controller;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.SelectableDataModelForSubjects;
 import pl.agh.enrollme.model.Subject;
+import pl.agh.enrollme.repository.IPersonDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
+import pl.agh.enrollme.service.ISubjectChoosingService;
+
+import javax.faces.bean.ViewScoped;
+import java.util.List;
 
 /**
  * @author Michal Partyka
  */
 @Controller
+@ViewScoped
 public class SubjectChoosingController implements ISubjectChoosingService {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(SubjectChoosingController.class.getName());
@@ -21,6 +27,9 @@ public class SubjectChoosingController implements ISubjectChoosingService {
 
     @Autowired
     private ISubjectDAO subjectDAO;
+
+    @Autowired
+    private IPersonDAO personDAO;
 
     public boolean userAlreadySubmitedSubjects() {
         return false;
@@ -35,7 +44,10 @@ public class SubjectChoosingController implements ISubjectChoosingService {
     }
 
     public void createModel(Enroll enrollment) {
-        model = new SelectableDataModelForSubjects(subjectDAO.getSubjectsByEnrollment(enrollment));
+        //TODO: get already chosen and assign to chosenSubjects, now assign null
+        chosenSubjects = null;
+        List<Subject> subjects = subjectDAO.getSubjectsByEnrollment(enrollment);
+        model = new SelectableDataModelForSubjects(subjects);
     }
 
     public void setChosenSubjects(Subject[] chosenSubjects) {
