@@ -37,12 +37,15 @@ public class EnrollConfiguration implements Serializable {
     }
 
     public EnrollConfiguration(Enroll enroll, Integer pointsPerTerm, Integer pointsPerSubject,
-                               Integer minimumPointsPerSubject, Integer additionalPoints) {
+                               Integer minimumPointsPerSubject, Integer additionalPoints,
+                               Boolean periodic, Integer weekViewWidth) {
         this.enroll = enroll;
         this.pointsPerTerm = pointsPerTerm;
         this.pointsPerSubject = pointsPerSubject;
         this.minimumPointsPerSubject = minimumPointsPerSubject;
         this.additionalPoints = additionalPoints;
+        this.periodic = periodic;
+        this.weekViewWidth = weekViewWidth;
     }
 
     public void setID(Integer ID) {
