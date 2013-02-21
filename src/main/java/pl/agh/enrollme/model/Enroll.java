@@ -6,8 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * @author Michal Partyka
@@ -29,7 +27,7 @@ public class Enroll implements Serializable {
     private EnrollConfiguration enrollConfiguration;
 
     @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Subject> subjects = new TreeSet<>();
+    private List<Subject> subjects = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Person> persons;
@@ -38,7 +36,7 @@ public class Enroll implements Serializable {
         return enrollConfiguration;
     }
 
-    public Enroll(String name, EnrollmentMode enrollmentMode, EnrollConfiguration enrollConfiguration, Set<Subject> subjects) {
+    public Enroll(String name, EnrollmentMode enrollmentMode, EnrollConfiguration enrollConfiguration, List<Subject> subjects) {
         this.enrollmentMode = enrollmentMode;
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
@@ -47,6 +45,9 @@ public class Enroll implements Serializable {
     }
 
     public void addSubject(Subject subject) {
+        if(subjects.contains(subject)) {
+            return;
+        }
         subjects.add(subject);
     }
 
@@ -64,11 +65,11 @@ public class Enroll implements Serializable {
     /**
      * @param subjects subjects available for this enrollment
      */
-    public void setSubjects(Set<Subject> subjects) {
+    public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
 
-    public Set<Subject> getSubjects() {
+    public List<Subject> getSubjects() {
         return subjects;
     }
 
