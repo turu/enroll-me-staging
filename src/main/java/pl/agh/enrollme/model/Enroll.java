@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Michal Partyka
@@ -27,7 +29,7 @@ public class Enroll implements Serializable {
     private EnrollConfiguration enrollConfiguration;
 
     @OneToMany(mappedBy = "enroll", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Subject> subjects = new ArrayList<>();
+    private Set<Subject> subjects = new TreeSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Person> persons;
@@ -36,7 +38,7 @@ public class Enroll implements Serializable {
         return enrollConfiguration;
     }
 
-    public Enroll(String name, EnrollmentMode enrollmentMode, EnrollConfiguration enrollConfiguration, List<Subject> subjects) {
+    public Enroll(String name, EnrollmentMode enrollmentMode, EnrollConfiguration enrollConfiguration, Set<Subject> subjects) {
         this.enrollmentMode = enrollmentMode;
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
@@ -62,11 +64,11 @@ public class Enroll implements Serializable {
     /**
      * @param subjects subjects available for this enrollment
      */
-    public void setSubjects(List<Subject> subjects) {
+    public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
     }
 
-    public List<Subject> getSubjects() {
+    public Set<Subject> getSubjects() {
         return subjects;
     }
 
