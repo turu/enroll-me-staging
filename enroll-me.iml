@@ -62,6 +62,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-codec:commons-codec:1.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-annotations-api:7.0.23" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-tribes:7.0.23" level="project" />
+    <orderEntry type="library" name="Maven: org.primefaces:primefaces:3.5zza" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:3.2.1.RELEASE" level="project" />

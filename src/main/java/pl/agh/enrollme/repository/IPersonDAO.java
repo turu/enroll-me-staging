@@ -13,5 +13,5 @@ public interface IPersonDAO {
     Person getByPK(Object id);
     List<Person> getList();
     Person findByUsername(String username);
-
+    Person getCurrentUser();
 }
