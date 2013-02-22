@@ -88,6 +88,20 @@ public class AdminScheduleController implements Serializable {
         }
 
         preprocessTerms();
+
+        GregorianCalendar gc = new GregorianCalendar(2013, 1, 11, 10, 15);
+
+        Date begin = gc.getTime();
+        gc.add(Calendar.MINUTE, 90);
+        Date end = gc.getTime();
+        DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Analiza", begin, end);
+        newEvent.setEditable(false);
+        newEvent.setTeacher("dr W. Frydrych");
+        newEvent.setPlace("s. 3.27");
+        newEvent.setActivityType("Wykład");
+        newEvent.setShowPoints(false);
+        newEvent.setInteractive(false);
+        eventModel.addEvent(newEvent);
     }
 
 
@@ -150,10 +164,10 @@ public class AdminScheduleController implements Serializable {
      * @param selectEvent
      */
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (DefaultEnrollScheduleEvent) selectEvent.getObject();
+        event = (EnrollScheduleEvent) selectEvent.getObject();
 
-        final Term term = eventToTermMap.get(event.getId());
-        final Subject subject = term.getSubject();
+        /*final Term term = eventToTermMap.get(event.getId());
+        final Subject subject = term.getSubject();  */
 
     }
 
