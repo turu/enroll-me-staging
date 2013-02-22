@@ -242,6 +242,7 @@ public class AdminScheduleController implements Serializable {
         event.setColor("#"+subject.getColor());
         event.setEditable(true);
         event.setInteractive(true);
+        event.setTitle(subject.getName());
 
         Term term;
 

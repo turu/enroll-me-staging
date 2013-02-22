@@ -135,4 +135,19 @@ public class Term implements Serializable {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    @Override
+    public String toString() {
+        return "Term{" +
+                "subject=" + subject +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", week=" + week +
+                ", capacity=" + capacity +
+                ", room='" + room + '\'' +
+                ", type='" + type + '\'' +
+                ", certain=" + certain +
+                ", teacher=" + teacher +
+                '}';
+    }
 }
