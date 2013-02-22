@@ -20,7 +20,7 @@ public class Subject implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Enroll enroll;
 
-    @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Person> persons = new ArrayList<>();
 
     @Column(unique = true, nullable = false)
@@ -32,7 +32,7 @@ public class Subject implements Serializable {
     @Column(nullable = false)
     private String color;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Teacher teacher;
 
     public Subject() {

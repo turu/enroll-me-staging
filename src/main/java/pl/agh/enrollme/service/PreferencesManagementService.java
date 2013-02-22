@@ -72,7 +72,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         final List<Term> terms = new ArrayList<>();
 
         for (Subject s : subjects) {
-            terms.addAll(termDAO.getTermsBySubject(s));
+            final List<Term> termsBySubject = termDAO.getTermsBySubject(s);
+            if (termsBySubject.size() > 0) {
+                terms.addAll(termsBySubject);
+            }
         }
         LOGGER.debug("Terms retrieved (" + terms.size() + " of them): " + terms);
 
@@ -80,7 +83,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         final List<StudentPointsPerTerm> points = new ArrayList<>();
 
         for (Term t : terms) {
-            points.add(pointsDAO.getByPersonAndTerm(person, t));
+            final StudentPointsPerTerm byPersonAndTerm = pointsDAO.getByPersonAndTerm(person, t);
+            if (byPersonAndTerm != null) {
+                points.add(byPersonAndTerm);
+            }
         }
         LOGGER.debug("Current preferences retrieved (" + points.size() + " of them): " + points);
 

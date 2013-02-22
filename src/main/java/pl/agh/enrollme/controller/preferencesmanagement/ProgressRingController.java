@@ -118,12 +118,17 @@ public class ProgressRingController implements Serializable {
     private void updateProgressTokens() {
         for (ProgressToken token : progressTokens) {
             final int id = token.getId();
-            int used = 0;
+
+            Integer used = 0;
             if (id == -1) {
                 used = extraPointsUsed;
             } else {
                 used = pointsMap.get(id);
+                if (used == null) {
+                    used = 0;
+                }
             }
+
             token.setPointsUsed(used);
             LOGGER.debug("Token: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
                     ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor() + " updated");
@@ -179,9 +184,18 @@ public class ProgressRingController implements Serializable {
         LOGGER.debug("Extra token added");
 
         for (Subject s : subjects) {
+            LOGGER.debug("subjectID=" + s.getSubjectID() + ", subjectName=" + s.getName() +
+                    ", pps=" + enrollConfiguration.getPointsPerSubject() + ", mpps=" + enrollConfiguration.getMinimumPointsPerSubject() +
+            ", pointsUsed=" + pointsMap.get(s.getSubjectID()) + ", subjectColor=#" + s.getColor());
+
+            Integer pointsUsed = pointsMap.get(s.getSubjectID());
+            if (pointsUsed == null) {
+                pointsUsed = 0;
+            }
+
             final ProgressToken token = new ProgressToken(s.getSubjectID(), s.getName(),
                     enrollConfiguration.getPointsPerSubject(),enrollConfiguration.getMinimumPointsPerSubject(),
-                    pointsMap.get(s.getSubjectID()), s.getColor());
+                    pointsUsed, s.getColor());
 
             LOGGER.debug("New token created: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
             ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor());

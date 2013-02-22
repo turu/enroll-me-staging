@@ -58,6 +58,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
         Person currentUser = personDAO.getByPK(person.getId());
         for (Subject subject : subjects) {
+
             LOGGER.debug("add new subject to student: " + subject);
             currentUser.addSubject(getByPK(subject.getSubjectID()));
         }
