@@ -8,9 +8,9 @@
     <!--<var name="scheduleController" class="pl.agh.enrollme.controller.TestScheduleController" />-->
 
     <view-state id="view">
-        <on-render>
+        <on-entry>
             <evaluate expression="new pl.agh.enrollme.controller.TestScheduleController()" result="viewScope.scheduleController"/>
-        </on-render>
+        </on-entry>
         <transition on="done" to="preferencesApplied"/>
     </view-state>
 
