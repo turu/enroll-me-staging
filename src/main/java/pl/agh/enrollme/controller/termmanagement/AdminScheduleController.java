@@ -152,7 +152,7 @@ public class AdminScheduleController implements Serializable {
     public void onEventSelect(SelectEvent selectEvent) {
         event = (DefaultEnrollScheduleEvent) selectEvent.getObject();
 
-        final Term term = eventToTermMap.get(event);
+        final Term term = eventToTermMap.get(event.getId());
         final Subject subject = term.getSubject();
 
     }
@@ -205,7 +205,7 @@ public class AdminScheduleController implements Serializable {
     /**
      * Updates current event (kept in event field)
      */
-    public boolean updateEvent(ActionEvent actionEvent) {
+    public void updateEvent(ActionEvent actionEvent) {
         Term term = eventToTermMap.get(event.getId());
 
         if (term == null) {
@@ -218,8 +218,6 @@ public class AdminScheduleController implements Serializable {
         }
 
         event = new DefaultEnrollScheduleEvent();
-
-        return true;
     }
 
 
