@@ -27,7 +27,7 @@
             <p:spacer width="100%" height="10"/>
 
             <!-- Custom schedule component based on the Schedule component -->
-            <p:enrollSchedule value="#{scheduleController.eventModel}" widgetVar="schedule"
+            <p:enrollSchedule value="#{scheduleController.eventModel}" widgetVar="myschedule"
                               allDaySlot="false"
                               showWeekends="true"
                               slotMinutes="15"
@@ -100,7 +100,7 @@
 
                     <p:commandButton type="reset" value="Discard" />
                     <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
-                                     oncomplete="schedule.update();eventDialog.hide();"/>
+                                     oncomplete="myschedule.update();eventDialog.hide();"/>
                 </h:panelGrid>
             </p:dialog>
         </h:form>

@@ -40,7 +40,7 @@
 
             </p:enrollSchedule>
 
-            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" modal="true">
                 <h:panelGrid id="eventDetails" columns="2">
                     <h:outputLabel for="title" value="Title:" />
                     <p:inputText id="title" value="#{scheduleController.event.title}"
