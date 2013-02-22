@@ -55,7 +55,7 @@
 
             </p:enrollSchedule>
 
-            <p:dialog widgetVar="eventDialog" header="Term Details" showEffect="clip" hideEffect="clip" modal="true">
+            <p:dialog widgetVar="eventDialog" header="Term Details" showEffect="clip" hideEffect="clip">
                 <h:panelGrid id="eventDetails" columns="2">
                     <p:outputLabel value="Start time: " for="startTime"/>
                     <h:outputText id="startTime" value="#{scheduleController.event.startDate}">
