@@ -31,7 +31,7 @@ public class AdminScheduleController implements Serializable {
     private EnrollScheduleModel eventModel;
 
     //Custom event model for the EnrollSchedule component; currently selected event
-    private DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();           //THIS SIMPLY DOES NOT WORK !!!
+    private DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
     //Currently selected teacher from the teacher list
     private Teacher teacher = new Teacher();
@@ -44,12 +44,6 @@ public class AdminScheduleController implements Serializable {
 
     //Capacity of the current event
     private Integer capacity = 0;
-
-    private Date eventStartDate = new Date();
-    private Date eventEndDate = new Date();
-    private String eventPlace = "";
-    private String eventActivityType = "";
-    private String eventID;
 
 
     //Enroll data
@@ -173,13 +167,8 @@ public class AdminScheduleController implements Serializable {
     public void onEventSelect(SelectEvent selectEvent) {
         event = (DefaultEnrollScheduleEvent) selectEvent.getObject();
         LOGGER.debug("Selected event: " + event);
-        eventID = event.getId();
-        eventStartDate = event.getStartDate();
-        eventEndDate = event.getEndDate();
-        eventActivityType = event.getActivityType();
-        eventPlace = event.getPlace();
 
-        final Term term = eventToTermMap.get(eventID);
+        final Term term = eventToTermMap.get(event.getId());
         subject = term.getSubject();
         teacher = term.getTeacher();
         certain = term.getCertain();
@@ -199,18 +188,11 @@ public class AdminScheduleController implements Serializable {
         final Date end = date.getTime();
 
         event = new DefaultEnrollScheduleEvent("", begin, end);
-        ((DefaultEnrollScheduleEvent) event).setTitle("adsad");
 
-        eventStartDate = begin;
-        eventEndDate = end;
-        eventActivityType = "";
-        eventPlace = "";
         subject = new Subject();
         teacher = new Teacher();
         certain = false;
         capacity = 0;
-        eventID = null;
-
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Date clicked", "Time: "
                 + begin + " event: " + event);
@@ -253,30 +235,24 @@ public class AdminScheduleController implements Serializable {
      * Updates current event (kept in event field)
      */
     public void updateEvent(ActionEvent actionEvent) {
-        LOGGER.debug("capacity=" + capacity + ", certain=" + certain + ", subject=" + subject.getName() + ", teacher=" + teacher.getSecondName()
-        + ", eventStartDate=" + eventStartDate + ", eventEndDate=" + eventEndDate + ", eventPlace=" + eventPlace +
-          ", eventActType=" + eventActivityType + ", eventID=" + eventID);
+        LOGGER.debug("capacity=" + capacity + ", certain=" + certain + ", subject=" + subject.getName() + ", teacher=" + teacher.getSecondName());
 
-        event = new DefaultEnrollScheduleEvent(subject.getName(), eventStartDate, eventEndDate);
-        event.setPlace(eventPlace);
         event.setShowPoints(false);
         setEventTeacher(teacher, event);
-        event.setActivityType(eventActivityType);
         event.setColor("#"+subject.getColor());
-        event.setId(eventID);
         event.setEditable(true);
         event.setInteractive(true);
 
         Term term;
 
-        if (eventID == null) {
+        if (event.getId() == null) {
             term = new Term();
 
             eventModel.addEvent(event);
             eventToTermMap.put(event.getId(), term);
             LOGGER.debug("New Event: " + event);
         } else {
-            term = eventToTermMap.get(eventID);
+            term = eventToTermMap.get(event.getId());
 
             eventModel.updateEvent(event);
             LOGGER.debug("Old Event: " + event);
@@ -439,35 +415,4 @@ public class AdminScheduleController implements Serializable {
         term.setEndTime(scheduleEvent.getEndDate());
     }
 
-    public Date getEventStartDate() {
-        return eventStartDate;
-    }
-
-    public void setEventStartDate(Date eventStartDate) {
-        this.eventStartDate = eventStartDate;
-    }
-
-    public Date getEventEndDate() {
-        return eventEndDate;
-    }
-
-    public void setEventEndDate(Date eventEndDate) {
-        this.eventEndDate = eventEndDate;
-    }
-
-    public String getEventPlace() {
-        return eventPlace;
-    }
-
-    public void setEventPlace(String eventPlace) {
-        this.eventPlace = eventPlace;
-    }
-
-    public String getEventActivityType() {
-        return eventActivityType;
-    }
-
-    public void setEventActivityType(String eventActivityType) {
-        this.eventActivityType = eventActivityType;
-    }
 }
