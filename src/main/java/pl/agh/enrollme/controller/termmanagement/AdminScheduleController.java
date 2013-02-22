@@ -92,7 +92,7 @@ public class AdminScheduleController implements Serializable {
         gc.setTime(new Date());
 
         Date begin = gc.getTime();
-        gc.add(Calendar.MINUTE, 90);
+        gc.add(Calendar.MINUTE, 10);
         Date end = gc.getTime();
         DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Analiza", begin, end);
         newEvent.setEditable(false);
@@ -182,7 +182,8 @@ public class AdminScheduleController implements Serializable {
         date.add(Calendar.MINUTE, 90);
         final Date end = date.getTime();
 
-        event = new DefaultEnrollScheduleEvent("", begin, end);
+        event = new DefaultEnrollScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        ((DefaultEnrollScheduleEvent) event).setTitle("adsad");
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Date clicked", "Time: "
                 + begin + " event: " + event);
