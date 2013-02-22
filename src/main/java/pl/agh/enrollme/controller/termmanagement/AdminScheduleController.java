@@ -10,6 +10,7 @@ import org.primefaces.model.EnrollScheduleModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.agh.enrollme.model.*;
+import pl.agh.enrollme.utils.Week;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -30,7 +31,7 @@ public class AdminScheduleController implements Serializable {
     private EnrollScheduleModel eventModel;
 
     //Custom event model for the EnrollSchedule component; currently selected event
-    private EnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
+    private DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();           //THIS SIMPLY DOES NOT WORK !!!
 
     //Currently selected teacher from the teacher list
     private Teacher teacher = new Teacher();
@@ -94,20 +95,20 @@ public class AdminScheduleController implements Serializable {
 
         preprocessTerms();
 
-        GregorianCalendar gc = new GregorianCalendar();
-        gc.setTime(new Date());
-
-        Date begin = gc.getTime();
-        gc.add(Calendar.MINUTE, 10);
-        Date end = gc.getTime();
-        DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Analiza", begin, end);
-        newEvent.setEditable(true);
-        newEvent.setTeacher("dr W. Frydrych");
-        newEvent.setPlace("s. 3.27");
-        newEvent.setActivityType("Wykład");
-        newEvent.setShowPoints(false);
-        newEvent.setInteractive(true);
-        eventModel.addEvent(newEvent);
+//        GregorianCalendar gc = new GregorianCalendar();
+//        gc.setTime(new Date());
+//
+//        Date begin = gc.getTime();
+//        gc.add(Calendar.MINUTE, 10);
+//        Date end = gc.getTime();
+//        DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Analiza", begin, end);
+//        newEvent.setEditable(true);
+//        newEvent.setTeacher("dr W. Frydrych");
+//        newEvent.setPlace("s. 3.27");
+//        newEvent.setActivityType("Wykład");
+//        newEvent.setShowPoints(false);
+//        newEvent.setInteractive(true);
+//        eventModel.addEvent(newEvent);
     }
 
 
@@ -119,11 +120,11 @@ public class AdminScheduleController implements Serializable {
         this.eventModel = eventModel;
     }
 
-    public EnrollScheduleEvent getEvent() {
+    public DefaultEnrollScheduleEvent getEvent() {
         return event;
     }
 
-    public void setEvent(EnrollScheduleEvent event) {
+    public void setEvent(DefaultEnrollScheduleEvent event) {
         this.event = event;
     }
 
@@ -170,11 +171,19 @@ public class AdminScheduleController implements Serializable {
      * @param selectEvent
      */
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (EnrollScheduleEvent) selectEvent.getObject();
+        event = (DefaultEnrollScheduleEvent) selectEvent.getObject();
         LOGGER.debug("Selected event: " + event);
+        eventID = event.getId();
+        eventStartDate = event.getStartDate();
+        eventEndDate = event.getEndDate();
+        eventActivityType = event.getActivityType();
+        eventPlace = event.getPlace();
 
-        /*final Term term = eventToTermMap.get(event.getId());
-        final Subject subject = term.getSubject();  */
+        final Term term = eventToTermMap.get(eventID);
+        subject = term.getSubject();
+        teacher = term.getTeacher();
+        certain = term.getCertain();
+        capacity = term.getCapacity();
 
     }
 
@@ -194,6 +203,14 @@ public class AdminScheduleController implements Serializable {
 
         eventStartDate = begin;
         eventEndDate = end;
+        eventActivityType = "";
+        eventPlace = "";
+        subject = new Subject();
+        teacher = new Teacher();
+        certain = false;
+        capacity = 0;
+        eventID = null;
+
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Date clicked", "Time: "
                 + begin + " event: " + event);
@@ -237,17 +254,47 @@ public class AdminScheduleController implements Serializable {
      */
     public void updateEvent(ActionEvent actionEvent) {
         LOGGER.debug("capacity=" + capacity + ", certain=" + certain + ", subject=" + subject.getName() + ", teacher=" + teacher.getSecondName()
-        + ", eventStartDate=" + eventStartDate + ", eventEndDate=" + eventEndDate + ", eventPlace=" + eventPlace + ", eventActType=" + eventActivityType);
-        if (event.getId() == null) {
-            Term term = new Term();
-            LOGGER.debug("New Event: " + event);
+        + ", eventStartDate=" + eventStartDate + ", eventEndDate=" + eventEndDate + ", eventPlace=" + eventPlace +
+          ", eventActType=" + eventActivityType + ", eventID=" + eventID);
+
+        event = new DefaultEnrollScheduleEvent(subject.getName(), eventStartDate, eventEndDate);
+        event.setPlace(eventPlace);
+        event.setShowPoints(false);
+        setEventTeacher(teacher, event);
+        event.setActivityType(eventActivityType);
+        event.setColor("#"+subject.getColor());
+        event.setId(eventID);
+        event.setEditable(true);
+        event.setInteractive(true);
+
+        Term term;
+
+        if (eventID == null) {
+            term = new Term();
+
             eventModel.addEvent(event);
             eventToTermMap.put(event.getId(), term);
+            LOGGER.debug("New Event: " + event);
         } else {
-            Term term = eventToTermMap.get(event.getId());
+            term = eventToTermMap.get(eventID);
+
             eventModel.updateEvent(event);
             LOGGER.debug("Old Event: " + event);
         }
+
+//        term.setStartTime(eventStartDate);
+//        term.setEndTime(eventEndDate);
+//        term.setTeacher(teacher);
+//        term.setSubject(subject);
+//        term.setWeek(Week.YEAR_ALL);
+//        term.setCapacity(capacity);
+//        term.setRoom(eventPlace);
+//        term.setCertain(certain);
+//        term.setType(eventActivityType);
+//
+//        TermPK termID = new TermPK();
+//        termID.setSubject(subject);
+//        termID.set
 
         event = new DefaultEnrollScheduleEvent();
     }
@@ -346,11 +393,7 @@ public class AdminScheduleController implements Serializable {
             //setting event's place
             event.setPlace(t.getRoom());
 
-            Teacher teacher = t.getTeacher();
-            String teacherString = teacher.getDegree() + " " + teacher.getFirstName().charAt(0) +
-                    ". " + teacher.getSecondName();
-            //setting event's teacher
-            event.setTeacher(teacherString);
+            setEventTeacher(t.getTeacher(), event);
 
             final Subject subject = t.getSubject();
 
@@ -380,6 +423,13 @@ public class AdminScheduleController implements Serializable {
         if (terms.size() > 0) {
             this.initialDate = minDate.getTime();
         }
+    }
+
+    private void setEventTeacher(Teacher teacher, DefaultEnrollScheduleEvent event) {
+        String teacherString = teacher.getDegree() + " " + teacher.getFirstName().charAt(0) +
+                ". " + teacher.getSecondName();
+        //setting event's teacher
+        event.setTeacher(teacherString);
     }
 
     private void updateTermTime(EnrollScheduleEvent scheduleEvent) {
