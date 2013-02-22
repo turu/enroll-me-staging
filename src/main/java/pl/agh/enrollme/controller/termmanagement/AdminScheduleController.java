@@ -247,6 +247,7 @@ public class AdminScheduleController implements Serializable {
 
         if (event.getId() == null) {
             term = new Term();
+            term.setTermId(new TermPK());
 
             eventModel.addEvent(event);
             eventToTermMap.put(event.getId(), term);
@@ -258,19 +259,15 @@ public class AdminScheduleController implements Serializable {
             LOGGER.debug("Old Event: " + event);
         }
 
-//        term.setStartTime(eventStartDate);
-//        term.setEndTime(eventEndDate);
-//        term.setTeacher(teacher);
-//        term.setSubject(subject);
-//        term.setWeek(Week.YEAR_ALL);
-//        term.setCapacity(capacity);
-//        term.setRoom(eventPlace);
-//        term.setCertain(certain);
-//        term.setType(eventActivityType);
-//
-//        TermPK termID = new TermPK();
-//        termID.setSubject(subject);
-//        termID.set
+        term.setTeacher(teacher);
+        term.setCapacity(capacity);
+        term.setCertain(certain);
+        term.setSubject(subject);
+        term.setWeek(Week.YEAR_ALL);    //TODO: implement choosing week type
+        term.getTermId().setSubject(subject);
+        updateTerm(term, event);
+
+        LOGGER.debug("Term modified: " + term);
 
         event = new DefaultEnrollScheduleEvent();
     }
@@ -413,6 +410,13 @@ public class AdminScheduleController implements Serializable {
         final Term term = eventToTermMap.get(scheduleEvent.getId());
         term.setStartTime(scheduleEvent.getStartDate());
         term.setEndTime(scheduleEvent.getEndDate());
+    }
+
+    private void updateTerm(Term term, DefaultEnrollScheduleEvent event) {
+        term.setStartTime(event.getStartDate());
+        term.setEndTime(event.getStartDate());
+        term.setType(event.getActivityType());
+        term.setRoom(event.getPlace());
     }
 
 }
