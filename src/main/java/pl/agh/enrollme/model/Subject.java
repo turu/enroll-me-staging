@@ -24,7 +24,7 @@ public class Subject implements Serializable {
     private List<Person> persons = new ArrayList<>();
 
     @Column(unique = true, nullable = false)
-    private String name;
+    private String name = "";
 
     @Column(nullable = false)
     private Integer teamsCapacity;
