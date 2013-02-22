@@ -48,6 +48,7 @@ public class AdminScheduleController implements Serializable {
     private Date eventEndDate = new Date();
     private String eventPlace = "";
     private String eventActivityType = "";
+    private String eventID;
 
 
     //Enroll data
