@@ -57,7 +57,45 @@
 
             <p:dialog widgetVar="eventDialog" header="Term Details" showEffect="clip" hideEffect="clip" modal="true">
                 <h:panelGrid id="eventDetails" columns="2">
+                    <p:outputLabel value="Start time: " for="startTime"/>
+                    <p:inputMask id="startTime" value="#{scheduleController.event.startDate}" mask="99/99/9999 99:99">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </p:inputMask>
 
+                    <p:outputLabel value="End time: " for="endTime"/>
+                    <p:inputMask id="endTime" value="#{scheduleController.event.endDate}" mask="99/99/9999 99:99">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </p:inputMask>
+
+                    <p:outputLabel value="Subject: " for="subjectChoice"/>
+                    <p:selectOneMenu id="subjectChoice" value="#{scheduleController.subject}" converter="#{subjectConverter}">
+                        <f:selectItems value="#{scheduleController.subjects}"
+                                       var="subject"
+                                       itemLabel="#{subject.name}"
+                                       itemValue="#{subject}"
+                        />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Teacher: " for="teacherChoice"/>
+                    <p:selectOneMenu id="teacherChoice" value="#{scheduleController.teacher}" converter="#{teacherConverter}">
+                        <f:selectItems value="#{scheduleController.teachers}"
+                                       var="teacher"
+                                       itemLabel="#{teacher.degree} #{teacher.firstName} #{teacher.secondName}"
+                                       itemValue="#{teacher}"
+                        />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Room: " for="place"/>
+                    <p:inputText id="place" value="#{scheduleController.event.place}"/>
+
+                    <p:outputLabel value="Type: " for="type"/>
+                    <p:inputText id="type" value="#{scheduleController.event.activityType}"/>
+
+                    <p:outputLabel value="Is certain: " for="certain"/>
+                    <p:selectBooleanCheckbox id="certain" value="#{scheduleController.certain}"/>
+
+                    <p:outputLabel value="Capacity: " for="capacity"/>
+                    <p:inputText id="capacity" value="#{scheduleController.capacity}"/>
 
 
                     <p:commandButton type="reset" value="Discard" />

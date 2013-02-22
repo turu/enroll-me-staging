@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.agh.enrollme.controller.termmanagement.AdminScheduleController;
 import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.ISubjectDAO;
+import pl.agh.enrollme.repository.ITeacherDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class TermManagementService implements ITermManagementService {
     @Autowired
     private ITermDAO termDAO;
 
+    @Autowired
+    private ITeacherDAO teacherDAO;
+
     @Override
     public AdminScheduleController createScheduleController(Enroll enroll) {
         //Enroll configuration of the current enroll
@@ -33,6 +37,9 @@ public class TermManagementService implements ITermManagementService {
 
         final List<Subject> subjects = subjectDAO.getSubjectsByEnrollment(enroll);
         LOGGER.debug("Subjects of " + enroll + " enrollment retrieved: " + subjects);
+
+        final List<Teacher> teachers = teacherDAO.getList();
+        LOGGER.debug("Teachers retrieved: " + teachers);
 
         //list of terms to display
         final List<Term> terms = new ArrayList<>();
@@ -46,7 +53,8 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug("Terms retrieved (" + terms.size() + " of them): " + terms);
 
         //creating schedule controller
-        final AdminScheduleController scheduleController = new AdminScheduleController(enrollConfiguration, subjects, terms);
+        final AdminScheduleController scheduleController = new AdminScheduleController(enrollConfiguration, subjects,
+                terms, teachers);
         LOGGER.debug("ScheduleController created: " + scheduleController);
 
         return scheduleController;

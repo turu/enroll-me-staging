@@ -32,6 +32,18 @@ public class AdminScheduleController implements Serializable {
     //Custom event model for the EnrollSchedule component; currently selected event
     private DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
+    //Currently selected teacher from the teacher list
+    private Teacher teacher = new Teacher();
+
+    //Currently selected subject from the subject list
+    private Subject subject = new Subject();
+
+    //Whether currently selected event is certain or not
+    private Boolean certain = false;
+
+    //Capacity of the current event
+    private Integer capacity = 0;
+
 
     //Enroll data
     private EnrollConfiguration enrollConfiguration;
@@ -39,6 +51,8 @@ public class AdminScheduleController implements Serializable {
     private List<Subject> subjects;
 
     private List<Term> terms;
+
+    private List<Teacher> teachers;
     //Enroll data end
 
     //Mapping from Term to StudentPointsPerTerm
@@ -59,10 +73,12 @@ public class AdminScheduleController implements Serializable {
     private String theme;
 
 
-    public AdminScheduleController(EnrollConfiguration enrollConfiguration, List<Subject> subjects, List<Term> terms) {
+    public AdminScheduleController(EnrollConfiguration enrollConfiguration, List<Subject> subjects,
+                                   List<Term> terms, List<Teacher> teachers) {
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
         this.terms = terms;
+        this.teachers = teachers;
 
         this.periodic = enrollConfiguration.getPeriodic();
         this.weekViewWidth = enrollConfiguration.getWeekViewWidth();
@@ -90,6 +106,40 @@ public class AdminScheduleController implements Serializable {
     public void setEvent(DefaultEnrollScheduleEvent event) {
         this.event = event;
     }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Boolean getCertain() {
+        return certain;
+    }
+
+    public void setCertain(Boolean certain) {
+        this.certain = certain;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+
 
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -192,6 +242,14 @@ public class AdminScheduleController implements Serializable {
 
     public void setTerms(List<Term> terms) {
         this.terms = terms;
+    }
+
+    public List<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
     }
     //Enroll data getters and setters end
 
