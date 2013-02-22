@@ -169,6 +169,7 @@ public class AdminScheduleController implements Serializable {
         final Date end = date.getTime();
 
         event = new DefaultEnrollScheduleEvent("", begin, end);
+        event.setPlace("test");
 
         LOGGER.debug("Date clicked: " + event.getStartDate() + " - " + event.getEndDate());
     }
