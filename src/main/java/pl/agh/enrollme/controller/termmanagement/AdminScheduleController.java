@@ -206,11 +206,12 @@ public class AdminScheduleController implements Serializable {
      * Updates current event (kept in event field)
      */
     public boolean updateEvent(ActionEvent actionEvent) {
-        Term term = eventToTermMap.get(event);
+        Term term = eventToTermMap.get(event.getId());
 
         if (term == null) {
             term = new Term(); //TODO: create a fully initialized term corresponding to the current event
             eventModel.addEvent(event);
+            LOGGER.debug("Event: " + event);
             eventToTermMap.put(event.getId(), term);
         } else {
             eventModel.updateEvent(event);
@@ -353,7 +354,7 @@ public class AdminScheduleController implements Serializable {
 
     private void updateTermTime(EnrollScheduleEvent scheduleEvent) {
         eventModel.updateEvent(scheduleEvent);
-        final Term term = eventToTermMap.get(scheduleEvent);
+        final Term term = eventToTermMap.get(scheduleEvent.getId());
         term.setStartTime(scheduleEvent.getStartDate());
         term.setEndTime(scheduleEvent.getEndDate());
     }
