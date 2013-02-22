@@ -208,6 +208,7 @@ public class AdminScheduleController implements Serializable {
      */
     public void onEventMove(EnrollScheduleEntryMoveEvent moveEvent) {
         final EnrollScheduleEvent scheduleEvent = moveEvent.getScheduleEvent();
+        LOGGER.debug("Event Moved: " + scheduleEvent);
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Term moved", "Day delta: "
                 + moveEvent.getDayDelta() + ", Minute delta: " + moveEvent.getMinuteDelta());
@@ -222,6 +223,7 @@ public class AdminScheduleController implements Serializable {
      */
     public void onEventResize(EnrollScheduleEntryResizeEvent resizeEvent) {
         final EnrollScheduleEvent scheduleEvent = resizeEvent.getScheduleEvent();
+        LOGGER.debug("Event Resized: " + scheduleEvent);
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Term resized", "Day delta: "
             + resizeEvent.getDayDelta() + ", Minute delta: " + resizeEvent.getMinuteDelta());
