@@ -6,8 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/standard.xhtml">
 
-    <ui:define name="title">Preferences Management <br/><br/>
-        <b>Attention!</b> Changes you make to your preferences will not be saved until YOU save them. Save your changes frequently or perish!
+    <ui:define name="title">Term Management
     </ui:define>
 
     <ui:define name="notes">
@@ -21,9 +20,8 @@
 
             <p:menubar>
                 <p:menuitem value="Save" action="save" icon="ui-icon-disc" ajax="false"/>
-                <p:menuitem value="Manage Groups" action="groups" icon="ui-icon-gear" ajax="false"/>
-                <p:menuitem value="Reload" action="reload" icon="ui-icon-arrowrefresh-1-w" ajax="false"/>
-                <p:menuitem value="Exit" action="done" icon="ui-icon-close" ajax="false"/>
+                <p:menuitem value="Next" action="submitAndNext" icon="ui-icon-next" ajax="false"/>
+                <p:menuitem value="Skip" action="skip" icon="ui-icon-refresh" ajax="false"/>
             </p:menubar>
 
             <p:spacer width="100%" height="10"/>
@@ -53,34 +51,8 @@
 
             <p:dialog widgetVar="eventDialog" header="Term Details" showEffect="clip" hideEffect="clip" modal="true">
                 <h:panelGrid id="eventDetails" columns="2">
-                    <h:outputText value="Subject's name: "/>
-                    <h:outputText value="#{scheduleController.event.title}"/>
-                    <h:outputText value="Start time: "/>
-                    <h:outputText value="#{scheduleController.event.startDate}"/>
-                    <h:outputText value="End time: "/>
-                    <h:outputText value="#{scheduleController.event.endDate}"/>
-                    <h:outputText value="Teacher: "/>
-                    <h:outputText value="#{scheduleController.event.teacher}"/>
-                    <h:outputText value="Place: "/>
-                    <h:outputText value="#{scheduleController.event.place}"/>
-                    <h:outputText value="Type of activity: "/>
-                    <h:outputText value="#{scheduleController.event.activityType}"/>
 
-                    <p:outputLabel value="Assigned points: " for="pointsSpinner"/>
-                    <p:spinner id="pointsSpinner" title="Adjust number of points assigned to this term"
-                               value="#{scheduleController.event.points}" size="2" maxlength="2"
-                               min="0" max="#{scheduleController.eventPointsRange}"/>
 
-                    <p:outputLabel value="Impossibility" for="impossibilityChkbx"/>
-                    <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{!scheduleController.event.possible}"
-                                             widgetVar="impossibilityWidget" />
-
-                    <p:panel id="reasonPanel" header="Enter substantiation below" visible="${!scheduleController.event.possible}">
-                        <p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"
-                                         maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>
-
-                        <h:outputText id="reasonCounter"/>
-                    </p:panel>
 
                     <p:commandButton type="reset" value="Discard" />
                     <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
