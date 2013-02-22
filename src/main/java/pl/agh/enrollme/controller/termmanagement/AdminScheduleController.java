@@ -27,7 +27,7 @@ public class AdminScheduleController implements Serializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminScheduleController.class);
 
     //Custom container model for the EnrollSchedule component
-    private EnrollScheduleModel eventModel = new DefaultEnrollScheduleModel();
+    private EnrollScheduleModel eventModel;
 
     //Custom event model for the EnrollSchedule component; currently selected event
     private EnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
@@ -54,9 +54,6 @@ public class AdminScheduleController implements Serializable {
 
     private List<Teacher> teachers;
     //Enroll data end
-
-    //Mapping from Term to StudentPointsPerTerm
-    private Map<Term, StudentPointsPerTerm> termToPointsMap = new HashMap<>();
 
     //Mapping from EventID to Term
     private Map<String, Term> eventToTermMap = new HashMap<>();
@@ -87,9 +84,12 @@ public class AdminScheduleController implements Serializable {
             leftHeaderTemplate += ", today";
         }
 
+        this.eventModel = new DefaultEnrollScheduleModel();
+
         preprocessTerms();
 
-        GregorianCalendar gc = new GregorianCalendar(2013, 1, 11, 10, 15);
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(new Date());
 
         Date begin = gc.getTime();
         gc.add(Calendar.MINUTE, 90);
@@ -100,7 +100,7 @@ public class AdminScheduleController implements Serializable {
         newEvent.setPlace("s. 3.27");
         newEvent.setActivityType("Wykład");
         newEvent.setShowPoints(false);
-        newEvent.setInteractive(false);
+        newEvent.setInteractive(true);
         eventModel.addEvent(newEvent);
     }
 
@@ -179,11 +179,11 @@ public class AdminScheduleController implements Serializable {
         final Date begin = (Date) selectEvent.getObject();
         final GregorianCalendar date = new GregorianCalendar();
         date.setTime(begin);
-        date.add(Calendar.MINUTE, 30);
+        date.add(Calendar.MINUTE, 90);
         final Date end = date.getTime();
 
         event = new DefaultEnrollScheduleEvent("", begin, end);
-        ((DefaultEnrollScheduleEvent)event).setPlace("test");
+
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Date clicked", "Time: "
                 + begin + " event: " + event);
         addMessage(message);
@@ -223,15 +223,16 @@ public class AdminScheduleController implements Serializable {
      * Updates current event (kept in event field)
      */
     public void updateEvent(ActionEvent actionEvent) {
-        Term term = eventToTermMap.get(event.getId());
-
-        if (term == null) {
-            term = new Term(); //TODO: create a fully initialized term corresponding to the current event
+        LOGGER.debug("capacity=" + capacity + ", certain=" + certain + ", subject=" + subject.getName() + ", teacher=" + teacher.getSecondName());
+        if (event.getId() == null) {
+            Term term = new Term();
+            LOGGER.debug("New Event: " + event);
             eventModel.addEvent(event);
-            LOGGER.debug("Event: " + event);
             eventToTermMap.put(event.getId(), term);
         } else {
+            Term term = eventToTermMap.get(event.getId());
             eventModel.updateEvent(event);
+            LOGGER.debug("Old Event: " + event);
         }
 
         event = new DefaultEnrollScheduleEvent();
