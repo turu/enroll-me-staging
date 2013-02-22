@@ -59,12 +59,12 @@
                 <h:panelGrid id="eventDetails" columns="2">
                     <p:outputLabel value="Start time: " for="startTime"/>
                     <p:inputMask id="startTime" value="#{scheduleController.event.startDate}" mask="99/99/9999 99:99">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="both"/>
                     </p:inputMask>
 
                     <p:outputLabel value="End time: " for="endTime"/>
                     <p:inputMask id="endTime" value="#{scheduleController.event.endDate}" mask="99/99/9999 99:99">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="both"/>
                     </p:inputMask>
 
                     <p:outputLabel value="Subject: " for="subjectChoice"/>
