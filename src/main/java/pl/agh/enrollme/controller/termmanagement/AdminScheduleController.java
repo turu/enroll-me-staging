@@ -1,8 +1,11 @@
 package pl.agh.enrollme.controller.termmanagement;
 
+import org.primefaces.event.EnrollScheduleEntryMoveEvent;
+import org.primefaces.event.EnrollScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultEnrollScheduleEvent;
 import org.primefaces.model.DefaultEnrollScheduleModel;
+import org.primefaces.model.EnrollScheduleEvent;
 import org.primefaces.model.EnrollScheduleModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,12 +108,63 @@ public class AdminScheduleController implements Serializable {
     }
 
     /**
+     * Event triggered when user clicks on a date. It creates an empty event at a given time-point.
+     * @param selectEvent
+     */
+    public void onDateSelect(SelectEvent selectEvent) {
+        final Date begin = (Date) selectEvent.getObject();
+        final GregorianCalendar date = new GregorianCalendar();
+        date.setTime(begin);
+        date.add(Calendar.MINUTE, 30);
+        final Date end = date.getTime();
+
+        event = new DefaultEnrollScheduleEvent("", begin, end);
+    }
+
+    /**
+     * Event triggered when user moves an event. It updates a given event and corresponding term.
+     * @param moveEvent
+     */
+    public void onEventMove(EnrollScheduleEntryMoveEvent moveEvent) {
+        final EnrollScheduleEvent scheduleEvent = moveEvent.getScheduleEvent();
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Term moved", "Day delta: "
+                + moveEvent.getDayDelta() + ", Minute delta: " + moveEvent.getMinuteDelta());
+        addMessage(message);
+
+        updateTermTime(scheduleEvent);
+    }
+
+    /**
+     * Event triggered when user resizes an event
+     * @param resizeEvent
+     */
+    public void onEventResize(EnrollScheduleEntryResizeEvent resizeEvent) {
+        final EnrollScheduleEvent scheduleEvent = resizeEvent.getScheduleEvent();
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Term resized", "Day delta: "
+            + resizeEvent.getDayDelta() + ", Minute delta: " + resizeEvent.getMinuteDelta());
+        addMessage(message);
+
+        updateTermTime(scheduleEvent);
+    }
+
+    /**
      * Updates current event (kept in event field)
      */
     public boolean updateEvent(ActionEvent actionEvent) {
-        final Term term = eventToTermMap.get(event);
+        Term term = eventToTermMap.get(event);
 
-        eventModel.updateEvent(event);
+        if (term == null) {
+            term = new Term(); //TODO: create a fully initialized term corresponding to the current event
+            eventModel.addEvent(event);
+            eventToTermMap.put(event.getId(), term);
+        } else {
+            eventModel.updateEvent(event);
+        }
+
+        event = new DefaultEnrollScheduleEvent();
+
         return true;
     }
 
@@ -234,6 +288,13 @@ public class AdminScheduleController implements Serializable {
         if (terms.size() > 0) {
             this.initialDate = minDate.getTime();
         }
+    }
+
+    private void updateTermTime(EnrollScheduleEvent scheduleEvent) {
+        eventModel.updateEvent(scheduleEvent);
+        final Term term = eventToTermMap.get(scheduleEvent);
+        term.setStartTime(scheduleEvent.getStartDate());
+        term.setEndTime(scheduleEvent.getEndDate());
     }
 
 }

@@ -39,8 +39,8 @@ public class Term implements Serializable {
     public Term() {
     }
 
-    public Term(TermPK termId, DayOfWeek dayOfWeek, Date startTime, Date endTime,
-                Week week, Integer capacity, String room, Teacher teacher, String type, Boolean certain) {
+    public Term(TermPK termId, Date startTime, Date endTime, Week week, Integer capacity,
+                String room, Teacher teacher, String type, Boolean certain) {
         this.termId = termId;
         this.startTime = startTime;
         this.endTime = endTime;
