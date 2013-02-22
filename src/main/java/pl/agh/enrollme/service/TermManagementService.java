@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.agh.enrollme.controller.preferencesmanagement.ProgressRingController;
-import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
 import pl.agh.enrollme.controller.termmanagement.AdminScheduleController;
 import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.ISubjectDAO;

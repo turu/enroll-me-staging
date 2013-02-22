@@ -64,6 +64,10 @@ public class AdminScheduleController implements Serializable {
         this.periodic = enrollConfiguration.getPeriodic();
         this.weekViewWidth = enrollConfiguration.getWeekViewWidth();
 
+        if (!periodic) {
+            leftHeaderTemplate += ", today";
+        }
+
         preprocessTerms();
     }
 
@@ -96,7 +100,6 @@ public class AdminScheduleController implements Serializable {
         event = (DefaultEnrollScheduleEvent) selectEvent.getObject();
 
         final Term term = eventToTermMap.get(event);
-        final StudentPointsPerTerm termPoints = termToPointsMap.get(term);
         final Subject subject = term.getSubject();
 
     }
@@ -106,44 +109,6 @@ public class AdminScheduleController implements Serializable {
      */
     public boolean updateEvent(ActionEvent actionEvent) {
         final Term term = eventToTermMap.get(event);
-        final StudentPointsPerTerm termPoints = termToPointsMap.get(term);
-        final int extraPointsLeft = enrollConfiguration.getAdditionalPoints() - progressController.getExtraPointsUsed();
-        final int pointsDelta = event.getPoints() - termPoints.getPoints();
-
-        if (!event.isPossible()) {
-            final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice Changed",
-                    "You've just set an impossibility. It will be reviewed by a year representative." +
-                            " Remember to save your changes frequently!!!");
-            addMessage(message);
-            termPoints.setReason(reason);
-            termPoints.setPoints(-1);
-            progressController.update();
-            event.setShowPoints(false);
-            eventModel.updateEvent(event);
-            return true;
-        }
-
-        if (termPoints.getPoints() > enrollConfiguration.getPointsPerTerm()) {
-            final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
-                    "You surpassed limit of points per term. Change rejected.");
-            addMessage(message);
-            return false;
-        }
-
-        if (termPoints.getPoints() + pointsDelta > enrollConfiguration.getPointsPerSubject() + extraPointsLeft) {
-            final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
-                    "You surpassed limit of points per subject. Change rejected.");
-            addMessage(message);
-            return false;
-        }
-
-        termPoints.setPoints(termPoints.getPoints() + pointsDelta);
-        event.setShowPoints(true);
-        setEventImportance(event);
-        event.setPossible(true);
-        final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice Changed",
-                "You've just altered your choice (points delta: " + pointsDelta + "). Currently there are " +
-                        event.getPoints() + " points assigned to this term. Remember to save your changes frequently!");
 
         eventModel.updateEvent(event);
         return true;
@@ -213,58 +178,24 @@ public class AdminScheduleController implements Serializable {
 
 
     private void preprocessTerms() {
-        //create mapping: Term -> StudentPointsPerTerm to allow for efficient access to data
-        for (StudentPointsPerTerm p : points) {
-            termToPointsMap.put(p.getTerm(), p);
-        }
 
-        int minHour = Integer.MAX_VALUE;
-        int maxHour = Integer.MIN_VALUE;
         GregorianCalendar minDate = new GregorianCalendar();
-        minDate.setTimeInMillis(Long.MAX_VALUE);
-        GregorianCalendar maxDate = new GregorianCalendar();
-        maxDate.setTimeInMillis(Long.MIN_VALUE);
+        GregorianCalendar startTime = new GregorianCalendar();
+        minDate.setTime(new Date());
 
         //preprocess terms, computing scope of enrollment, creating events etc.
         for (Term t : terms) {
-            GregorianCalendar startTime = new GregorianCalendar();
+
             startTime.setTime(t.getStartTime());
-            GregorianCalendar endTime = new GregorianCalendar();
-            endTime.setTime(t.getEndTime());
-
-            //if term starts on a Saturday or Sunday, set showWeekends to true
-            if(startTime.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || startTime.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                showWeekends = true;
-            }
-
-            final int termStartHour = startTime.get(Calendar.HOUR_OF_DAY);
-            final int termEndHour = endTime.get(Calendar.HOUR_OF_DAY);
-
-            if (termStartHour < minHour) {
-                minHour = termStartHour;
-            }
-
-            if (termEndHour > maxHour) {
-                maxHour = termEndHour;
-            }
 
             if (startTime.before(minDate)) {
                 minDate = startTime;
             }
 
-            if (endTime.after(maxDate)) {
-                maxDate = endTime;
-            }
-
-            StudentPointsPerTerm p = termToPointsMap.get(t);
             DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
-            //setting event's points
-            if (p.getPoints() == -1) {
-                event.setPoints(0);
-            } else {
-                event.setPoints(p.getPoints());
-            }
+            //setting points - not used in this view
+            event.setPoints(0);
 
             //setting event's place
             event.setPlace(t.getRoom());
@@ -280,23 +211,15 @@ public class AdminScheduleController implements Serializable {
             //setting event's title to subjects' name
             event.setTitle(subject.getName());
 
-            //setting event possibility
-            event.setPossible(p.getPoints() != -1);
-
-            //setting event importance as percent of total points available to this event
-            setEventImportance(event);
-
             //setting event's color to that of event's subject
             event.setColor("#" + subject.getColor());
 
             //setting event's type
             event.setActivityType(t.getType());
 
-            //setting whether event is static or not
-            event.setInteractive(!t.getCertain());
 
             //setting whether to display points or not
-            event.setShowPoints(!t.getCertain() && event.isPossible());
+            event.setShowPoints(false);
 
             //event's shouldn't be editable
             event.setEditable(false);
@@ -309,26 +232,8 @@ public class AdminScheduleController implements Serializable {
 
         //update time fields, but only if there were some events added, otherwise use defaults
         if (terms.size() > 0) {
-            this.minTime = minHour;
-            this.firstHour = minHour;
-            this.maxTime = maxHour != 23 ? maxHour + 1 : maxHour;
             this.initialDate = minDate.getTime();
-
-            //infering right header contents and default view
-            if (minDate.get(Calendar.YEAR) == maxDate.get(Calendar.YEAR)
-                    && minDate.get(Calendar.DAY_OF_YEAR) == maxDate.get(Calendar.DAY_OF_YEAR)) {
-                this.rightHeaderTemplate = "agendaDay";
-                this.view = "agendaDay";
-            } else if (minDate.get(Calendar.YEAR) == maxDate.get(Calendar.YEAR)
-                    && minDate.get(Calendar.WEEK_OF_YEAR) == maxDate.get(Calendar.WEEK_OF_YEAR)) {
-                this.rightHeaderTemplate = "agendaWeek, agendaDay";
-                this.view = "agendaWeek";
-            }
         }
-    }
-
-    private void setEventImportance(DefaultEnrollScheduleEvent event) {
-        event.setImportance((int) ((double) event.getPoints() / (double) enrollConfiguration.getPointsPerTerm() * 100));
     }
 
 }
