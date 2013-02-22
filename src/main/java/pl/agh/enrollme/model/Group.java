@@ -32,11 +32,15 @@ public class Group implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Subject subject;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Person owner;
+
     public Group() {
     }
 
-    public Group(String name, List<Person> persons, Subject subject) {
+    public Group(String name, Person owner, List<Person> persons, Subject subject) {
         this.name = name;
+        this.owner = owner;
         this.persons = persons;
         this.subject = subject;
     }
@@ -80,5 +84,29 @@ public class Group implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Group)) {
+            return false;
+        }
+
+        Group otherGroup = (Group)object;
+        // Is it enough?
+        return otherGroup.getId().equals(id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getId();
     }
 }
