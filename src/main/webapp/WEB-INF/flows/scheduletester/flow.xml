@@ -5,9 +5,12 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-    <var name="scheduleController" class="pl.agh.enrollme.controller.TestScheduleController" />
+    <!--<var name="scheduleController" class="pl.agh.enrollme.controller.TestScheduleController" />-->
 
     <view-state id="view">
+        <on-render>
+            <evaluate expression="new pl.agh.enrollme.controller.TestScheduleController()" result="viewScope.scheduleController"/>
+        </on-render>
         <transition on="done" to="preferencesApplied"/>
     </view-state>
 

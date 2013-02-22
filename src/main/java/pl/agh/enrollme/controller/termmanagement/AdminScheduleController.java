@@ -198,7 +198,7 @@ public class AdminScheduleController implements Serializable {
         date.add(Calendar.MINUTE, 90);
         final Date end = date.getTime();
 
-        event = new DefaultEnrollScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        event = new DefaultEnrollScheduleEvent("", begin, end);
         ((DefaultEnrollScheduleEvent) event).setTitle("adsad");
 
         eventStartDate = begin;
