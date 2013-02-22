@@ -19,7 +19,7 @@ import java.util.*;
  */
 public class AdminScheduleController implements Serializable {
 
-    private static final long serialVersionUID = -740843017652008075L;
+    private static final long serialVersionUID = -740843017652008055L;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminScheduleController.class);
 
@@ -29,12 +29,6 @@ public class AdminScheduleController implements Serializable {
     //Custom event model for the EnrollSchedule component; currently selected event
     private DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
-    //Current reason (of impossibility)
-    private String reason = "";
-
-    //Maximum number of points to display in the choice edition dialog while editing current event
-    private int eventPointsRange = 0;
-
 
     //Enroll data
     private EnrollConfiguration enrollConfiguration;
@@ -42,8 +36,6 @@ public class AdminScheduleController implements Serializable {
     private List<Subject> subjects;
 
     private List<Term> terms;
-
-    private List<StudentPointsPerTerm> points;
     //Enroll data end
 
     //Mapping from Term to StudentPointsPerTerm
@@ -64,12 +56,10 @@ public class AdminScheduleController implements Serializable {
     private String theme;
 
 
-    public ScheduleController(EnrollConfiguration enrollConfiguration,
-                              List<Subject> subjects, List<Term> terms, List<StudentPointsPerTerm> points) {
+    public AdminScheduleController(EnrollConfiguration enrollConfiguration, List<Subject> subjects, List<Term> terms) {
         this.enrollConfiguration = enrollConfiguration;
         this.subjects = subjects;
         this.terms = terms;
-        this.points = points;
 
         this.periodic = enrollConfiguration.getPeriodic();
         this.weekViewWidth = enrollConfiguration.getWeekViewWidth();
@@ -94,22 +84,6 @@ public class AdminScheduleController implements Serializable {
         this.event = event;
     }
 
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public int getEventPointsRange() {
-        return eventPointsRange;
-    }
-
-    public void setEventPointsRange(int eventPointsRange) {
-        this.eventPointsRange = eventPointsRange;
-    }
-
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
@@ -124,12 +98,7 @@ public class AdminScheduleController implements Serializable {
         final Term term = eventToTermMap.get(event);
         final StudentPointsPerTerm termPoints = termToPointsMap.get(term);
         final Subject subject = term.getSubject();
-        final Map<Integer, Integer> pointsMap = progressController.getPointsMap();
 
-        reason = termPoints.getReason();
-        eventPointsRange = enrollConfiguration.getPointsPerSubject() - pointsMap.get(subject.getSubjectID())
-                + termPoints.getPoints();
-        eventPointsRange = Math.min(eventPointsRange, enrollConfiguration.getPointsPerTerm());
     }
 
     /**
@@ -204,14 +173,6 @@ public class AdminScheduleController implements Serializable {
 
     public void setTerms(List<Term> terms) {
         this.terms = terms;
-    }
-
-    public List<StudentPointsPerTerm> getPoints() {
-        return points;
-    }
-
-    public void setPoints(List<StudentPointsPerTerm> points) {
-        this.points = points;
     }
     //Enroll data getters and setters end
 
