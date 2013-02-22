@@ -44,6 +44,11 @@ public class AdminScheduleController implements Serializable {
     //Capacity of the current event
     private Integer capacity = 0;
 
+    private Date eventStartDate = new Date();
+    private Date eventEndDate = new Date();
+    private String eventPlace = "";
+    private String eventActivityType = "";
+
 
     //Enroll data
     private EnrollConfiguration enrollConfiguration;
@@ -95,7 +100,7 @@ public class AdminScheduleController implements Serializable {
         gc.add(Calendar.MINUTE, 10);
         Date end = gc.getTime();
         DefaultEnrollScheduleEvent newEvent = new DefaultEnrollScheduleEvent("Analiza", begin, end);
-        newEvent.setEditable(false);
+        newEvent.setEditable(true);
         newEvent.setTeacher("dr W. Frydrych");
         newEvent.setPlace("s. 3.27");
         newEvent.setActivityType("Wykład");
@@ -165,6 +170,7 @@ public class AdminScheduleController implements Serializable {
      */
     public void onEventSelect(SelectEvent selectEvent) {
         event = (EnrollScheduleEvent) selectEvent.getObject();
+        LOGGER.debug("Selected event: " + event);
 
         /*final Term term = eventToTermMap.get(event.getId());
         final Subject subject = term.getSubject();  */
@@ -184,6 +190,9 @@ public class AdminScheduleController implements Serializable {
 
         event = new DefaultEnrollScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
         ((DefaultEnrollScheduleEvent) event).setTitle("adsad");
+
+        eventStartDate = begin;
+        eventEndDate = end;
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Date clicked", "Time: "
                 + begin + " event: " + event);
@@ -224,7 +233,8 @@ public class AdminScheduleController implements Serializable {
      * Updates current event (kept in event field)
      */
     public void updateEvent(ActionEvent actionEvent) {
-        LOGGER.debug("capacity=" + capacity + ", certain=" + certain + ", subject=" + subject.getName() + ", teacher=" + teacher.getSecondName());
+        LOGGER.debug("capacity=" + capacity + ", certain=" + certain + ", subject=" + subject.getName() + ", teacher=" + teacher.getSecondName()
+        + ", eventStartDate=" + eventStartDate + ", eventEndDate=" + eventEndDate + ", eventPlace=" + eventPlace + ", eventActType=" + eventActivityType);
         if (event.getId() == null) {
             Term term = new Term();
             LOGGER.debug("New Event: " + event);
@@ -376,4 +386,35 @@ public class AdminScheduleController implements Serializable {
         term.setEndTime(scheduleEvent.getEndDate());
     }
 
+    public Date getEventStartDate() {
+        return eventStartDate;
+    }
+
+    public void setEventStartDate(Date eventStartDate) {
+        this.eventStartDate = eventStartDate;
+    }
+
+    public Date getEventEndDate() {
+        return eventEndDate;
+    }
+
+    public void setEventEndDate(Date eventEndDate) {
+        this.eventEndDate = eventEndDate;
+    }
+
+    public String getEventPlace() {
+        return eventPlace;
+    }
+
+    public void setEventPlace(String eventPlace) {
+        this.eventPlace = eventPlace;
+    }
+
+    public String getEventActivityType() {
+        return eventActivityType;
+    }
+
+    public void setEventActivityType(String eventActivityType) {
+        this.eventActivityType = eventActivityType;
+    }
 }
