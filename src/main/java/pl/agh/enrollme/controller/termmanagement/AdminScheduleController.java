@@ -30,7 +30,7 @@ public class AdminScheduleController implements Serializable {
     private EnrollScheduleModel eventModel = new DefaultEnrollScheduleModel();
 
     //Custom event model for the EnrollSchedule component; currently selected event
-    private DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
+    private EnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
     //Currently selected teacher from the teacher list
     private Teacher teacher = new Teacher();
@@ -99,11 +99,11 @@ public class AdminScheduleController implements Serializable {
         this.eventModel = eventModel;
     }
 
-    public DefaultEnrollScheduleEvent getEvent() {
+    public EnrollScheduleEvent getEvent() {
         return event;
     }
 
-    public void setEvent(DefaultEnrollScheduleEvent event) {
+    public void setEvent(EnrollScheduleEvent event) {
         this.event = event;
     }
 
@@ -169,7 +169,7 @@ public class AdminScheduleController implements Serializable {
         final Date end = date.getTime();
 
         event = new DefaultEnrollScheduleEvent("", begin, end);
-        event.setPlace("test");
+        ((DefaultEnrollScheduleEvent)event).setPlace("test");
 
         LOGGER.debug("Date clicked: " + event.getStartDate() + " - " + event.getEndDate());
     }
