@@ -14,6 +14,7 @@ import pl.agh.enrollme.repository.ITermDAO;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,9 +103,12 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug("IDs set");
 
         for (Term term : terms) {
+            final EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
             term.setSubject(subjectDAO.update(term.getSubject()));
             term.setTeacher(teacherDAO.update(term.getTeacher()));
             termDAO.add(term);
+            transaction.commit();
             LOGGER.debug("Term: " + term + " has been persisted");
         }
         LOGGER.debug("State persisted");
