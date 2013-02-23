@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.controller.termmanagement.AdminScheduleController;
 import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.ISubjectDAO;
@@ -72,6 +73,7 @@ public class TermManagementService implements ITermManagementService {
     }
 
 
+    @Transactional
     public void saveScheduleState(AdminScheduleController scheduleController) {
         final List<Subject> subjects = scheduleController.getSubjects();
         clearSubjectTerms(subjects);    //delete all terms belonging to subjects from current enrollment
@@ -103,12 +105,9 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug("IDs set");
 
         for (Term term : terms) {
-            final EntityTransaction transaction = em.getTransaction();
-            transaction.begin();
             term.setSubject(subjectDAO.update(term.getSubject()));
             term.setTeacher(teacherDAO.update(term.getTeacher()));
             termDAO.add(term);
-            transaction.commit();
             LOGGER.debug("Term: " + term + " has been persisted");
         }
         LOGGER.debug("State persisted");
