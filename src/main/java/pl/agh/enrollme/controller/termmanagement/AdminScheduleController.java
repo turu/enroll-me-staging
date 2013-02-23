@@ -65,7 +65,7 @@ public class AdminScheduleController implements Serializable {
     private String leftHeaderTemplate = "prev, next";
     private String centerHeaderTemplate = "title";
     private String rightHeaderTemplate = "month, agendaWeek, agendaDay";
-    private int weekViewWidth = 1500;
+    private int weekViewWidth = 1700;
     private String view = "agendaWeek";
     //Schedule theme: as of today, unused
     private String theme;
