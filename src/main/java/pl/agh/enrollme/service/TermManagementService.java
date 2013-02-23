@@ -96,6 +96,8 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug("IDs set");
 
         for (Term term : terms) {
+            subjectDAO.getByPK(term.getSubject().getSubjectID());
+            teacherDAO.getByPK(term.getTeacher().getTeacherID());
             termDAO.add(term);
             LOGGER.debug("Term: " + term + " has been persisted");
         }
