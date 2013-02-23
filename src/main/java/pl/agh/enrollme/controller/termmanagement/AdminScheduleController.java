@@ -198,7 +198,7 @@ public class AdminScheduleController implements Serializable {
                 + begin + " event: " + event);
         addMessage(message);
 
-        LOGGER.debug("Date clicked: " + event.getStartDate() + " - " + event.getEndDate() + " event:" + event);
+        LOGGER.debug("Date clicked: " + event.getStartDate() + " - " + event.getEndDate());
     }
 
     /**
