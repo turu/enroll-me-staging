@@ -1,0 +1,51 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	    		xmlns:ui="http://java.sun.com/jsf/facelets"
+	  			xmlns:h="http://java.sun.com/jsf/html"
+	  			xmlns:f="http://java.sun.com/jsf/core"
+	  			xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/layouts/standard.xhtml">
+
+<ui:define name="title"> Join existing groups and create new ones
+</ui:define>
+
+<ui:define name="notes">
+
+</ui:define>
+
+<ui:define name="content">
+    <h:form>
+        <p:dataTable id="subjects" value="${subjects}" var="subject">
+            <p:column headerText="Name">
+                <h:outputText value="#{subject.name}"/>
+            </p:column>
+            <p:column headerText="Teacher">
+                <h:outputText value="#{subject.teacher.degree} #{subject.teacher.firstName} #{subject.teacher.secondName}"/>
+            </p:column>
+            <p:column headerText="Group">
+                <p:selectOneMenu>
+                    <f:selectItems value="#{controller.getGroupsForSubject(subject)}" var="groups"
+                                   itemLabel="#{groups.name}"/>
+                </p:selectOneMenu>
+                <p:commandButton value="New" action="createNewGroup" oncomplete="createNewGroupDialog.show()"
+                                 update=":#{p:component('createNewGroupDialogContent')}">
+                    <f:setPropertyActionListener value="#{subject}" target="#{newGroupSubject}"/>
+                </p:commandButton>
+            </p:column>
+         </p:dataTable>
+
+        <p:dialog widgetVar="createNewGroupDialog">
+            <p:outputPanel id="createNewGroupDialogContent">
+                <p>
+                    <h:outputText value="Please enter name for new group:" for="newGroupName"/>
+                    <p:inputText id="newGroupName" value="#{newGroupName}"/>
+                </p>
+                <p:commandButton value="Create" action="createNewGroupConfirm"
+                                 oncomplete="createNewGroupDialog.hide()" update=":#{p:component('subjects')}"/>
+            </p:outputPanel>
+        </p:dialog>
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

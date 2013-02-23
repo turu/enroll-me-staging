@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
+
+    <!-- <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/> -->
+    <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
+
+    <view-state id="list">
+        <var name="controller" class="pl.agh.enrollme.controller.groupmanagement.GroupManagementController"/>
+        <var name="newGroupName" class="java.lang.String"/>
+        <var name="newGroupSubject" class="pl.agh.enrollme.model.Subject"/>
+        <on-entry>
+            <set name="controller.enroll" value="currentEnrollment"/>
+            <evaluate expression="controller.subjects" result="viewScope.subjects"/>
+        </on-entry>
+
+        <transition on="createNewGroup">
+            <set value="new java.lang.String()" name="newGroupName"/>
+        </transition>
+
+        <transition on="createNewGroupConfirm">
+            <evaluate expression="groupManagementService.createGroup(newGroupName, newGroupSubject)"/>
+        </transition>
+
+        <transition on="exit" to="groupsManaged"/>
+    </view-state>
+
+    <end-state id="groupsManaged"/>
+
+</flow>

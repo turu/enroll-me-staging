@@ -21,4 +21,5 @@ public interface IPersonDAO {
     List<Person> getPeopleWhoSavedPreferencesForCustomEnrollment(Enroll enrollment);
     @Transactional
     List<Subject> getSavedSubjects(Person person);
+    Person getCurrentUser();
 }

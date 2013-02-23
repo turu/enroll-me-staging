@@ -1,5 +1,7 @@
 package pl.agh.enrollme.repository;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +43,14 @@ public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
         } else {
             return resultList.get(0);
         }
+    }
+
+    @Override
+    @Transactional
+    public Person getCurrentUser() {
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person = (Person)userDetails;
+        return getByPK(person.getId());
     }
 
     @Transactional
