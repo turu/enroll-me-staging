@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IEnrollmentDAO {
     @Transactional
-    void update(Enroll toUpdate);
+    Enroll update(Enroll toUpdate);
 
     @Transactional
     List<Enroll> getList();
