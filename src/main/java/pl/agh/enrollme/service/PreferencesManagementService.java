@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController;
 import pl.agh.enrollme.controller.preferencesmanagement.ProgressRingController;
 import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
@@ -45,6 +46,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     private PersonService personService;
 
     @Override
+    @Transactional
     public ScheduleController createScheduleController(Enroll enroll) {
         final Person person = personService.getCurrentUser();
         LOGGER.debug(person + " person retrieved from security context");
@@ -108,12 +110,13 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     }
 
     @Override
-    public boolean saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController) {
+    @Transactional
+    public void saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController) {
         currentEnroll = enrollDAO.getByPK(currentEnroll.getEnrollID());
 
         if (currentEnroll.getEnrollmentMode() == EnrollmentMode.CLOSED
                 || currentEnroll.getEnrollmentMode()  == EnrollmentMode.COMPLETED) {
-            return false;
+//            return false;
         }
 
         final List<StudentPointsPerTerm> termPoints = scheduleController.getPoints();
@@ -133,7 +136,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             }
         }
 
-        return true;
+//        return true;
     }
 
     private void createMissingSPPT(List<Term> terms, List<StudentPointsPerTerm> points, Person person) {
