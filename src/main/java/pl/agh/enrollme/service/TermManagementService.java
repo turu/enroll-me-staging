@@ -10,6 +10,8 @@ import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.repository.ITeacherDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,9 +64,11 @@ public class TermManagementService implements ITermManagementService {
         return scheduleController;
     }
 
+
     public void saveScheduleState(AdminScheduleController scheduleController) {
         final List<Subject> subjects = scheduleController.getSubjects();
         clearSubjectTerms(subjects);    //delete all terms belonging to subjects from current enrollment
+        LOGGER.debug("Terms cleared");
 
         final List<Term> terms = scheduleController.getTerms();
 
@@ -74,6 +78,7 @@ public class TermManagementService implements ITermManagementService {
         for (Subject subject : subjects) {
             termCounters.put(subject.getSubjectID(), 1);
         }
+        LOGGER.debug("Counters initialized");
 
         //Setting TermPerSubjectID of terms
         for (Term term : terms) {
@@ -83,12 +88,16 @@ public class TermManagementService implements ITermManagementService {
             termCounters.put(termSubject.getSubjectID(), id+1);
             LOGGER.debug("Term: " + term + " set termpersubjectid to " + id);
         }
+        LOGGER.debug("IDs set");
 
         for (Term term : terms) {
             termDAO.add(term);
             LOGGER.debug("Term: " + term + " has been persisted");
         }
+        LOGGER.debug("State persisted");
 
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Data saved", terms.size() + " terms were saved.");
+        addMessage(message);
     }
 
     /**
@@ -103,5 +112,9 @@ public class TermManagementService implements ITermManagementService {
                 termDAO.remove(t);
             }
         }
+    }
+
+    private void addMessage(FacesMessage message) {
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }
