@@ -49,10 +49,11 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     @Transactional
     public ScheduleController createScheduleController(Enroll enroll) {
         final Person person = personService.getCurrentUser();
-        LOGGER.debug(person + " person retrieved from security context");
+        LOGGER.debug("Person: " + person + " retrieved from security context");
 
         //Enroll configuration of the current enroll
         final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
+        LOGGER.debug("EnrollConfiguration: " + enrollConfiguration + " retrieved from enroll: " + enroll);
 
         final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(enroll);
         LOGGER.debug("Subjects of " + enroll + " enrollment retrieved: " + subjectsByEnrollment);
@@ -145,12 +146,14 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         for (StudentPointsPerTerm sppt : points) {
             final Term term = sppt.getTerm();
             termsPresent.put(term, true);
+            LOGGER.debug("Term: " + term + " has points");
         }
 
         for (Term term : terms) {
             Boolean hasPoints = termsPresent.get(term);
             if (hasPoints == null || hasPoints == false) {
                 points.add(new StudentPointsPerTerm(term, person, 0, "", false));
+                LOGGER.debug("Points created for term: " + term);
             }
         }
     }
