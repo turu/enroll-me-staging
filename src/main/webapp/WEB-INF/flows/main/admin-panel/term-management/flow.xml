@@ -17,9 +17,9 @@
         </on-entry>
         <transition on="submitAndNext" to="termsAssigned"/>
         <transition on="skip" to="skipFurtherConfiguration"/>
-        <transition on="save">
-            <evaluate expression="termManagementService.saveScheduleState(scheduleController)"/>
-        </transition>
+        <!--<transition on="save">-->
+            <!--<evaluate expression="termManagementService.saveScheduleState(scheduleController)"/>-->
+        <!--</transition>-->
     </view-state>
 
     <end-state id="termsAssigned"/>
