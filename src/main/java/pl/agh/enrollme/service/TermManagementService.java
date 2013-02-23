@@ -1,5 +1,6 @@
 package pl.agh.enrollme.service;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import pl.agh.enrollme.repository.ITermDAO;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +36,9 @@ public class TermManagementService implements ITermManagementService {
 
     @Autowired
     private ITeacherDAO teacherDAO;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Override
     public AdminScheduleController createScheduleController(Enroll enroll) {
@@ -98,7 +104,7 @@ public class TermManagementService implements ITermManagementService {
         for (Term term : terms) {
             term.setSubject(subjectDAO.update(term.getSubject()));
             term.setTeacher(teacherDAO.update(term.getTeacher()));
-            termDAO.add(term);
+            em.merge(term);
             LOGGER.debug("Term: " + term + " has been persisted");
         }
         LOGGER.debug("State persisted");
