@@ -48,13 +48,16 @@ public class Person implements Serializable, UserDetails {
     private String rolesToken = "ROLE_USER";
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Group> groups;
+    private List<Group> groups = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Subject> subjects;
+    private List<Subject> subjects = new ArrayList<>();
 
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)
-    private List<Enroll> availableEnrolls;
+    private List<Enroll> availableEnrolls = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Subject> subjectsSaved = new ArrayList<>();
 
 
     public Person() {
@@ -62,7 +65,7 @@ public class Person implements Serializable, UserDetails {
 
     public Person(String password, String username, String firstName, String lastName, Integer indeks,
                   Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired,
-                  Boolean enabled, String rolesToken, List<Group> groups, List<Subject> subjects) {
+                  Boolean enabled, String rolesToken, List<Group> groups, List<Subject> subjects, List<Subject> subjectsSaved) {
         this.password = password;
         this.username = username;
         this.firstName = firstName;
@@ -75,6 +78,15 @@ public class Person implements Serializable, UserDetails {
         this.rolesToken = rolesToken;
         this.groups = groups;
         this.subjects = subjects;
+        this.subjectsSaved = subjectsSaved;
+    }
+
+    public List<Subject> getSubjectsSaved() {
+        return subjectsSaved;
+    }
+
+    public void setSubjectsSaved(List<Subject> subjectsSaved) {
+        this.subjectsSaved = subjectsSaved;
     }
 
     public void addSubject(Subject subject) {

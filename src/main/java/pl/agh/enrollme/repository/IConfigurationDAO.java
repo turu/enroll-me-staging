@@ -1,11 +1,13 @@
 package pl.agh.enrollme.repository;
 
+import org.springframework.transaction.annotation.Transactional;
+import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.EnrollConfiguration;
 
 /**
  * @author Michal Partyka
  */
 public interface IConfigurationDAO {
-    void addConfiguration(EnrollConfiguration configuration) throws Exception;
-    EnrollConfiguration getConfigurationByID(Integer id);
+    @Transactional
+    EnrollConfiguration getConfigurationByEnrollment(Enroll enrollment);
 }

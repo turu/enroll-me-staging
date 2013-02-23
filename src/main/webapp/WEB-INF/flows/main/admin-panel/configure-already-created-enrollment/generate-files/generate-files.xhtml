@@ -24,6 +24,10 @@
         </p:commandButton>
         <br/>
         Download preferences file:
+        <p:commandButton id="downloadLink" value="Download" ajax="false"
+                         onclick="PrimeFaces.monitorDownload(start, stop)" icon="ui-icon-arrowthichk-s">
+            <p:fileDownload value="#{antPreferencesFileController.streamedPreferences}" />
+        </p:commandButton>
         <br/>
         Download groups file:
         <br/>

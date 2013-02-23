@@ -1,8 +1,11 @@
 package pl.agh.enrollme.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Person;
+import pl.agh.enrollme.model.Subject;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,8 +15,11 @@ import java.util.List;
 @Repository
 public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
 
+    @Autowired
+    private IEnrollmentDAO enrollmentDAO;
+
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     public PersonDAO() {
         super(Person.class);
@@ -37,4 +43,22 @@ public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
         }
     }
 
+    @Transactional
+    @Override
+    public List<Person> getPeopleWhoSavedPreferencesForCustomEnrollment(Enroll enrollment) {
+        Enroll enrollmentFromDB = enrollmentDAO.getByPK(enrollment.getEnrollID());
+        List<Person> people = enrollmentFromDB.getPersons();
+        for (Person person: people) {
+            if (person.getSubjectsSaved().isEmpty()) {
+                people.remove(person);
+            }
+        }
+        return people;
+    }
+
+    @Override
+    public List<Subject> getSavedSubjects(Person person) {
+        Person obtainedFromDB = getByPK(person.getId());
+        return obtainedFromDB.getSubjectsSaved();
+    }
 }
