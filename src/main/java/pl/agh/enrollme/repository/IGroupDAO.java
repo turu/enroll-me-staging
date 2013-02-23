@@ -20,4 +20,7 @@ public interface IGroupDAO extends IGenericDAO<Group> {
     void tryToAddCurrentUserToGroup(Group group);
     @Transactional
     void addGroup(Subject subject);
+
+    @Transactional
+    List<Group> getGroupsBySubject(Subject subject);
 }

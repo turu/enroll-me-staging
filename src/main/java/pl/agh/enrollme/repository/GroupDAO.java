@@ -2,20 +2,16 @@ package pl.agh.enrollme.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.agh.enrollme.model.*;
-import pl.agh.enrollme.utils.Color;
-import pl.agh.enrollme.utils.DayOfWeek;
+import pl.agh.enrollme.model.Group;
+import pl.agh.enrollme.model.Person;
+import pl.agh.enrollme.model.Subject;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +23,9 @@ import java.util.List;
 public class GroupDAO extends GenericDAO<Group> implements IGroupDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupDAO.class.getName());
+
+    @Autowired
+    ISubjectDAO subjectDAO;
 
     @PersistenceContext
     EntityManager em;
@@ -51,6 +50,13 @@ public class GroupDAO extends GenericDAO<Group> implements IGroupDAO {
         System.out.println("======================================== " + subject.getSubjectID().toString());
         //em.merge(subject);
         em.merge(new Group(people, subject));
+    }
+
+    @Override
+    @Transactional
+    public List<Group> getGroupsBySubject(Subject subject) {
+        Subject fromDB = subjectDAO.getByPK(subject.getSubjectID());
+        return fromDB.getGroups();
     }
 
     @Override
