@@ -11,6 +11,7 @@ import pl.agh.enrollme.model.Enroll;
 @Service
 public interface ITermManagementService {
 
+    @Transactional
     AdminScheduleController createScheduleController(Enroll enroll);
 
     @Transactional

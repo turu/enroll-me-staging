@@ -43,6 +43,7 @@ public class TermManagementService implements ITermManagementService {
     EntityManager em;
 
     @Override
+    @Transactional
     public AdminScheduleController createScheduleController(Enroll enroll) {
         //Enroll configuration of the current enroll
         final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
@@ -58,8 +59,10 @@ public class TermManagementService implements ITermManagementService {
 
         for (Subject s : subjects) {
             final List<Term> termsBySubject = termDAO.getTermsBySubject(s);
+            LOGGER.debug("Terms of subject: " + s.getSubjectID() + " retrieved: " + termsBySubject);
             if (termsBySubject.size() > 0) {
                 terms.addAll(termsBySubject);
+                LOGGER.debug(termsBySubject.size() + " terms added to terms list");
             }
         }
         LOGGER.debug("Terms retrieved (" + terms.size() + " of them): " + terms);
