@@ -19,10 +19,10 @@
 
         <on-render>
             <evaluate expression="personDAO.getList()" result="viewScope.peopleList"/>
-            <set name="viewScope.enabled" value="false" type="java.lang.Boolean"/>
-            <set name="viewScope.credentialsNonExpired" value="false" type="java.lang.Boolean"/>
-            <set name="viewScope.accountNonLocked" value="false" type="java.lang.Boolean"/>
-            <set name="viewScope.accountNonExpired" value="false" type="java.lang.Boolean"/>
+            <set name="viewScope.enabled" value="true" type="java.lang.Boolean"/>
+            <set name="viewScope.credentialsNonExpired" value="true" type="java.lang.Boolean"/>
+            <set name="viewScope.accountNonLocked" value="true" type="java.lang.Boolean"/>
+            <set name="viewScope.accountNonExpired" value="true" type="java.lang.Boolean"/>
         </on-render>
 
         <transition on="add">
