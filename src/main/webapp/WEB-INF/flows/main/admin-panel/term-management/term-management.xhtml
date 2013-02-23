@@ -101,13 +101,13 @@
                     <p:outputLabel value="Capacity: " for="capacity"/>
                     <p:inputText id="capacity" value="#{scheduleController.capacity}"/>
 
-                    <p:row colspan="2">
-                        <p:commandButton type="reset" value="Discard" />
+                    <p:commandButton type="reset" value="Discard" />
+                    <p:column>
                         <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
                                          oncomplete="myschedule.update();eventDialog.hide();"/>
                         <p:commandButton value="Remove" actionListener="#{scheduleController.removeEvent}"
                                          oncomplete="myschedule.update();eventDialog.hide();"/>
-                    </p:row>
+                    </p:column>
                 </h:panelGrid>
             </p:dialog>
         </h:form>

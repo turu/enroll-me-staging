@@ -194,8 +194,7 @@ public class AdminScheduleController implements Serializable {
         certain = false;
         capacity = 0;
 
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Date clicked", "Time: "
-                + begin + " event: " + event);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Date clicked", "Time: " + begin);
         addMessage(message);
 
         LOGGER.debug("Date clicked: " + event.getStartDate() + " - " + event.getEndDate());
