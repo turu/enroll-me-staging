@@ -30,6 +30,10 @@
         </p:commandButton>
         <br/>
         Download groups file:
+        <p:commandButton id="downloadGroups" value="Download" ajax="false"
+                         onclick="PrimeFaces.monitorDownload(start, stop)" icon="ui-icon-arrowthichk-s">
+            <p:fileDownload value="#{AntGroupFileController.streamedGroups}" />
+        </p:commandButton>
         <br/>
     </h:form>
 
