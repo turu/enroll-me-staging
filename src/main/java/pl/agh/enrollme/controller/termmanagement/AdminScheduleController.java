@@ -371,6 +371,12 @@ public class AdminScheduleController implements Serializable {
             //setting event's title to subjects' name
             event.setTitle(subject.getName());
 
+            //setting event's start date
+            event.setStartDate(t.getStartTime());
+
+            //setting event's end date
+            event.setEndDate(t.getEndTime());
+
             //setting event's color to that of event's subject
             event.setColor("#" + subject.getColor());
 
