@@ -18,8 +18,7 @@
         <transition on="submitAndNext" to="termsAssigned"/>
         <transition on="skip" to="skipFurtherConfiguration"/>
         <transition on="save">
-            <evaluate expression="termManagementService.saveScheduleState(scheduleController)" result="viewScope.lastSave"
-                      result-type="java.lang.Boolean"/>
+            <evaluate expression="termManagementService.saveScheduleState(scheduleController)"/>
         </transition>
     </view-state>
 

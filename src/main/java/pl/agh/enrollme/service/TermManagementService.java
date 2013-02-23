@@ -11,7 +11,9 @@ import pl.agh.enrollme.repository.ITeacherDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Piotr Turek
@@ -58,5 +60,48 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug("ScheduleController created: " + scheduleController);
 
         return scheduleController;
+    }
+
+    public void saveScheduleState(AdminScheduleController scheduleController) {
+        final List<Subject> subjects = scheduleController.getSubjects();
+        clearSubjectTerms(subjects);    //delete all terms belonging to subjects from current enrollment
+
+        final List<Term> terms = scheduleController.getTerms();
+
+        final Map<Integer, Integer> termCounters = new HashMap<>();         //map containing term counters; subjectID is the key
+
+        //Initialize map counters
+        for (Subject subject : subjects) {
+            termCounters.put(subject.getSubjectID(), 1);
+        }
+
+        //Setting TermPerSubjectID of terms
+        for (Term term : terms) {
+            final Subject termSubject = term.getSubject();
+            final Integer id = termCounters.get(term.getSubject());
+            term.getTermId().setTermPerSubjectID(id);
+            termCounters.put(termSubject.getSubjectID(), id+1);
+            LOGGER.debug("Term: " + term + " set termpersubjectid to " + id);
+        }
+
+        for (Term term : terms) {
+            termDAO.add(term);
+            LOGGER.debug("Term: " + term + " has been persisted");
+        }
+
+    }
+
+    /**
+     * Deletes from database all terms belonging to subjects from subjects list
+     * @param subjects
+     */
+    private void clearSubjectTerms(List<Subject> subjects) {
+        for (Subject s : subjects) {
+            final List<Term> termsBySubject = termDAO.getTermsBySubject(s);
+            for (Term t : termsBySubject) {
+                LOGGER.debug("Removing term: " + t);
+                termDAO.remove(t);
+            }
+        }
     }
 }
