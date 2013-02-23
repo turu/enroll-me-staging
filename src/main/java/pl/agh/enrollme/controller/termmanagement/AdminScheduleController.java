@@ -415,7 +415,7 @@ public class AdminScheduleController implements Serializable {
 
     private void updateTerm(Term term, DefaultEnrollScheduleEvent event) {
         term.setStartTime(event.getStartDate());
-        term.setEndTime(event.getStartDate());
+        term.setEndTime(event.getEndDate());
         term.setType(event.getActivityType());
         term.setRoom(event.getPlace());
     }
