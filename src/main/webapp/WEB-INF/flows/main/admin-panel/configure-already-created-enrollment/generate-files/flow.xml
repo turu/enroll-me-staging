@@ -15,7 +15,7 @@
             <evaluate expression="antPreferencesFileController.generatePreferencesFile(
                                                                 enrollmentDAO.getByPK(currentEnrollment.enrollID))"/>
             <evaluate expression="antGroupFileController.generatePreferencesFile(
-                                                                enrollmentDAO.getByPK(currentEnrollment.enrollID)"/>
+                                                                enrollmentDAO.getByPK(currentEnrollment.enrollID))"/>
         </on-render>
         <transition on="Back" to="downloaded"/>
         <transition on="End" to="skipFurtherConfiguration"/>
