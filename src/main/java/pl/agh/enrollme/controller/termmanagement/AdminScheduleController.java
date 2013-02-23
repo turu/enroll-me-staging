@@ -271,6 +271,27 @@ public class AdminScheduleController implements Serializable {
         event = new DefaultEnrollScheduleEvent();
     }
 
+    public void removeEvent(ActionEvent actionEvent) {
+        LOGGER.debug("Event to be removed: " + event);
+        final Term term = eventToTermMap.get(event.getId());
+
+        if (term != null) {
+            eventToTermMap.remove(event.getId());
+            LOGGER.debug("Term:" + term + " removed");
+            final boolean res = eventModel.deleteEvent(event);
+
+            if (res) {
+                LOGGER.debug("Event: " + event + " removed");
+            } else {
+                LOGGER.debug("Event: " + event + " NOT removed. Maybe it was not present in the event model?");
+            }
+        } else {
+            LOGGER.debug("No term corresponding to event: " + event + ", nothing removed");
+        }
+
+        event = new DefaultEnrollScheduleEvent();
+    }
+
 
     //Enroll data getters and setters begin
     public EnrollConfiguration getEnrollConfiguration() {
