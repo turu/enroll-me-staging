@@ -19,12 +19,12 @@
             <p:growl id="messages" showDetail="true" />
 
             <p:menubar>
-                <!--<p:menuitem value="Save" action="save" icon="ui-icon-disc" ajax="false" update="messages"/>-->
-                <!--<p:menuitem value="Submit" action="submitAndNext" icon="ui-icon-next" onclick="submitConfirmation.show()"/>-->
-                <!--<p:menuitem value="End" action="skip" icon="ui-icon-refresh" onclick="endConfirmation.show()"/>-->
-                <p:menuitem value="Save" action="save" icon="ui-icon-disc" ajax="false"/>
-                <p:menuitem value="Submit" action="submitAndNext" icon="ui-icon-next" ajax="false"/>
-                <p:menuitem value="End" action="skip" icon="ui-icon-refresh" ajax="false"/>
+                <p:menuitem value="Save" action="save" icon="ui-icon-disc" ajax="false" update="messages"/>
+                <p:menuitem value="Submit" action="submitAndNext" icon="ui-icon-next" onclick="submitConfirmation.show()"/>
+                <p:menuitem value="End" action="skip" icon="ui-icon-refresh" onclick="endConfirmation.show()"/>
+                <!--<p:menuitem value="Save" action="save" icon="ui-icon-disc" ajax="false"/>-->
+                <!--<p:menuitem value="Submit" action="submitAndNext" icon="ui-icon-next" ajax="false"/>-->
+                <!--<p:menuitem value="End" action="skip" icon="ui-icon-refresh" ajax="false"/>-->
             </p:menubar>
 
             <p:spacer width="100%" height="10"/>
@@ -108,23 +108,24 @@
             </p:dialog>
         </h:form>
 
-        <!--<h:form id="dialogForm">-->
-            <!-- End confirmation dialog -->
-            <!--<p:confirmDialog id="endConfirmDialog" message="Are you sure you want to end enroll configuration? All unsaved data will be lost!"-->
-                             <!--severity="alert" widgetVar="endConfirmation" showEffect="clip" hideEffect="clip">-->
-<!---->
-                <!--<p:commandButton id="confirm" value="Yes" oncomplete="endConfirmation.hide()" action="skip" ajax="false"/>-->
-                <!--<p:commandButton id="decline" value="No" oncomplete="endConfirmation.hide()"/>-->
-            <!--</p:confirmDialog>-->
+        <!--Additional form for confirmation dialogs-->
+        <h:form id="dialogForm">
+             <!--End confirmation dialog-->
+            <p:confirmDialog id="endConfirmDialog" message="Are you sure you want to end enroll configuration? All unsaved data will be lost!"
+                             severity="alert" widgetVar="endConfirmation" showEffect="clip" hideEffect="clip">
 
-            <!-- Submit confirmation dialog -->
-            <!--<p:confirmDialog id="submitConfirmDialog" message="Are you sure you want to submit and proceed to next page? All unsaved data will be lost!"-->
-                             <!--severity="alert" widgetVar="submitConfirmation" showEffect="clip" hideEffect="clip">-->
-<!---->
-                <!--<p:commandButton id="confirm" value="Yes" oncomplete="submitConfirmation.hide()" action="submitAndNext" ajax="false"/>-->
-                <!--<p:commandButton id="decline" value="No" oncomplete="submitConfirmation.hide()"/>-->
-            <!--</p:confirmDialog>-->
-        <!--</h:form>-->
+                <p:commandButton id="confirm" value="Yes" oncomplete="endConfirmation.hide()" action="skip" ajax="false"/>
+                <p:commandButton id="decline" value="No" oncomplete="endConfirmation.hide()"/>
+            </p:confirmDialog>
+
+             <!--Submit confirmation dialog-->
+            <p:confirmDialog id="submitConfirmDialog" message="Are you sure you want to submit and proceed to next page? All unsaved data will be lost!"
+                             severity="alert" widgetVar="submitConfirmation" showEffect="clip" hideEffect="clip">
+
+                <p:commandButton id="confirm" value="Yes" oncomplete="submitConfirmation.hide()" action="submitAndNext" ajax="false"/>
+                <p:commandButton id="decline" value="No" oncomplete="submitConfirmation.hide()"/>
+            </p:confirmDialog>
+        </h:form>
 
     </ui:define>
 
