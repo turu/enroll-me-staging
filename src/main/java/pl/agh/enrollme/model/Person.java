@@ -60,6 +60,7 @@ public class Person implements Serializable, UserDetails {
     private List<Enroll> availableEnrolls = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Subject> subjectsSaved = new ArrayList<>();
 
 
