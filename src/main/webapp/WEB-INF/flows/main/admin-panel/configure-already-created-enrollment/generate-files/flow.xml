@@ -12,6 +12,7 @@
         <on-render>
             <evaluate expression="antTermFileController.generateTermsFile(
                                                                 enrollmentDAO.getByPK(currentEnrollment.enrollID))"/>
+            <evaluate expression="antPreferencesFileController.generatePreferencesFile(currentEnrollment)"/>
         </on-render>
         <transition on="Back" to="downloaded"/>
         <transition on="End" to="skipFurtherConfiguration"/>
