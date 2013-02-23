@@ -77,7 +77,7 @@ public class AntPreferencesFileController {
                             getCoefficient(configuration, pointsService.getPointsAssignedByUserToTheTerm(person, term));
                     if (coefficient != -1) {
                         //if term is signed as impossible by the user, skip it!
-                        preferences.append(term.getTermId().getTermPerSubjectID()).append(",").append(coefficient).
+                        preferences.append(term.getTermPerSubjectID()).append(",").append(coefficient).
                             append(";");
                     }
                 }

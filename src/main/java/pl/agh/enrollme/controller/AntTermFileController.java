@@ -60,7 +60,7 @@ public class AntTermFileController {
             for (Term term: terms) {
                 //Iterate through subjects and for every subject put line into file:
                 //(Clean foreach costs some performance issue :-)
-                singleTermDetails.append(createLineWithSeparator(":", term.getTermId().getTermPerSubjectID(),
+                singleTermDetails.append(createLineWithSeparator(":", term.getTermPerSubjectID(),
                    term.getCapacity(), getAntFormatOfDate(term.getStartTime()), getAntFormatOfDate(term.getEndTime())));
                 singleTermDetails.append("\n");
 
@@ -86,9 +86,9 @@ public class AntTermFileController {
 
         if ( firstTermEnd.after(secondTermStart) || firstTermStart.before(secondTermEnd)) {
             //print in the ant format:
-            return term.getTermId().getSubject().getSubjectID().toString() + "," +
-                    term.getTermId().getTermPerSubjectID() + ";" + termCollision.getTermId().getSubject() +
-                    "," + termCollision.getTermId().getTermPerSubjectID() + "\n";
+            return term.getSubject().getSubjectID().toString() + "," +
+                    term.getTermPerSubjectID() + ";" + termCollision.getSubject() +
+                    "," + termCollision.getTermPerSubjectID() + "\n";
         }
         return "";
     }
