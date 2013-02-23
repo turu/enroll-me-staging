@@ -361,9 +361,6 @@ public class AdminScheduleController implements Serializable {
 
             DefaultEnrollScheduleEvent event = new DefaultEnrollScheduleEvent();
 
-            //setting points - not used in this view
-            event.setPoints(0);
-
             //setting event's place
             event.setPlace(t.getRoom());
 
@@ -384,13 +381,16 @@ public class AdminScheduleController implements Serializable {
             //setting whether to display points or not
             event.setShowPoints(false);
 
-            //event's shouldn't be editable
-            event.setEditable(false);
+            event.setEditable(true);
+
+            event.setInteractive(true);
 
             //adding event to the model
             eventModel.addEvent(event);
 
             eventToTermMap.put(event.getId(), t);
+
+            LOGGER.debug("New event: " + event + " and corresponding term: " + t + " created");
         }
 
         //update time fields, but only if there were some events added, otherwise use defaults
