@@ -14,15 +14,14 @@
     </on-start>-->
 
     <view-state id="view">
-        <on-render>
+        <on-entry>
             <evaluate expression="preferencesManagementService.createScheduleController(currentEnrollment)"
                       result="viewScope.scheduleController"
                       result-type="pl.agh.enrollme.controller.preferencesmanagement.ScheduleController"/>
-        </on-render>
+        </on-entry>
         <transition on="done" to="preferencesApplied"/>
         <transition on="save">
-            <evaluate expression="preferencesManagementService.saveScheduleController(currentEnrollment, scheduleController)"
-                      result="viewScope.saveResult" result-type="java.lang.Boolean"/>
+            <evaluate expression="preferencesManagementService.saveScheduleController(currentEnrollment, scheduleController)"/>
         </transition>
     </view-state>
 

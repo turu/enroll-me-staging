@@ -1,5 +1,6 @@
 package pl.agh.enrollme.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController;
 import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
 import pl.agh.enrollme.model.Enroll;
@@ -14,8 +15,10 @@ public interface IPreferencesManagementService {
      * @param currentEnroll
      * @return
      */
+    @Transactional
     ScheduleController createScheduleController(Enroll currentEnroll);
 
-    boolean saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController);
+    @Transactional
+    void saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController);
 
 }
