@@ -1,6 +1,5 @@
 package pl.agh.enrollme.service;
 
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import pl.agh.enrollme.repository.ITermDAO;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +43,9 @@ public class TermManagementService implements ITermManagementService {
     @Override
     @Transactional
     public AdminScheduleController createScheduleController(Enroll enroll) {
+        //Fix #3:
+        em.flush();
+
         //Enroll configuration of the current enroll
         final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
 
