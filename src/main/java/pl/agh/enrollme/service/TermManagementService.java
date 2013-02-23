@@ -43,9 +43,6 @@ public class TermManagementService implements ITermManagementService {
     @Override
     @Transactional
     public AdminScheduleController createScheduleController(Enroll enroll) {
-        //Fix #3:
-        em.flush();
-
         //Enroll configuration of the current enroll
         final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
 

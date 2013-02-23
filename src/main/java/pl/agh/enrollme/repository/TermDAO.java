@@ -31,5 +31,4 @@ public class TermDAO extends GenericDAO<Term> implements ITermDAO {
 
         return query.getResultList();
     }
-
 }
