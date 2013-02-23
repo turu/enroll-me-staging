@@ -18,13 +18,13 @@
 
     <h:form id="downloading">
         Download terms file:
-        <p:commandButton id="downloadLink" value="Download" ajax="false"
+        <p:commandButton id="downloadTerms" value="Download" ajax="false"
                          onclick="PrimeFaces.monitorDownload(start, stop)" icon="ui-icon-arrowthichk-s">
             <p:fileDownload value="#{antTermFileController.streamedTerms}" />
         </p:commandButton>
         <br/>
         Download preferences file:
-        <p:commandButton id="downloadLink" value="Download" ajax="false"
+        <p:commandButton id="downloadPreferences" value="Download" ajax="false"
                          onclick="PrimeFaces.monitorDownload(start, stop)" icon="ui-icon-arrowthichk-s">
             <p:fileDownload value="#{antPreferencesFileController.streamedPreferences}" />
         </p:commandButton>
