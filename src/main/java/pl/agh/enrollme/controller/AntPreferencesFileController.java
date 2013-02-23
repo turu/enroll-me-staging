@@ -5,6 +5,7 @@ import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.IConfigurationDAO;
 import pl.agh.enrollme.repository.IPersonDAO;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * @author Michal Partyka
  */
+@Controller
 public class AntPreferencesFileController {
     private static final File prefFile = new File("/tmp/preferencesFile.txt");
     private static final Logger LOGGER = LoggerFactory.getLogger(AntPreferencesFileController.class.getName());
