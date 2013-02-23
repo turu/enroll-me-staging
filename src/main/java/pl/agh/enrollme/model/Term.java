@@ -1,7 +1,5 @@
 package pl.agh.enrollme.model;
 
-import pl.agh.enrollme.utils.DayOfWeek;
-import pl.agh.enrollme.utils.StupidDate;
 import pl.agh.enrollme.utils.Week;
 
 import javax.persistence.*;
@@ -17,7 +15,7 @@ public class Term implements Serializable {
     private static final long serialVersionUID = -5771235478609230476L;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     Subject subject;
 
     @Id
