@@ -73,6 +73,7 @@ public class TermManagementService implements ITermManagementService {
     }
 
 
+    @Override
     @Transactional
     public void saveScheduleState(AdminScheduleController scheduleController) {
         final List<Subject> subjects = scheduleController.getSubjects();
