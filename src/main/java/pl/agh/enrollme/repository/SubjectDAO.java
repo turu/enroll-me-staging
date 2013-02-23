@@ -10,16 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.Subject;
-import pl.agh.enrollme.model.Teacher;
-import pl.agh.enrollme.utils.Color;
-import pl.agh.enrollme.utils.DayOfWeek;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import java.util.List;
 
 /**
@@ -79,7 +73,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
      */
     public List<Subject> getSubjectsByEnrollment(Enroll enrollment) {
         LOGGER.debug("getSubjectsByEnrollment: enrollment: " + enrollment.getEnrollID() + " " + enrollment.getName());
-        enrollmentDAO.getByPK(enrollment.getEnrollID());
+        enrollment = enrollmentDAO.getByPK(enrollment.getEnrollID());
         return enrollment.getSubjects();
     }
 
