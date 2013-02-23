@@ -32,7 +32,7 @@ public class AntGroupFileController {
     ISubjectDAO subjectDAO;
 
 
-    public void generatePreferencesFile(Enroll enrollment) {
+    public void generateGroupsFile(Enroll enrollment) {
         try (BufferedWriter output = new BufferedWriter( new FileWriter(groupFile))) {
             output.write("\n" + generateGroupsAntFormat(enrollment));
         } catch (IOException e) {
