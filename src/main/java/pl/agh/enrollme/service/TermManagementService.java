@@ -104,7 +104,7 @@ public class TermManagementService implements ITermManagementService {
         for (Term term : terms) {
             term.setSubject(subjectDAO.update(term.getSubject()));
             term.setTeacher(teacherDAO.update(term.getTeacher()));
-            em.merge(term);
+            termDAO.add(term);
             LOGGER.debug("Term: " + term + " has been persisted");
         }
         LOGGER.debug("State persisted");

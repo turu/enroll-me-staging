@@ -17,7 +17,7 @@ public class Term implements Serializable {
     private static final long serialVersionUID = -5771235478609230476L;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY/*, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}*/)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     Subject subject;
 
     @Id
@@ -32,7 +32,7 @@ public class Term implements Serializable {
     private String type;        //type of activity: f.e lecture, lab, ex etc
     private Boolean certain;    //if true, an event is not part of the ongoing enrollment and cannot be assigned points
 
-    @ManyToOne(fetch = FetchType.LAZY /*, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}*/)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Teacher teacher;
 
     public Term() {
