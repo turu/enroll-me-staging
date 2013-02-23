@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IGenericDAO<T> {
     @Transactional
-    void update(T toUpdate);
+    T update(T toUpdate);
 
     @Transactional
     List<T> getList();

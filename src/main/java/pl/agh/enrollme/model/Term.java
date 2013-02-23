@@ -11,18 +11,17 @@ import java.util.Date;
 /**
  * @author Michal Partyka
  */
-@Entity
+@Entity @IdClass(TermPK.class)
 public class Term implements Serializable {
     @Transient
     private static final long serialVersionUID = -5771235478609230476L;
 
-    @EmbeddedId
-    private TermPK termId;
-
-    //Mapping from EmbeddedID!
-    @MapsId("subject")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     Subject subject;
+
+    @Id
+    private Integer termPerSubjectID;
 
     private Date startTime;
     private Date endTime;
@@ -33,15 +32,15 @@ public class Term implements Serializable {
     private String type;        //type of activity: f.e lecture, lab, ex etc
     private Boolean certain;    //if true, an event is not part of the ongoing enrollment and cannot be assigned points
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Teacher teacher;
 
     public Term() {
     }
 
-    public Term(TermPK termId, DayOfWeek dayOfWeek, Date startTime, Date endTime,
-                Week week, Integer capacity, String room, Teacher teacher, String type, Boolean certain) {
-        this.termId = termId;
+    public Term(Subject subject, Date startTime, Date endTime, Week week, Integer capacity,
+                String room, Teacher teacher, String type, Boolean certain) {
+        this.subject = subject;
         this.startTime = startTime;
         this.endTime = endTime;
         this.week = week;
@@ -50,14 +49,6 @@ public class Term implements Serializable {
         this.teacher = teacher;
         this.type = type;
         this.certain = certain;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public TermPK getTermId() {
-        return termId;
     }
 
     public Date getStartTime() {
@@ -82,10 +73,6 @@ public class Term implements Serializable {
 
     public Teacher getTeacher() {
         return teacher;
-    }
-
-    public void setTermId(TermPK termId) {
-        this.termId = termId;
     }
 
     public void setStartTime(Date startTime) {
@@ -135,4 +122,28 @@ public class Term implements Serializable {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    public Integer getTermPerSubjectID() {
+        return termPerSubjectID;
+    }
+
+    public void setTermPerSubjectID(Integer termPerSubjectID) {
+        this.termPerSubjectID = termPerSubjectID;
+    }
+
+    @Override
+    public String toString() {
+        return "Term{" +
+                "subject=" + subject +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", week=" + week +
+                ", capacity=" + capacity +
+                ", room='" + room + '\'' +
+                ", type='" + type + '\'' +
+                ", certain=" + certain +
+                ", teacher=" + teacher +
+                '}';
+    }
+
 }

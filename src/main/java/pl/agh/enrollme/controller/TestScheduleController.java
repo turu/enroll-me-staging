@@ -105,7 +105,7 @@ public class TestScheduleController implements Serializable {
     public void onDateSelect(SelectEvent selectEvent) {
         final Date begin = (Date) selectEvent.getObject();
         GregorianCalendar gc = new GregorianCalendar();
-        gc.set(begin.getYear(), begin.getMonth(), begin.getDay(), begin.getHours(), begin.getMinutes());
+        gc.setTime(begin);
         gc.add(Calendar.MINUTE, 90);
         final Date end = gc.getTime();
         event = new DefaultEnrollScheduleEvent("", begin, end);

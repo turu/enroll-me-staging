@@ -40,23 +40,21 @@
 
             </p:enrollSchedule>
 
-            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" modal="true">
                 <h:panelGrid id="eventDetails" columns="2">
                     <h:outputLabel for="title" value="Title:" />
                     <p:inputText id="title" value="#{scheduleController.event.title}"
                                  required="true"/>
 
-                    <h:outputLabel for="from" value="From:" />
-                    <p:inputMask id="from" value="#{scheduleController.event.startDate}"
-                                 mask="99/99/9999 99:99">
-                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
-                    </p:inputMask>
+                    <p:outputLabel value="Start time: " for="startTime"/>
+                    <h:outputText id="startTime" value="#{scheduleController.event.startDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
 
-                    <h:outputLabel for="to" value="To:" />
-                    <p:inputMask id="to" value="#{scheduleController.event.endDate}"
-                                 mask="99/99/9999 99:99">
-                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
-                    </p:inputMask>
+                    <p:outputLabel value="End time: " for="endTime"/>
+                    <h:outputText id="endTime" value="#{scheduleController.event.endDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
 
                     <h:outputLabel for="teacher" value="Teacher:" />
                     <p:inputText id="teacher" value="#{scheduleController.event.teacher}" />

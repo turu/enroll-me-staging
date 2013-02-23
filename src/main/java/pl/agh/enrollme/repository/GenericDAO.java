@@ -37,9 +37,10 @@ public class GenericDAO<T> implements IGenericDAO<T> {
 
     @Transactional
     @Override
-    public void update(T toUpdate) {
+    public T update(T toUpdate) {
         LOGGER.debug("Object provided for update " + toUpdate.toString());
-        em.merge(toUpdate);
+        final T merge = em.merge(toUpdate);
+        return merge;
     }
 
     @Transactional

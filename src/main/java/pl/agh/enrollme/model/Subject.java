@@ -32,7 +32,7 @@ public class Subject implements Serializable {
     private List<Group> groups;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    private String name = "";
 
     @Column(nullable = false)
     private Integer teamsCapacity;

@@ -137,15 +137,15 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     }
 
     private void createMissingSPPT(List<Term> terms, List<StudentPointsPerTerm> points, Person person) {
-        Map<TermPK, Boolean> termsPresent = new HashMap<TermPK, Boolean>();
+        Map<Term, Boolean> termsPresent = new HashMap<Term, Boolean>();
 
         for (StudentPointsPerTerm sppt : points) {
             final Term term = sppt.getTerm();
-            termsPresent.put(term.getTermId(), true);
+            termsPresent.put(term, true);
         }
 
         for (Term term : terms) {
-            Boolean hasPoints = termsPresent.get(term.getTermId());
+            Boolean hasPoints = termsPresent.get(term);
             if (hasPoints == null || hasPoints == false) {
                 points.add(new StudentPointsPerTerm(term, person, 0, "", false));
             }

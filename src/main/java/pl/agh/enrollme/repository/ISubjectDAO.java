@@ -22,7 +22,7 @@ public interface ISubjectDAO extends IGenericDAO<Subject> {
     void fillCurrentUserSubjectList(Subject[] subjects);
 
     @Transactional
-    void update(Subject update);
+    Subject update(Subject update);
 
     @Transactional
     List<Subject> getSubjectsWithGroups(Enroll enroll);
