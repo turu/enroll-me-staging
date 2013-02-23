@@ -292,7 +292,9 @@ public class AdminScheduleController implements Serializable {
     }
 
     public List<Term> getTerms() {
-        return terms;
+        final List<Term> resultList = new ArrayList<>();
+        resultList.addAll(eventToTermMap.values());
+        return resultList;
     }
 
     public void setTerms(List<Term> terms) {

@@ -71,6 +71,10 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug("Terms cleared");
 
         final List<Term> terms = scheduleController.getTerms();
+        LOGGER.debug(terms.size() + " terms retrieved from schedule");
+        for (Term t : terms) {
+            LOGGER.debug("Term retrieved: " + t);
+        }
 
         final Map<Integer, Integer> termCounters = new HashMap<>();         //map containing term counters; subjectID is the key
 
