@@ -81,6 +81,7 @@ public class TermManagementService implements ITermManagementService {
         //Initialize map counters
         for (Subject subject : subjects) {
             termCounters.put(subject.getSubjectID(), 1);
+            LOGGER.debug("Subject counter init, ID=" + subject.getSubjectID());
         }
         LOGGER.debug("Counters initialized");
 
