@@ -89,8 +89,7 @@ public class TermManagementService implements ITermManagementService {
         for (Term term : terms) {
             final Subject termSubject = term.getSubject();
             final Integer id = termCounters.get(termSubject.getSubjectID());
-            final TermPK termPK = term.getTermId();
-            termPK.setTermPerSubjectID(id);
+            term.setTermPerSubjectID(id);
             termCounters.put(termSubject.getSubjectID(), id+1);
             LOGGER.debug("Term: " + term + " set termpersubjectid to " + id);
         }

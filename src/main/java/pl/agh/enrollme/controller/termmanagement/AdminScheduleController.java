@@ -248,7 +248,6 @@ public class AdminScheduleController implements Serializable {
 
         if (event.getId() == null) {
             term = new Term();
-            term.setTermId(new TermPK());
 
             eventModel.addEvent(event);
             eventToTermMap.put(event.getId(), term);
@@ -265,7 +264,6 @@ public class AdminScheduleController implements Serializable {
         term.setCertain(certain);
         term.setSubject(subject);
         term.setWeek(Week.YEAR_ALL);    //TODO: implement choosing week type
-        term.getTermId().setSubject(subject);
         updateTerm(term, event);
 
         LOGGER.debug("Term modified: " + term);
