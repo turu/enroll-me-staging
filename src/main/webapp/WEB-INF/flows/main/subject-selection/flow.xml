@@ -8,9 +8,9 @@
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
 
-    <decision-state id="enterEventSelection">
-        <if test="subjectChoosingController.userAlreadySubmitedSubjects()" then="subjectsChosen" else="view"/>
-    </decision-state>
+    <!--<decision-state id="enterEventSelection">-->
+        <!--<if test="subjectChoosingController.userAlreadySubmitedSubjects()" then="subjectsChosen" else="view"/>-->
+    <!--</decision-state>-->
 
 
     <view-state id="view">
