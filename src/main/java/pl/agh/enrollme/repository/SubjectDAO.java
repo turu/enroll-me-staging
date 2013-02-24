@@ -7,12 +7,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.agh.enrollme.model.Enroll;
-import pl.agh.enrollme.model.Person;
-import pl.agh.enrollme.model.Subject;
+import pl.agh.enrollme.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,6 +27,12 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
     @Autowired
     IPersonDAO personDAO;
+
+    @Autowired
+    IStudentPointsPerTermDAO pointsDAO;
+
+    @Autowired
+    ITermDAO termDAO;
 
     public SubjectDAO() {
         super(Subject.class);
@@ -49,16 +54,42 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         LOGGER.debug("User: " + person.getUsername() + " [" + person.getIndeks() + "] submitted subjects: " +
                 Arrays.asList(subjects));
 
-        //Removing any previous choice
+        final List<Subject> toRemove = new ArrayList<>();
         final List<Subject> personSubjects = person.getSubjects();
-        for (Subject personSubject : personSubjects) {
-            personSubject = getByPK(personSubject.getSubjectID());
-            personSubject.getPersons().remove(person);
+        for (Subject s : personSubjects) {
+            boolean contained = false;
+            for (Subject s2 : subjects) {
+                if (s2.equals(s)) {
+                    contained = true;
+                    break;
+                }
+            }
+            if (!contained) {
+                toRemove.add(s);
+            }
         }
-        personSubjects.clear();
+        LOGGER.debug("To remove list computed: " + toRemove);
+
+        //Removing points assigned to terms belonging to subjects that are no longer choosen
+        for (Subject s : toRemove) {
+            s = getByPK(s.getSubjectID());
+            final List<Term> termsBySubject = termDAO.getTermsBySubject(s);
+            LOGGER.debug("Terms of subject: " + s + " retrieved");
+            for (Term t : termsBySubject) {
+                final StudentPointsPerTerm byPersonAndTerm = pointsDAO.getByPersonAndTerm(person, t);
+                if (byPersonAndTerm != null) {
+                    pointsDAO.remove(byPersonAndTerm);
+                    LOGGER.debug("Points of term: " + t + " removed");
+                }
+            }
+            s.getPersons().remove(person);
+            LOGGER.debug("Person removed from subject");
+        }
+
+        personSubjects.removeAll(toRemove);
+        LOGGER.debug("Unnecessary subjects removed");
 
         for (Subject subject : subjects) {
-            subject = getByPK(subject.getSubjectID());
             subject.addPerson(person);
             person.addSubject(subject);
             LOGGER.debug("add new subject to student: " + subject);
