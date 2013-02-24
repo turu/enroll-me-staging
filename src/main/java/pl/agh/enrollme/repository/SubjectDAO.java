@@ -51,10 +51,10 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
 
         for (Subject subject : subjects) {
 //            person.addSubject(getByPK(subject.getSubjectID()));
-            person.addSubject(subject);
+//            person.addSubject(subject);
             LOGGER.debug("add new subject to student: " + subject);
         }
-//        em.merge(person);
+        em.merge(person);
         LOGGER.debug("Person updated");
     }
 
