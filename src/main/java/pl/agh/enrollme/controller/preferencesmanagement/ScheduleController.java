@@ -388,6 +388,7 @@ public class ScheduleController implements Serializable {
                 event.setPossible(false);
             } else {
                 event.setPoints(p.getPoints());
+                event.setPossible(true);
             }
 
             //setting event's place
