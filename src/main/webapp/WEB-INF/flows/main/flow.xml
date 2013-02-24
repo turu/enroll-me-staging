@@ -42,7 +42,9 @@
     </subflow-state>
 
     <subflow-state id="manageUserGroups" subflow="main/group-management">
-        <input name="currentEnrollment" value="enrollmentDAO.getByPK(50)" required="true" type="pl.agh.enrollme.model.Enroll"/>
+        <!-- TODO pass proper enroll -->
+        <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
+        <transition on="groupsManaged" to="chooseSubjects"/>
     </subflow-state>
 	
 	<subflow-state id="managePreferences" subflow="main/preferences-management">

@@ -3,7 +3,6 @@ package pl.agh.enrollme.controller.groupmanagement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Group;
 import pl.agh.enrollme.model.Person;
@@ -13,7 +12,6 @@ import pl.agh.enrollme.repository.ISubjectDAO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,27 +19,21 @@ import java.util.Map;
  * @author Rafał Cymerys
  */
 public class GroupManagementController implements Serializable {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GroupManagementController.class);
 
-//    @Autowired
-//    private IEnrollmentDAO enrollmentDAO;
-//
-    @Autowired
-    private transient IPersonDAO personDAO;
-
-    @Autowired
-    private transient ISubjectDAO subjectDAO;
-
-    Map<Subject, List<Group>> groups;
-    Map<Subject, Group> chosenGroups;
+    List<SubjectGroupManagementController> subjectControllers;
 
     private Enroll enroll;
+
+    private Person currentPerson;
 
     public GroupManagementController() {
 
     }
 
-    public GroupManagementController(Enroll enroll) {
+    public GroupManagementController(Enroll enroll, Person currentPerson) {
+        this.currentPerson = currentPerson;
         setEnroll(enroll);
     }
 
@@ -57,64 +49,35 @@ public class GroupManagementController implements Serializable {
          * Just synchronize enrollment with db then */
         List<Subject> subjects = enroll.getSubjects();
 
-        groups = new HashMap<>();
+        subjectControllers = new ArrayList<>();
 
         for (Subject subject : subjects) {
-            groups.put(subject, fetchGroupsForSubject(subject));
+            SubjectGroupManagementController controller = new SubjectGroupManagementController(subject, currentPerson);
+
+            subjectControllers.add(controller);
+        }
+    }
+
+    public Person getCurrentPerson() {
+        return currentPerson;
+    }
+
+    public void setCurrentPerson(Person currentPerson) {
+        this.currentPerson = currentPerson;
+    }
+
+    public List<SubjectGroupManagementController> getSubjectControllers() {
+        return subjectControllers;
+    }
+
+    public SubjectGroupManagementController getControllerWithSubjectId(Integer subjectId) {
+        for (SubjectGroupManagementController controller : subjectControllers) {
+            if (controller.getSubject().getSubjectID().equals(subjectId)) {
+                return controller;
+            }
         }
 
-        chosenGroups = fetchChosenGroups();
+        return null;
     }
 
-    @Transactional
-    private List<Group> fetchGroupsForSubject(Subject subject) {
-        Subject retrievedSubject = subjectDAO.getByPK(subject.getSubjectID());
-        List<Group> groups = retrievedSubject.getGroups();
-
-        LOGGER.debug("Retrieved groups for subject " + subject.getName());
-
-        return new ArrayList<>(groups);
-    }
-
-    @Transactional
-    private Map<Subject, Group> fetchChosenGroups() {
-        Map<Subject, Group> result = new HashMap<>();
-        LOGGER.debug("Fetching chosen groups");
-
-        Person currentPerson = personDAO.getCurrentUser();
-
-        for (Group g : currentPerson.getGroups()) {
-            Subject subject = g.getSubject();
-            result.put(subject, g);
-        }
-
-        LOGGER.debug(result.size() + " fetched");
-
-        return result;
-    }
-
-    public List<Subject> getSubjects() {
-        return new ArrayList<>(groups.keySet());
-    }
-
-    public List<Group> getGroupsForSubject(Subject subject) {
-        LOGGER.debug("Getting groups for subject " + subject.getName());
-        return groups.get(subject);
-    }
-
-//    @Transactional
-//    public boolean isCurrentUserInGroupForSubject(Subject subject) {
-//        Person currentUser = personDAO.getCurrentUser();
-//
-//        List<Group> groups = currentUser.getGroups();
-//
-//        for (Group g : groups) {
-//            Subject groupSubject = g.getSubject();
-//            if (groupSubject.getSubjectID().equals(subject)) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
 }
