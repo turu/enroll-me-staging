@@ -23,9 +23,15 @@
         <transition on="save">
             <evaluate expression="preferencesManagementService.saveScheduleController(currentEnrollment, scheduleController)"/>
         </transition>
+        <transition on="groups" to="groupManagement"/>
+        <transition on="logout" to="flowComplete"/>
     </view-state>
 
     <end-state id="preferencesApplied" />
+
+    <end-state id="flowComplete" view="externalRedirect:servletRelative:/logout" />
+
+    <end-state id="groupManagement" view="externalRedirect:servletRelative:/main/group-management"/>
 
     <global-transitions>
         <transition on="exit" to="preferencesApplied"/>
