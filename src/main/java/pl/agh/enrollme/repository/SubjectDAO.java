@@ -36,27 +36,25 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @PersistenceContext
     EntityManager em;
 
-    @Override
-    @Transactional
     /**
      * Add subjects to the current user subjects list
      * @param subjects - array of subjects.
      */
+    @Override
+    @Transactional
     public void fillCurrentUserSubjectList(Subject[] subjects) {
-        //TODO: change to getCurrentUser()
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Person person = (Person) userDetails;
+        Person person = personDAO.findByUsername(userDetails.getUsername());
 
         LOGGER.debug("User: " + person.getUsername() + " [" + person.getIndeks() + "] submitted subjects: " +
                 Arrays.asList(subjects));
 
-        Person currentUser = personDAO.getByPK(person.getId());
         for (Subject subject : subjects) {
 
             LOGGER.debug("add new subject to student: " + subject);
-            currentUser.addSubject(getByPK(subject.getSubjectID()));
+            person.addSubject(getByPK(subject.getSubjectID()));
         }
-        em.merge(currentUser);
+        em.merge(person);
     }
 
     @Override
