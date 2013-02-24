@@ -90,6 +90,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         LOGGER.debug("Unnecessary subjects removed");
 
         for (Subject subject : subjects) {
+            subject = getByPK(subject.getSubjectID());
             subject.addPerson(person);
             person.addSubject(subject);
             LOGGER.debug("add new subject to student: " + subject);
