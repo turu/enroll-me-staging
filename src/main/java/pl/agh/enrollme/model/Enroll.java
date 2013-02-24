@@ -118,4 +118,21 @@ public class Enroll implements Serializable {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Enroll)) return false;
+
+        Enroll enroll = (Enroll) o;
+
+        if (enrollID != null ? !enrollID.equals(enroll.enrollID) : enroll.enrollID != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return enrollID != null ? enrollID.hashCode() : 0;
+    }
 }
