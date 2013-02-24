@@ -8,6 +8,7 @@ import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.SelectableDataModelForSubjects;
 import pl.agh.enrollme.model.Subject;
+import pl.agh.enrollme.repository.IEnrollmentDAO;
 import pl.agh.enrollme.repository.IPersonDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.service.ISubjectChoosingService;
@@ -35,6 +36,9 @@ public class SubjectChoosingController implements ISubjectChoosingService {
     private IPersonDAO personDAO;
 
     @Autowired
+    private IEnrollmentDAO enrollDAO;
+
+    @Autowired
     private PersonService personService;
 
     public boolean userAlreadySubmitedSubjects() {
@@ -55,12 +59,14 @@ public class SubjectChoosingController implements ISubjectChoosingService {
     }
 
     public void createModel(Enroll enrollment) {
+        enrollment = enrollDAO.getByPK(enrollment.getEnrollID());
         final Person person = personService.getCurrentUser();
         final List<Subject> personSubjects = person.getSubjects();
         final List<Subject> choosenList = new ArrayList<>();
         for (Subject subject : personSubjects) {
             subject = subjectDAO.getSubject(subject.getSubjectID());
-            if (subject.getEnroll().equals(enrollment)) {
+            final Enroll subjectEnroll = subject.getEnroll();
+            if (subjectEnroll.equals(enrollment)) {
                 choosenList.add(subject);
             }
         }
