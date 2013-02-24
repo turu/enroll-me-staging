@@ -49,11 +49,18 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         LOGGER.debug("User: " + person.getUsername() + " [" + person.getIndeks() + "] submitted subjects: " +
                 Arrays.asList(subjects));
 
+        //Removing any previous choice
+        final List<Subject> personSubjects = person.getSubjects();
+        for (Subject personSubject : personSubjects) {
+            personSubject = getByPK(personSubject.getSubjectID());
+            personSubject.getPersons().remove(person);
+        }
+        personSubjects.clear();
+
         for (Subject subject : subjects) {
-//            person.addSubject(getByPK(subject.getSubjectID()));
             subject = getByPK(subject.getSubjectID());
             subject.addPerson(person);
-            person.addSubject(subject); //TODO: Identify and resolve the problem in this line
+            person.addSubject(subject);
             LOGGER.debug("add new subject to student: " + subject);
         }
         em.merge(person);

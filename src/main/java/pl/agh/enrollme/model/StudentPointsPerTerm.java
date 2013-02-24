@@ -88,4 +88,16 @@ public class StudentPointsPerTerm implements Serializable {
     public void setAssigned(Boolean assigned) {
         this.assigned = assigned;
     }
+
+    @Override
+    public String toString() {
+        return "StudentPointsPerTerm{" +
+                "Id=" + Id +
+                ", term=" + term +
+                ", person.id=" + person.getId() +
+                ", points=" + points +
+                ", reason='" + reason + '\'' +
+                ", assigned=" + assigned +
+                '}';
+    }
 }
