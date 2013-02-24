@@ -53,7 +53,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
             person.addSubject(getByPK(subject.getSubjectID()));
             LOGGER.debug("add new subject to student: " + subject);
         }
-        em.merge(person);
+        //em.merge(person);
         LOGGER.debug("Person updated");
     }
 
