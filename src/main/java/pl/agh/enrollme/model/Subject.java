@@ -26,6 +26,10 @@ public class Subject implements Serializable {
     @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Person> persons = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "subjectsSaved", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Fetch(value = FetchMode.SUBSELECT) // exception without it
+    private List<Person> personsWithSavedSubjects = new ArrayList<>();
+
     // TODO Optimize!!!
     @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT) // exception without it
@@ -48,13 +52,14 @@ public class Subject implements Serializable {
     }
 
     public Subject(Enroll enroll, List<Person> persons, String name, Integer teamsCapacity, String color,
-                   Teacher teacher) {
+                   Teacher teacher, List<Person> personsWithSavedSubjects) {
         this.enroll = enroll;
         this.persons = persons;
         this.name = name;
         this.teamsCapacity = teamsCapacity;
         this.color = color;
         this.teacher = teacher;
+        this.personsWithSavedSubjects = personsWithSavedSubjects;
     }
 
     public void addPerson(Person person) {
@@ -91,6 +96,14 @@ public class Subject implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public List<Person> getPersonsWithSavedSubjects() {
+        return personsWithSavedSubjects;
+    }
+
+    public void setPersonsWithSavedSubjects(List<Person> personsWithSavedSubjects) {
+        this.personsWithSavedSubjects = personsWithSavedSubjects;
     }
 
     public void setTeacher(Teacher teacher) {
