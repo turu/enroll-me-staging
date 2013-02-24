@@ -4,6 +4,7 @@ import org.primefaces.model.SelectableDataModel;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Enroll;
 import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.SelectableDataModelForSubjects;
@@ -58,6 +59,7 @@ public class SubjectChoosingController implements ISubjectChoosingService {
         return model;
     }
 
+    @Transactional
     public void createModel(Enroll enrollment) {
         enrollment = enrollDAO.getByPK(enrollment.getEnrollID());
         final Person person = personService.getCurrentUser();
@@ -65,7 +67,7 @@ public class SubjectChoosingController implements ISubjectChoosingService {
         final List<Subject> choosenList = new ArrayList<>();
         for (Subject subject : personSubjects) {
             subject = subjectDAO.getSubject(subject.getSubjectID());
-            final Enroll subjectEnroll = subject.getEnroll();
+            Enroll subjectEnroll = subject.getEnroll();
             if (subjectEnroll.equals(enrollment)) {
                 choosenList.add(subject);
             }
