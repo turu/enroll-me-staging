@@ -140,6 +140,7 @@ public class Subject implements Serializable {
 
         Subject subject = (Subject) o;
 
+        if (!SubjectID.equals(subject.SubjectID)) return false;
         if (!name.equals(subject.name)) return false;
 
         return true;
@@ -147,6 +148,8 @@ public class Subject implements Serializable {
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        int result = SubjectID.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }

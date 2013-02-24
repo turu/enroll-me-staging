@@ -61,7 +61,8 @@ public class AntTermFileController {
                 //Iterate through subjects and for every subject put line into file:
                 //(Clean foreach costs some performance issue :-)
                 singleTermDetails.append(createLineWithSeparator(":", term.getTermPerSubjectID(),
-                   term.getCapacity(), getAntFormatOfDate(term.getStartTime()), getAntFormatOfDate(term.getEndTime())));
+                   term.getCapacity(), getAntFormatOfWeekDay(term.getStartTime()),
+                   getAntFormatOfDate(term.getStartTime()), getAntFormatOfDate(term.getEndTime())));
                 singleTermDetails.append("\n");
 
                 for (Term termCollision: terms) {
@@ -70,10 +71,13 @@ public class AntTermFileController {
                 }
             }
         }
-        return singleTermDetails.toString() + "\n[kolizje]\n" + collisions.toString();
+        return singleTermDetails.toString() + "[kolizje]\n" + collisions.toString();
     }
 
     private String checkForCollision(Term term, Term termCollision) {
+        if (term.equals(termCollision)) {
+            return "";
+        }
         Calendar firstTermStart = Calendar.getInstance();
         Calendar firstTermEnd = Calendar.getInstance();
         Calendar secondTermStart = Calendar.getInstance();
@@ -84,10 +88,10 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
-        if ( firstTermEnd.after(secondTermStart) || firstTermStart.before(secondTermEnd)) {
+        if ( firstTermEnd.after(secondTermStart) && firstTermStart.before(secondTermEnd)) {
             //print in the ant format:
             return term.getSubject().getSubjectID().toString() + "," +
-                    term.getTermPerSubjectID() + ";" + termCollision.getSubject() +
+                    term.getTermPerSubjectID() + ";" + termCollision.getSubject().getSubjectID() +
                     "," + termCollision.getTermPerSubjectID() + "\n";
         }
         return "";
@@ -96,10 +100,14 @@ public class AntTermFileController {
 
     private String createLineWithSeparator(String delimiter, Object... objects) {
         StringBuilder stringBuilder = new StringBuilder();
+        int i=0; //number of objects already printed
         for (Object part: objects) {
-            stringBuilder.append(part.toString()).append(delimiter);
+            stringBuilder.append(part.toString());
+            if (++i < objects.length) {  // no the last one? add delimiter:
+                stringBuilder.append(delimiter);
+            }
         }
-        return stringBuilder.append("\n").toString();
+        return stringBuilder    .toString();
     }
 
     private Integer getAntFormatOfDate(Date date) {
@@ -113,6 +121,13 @@ public class AntTermFileController {
 
         //Every hour 4 terms, every 15minutes 1 term, counting from 0
         return hourDiff*4 + minute/15;
+    }
+
+    private Integer getAntFormatOfWeekDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.DAY_OF_WEEK)-2;
     }
 
     public StreamedContent getStreamedTerms() {

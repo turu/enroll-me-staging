@@ -144,4 +144,23 @@ public class Term implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Term)) return false;
+
+        Term term = (Term) o;
+
+        if (!subject.equals(term.subject)) return false;
+        if (!termPerSubjectID.equals(term.termPerSubjectID)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = subject.hashCode();
+        result = 31 * result + termPerSubjectID.hashCode();
+        return result;
+    }
 }
