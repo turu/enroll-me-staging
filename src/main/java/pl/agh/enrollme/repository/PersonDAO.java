@@ -59,7 +59,7 @@ public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
         Enroll enrollmentFromDB = enrollmentDAO.getByPK(enrollment.getEnrollID());
         List<Person> people = enrollmentFromDB.getPersons();
         for (Person person: people) {
-            if (person.getSubjectsSaved().isEmpty()) {
+            if (person.getSubjects().isEmpty()) {
                 people.remove(person);
             }
         }
@@ -69,6 +69,6 @@ public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
     @Override
     public List<Subject> getSavedSubjects(Person person) {
         Person obtainedFromDB = getByPK(person.getId());
-        return obtainedFromDB.getSubjectsSaved();
+        return obtainedFromDB.getSubjects();
     }
 }
