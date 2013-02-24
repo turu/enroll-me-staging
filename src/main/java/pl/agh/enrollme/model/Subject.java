@@ -20,7 +20,7 @@ public class Subject implements Serializable {
     @GeneratedValue
     private Integer SubjectID=0;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Enroll enroll;
 
     @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
