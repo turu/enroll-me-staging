@@ -79,6 +79,7 @@ public class PersonService {
     }
 
     public Person getCurrentUser() {
+        LOGGER.debug("Entering getCurrentUser");
         final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         LOGGER.debug("Principal: " + principal + " retrieved");
 
