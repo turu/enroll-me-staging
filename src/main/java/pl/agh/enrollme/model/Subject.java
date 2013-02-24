@@ -23,7 +23,7 @@ public class Subject implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Enroll enroll;
 
-    @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "subjects", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Person> persons = new ArrayList<>();
 
     @ManyToMany(mappedBy = "subjectsSaved", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
