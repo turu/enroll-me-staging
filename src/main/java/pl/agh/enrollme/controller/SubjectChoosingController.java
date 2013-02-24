@@ -59,7 +59,6 @@ public class SubjectChoosingController implements ISubjectChoosingService {
         return model;
     }
 
-    @Transactional
     public void createModel(Enroll enrollment) {
         enrollment = enrollDAO.getByPK(enrollment.getEnrollID());
         final Person person = personService.getCurrentUser();
@@ -68,6 +67,7 @@ public class SubjectChoosingController implements ISubjectChoosingService {
         for (Subject subject : personSubjects) {
             subject = subjectDAO.getSubject(subject.getSubjectID());
             Enroll subjectEnroll = subject.getEnroll();
+            subjectEnroll = enrollDAO.getByPK(subjectEnroll.getEnrollID());
             if (subjectEnroll.equals(enrollment)) {
                 choosenList.add(subject);
             }
