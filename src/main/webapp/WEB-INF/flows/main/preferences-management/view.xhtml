@@ -21,9 +21,9 @@
 
             <p:menubar>
                 <p:menuitem value="Save" action="save" icon="ui-icon-disc" ajax="false"/>
-                <p:menuitem value="Manage Groups" action="groups" icon="ui-icon-gear" ajax="false"/>
-                <p:menuitem value="Reload" action="reload" icon="ui-icon-arrowrefresh-1-w" ajax="false"/>
-                <p:menuitem value="Exit" action="done" icon="ui-icon-close" ajax="false"/>
+                <p:menuitem value="Manage Groups" icon="ui-icon-gear" onclick="manageDialog.show()"/>
+                <p:menuitem value="Logout" icon="ui-icon-arrowrefresh-1-w" onclick="logoutDialog.show()"/>
+                <p:menuitem value="Exit" action="done" icon="ui-icon-close" onclick="exitDialog.show()"/>
             </p:menubar>
 
             <p:spacer width="100%" height="10"/>
@@ -103,16 +103,16 @@
                                value="#{scheduleController.event.points}" size="2" maxlength="2"
                                min="0" max="#{scheduleController.eventPointsRange}"/>
 
-                    <p:outputLabel value="Impossibility" for="impossibilityChkbx"/>
-                    <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{!scheduleController.event.possible}"
-                               widgetVar="impossibilityWidget" />
-
-                    <p:panel id="reasonPanel" header="Enter substantiation below" visible="${!scheduleController.event.possible}">
-                        <p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"
-                               maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>
-
-                        <h:outputText id="reasonCounter"/>
-                    </p:panel>
+                    <!--<p:outputLabel value="Impossibility" for="impossibilityChkbx"/>-->
+                    <!--<p:selectBooleanCheckbox id="impossibilityChkbx" value="#{!scheduleController.event.possible}"-->
+                               <!--widgetVar="impossibilityWidget" />-->
+<!---->
+                    <!--<p:panel id="reasonPanel" header="Enter substantiation below" visible="${!scheduleController.event.possible}">-->
+                        <!--<p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"-->
+                               <!--maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>-->
+<!---->
+                        <!--<h:outputText id="reasonCounter"/>-->
+                    <!--</p:panel>-->
 
                     <p:commandButton type="reset" value="Discard" />
                     <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
@@ -120,6 +120,40 @@
                 </h:panelGrid>
             </p:dialog>
         </h:form>
+
+        <!--Additional form for confirmation dialogs-->
+        <h:form id="dialogForm1">
+            <!--Manage confirmation dialog-->
+            <p:confirmDialog id="manageConfirmDialog" message="Are you sure you want switch to group management? All unsaved data will be lost!"
+                             severity="alert" widgetVar="manageDialog" showEffect="clip" hideEffect="clip">
+
+                <p:commandButton id="confirm" value="Yes" oncomplete="manageDialog.hide()" action="groups" ajax="false"/>
+                <p:commandButton id="decline" value="No" oncomplete="manageDialog.hide()"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <!--Additional form for confirmation dialogs-->
+        <h:form id="dialogForm2">
+            <!--Exit confirmation dialog-->
+            <p:confirmDialog id="endConfirmDialog" message="Are you sure you want quit? All unsaved data will be lost!"
+                             severity="alert" widgetVar="exitDialog" showEffect="clip" hideEffect="clip">
+
+                <p:commandButton id="confirm" value="Yes" oncomplete="exitDialog.hide()" action="done" ajax="false"/>
+                <p:commandButton id="decline" value="No" oncomplete="exitDialog.hide()"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <!--Additional form for confirmation dialogs-->
+        <h:form id="dialogForm3">
+            <!--Logout confirmation dialog-->
+            <p:confirmDialog id="logoutConfirmDialog" message="Are you sure you want logout from the application? All unsaved data will be lost!"
+                             severity="alert" widgetVar="logoutDialog" showEffect="clip" hideEffect="clip">
+
+                <p:commandButton id="confirm" value="Yes" oncomplete="logoutDialog.hide()" action="logout" ajax="false"/>
+                <p:commandButton id="decline" value="No" oncomplete="logoutDialog.hide()"/>
+            </p:confirmDialog>
+        </h:form>
+
 
     </ui:define>
 
