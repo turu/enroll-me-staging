@@ -59,6 +59,7 @@ public class SubjectChoosingController implements ISubjectChoosingService {
         final List<Subject> personSubjects = person.getSubjects();
         final List<Subject> choosenList = new ArrayList<>();
         for (Subject subject : personSubjects) {
+            subject = subjectDAO.getSubject(subject.getSubjectID());
             if (subject.getEnroll().equals(enrollment)) {
                 choosenList.add(subject);
             }
