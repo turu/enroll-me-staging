@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * Author: Piotr Turek
@@ -30,6 +31,14 @@ public class StudentPointsPerTermDAO extends GenericDAO<StudentPointsPerTerm> im
         final TypedQuery<StudentPointsPerTerm> query = em.createQuery("Select s from StudentPointsPerTerm s where s.person = :person and s.term = :term",
                 StudentPointsPerTerm.class).setParameter("person", person).setParameter("term", term);
 
-        return query.getSingleResult();
+        final List<StudentPointsPerTerm> resultList = query.getResultList();
+
+        if (resultList.isEmpty()) {
+            return null;
+        } else if (resultList.size() == 1) {
+            return resultList.get(0);
+        }
+
+        throw new IllegalStateException("There is more than one points entity for person: " + person + " and term: " + term);
     }
 }
