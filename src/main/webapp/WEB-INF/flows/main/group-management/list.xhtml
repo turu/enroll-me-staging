@@ -14,26 +14,81 @@
 </ui:define>
 
 <ui:define name="content">
-    <h:form>
-        <p:dataTable id="subjects" value="${subjects}" var="subject">
+    <h:form id="mainForm">
+        <p:messages id="messages"/>
+        <p:dataTable id="subjectsTable" value="#{controller.subjectControllers}" var="row">
             <p:column headerText="Name">
-                <h:outputText value="#{subject.name}"/>
+                <h:outputText value="#{row.subject.name}"/>
             </p:column>
             <p:column headerText="Teacher">
-                <h:outputText value="#{subject.teacher.degree} #{subject.teacher.firstName} #{subject.teacher.secondName}"/>
+                <h:outputText value="#{row.subject.teacher.degree} #{row.subject.teacher.firstName}
+                #{row.subject.teacher.secondName}"/>
             </p:column>
             <p:column headerText="Group">
-                <p:selectOneMenu>
-                    <f:selectItems value="#{controller.getGroupsForSubject(subject)}" var="groups"
-                                   itemLabel="#{groups.name}"/>
-                </p:selectOneMenu>
-                <p:commandButton value="New" action="createNewGroup" oncomplete="createNewGroupDialog.show()"
-                                 update=":#{p:component('createNewGroupDialogContent')}">
-                    <f:setPropertyActionListener value="#{subject}" target="#{newGroupSubject}"/>
-                </p:commandButton>
-            </p:column>
-         </p:dataTable>
+                <!-- When user is not owner of group, let him select from already created groups-->
+                <p:outputPanel rendered="#{(not row.ownerOfSelectedGroup) and (row.subject.teamsCapacity > 1)}">
+                    <p:selectOneMenu value="#{row.selectedGroup}" converter="#{groupConverter}" style="width: 50%;">
+                        <p:ajax event="change" listener="#{groupManagementService.onChange}"
+                                update=":mainForm:subjectsTable :mainForm:messages"/>
+                        <f:selectItem itemLabel="-" itemValue="#{null}"/>
+                        <f:selectItems value="#{row.subject.groups}" var="group" itemValue="#{group}"
+                                       itemLabel="#{group.name}"/>
+                    </p:selectOneMenu>
+                </p:outputPanel>
 
+                <!-- When user is owner of group, do not allow changing group -->
+                <p:outputPanel rendered="#{(row.ownerOfSelectedGroup) and (row.subject.teamsCapacity > 1)}">
+                    <h:outputText value="#{row.selectedGroup.name} (Created by you)"/>
+                </p:outputPanel>
+
+                <!-- When teams are not allowed for particular subject -->
+                <p:outputPanel rendered="#{row.subject.teamsCapacity == 1}">
+                    <h:outputText value="Groups are not allowed for this subject"/>
+                </p:outputPanel>
+            </p:column>
+            <p:column headerText="Action">
+                <!-- When user is not owner of group, let him select from create new group -->
+                <p:outputPanel rendered="#{(not row.ownerOfSelectedGroup) and (row.subject.teamsCapacity > 1)}">
+                    <p:commandButton value="New" action="createNewGroup" oncomplete="createNewGroupDialog.show()"
+                                     update=":#{p:component('createNewGroupDialogContent')}">
+                        <f:setPropertyActionListener value="#{row.subject.subjectID}" target="#{newGroupRowId}"/>
+                    </p:commandButton>
+                </p:outputPanel>
+                <!-- When user is owner of group, let him delete -->
+                <p:outputPanel rendered="#{(row.ownerOfSelectedGroup) and (row.subject.teamsCapacity > 1)}">
+                    <p:commandButton value="Delete" action="deleteGroup" oncomplete="deleteGroupDialog.show()"
+                                   update=":#{p:component('deleteGroupDialogContent')}">
+                        <f:setPropertyActionListener value="#{row.selectedGroup}" target="#{groupToDelete}"/>
+                        <f:setPropertyActionListener value="#{row.subject.subjectID}" target="#{groupToDeleteRowId}"/>
+                    </p:commandButton>
+                </p:outputPanel>
+
+                <!-- When teams are not allowed for particular subject -->
+                <p:outputPanel rendered="#{row.subject.teamsCapacity == 1}">
+                    <h:outputText value="-"/>
+                </p:outputPanel>
+            </p:column>
+            <p:column headerText="Team">
+                <p:dataTable value="#{row.selectedGroupTeam}" var="person" emptyMessage="-">
+                    <p:column>
+                        <h:outputText value="#{person.firstName} #{person.lastName}"/>
+                    </p:column>
+                    <p:column rendered="#{row.ownerOfSelectedGroup}">
+                        <p:commandLink action="removePerson" value="Remove"
+                                       update=":mainForm:subjectsTable :mainForm:messages">
+                            <f:setPropertyActionListener value="#{row.subject.subjectID}"
+                                                         target="#{personToRemoveRowId}"/>
+                            <f:setPropertyActionListener value="#{person}" target="#{personToRemove}"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+                <!--<h:outputText value="#{row.selectedGroupTeamString}"/>-->
+            </p:column>
+        </p:dataTable>
+
+        <p:commandButton value="Save" action="saveGroups" ajax="false"/>
+
+        <!-- Dialog for creating groups -->
         <p:dialog widgetVar="createNewGroupDialog">
             <p:outputPanel id="createNewGroupDialogContent">
                 <p>
@@ -41,7 +96,20 @@
                     <p:inputText id="newGroupName" value="#{newGroupName}"/>
                 </p>
                 <p:commandButton value="Create" action="createNewGroupConfirm"
-                                 oncomplete="createNewGroupDialog.hide()" update=":#{p:component('subjects')}"/>
+                                 oncomplete="createNewGroupDialog.hide()"/>
+                <p:commandButton value="Cancel" oncomplete="createNewGroupDialog.hide()"/>
+            </p:outputPanel>
+        </p:dialog>
+
+        <!-- Dialog for deleting groups -->
+        <p:dialog widgetVar="deleteGroupDialog">
+            <p:outputPanel id="deleteGroupDialogContent">
+                <p>
+                    <h:outputText value="Are you sure yo want to delete group #{groupToDelete.name}?"/>
+                </p>
+                <p:commandButton value="Delete!" action="deleteGroupConfirm"
+                                 oncomplete="deleteGroupDialog.hide()"/>
+                <p:commandButton value="Cancel" oncomplete="deleteGroupDialog.hide()"/>
             </p:outputPanel>
         </p:dialog>
     </h:form>
