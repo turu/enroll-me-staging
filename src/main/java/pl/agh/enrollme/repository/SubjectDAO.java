@@ -49,6 +49,8 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         LOGGER.debug("User: " + person.getUsername() + " [" + person.getIndeks() + "] submitted subjects: " +
                 Arrays.asList(subjects));
 
+        person.setLastName(person.getLastName()+"a");
+
         for (Subject subject : subjects) {
 //            person.addSubject(getByPK(subject.getSubjectID()));
 //            person.addSubject(subject); TODO: Identify and resolve the problem in this line
