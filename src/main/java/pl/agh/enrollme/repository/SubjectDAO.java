@@ -43,12 +43,12 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
     @Override
     @Transactional
     public void fillCurrentUserSubjectList(Subject[] subjects) {
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Person person = personDAO.findByUsername(userDetails.getUsername());
-//
-//        LOGGER.debug("User: " + person.getUsername() + " [" + person.getIndeks() + "] submitted subjects: " +
-//                Arrays.asList(subjects));
-//
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person = personDAO.findByUsername(userDetails.getUsername());
+
+        LOGGER.debug("User: " + person.getUsername() + " [" + person.getIndeks() + "] submitted subjects: " +
+                Arrays.asList(subjects));
+
 //        for (Subject subject : subjects) {
 //            person.addSubject(getByPK(subject.getSubjectID()));
 //            LOGGER.debug("add new subject to student: " + subject);
