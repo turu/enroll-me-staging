@@ -48,7 +48,9 @@
 	<subflow-state id="managePreferences" subflow="main/preferences-management">
         <input name="currentEnrollment" value="currentEnrollment" required="true"
                type="pl.agh.enrollme.model.Enroll"/>
-        <transition to="flowComplete"/>
+        <transition on="preferencesApplied" to="flowComplete"/>
+        <transition on="groupManagement" to="manageUserGroups"/>
+        <transition on="logout" to="logout"/>
 	</subflow-state>
 
     <subflow-state id="seeFinalChoice" subflow="main/final-choice">
@@ -60,6 +62,8 @@
 	</subflow-state>
 	
 	<end-state id="flowComplete" view="externalRedirect:servletRelative:/main" />
+
+    <end-state id="logout" view="externalRedirect:servletRelative:/logout"/>
 	
 	<global-transitions>
 		<transition on="exit" to="flowComplete">
