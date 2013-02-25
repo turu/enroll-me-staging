@@ -85,7 +85,7 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug(terms.size() + " terms retrieved from schedule");
         for (Term t : terms) {
             LOGGER.debug("Term retrieved: " + t);
-            if (t.getStartTime() == null || t.getEndTime() == null || t.getSubject() == null) {
+            if (t.getStartTime() == null || t.getEndTime() == null || t.getSubject() == null || t.getTeacher() == null) {
                 LOGGER.debug("faulty term!");
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Faulty data!",
                         "Data could not be saved due to illegal/faulty state. Try reloading the view.");
