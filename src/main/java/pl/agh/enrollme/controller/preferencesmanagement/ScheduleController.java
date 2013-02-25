@@ -40,6 +40,7 @@ public class ScheduleController implements Serializable {
 
     //Maximum number of points to display in the choice edition dialog while editing current event
     private int eventPointsRange = 0;
+    private int possibleEventPointsRange = 0;
 
 
     //Enroll data
@@ -164,16 +165,30 @@ public class ScheduleController implements Serializable {
         reason = termPoints.getReason();
         impossible = !event.isPossible();
 
+        possibleEventPointsRange = enrollConfiguration.getPointsPerSubject() - pointsMap.get(subject.getSubjectID())
+                + termPoints.getPoints() + enrollConfiguration.getAdditionalPoints() - progressController.getExtraPointsUsed();
+        possibleEventPointsRange = Math.min(eventPointsRange, enrollConfiguration.getPointsPerTerm());
+
         if (!event.isPossible()) {
             eventPointsRange = 0;
         } else {
-            eventPointsRange = enrollConfiguration.getPointsPerSubject() - pointsMap.get(subject.getSubjectID())
-                    + termPoints.getPoints() + enrollConfiguration.getAdditionalPoints() - progressController.getExtraPointsUsed();
-            eventPointsRange = Math.min(eventPointsRange, enrollConfiguration.getPointsPerTerm());
+            eventPointsRange = possibleEventPointsRange;
         }
 
         LOGGER.debug("Points range computed to be: " + eventPointsRange);
 
+    }
+
+    /**
+     * Event triggered when user checks or unchecks impossibility checkbox. It updates points range allowed by the spinner
+     * @param actionEvent
+     */
+    public void updateSpinner(ActionEvent actionEvent) {
+        if (impossible) {
+            eventPointsRange = 0;
+        } else {
+            eventPointsRange = possibleEventPointsRange;
+        }
     }
 
     /**
