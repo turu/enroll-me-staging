@@ -162,7 +162,7 @@ public class ScheduleController implements Serializable {
         final Map<Integer, Integer> pointsMap = progressController.getPointsMap();
 
         reason = termPoints.getReason();
-        impossible = event.isPossible();
+        impossible = !event.isPossible();
 
         if (!event.isPossible()) {
             eventPointsRange = 0;
