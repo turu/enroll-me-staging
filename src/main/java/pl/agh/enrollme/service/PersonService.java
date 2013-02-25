@@ -93,7 +93,9 @@ public class PersonService {
             throw new SecurityException("Principal " + principal + " is not an instance of UserDetails!");
         }
 
-        return (Person) userDetails;
+        Person person = (Person) userDetails;
+        person = personDAO.getByPK(person.getId());
+        return person;
     }
 	
 }
