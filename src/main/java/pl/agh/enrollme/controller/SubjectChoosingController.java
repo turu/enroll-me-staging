@@ -4,14 +4,19 @@ import org.primefaces.model.SelectableDataModel;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Enroll;
+import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.model.SelectableDataModelForSubjects;
 import pl.agh.enrollme.model.Subject;
+import pl.agh.enrollme.repository.IEnrollmentDAO;
 import pl.agh.enrollme.repository.IPersonDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.service.ISubjectChoosingService;
+import pl.agh.enrollme.service.PersonService;
 
 import javax.faces.bean.ViewScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +36,12 @@ public class SubjectChoosingController implements ISubjectChoosingService {
     @Autowired
     private IPersonDAO personDAO;
 
+    @Autowired
+    private IEnrollmentDAO enrollDAO;
+
+    @Autowired
+    private PersonService personService;
+
     public boolean userAlreadySubmitedSubjects() {
         return false;
     }
@@ -49,8 +60,19 @@ public class SubjectChoosingController implements ISubjectChoosingService {
     }
 
     public void createModel(Enroll enrollment) {
-        //TODO: get already chosen and assign to chosenSubjects, now assign null
-        chosenSubjects = null;
+        enrollment = enrollDAO.getByPK(enrollment.getEnrollID());
+        final Person person = personService.getCurrentUser();
+        final List<Subject> personSubjects = person.getSubjects();
+        final List<Subject> choosenList = new ArrayList<>();
+        for (Subject subject : personSubjects) {
+            subject = subjectDAO.getSubject(subject.getSubjectID());
+            Enroll subjectEnroll = subject.getEnroll();
+            subjectEnroll = enrollDAO.getByPK(subjectEnroll.getEnrollID());
+            if (subjectEnroll.equals(enrollment)) {
+                choosenList.add(subject);
+            }
+        }
+        chosenSubjects = choosenList.toArray(new Subject[]{});
         List<Subject> subjects = subjectDAO.getSubjectsByEnrollment(enrollment);
         model = new SelectableDataModelForSubjects(subjects);
     }

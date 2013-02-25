@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.controller.preferencesmanagement.PreferencesManagementController;
 import pl.agh.enrollme.controller.preferencesmanagement.ProgressRingController;
 import pl.agh.enrollme.controller.preferencesmanagement.ScheduleController;
@@ -13,6 +14,8 @@ import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.*;
 import pl.agh.enrollme.utils.EnrollmentMode;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,12 +48,14 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     private PersonService personService;
 
     @Override
+    @Transactional
     public ScheduleController createScheduleController(Enroll enroll) {
         final Person person = personService.getCurrentUser();
-        LOGGER.debug(person + " person retrieved from security context");
+        LOGGER.debug("Person: " + person + " retrieved from security context");
 
         //Enroll configuration of the current enroll
         final EnrollConfiguration enrollConfiguration = enroll.getEnrollConfiguration();
+        LOGGER.debug("EnrollConfiguration: " + enrollConfiguration + " retrieved from enroll: " + enroll);
 
         final List<Subject> subjectsByEnrollment = subjectDAO.getSubjectsByEnrollment(enroll);
         LOGGER.debug("Subjects of " + enroll + " enrollment retrieved: " + subjectsByEnrollment);
@@ -108,48 +113,116 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     }
 
     @Override
-    public boolean saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController) {
+    @Transactional
+    public void saveScheduleController(Enroll currentEnroll, ScheduleController scheduleController) {
         currentEnroll = enrollDAO.getByPK(currentEnroll.getEnrollID());
+
+        //Importing enroll configuration
+        final EnrollConfiguration enrollConfiguration = currentEnroll.getEnrollConfiguration();
 
         if (currentEnroll.getEnrollmentMode() == EnrollmentMode.CLOSED
                 || currentEnroll.getEnrollmentMode()  == EnrollmentMode.COMPLETED) {
-            return false;
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Enroll closed!", "Current enrollment has" +
+                    " either closed or completed. Unfortunatelly, saving is no longer possible. Contact ... someone ;)");
+            addMessage(message);
+
+            LOGGER.debug("Save requested after enroll had been completed/closed!");
+
+            return;
         }
 
+        //Importing subject/points map
+        final Map<Integer, Integer> pointsMap = scheduleController.getProgressController().getPointsMap();
+
+        //Importing extra points used
+        final int extraPointsUsed = scheduleController.getProgressController().getExtraPointsUsed();
+
+        //Importing point per terms
         final List<StudentPointsPerTerm> termPoints = scheduleController.getPoints();
 
-        for (StudentPointsPerTerm termPoint : termPoints) {
-            final StudentPointsPerTerm byPK = pointsDAO.getByPK(termPoint.getId());
+        //Validating
+        if (!validateMinimumReached(pointsMap, enrollConfiguration)) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!", "You have not reached minimum" +
+                    "rule for all subjects. Can not save!");
+            addMessage(message);
+
+            LOGGER.debug("Minimum rule broken!");
+
+            return;
+        }
+        LOGGER.debug("Points validated");
+
+        int addedCount = 0;
+        int updatedCount = 0;
+        int removedCount = 0;
+
+        //Persisting points
+        for (StudentPointsPerTerm tp : termPoints) {
+            final StudentPointsPerTerm termPoint = pointsDAO.getByPK(tp.getId());
 
             //termPoint is not present in the database
-            if (byPK == null && termPoint.getPoints() != 0) {
+            if (termPoint == null || termPoint.getPoints() != 0) {
                 pointsDAO.add(termPoint);
+                LOGGER.debug("Term points: " + termPoint + " added to the datebase");
+                addedCount++;
             } else { //is present in the database
                 if (termPoint.getPoints() == 0) {
                     pointsDAO.remove(termPoint);
+                    LOGGER.debug("Term points: " + termPoint + " removed from the datebase");
+                    removedCount++;
                 } else {
                     pointsDAO.update(termPoint);
+                    LOGGER.debug("Term points: " + termPoint + " updated in the datebase");
+                    updatedCount++;
                 }
             }
         }
+        LOGGER.debug("Points persisted");
 
+        //TODO: Record that the user successfully enrolled and can be exported...
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice updated", "Changes successfully saved. "
+            + addedCount + " term points have been added, " + updatedCount + " updated, " + removedCount + " removed from the datebase");
+        addMessage(message);
+
+        LOGGER.debug("Saving finished");
+    }
+
+    //Validates if minimum point usage has been reached for all subjects
+    private boolean validateMinimumReached(Map<Integer, Integer> pointsMap, EnrollConfiguration enrollConfiguration) {
+        final Integer minimumPointsPerSubject = enrollConfiguration.getMinimumPointsPerSubject();
+        for (Integer used : pointsMap.values()) {
+            if (used < minimumPointsPerSubject) {
+                LOGGER.debug("Minimum rule has not been reached!");
+                return false;
+            }
+        }
+        LOGGER.debug("Points validated correctly");
         return true;
     }
 
+    //Creates missing SPPTs
     private void createMissingSPPT(List<Term> terms, List<StudentPointsPerTerm> points, Person person) {
         Map<Term, Boolean> termsPresent = new HashMap<Term, Boolean>();
 
         for (StudentPointsPerTerm sppt : points) {
             final Term term = sppt.getTerm();
             termsPresent.put(term, true);
+            LOGGER.debug("Term: " + term + " has points");
         }
 
         for (Term term : terms) {
             Boolean hasPoints = termsPresent.get(term);
             if (hasPoints == null || hasPoints == false) {
                 points.add(new StudentPointsPerTerm(term, person, 0, "", false));
+                LOGGER.debug("Points created for term: " + term);
             }
         }
     }
+
+    private void addMessage(FacesMessage message) {
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
 
 }

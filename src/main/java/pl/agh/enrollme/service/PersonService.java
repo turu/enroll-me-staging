@@ -79,12 +79,15 @@ public class PersonService {
     }
 
     public Person getCurrentUser() {
+        LOGGER.debug("Entering getCurrentUser");
         final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LOGGER.debug("Principal: " + principal + " retrieved");
 
         UserDetails userDetails = null;
 
         if(principal instanceof UserDetails) {
             userDetails = (UserDetails) principal;
+            LOGGER.debug("Principal casted to UserDetails: " + userDetails);
         } else {
             LOGGER.warn("Principal " + principal + " is not an instance of UserDetails!");
             throw new SecurityException("Principal " + principal + " is not an instance of UserDetails!");

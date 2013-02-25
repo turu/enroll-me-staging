@@ -59,9 +59,9 @@ public class Person implements Serializable, UserDetails {
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)
     private List<Enroll> availableEnrolls = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Subject> subjectsSaved = new ArrayList<>();
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    @Fetch(value = FetchMode.SUBSELECT)
+//    private List<Subject> subjectsSaved = new ArrayList<>();
 
 
     public Person() {
@@ -82,16 +82,16 @@ public class Person implements Serializable, UserDetails {
         this.rolesToken = rolesToken;
         this.groups = groups;
         this.subjects = subjects;
-        this.subjectsSaved = subjectsSaved;
+//        this.subjectsSaved = subjectsSaved;
     }
 
-    public List<Subject> getSubjectsSaved() {
-        return subjectsSaved;
-    }
+//    public List<Subject> getSubjectsSaved() {
+//        return subjectsSaved;
+//    }
 
-    public void setSubjectsSaved(List<Subject> subjectsSaved) {
-        this.subjectsSaved = subjectsSaved;
-    }
+//    public void setSubjectsSaved(List<Subject> subjectsSaved) {
+//        this.subjectsSaved = subjectsSaved;
+//    }
 
     public void addSubject(Subject subject) {
         if (!subjects.contains(subject)) {

@@ -188,6 +188,10 @@ public class ProgressRingController implements Serializable {
                     ", pps=" + enrollConfiguration.getPointsPerSubject() + ", mpps=" + enrollConfiguration.getMinimumPointsPerSubject() +
             ", pointsUsed=" + pointsMap.get(s.getSubjectID()) + ", subjectColor=#" + s.getColor());
 
+            if (!s.getHasInteractive()) {
+                continue;
+            }
+
             Integer pointsUsed = pointsMap.get(s.getSubjectID());
             if (pointsUsed == null) {
                 pointsUsed = 0;
