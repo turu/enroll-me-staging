@@ -86,41 +86,41 @@
             <p:dialog widgetVar="eventDialog" header="Term Details" showEffect="clip" hideEffect="clip" modal="true">
                 <p:panelGrid id="eventDetails" style="border-style: hidden">
                     <p:row style="border-style: hidden">
-                        <p:column><h:outputText value="Subject's name: "/></p:column>
-                        <p:column><h:outputText value="#{scheduleController.event.title}"/></p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="Subject's name: "/></p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="#{scheduleController.event.title}"/></p:column>
                     </p:row>
                     <p:row style="border-style: hidden">
-                        <p:column><h:outputText value="Start time: "/></p:column>
-                        <p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="Start time: "/></p:column>
+                        <p:column style="border-style: hidden">
                             <h:outputText value="#{scheduleController.event.startDate}">
                                 <f:convertDateTime pattern="dd/MM/yyyy hh:mm a"/>
                             </h:outputText>
                         </p:column>
                     </p:row>
                     <p:row style="border-style: hidden">
-                        <p:column><h:outputText value="End time: "/></p:column>
-                        <p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="End time: "/></p:column>
+                        <p:column style="border-style: hidden">
                             <h:outputText value="#{scheduleController.event.endDate}">
                                 <f:convertDateTime pattern="dd/MM/yyyy hh:mm a"/>
                             </h:outputText>
                         </p:column>
                     </p:row>
                     <p:row style="border-style: hidden">
-                        <p:column><h:outputText value="Teacher: "/></p:column>
-                        <p:column><h:outputText value="#{scheduleController.event.teacher}"/></p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="Teacher: "/></p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="#{scheduleController.event.teacher}"/></p:column>
                     </p:row>
                     <p:row style="border-style: hidden">
-                        <p:column><h:outputText value="Place: "/></p:column>
-                        <p:column><h:outputText value="#{scheduleController.event.place}"/></p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="Place: "/></p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="#{scheduleController.event.place}"/></p:column>
                     </p:row>
                     <p:row style="border-style: hidden">
-                        <p:column><h:outputText value="Type of activity: "/></p:column>
-                        <p:column><h:outputText value="#{scheduleController.event.activityType}"/></p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="Type of activity: "/></p:column>
+                        <p:column style="border-style: hidden"><h:outputText value="#{scheduleController.event.activityType}"/></p:column>
                     </p:row>
 
                     <p:row style="border-style: hidden">
-                        <p:column><p:outputLabel value="Assigned points: " for="pointsSpinner"/></p:column>
-                        <p:column>
+                        <p:column style="border-style: hidden"><p:outputLabel value="Assigned points: " for="pointsSpinner"/></p:column>
+                        <p:column style="border-style: hidden">
                             <p:spinner id="pointsSpinner" title="Adjust number of points assigned to this term"
                                 value="#{scheduleController.event.points}" size="2" maxlength="2"
                                 min="0" max="#{scheduleController.eventPointsRange}" />
@@ -128,8 +128,8 @@
                     </p:row>
 
                     <p:row style="border-style: hidden">
-                        <p:column><p:outputLabel value="Impossibility: " for="impossibilityChkbx"/></p:column>
-                        <p:column>
+                        <p:column style="border-style: hidden"><p:outputLabel value="Impossibility: " for="impossibilityChkbx"/></p:column>
+                        <p:column style="border-style: hidden">
                             <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{scheduleController.impossible}"
                                widgetVar="impossibilityWidget">
                                     <p:ajax update="reasonPanel"/>
@@ -138,21 +138,25 @@
                     </p:row>
 
                     <p:row style="border-style: hidden">
-                        <p:column><p:commandButton type="reset" value="Discard" /></p:column>
-                        <p:column>
+                        <p:column style="border-style: hidden"><p:commandButton type="reset" value="Discard" /></p:column>
+                        <p:column style="border-style: hidden">
                             <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
                                 update=":form:barRing messages" oncomplete="schedule.update();eventDialog.hide();"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
-                <p:panel id="reasonPanel" header="Substantiation" visible="#{scheduleController.impossible}"
+                <p:panelGrid id="reasonPanel" header="Substantiation" visible="#{scheduleController.impossible}"
                          widgetVar="reasonPanel" toggleable="true" collapsed="false" >
                     <p:row style="border-style: hidden">
-                        <p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"
+                        <p:column style="border-style: hidden">
+                            <p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"
                                      maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>
+                        </p:column>
                     </p:row>
-                    <p:row style="border-style: hidden"><h:outputText id="reasonCounter"/></p:row>
-                </p:panel>
+                    <p:row style="border-style: hidden; text-align: left">
+                        <p:column style="border-style: hidden"><h:outputText id="reasonCounter"/></p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:dialog>
         </h:form>
 
