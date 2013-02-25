@@ -146,6 +146,7 @@ public class Subject implements Serializable {
         return "Subject{" +
                 "SubjectID=" + SubjectID +
                 ", name='" + name + '\'' +
+                ", enroll=" + enroll +
                 '}';
     }
 
@@ -156,7 +157,7 @@ public class Subject implements Serializable {
 
         Subject subject = (Subject) o;
 
-        if (!SubjectID.equals(subject.SubjectID)) return false;
+        if (!enroll.getEnrollID().equals(subject.enroll.getEnrollID())) return false;
         if (!name.equals(subject.name)) return false;
 
         return true;
@@ -164,7 +165,7 @@ public class Subject implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = SubjectID.hashCode();
+        int result = enroll.getEnrollID().hashCode();
         result = 31 * result + name.hashCode();
         return result;
     }

@@ -1,5 +1,7 @@
 package pl.agh.enrollme.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.agh.enrollme.utils.EnrollmentMode;
 
 import javax.persistence.*;
@@ -15,6 +17,7 @@ public class Enroll implements Serializable {
 
     @Transient
     private static final long serialVersionUID = -577123547860923047L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Enroll.class.getName());
 
     @Id
     @GeneratedValue
@@ -45,9 +48,12 @@ public class Enroll implements Serializable {
     }
 
     public void addSubject(Subject subject) {
+        LOGGER.debug("I am trying to add subject: " + subject);
         if(subjects.contains(subject)) {
+            LOGGER.debug("Subject is already persisted, do not persist it again!");
             return;
         }
+        LOGGER.debug("Adding subject ( " + subject + " ) ended with success");
         subjects.add(subject);
     }
 
@@ -134,5 +140,13 @@ public class Enroll implements Serializable {
     @Override
     public int hashCode() {
         return enrollID != null ? enrollID.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Enroll{" +
+                "enrollID=" + enrollID +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
