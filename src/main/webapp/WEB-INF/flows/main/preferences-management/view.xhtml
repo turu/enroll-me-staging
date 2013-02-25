@@ -147,15 +147,17 @@
                 </p:panelGrid>
                 <p:panel id="reasonPanel" header="Substantiation" visible="#{scheduleController.impossible}"
                          widgetVar="reasonPanel" toggleable="true" collapsed="false" >
-                    <p:row style="border-style: hidden">
-                        <p:column style="border-style: hidden">
+                    <!--<p:row style="border-style: hidden">-->
+                        <!--<p:column style="border-style: hidden">-->
                             <p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"
                                      maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>
-                        </p:column>
-                    </p:row>
-                    <p:row style="border-style: hidden; text-align: left">
-                        <p:column style="border-style: hidden"><h:outputText id="reasonCounter"/></p:column>
-                    </p:row>
+                        <!--</p:column>-->
+                    <!--</p:row>-->
+                    <!--<p:row style="border-style: hidden; text-align: left">-->
+                        <!--<p:column style="border-style: hidden">-->
+                            <br/><div style="text-align: left"><h:outputText id="reasonCounter"/></div>
+                        <!--</p:column>-->
+                    <!--</p:row>-->
                 </p:panel>
             </p:dialog>
         </h:form>
