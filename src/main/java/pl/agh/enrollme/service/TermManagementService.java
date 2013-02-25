@@ -116,7 +116,12 @@ public class TermManagementService implements ITermManagementService {
         for (Term term : terms) {
             term.setSubject(subjectDAO.update(term.getSubject()));
             term.setTeacher(teacherDAO.update(term.getTeacher()));
-            term.getSubject().setHasInteractive(!term.getCertain());
+            final Subject subject = term.getSubject();
+
+            if(!subject.getHasInteractive() && !term.getCertain()) {
+                subject.setHasInteractive(true);
+            }
+
             termDAO.add(term);
             LOGGER.debug("Term: " + term + " has been persisted");
         }
