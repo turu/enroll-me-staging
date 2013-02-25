@@ -236,7 +236,7 @@ public class ScheduleController implements Serializable {
         }
 
         //Enforcing base boundaries on term points
-        if (event.getPoints() > enrollConfiguration.getPointsPerTerm() || event.getPoints() < 0) {
+        if (event.getPoints() > enrollConfiguration.getPointsPerTerm() || (event.getPoints() < 0 && event.isPossible())) {
             final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
                     "You surpassed limit of points per term. Change rejected. This incident will be reported!");
             addMessage(message);
@@ -254,7 +254,7 @@ public class ScheduleController implements Serializable {
         final int pointsLeftWithinSubject = enrollConfiguration.getPointsPerSubject() - pointsUsedWithinSubject;
 
         //Enforcing (upper) boundaries on subject points
-        if (pointsDelta > (pointsLeftWithinSubject > 0 ? pointsLeftWithinSubject : 0) + extraPointsLeft) {
+        if (event.isPossible() && pointsDelta > (pointsLeftWithinSubject > 0 ? pointsLeftWithinSubject : 0) + extraPointsLeft) {
             final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
                     "You surpassed limit of points per subject. Change rejected. This incident will be reported!");
             addMessage(message);
