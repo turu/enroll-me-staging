@@ -229,14 +229,19 @@ public class ScheduleController implements Serializable {
 
         event.setShowPoints(true);
         event.setPossible(true);
+        setEventImportance(event);
 
         final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice Changed",
                 "You've just altered your choice (points delta: " + pointsDelta + "). Currently there are " +
                         event.getPoints() + " points assigned to this term. Remember to save your changes frequently!");
+        addMessage(message);
 
         eventModel.updateEvent(event);
 
         LOGGER.debug("Event updated");
+
+        progressController.update();
+        LOGGER.debug("Progress update called");
     }
 
 
