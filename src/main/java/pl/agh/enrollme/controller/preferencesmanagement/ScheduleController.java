@@ -196,6 +196,7 @@ public class ScheduleController implements Serializable {
 
             event.setShowPoints(false);
 
+            setEventImportance(event);
             eventModel.updateEvent(event);
 
             return;
