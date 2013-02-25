@@ -162,6 +162,7 @@ public class ScheduleController implements Serializable {
         final Map<Integer, Integer> pointsMap = progressController.getPointsMap();
 
         reason = termPoints.getReason();
+        impossible = event.isPossible();
 
         if (!event.isPossible()) {
             eventPointsRange = 0;
@@ -173,7 +174,6 @@ public class ScheduleController implements Serializable {
 
         LOGGER.debug("Points range computed to be: " + eventPointsRange);
 
-        impossible = false;
     }
 
     /**
@@ -243,6 +243,7 @@ public class ScheduleController implements Serializable {
         }
 
         termPoints.setPoints(event.getPoints());
+        termPoints.setReason("");
         LOGGER.debug("New points for term: " + term + " set to: " + termPoints.getPoints());
 
         event.setShowPoints(true);
@@ -434,9 +435,6 @@ public class ScheduleController implements Serializable {
             //setting event's end date
             event.setEndDate(t.getEndTime());
 
-            //setting event importance as percent of total points available to this event
-            setEventImportance(event);
-
             //setting event's color to that of event's subject
             event.setColor("#" + subject.getColor());
 
@@ -445,6 +443,9 @@ public class ScheduleController implements Serializable {
 
             //setting whether event is static or not
             event.setInteractive(!t.getCertain() && !p.getAssigned());
+
+            //setting event importance as percent of total points available to this event
+            setEventImportance(event);
 
             //setting whether to display points or not
             event.setShowPoints(!t.getCertain() && event.isPossible() && !p.getAssigned());
