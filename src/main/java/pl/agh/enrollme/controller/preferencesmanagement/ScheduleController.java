@@ -35,6 +35,9 @@ public class ScheduleController implements Serializable {
     //Current reason (of impossibility)
     private String reason = "";
 
+    //True if current event is impossible
+    private Boolean impossible = false;
+
     //Maximum number of points to display in the choice edition dialog while editing current event
     private int eventPointsRange = 0;
 
@@ -119,6 +122,14 @@ public class ScheduleController implements Serializable {
         this.reason = reason;
     }
 
+    public Boolean getImpossible() {
+        return impossible;
+    }
+
+    public void setImpossible(Boolean impossible) {
+        this.impossible = impossible;
+    }
+
     public int getEventPointsRange() {
         return eventPointsRange;
     }
@@ -156,11 +167,13 @@ public class ScheduleController implements Serializable {
             eventPointsRange = 0;
         } else {
             eventPointsRange = enrollConfiguration.getPointsPerSubject() - pointsMap.get(subject.getSubjectID())
-                    + termPoints.getPoints();
+                    + termPoints.getPoints() + enrollConfiguration.getAdditionalPoints() - progressController.getExtraPointsUsed();
             eventPointsRange = Math.min(eventPointsRange, enrollConfiguration.getPointsPerTerm());
         }
 
         LOGGER.debug("Points range computed to be: " + eventPointsRange);
+
+        impossible = false;
     }
 
     /**
@@ -181,7 +194,7 @@ public class ScheduleController implements Serializable {
         final int pointsDelta = event.getPoints() - termPoints.getPoints();
         LOGGER.debug("Points delta: " + pointsDelta);
 
-        if (!event.isPossible()) {
+        if (impossible) {
             final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice Changed",
                     "You've just set an impossibility. It will be reviewed by a year representative." +
                             " Remember to save your changes frequently!!!");
@@ -195,6 +208,7 @@ public class ScheduleController implements Serializable {
             LOGGER.debug("Progress update called");
 
             event.setShowPoints(false);
+            event.setPossible(false);
 
             setEventImportance(event);
             eventModel.updateEvent(event);
@@ -209,6 +223,8 @@ public class ScheduleController implements Serializable {
             addMessage(message);
 
             LOGGER.debug("Base boundaries rules broken!");
+            //reversing change
+            event.setPoints(termPoints.getPoints());
 
             return;
         }
@@ -221,6 +237,7 @@ public class ScheduleController implements Serializable {
             addMessage(message);
 
             LOGGER.debug("Subject points rules broken");
+            event.setPoints(termPoints.getPoints());
 
             return;
         }
@@ -465,7 +482,7 @@ public class ScheduleController implements Serializable {
     }
 
     private void setEventImportance(DefaultEnrollScheduleEvent event) {
-        if (event.isPossible()) {
+        if (event.isPossible() && event.isInteractive()) {
             event.setImportance((int) ((double) event.getPoints() / (double) enrollConfiguration.getPointsPerTerm() * 100));
         } else {
             event.setImportance(100);

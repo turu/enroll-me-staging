@@ -7,7 +7,7 @@
                 template="/WEB-INF/layouts/standard.xhtml">
 
     <ui:define name="title">Preferences Management <br/><br/>
-        <b>Attention!</b> Changes you make to your preferences will not be saved until YOU save them. Save your changes frequently or perish!
+        <b>Attention!</b> Changes you make to your preferences will not be saved until YOU save them. Save frequently or perish!
     </ui:define>
 
     <ui:define name="notes">
@@ -101,11 +101,11 @@
                     <p:outputLabel value="Assigned points: " for="pointsSpinner"/>
                     <p:spinner id="pointsSpinner" title="Adjust number of points assigned to this term"
                                value="#{scheduleController.event.points}" size="2" maxlength="2"
-                               min="0" max="#{scheduleController.eventPointsRange}"/>
+                               min="0" max="#{scheduleController.eventPointsRange}" />
 
-                    <!--<p:outputLabel value="Impossibility" for="impossibilityChkbx"/>-->
-                    <!--<p:selectBooleanCheckbox id="impossibilityChkbx" value="#{!scheduleController.event.possible}"-->
-                               <!--widgetVar="impossibilityWidget" />-->
+                    <p:outputLabel value="Impossibility: " for="impossibilityChkbx"/>
+                    <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{scheduleController.impossible}"
+                               widgetVar="impossibilityWidget" />
 <!---->
                     <!--<p:panel id="reasonPanel" header="Enter substantiation below" visible="${!scheduleController.event.possible}">-->
                         <!--<p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"-->
@@ -116,7 +116,7 @@
 
                     <p:commandButton type="reset" value="Discard" />
                     <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
-                        update=":form:barRing" oncomplete="schedule.update();eventDialog.hide();"/>
+                        update=":form:barRing messages" oncomplete="schedule.update();eventDialog.hide();"/>
                 </h:panelGrid>
             </p:dialog>
         </h:form>
