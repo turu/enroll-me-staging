@@ -192,7 +192,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
     private boolean validateMinimumReached(Map<Integer, Integer> pointsMap, EnrollConfiguration enrollConfiguration) {
         final Integer minimumPointsPerSubject = enrollConfiguration.getMinimumPointsPerSubject();
         for (Integer used : pointsMap.values()) {
-            if (used < minimumPointsPerSubject) {
+            if (used != null && used < minimumPointsPerSubject) {
                 LOGGER.debug("Minimum rule has not been reached!");
                 return false;
             }
