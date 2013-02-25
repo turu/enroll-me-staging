@@ -249,8 +249,12 @@ public class ScheduleController implements Serializable {
         }
 
 
+        final Map<Integer, Integer> pointsMap = progressController.getPointsMap();
+        final Integer pointsUsedWithinSubject = pointsMap.get(term.getSubject().getSubjectID());
+        final int pointsLeftWithinSubject = enrollConfiguration.getPointsPerSubject() - pointsUsedWithinSubject;
+
         //Enforcing (upper) boundaries on subject points
-        if (event.getPoints() > termPoints.getPoints() + extraPointsLeft) {
+        if (pointsDelta > (pointsLeftWithinSubject > 0 ? pointsLeftWithinSubject : 0) + extraPointsLeft) {
             final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
                     "You surpassed limit of points per subject. Change rejected. This incident will be reported!");
             addMessage(message);
