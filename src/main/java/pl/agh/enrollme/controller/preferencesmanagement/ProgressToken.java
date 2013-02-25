@@ -90,4 +90,8 @@ public class ProgressToken implements Serializable {
     public void setProgress(int progress) {
         this.progress = progress;
     }
+
+    public boolean isBelowMinimum() {
+        return pointsUsed < minPoints;
+    }
 }
