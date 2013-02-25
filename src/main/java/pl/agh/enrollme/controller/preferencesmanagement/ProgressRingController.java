@@ -148,6 +148,11 @@ public class ProgressRingController implements Serializable {
         for (StudentPointsPerTerm p : points) {
             final Term term = p.getTerm();
             final Subject subject = term.getSubject();
+
+            if (!subject.getHasInteractive()) {
+                continue;
+            }
+
             Integer value = pointsMap.get(subject.getSubjectID());
             if(value == null) {
                 value = 0;
