@@ -56,7 +56,7 @@
                     #{progressToken.name}
                     <p:progressBar id="pointsProgress" value="#{progressToken.progress}" labelTemplate="{value}%"
                                    displayOnly="true" />
-                    <h:outputText style="color: #{progressToken.pointsUsed < progressToken.minPoints ? '#ff0000' : '#000000'};"
+                    <h:outputText style="color: #{progressToken.isBelowMinimum() ? '#ff0000' : '#000000'};"
                         value="#{progressToken.pointsUsed} out of #{progressToken.maxPoints}"
                     />
                 </p:ring>
