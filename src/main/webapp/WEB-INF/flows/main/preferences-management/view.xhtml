@@ -84,40 +84,62 @@
             </p:enrollSchedule>
 
             <p:dialog widgetVar="eventDialog" header="Term Details" showEffect="clip" hideEffect="clip" modal="true">
-                <h:panelGrid id="eventDetails" columns="2">
-                    <h:outputText value="Subject's name: "/>
-                    <h:outputText value="#{scheduleController.event.title}"/>
-                    <h:outputText value="Start time: "/>
-                    <h:outputText value="#{scheduleController.event.startDate}"/>
-                    <h:outputText value="End time: "/>
-                    <h:outputText value="#{scheduleController.event.endDate}"/>
-                    <h:outputText value="Teacher: "/>
-                    <h:outputText value="#{scheduleController.event.teacher}"/>
-                    <h:outputText value="Place: "/>
-                    <h:outputText value="#{scheduleController.event.place}"/>
-                    <h:outputText value="Type of activity: "/>
-                    <h:outputText value="#{scheduleController.event.activityType}"/>
+                <p:panelGrid id="eventDetails">
+                    <p:row>
+                        <h:outputText value="Subject's name: "/>
+                        <h:outputText value="#{scheduleController.event.title}"/>
+                    </p:row>
+                    <p:row>
+                        <h:outputText value="Start time: "/>
+                        <h:outputText value="#{scheduleController.event.startDate}">
+                            <f:convertDateTime pattern="dd/MM/yyyy hh:mm a"/>
+                        </h:outputText>
+                    </p:row>
+                    <p:row>
+                        <h:outputText value="End time: "/>
+                        <h:outputText value="#{scheduleController.event.endDate}">
+                            <f:convertDateTime pattern="dd/MM/yyyy hh:mm a"/>
+                        </h:outputText>
+                    </p:row>
+                    <p:row>
+                        <h:outputText value="Teacher: "/>
+                        <h:outputText value="#{scheduleController.event.teacher}"/>
+                    </p:row>
+                    <p:row>
+                        <h:outputText value="Place: "/>
+                        <h:outputText value="#{scheduleController.event.place}"/>
+                    </p:row>
+                    <p:row>
+                        <h:outputText value="Type of activity: "/>
+                        <h:outputText value="#{scheduleController.event.activityType}"/>
+                    </p:row>
 
-                    <p:outputLabel value="Assigned points: " for="pointsSpinner"/>
-                    <p:spinner id="pointsSpinner" title="Adjust number of points assigned to this term"
+                    <p:row>
+                        <p:outputLabel value="Assigned points: " for="pointsSpinner"/>
+                        <p:spinner id="pointsSpinner" title="Adjust number of points assigned to this term"
                                value="#{scheduleController.event.points}" size="2" maxlength="2"
                                min="0" max="#{scheduleController.eventPointsRange}" />
+                    </p:row>
 
-                    <p:outputLabel value="Impossibility: " for="impossibilityChkbx"/>
-                    <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{scheduleController.impossible}"
-                               widgetVar="impossibilityWidget" />
-<!---->
-                    <!--<p:panel id="reasonPanel" header="Enter substantiation below" visible="${!scheduleController.event.possible}">-->
-                        <!--<p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"-->
-                               <!--maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>-->
-<!---->
-                        <!--<h:outputText id="reasonCounter"/>-->
-                    <!--</p:panel>-->
+                    <p:row>
+                        <p:outputLabel value="Impossibility: " for="impossibilityChkbx"/>
+                        <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{scheduleController.impossible}"
+                               widgetVar="impossibilityWidget"/>
+                    </p:row>
 
-                    <p:commandButton type="reset" value="Discard" />
-                    <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
-                        update=":form:barRing messages" oncomplete="schedule.update();eventDialog.hide();"/>
-                </h:panelGrid>
+                    <p:row>
+                        <p:commandButton type="reset" value="Discard" />
+                        <p:commandButton value="OK" actionListener="#{scheduleController.updateEvent}"
+                            update=":form:barRing messages" oncomplete="schedule.update();eventDialog.hide();"/>
+                    </p:row>
+                </p:panelGrid>
+                <p:panel id="reasonPanel" header="Substantiation" visible="#{scheduleController.impossible}"
+                         widgetVar="reasonPanel" toggleable="true" collapsed="#{scheduleController.impossible}" >
+                    <p:inputTextarea id="reasonArea" value="#{scheduleController.reason}" rows="6" cols="33"
+                                     maxlength="200" counter="reasonCounter" counterTemplate="{0} characters remaining"/>
+
+                    <h:outputText id="reasonCounter"/>
+                </p:panel>
             </p:dialog>
         </h:form>
 
