@@ -54,6 +54,7 @@ public class Person implements Serializable, UserDetails {
     private List<Group> groups;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "person_subject")
     private List<Subject> subjects = new ArrayList<>();
 
     @ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)
@@ -61,6 +62,7 @@ public class Person implements Serializable, UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @Fetch(value = FetchMode.SUBSELECT)
+    @JoinTable(name = "person_savedsubject")
     private List<Subject> subjectsSaved = new ArrayList<>();
 
 
