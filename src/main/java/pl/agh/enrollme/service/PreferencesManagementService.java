@@ -182,7 +182,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         //TODO: Record that the user successfully enrolled and can be exported...
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice updated", "Changes successfully saved. "
-            + addedCount + " terms have been added, " + updatedCount + " updated, " + removedCount + " removed from the datebase");
+            + addedCount + " term points have been added, " + updatedCount + " updated, " + removedCount + " removed from the datebase");
         addMessage(message);
 
         LOGGER.debug("Saving finished");
