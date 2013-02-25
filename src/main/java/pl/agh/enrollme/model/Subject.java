@@ -47,6 +47,9 @@ public class Subject implements Serializable {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Teacher teacher;
 
+    //Says whether this subject has at least one non-certain term associated with it
+    private Boolean hasInteractive = false;
+
     public Subject() {
         teacher = new Teacher("","","","");
     }
@@ -164,5 +167,13 @@ public class Subject implements Serializable {
         int result = SubjectID.hashCode();
         result = 31 * result + name.hashCode();
         return result;
+    }
+
+    public Boolean getHasInteractive() {
+        return hasInteractive;
+    }
+
+    public void setHasInteractive(Boolean hasInteractive) {
+        this.hasInteractive = hasInteractive;
     }
 }
