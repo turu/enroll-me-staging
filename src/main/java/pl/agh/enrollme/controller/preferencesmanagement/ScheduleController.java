@@ -167,7 +167,7 @@ public class ScheduleController implements Serializable {
 
         possibleEventPointsRange = enrollConfiguration.getPointsPerSubject() - pointsMap.get(subject.getSubjectID())
                 + termPoints.getPoints() + enrollConfiguration.getAdditionalPoints() - progressController.getExtraPointsUsed();
-        possibleEventPointsRange = Math.min(eventPointsRange, enrollConfiguration.getPointsPerTerm());
+        possibleEventPointsRange = Math.min(possibleEventPointsRange, enrollConfiguration.getPointsPerTerm());
 
         if (!event.isPossible()) {
             eventPointsRange = 0;

@@ -134,7 +134,7 @@
                         <p:column style="border-style: hidden">
                             <p:selectBooleanCheckbox id="impossibilityChkbx" value="#{scheduleController.impossible}"
                                widgetVar="impossibilityWidget">
-                                    <p:ajax update="reasonPanel"/>
+                                    <p:ajax update="reasonPanel pointsSpinner" listener="#{scheduleController.updateSpinner}"/>
                                </p:selectBooleanCheckbox>
                         </p:column>
                     </p:row>
