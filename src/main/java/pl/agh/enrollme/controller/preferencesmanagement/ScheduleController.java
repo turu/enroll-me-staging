@@ -212,7 +212,7 @@ public class ScheduleController implements Serializable {
         if (impossible) {
             final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Choice Changed",
                     "You've just set an impossibility. It will be reviewed by a year representative." +
-                            " Remember to save your changes frequently!!!");
+                            " Remember to save your changes frequently!");
             addMessage(message);
 
             termPoints.setReason(reason);
@@ -234,7 +234,7 @@ public class ScheduleController implements Serializable {
         //Enforcing base boundaries on term points
         if (event.getPoints() > enrollConfiguration.getPointsPerTerm() || event.getPoints() < -1) {
             final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
-                    "You surpassed limit of points per term. Change rejected.");
+                    "You surpassed limit of points per term. Change rejected. This incident will be reported!");
             addMessage(message);
 
             LOGGER.debug("Base boundaries rules broken!");
@@ -248,7 +248,7 @@ public class ScheduleController implements Serializable {
         //Enforcing (upper) boundaries on subject points
         if (termPoints.getPoints() + pointsDelta > enrollConfiguration.getPointsPerSubject() + extraPointsLeft) {
             final FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!",
-                    "You surpassed limit of points per subject. Change rejected.");
+                    "You surpassed limit of points per subject. Change rejected. This incident will be reported!");
             addMessage(message);
 
             LOGGER.debug("Subject points rules broken");
