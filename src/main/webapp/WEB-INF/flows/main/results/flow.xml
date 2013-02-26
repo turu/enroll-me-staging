@@ -14,12 +14,17 @@
 
     <view-state id="view">
 
-        <transition on="subjectResults" to="detailed-results"/>
-        <transition on="teacherResults" to="detailed-results"/>
+        <transition on="subjectResults" to="subject-results"/>
+        <transition on="teacherResults" to="teacher-results"/>
         <transition on="done" to="theEnd"/>
     </view-state>
     
-    <view-state id="detailed-results">
+    <view-state id="subject-results">
+        <transition on="done" to="view">
+        </transition>
+    </view-state>
+
+    <view-state id="teacher-results">
         <transition on="done" to="view">
         </transition>
     </view-state>
