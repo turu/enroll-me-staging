@@ -18,11 +18,12 @@
     <h:form id="form">
         <p:messages id="messages"/>
 
-        <p:dataTable id="termsTable" var="term" value="#{terms}" rendered="#{!terms.isEmpty()}" >
+        <p:dataTable id="termsTable" var="term" value="#{terms}" emptyMessage="No terms found"/>
+        <!-- rendered="# {!terms.isEmpty()}" -->
 
-            <f:facet name="header">
-                <h:outputText value="#{terms.get(0).subject.name}" />
-            </f:facet>
+            <!-- <f:facet name="header">
+                <h:outputText value="# {terms.get(0).subject.name}" />
+            </f:facet> -->
 
             <!-- <p:columnGroup type="header">
                 <p:row>
@@ -30,12 +31,12 @@
                     <p:column headerText="Teacher" />
                 </p:row>
             </p:columnGroup>
-
+                -->
             <p:column>
-                #           {term.subject.name}
+                #{term.subject.name}
             </p:column>
 
-
+                   <!--
             <p:subTable var="studentPoints" value="# {studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
                 <p:columnGroup type="header">
                     <p:row>
