@@ -11,8 +11,11 @@
 
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
-    <view-state id="subject-management">
+    <on-start>
+        <evaluate expression="subjectManagementService.initialize(currentEnrollment)"/>
+    </on-start>
 
+    <view-state id="subject-management">
         <on-render>
             <!--<evaluate expression="enrollmentDAO.getByPK(currentEnrollment.enrollID)" result="currentEnrollment"/>-->
             <evaluate expression="subjectDAO.getSubjectsByEnrollment(currentEnrollment)" result="viewScope.subjectList"/>
@@ -21,14 +24,19 @@
         <transition on="add">
             <set name="newSubject.enroll" value="currentEnrollment"/>
             <set name="newSubject.teacher" value="selectedTeacher"/>
-            <!--<evaluate expression="subjectDAO.add(newSubject)"/>-->
-            <evaluate expression="currentEnrollment.addSubject(newSubject)"/>
-            <evaluate expression="enrollmentDAO.update(currentEnrollment)"/>
+            <evaluate expression="subjectManagementService.addSubject(newSubject)"/>
             <set name="newSubject" value="new pl.agh.enrollme.model.Subject()"/>
         </transition>
-        <transition on="submitAndNext" to="subjectsAssigned"/>
-        <transition on="skip" to="skipFurtherConfiguration"/>
-        <transition on="teachers" to="teachers"/>
+        <transition on="submitAndNext" to="subjectsAssigned">
+            <evaluate expression="subjectManagementService.saveState()"/>
+        </transition>
+        <transition on="skip" to="skipFurtherConfiguration">
+            <evaluate expression="subjectManagementService.saveState()"/>
+        </transition>
+        <transition on="teachers" to="teachers">
+            <!--Save unsaved subject despite the fact going to teachers...-->
+            <evaluate expression="subjectManagementService.saveState()"/>
+        </transition>
     </view-state>
 
     <end-state id="subjectsAssigned"/>

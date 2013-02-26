@@ -5,8 +5,23 @@
 
     <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
+    <!-- FIXME: use of ArrayList instead of generic list is not desirable
+    (no guarantee that the actual type of List provided by DAO is ArrayList),
+    any ideas? -->
+    <var name="terms" class="java.util.ArrayList"/>
+
+    <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
+
     <view-state id="view">
+
+        <transition on="subjectResults" to="detailed-results"/>
+        <transition on="teacherResults" to="detailed-results"/>
         <transition on="done" to="theEnd"/>
+    </view-state>
+    
+    <view-state id="detailed-results">
+        <transition on="done" to="view">
+        </transition>
     </view-state>
 
     <end-state id="theEnd"/>

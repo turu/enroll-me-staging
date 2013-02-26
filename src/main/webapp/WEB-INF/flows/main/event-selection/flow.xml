@@ -14,6 +14,7 @@
             <evaluate expression="enrollmentDAO.getList()" result="viewScope.enrollmentList"/>
         </on-render>
         <transition on="eventChosen" to="activeChosen"/>
+        <transition on="eventComplete" to="eventComplete"/>
      </view-state>
 
     <end-state id="activeChosen">

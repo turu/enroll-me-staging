@@ -1,0 +1,78 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	    		xmlns:ui="http://java.sun.com/jsf/facelets"
+	  			xmlns:h="http://java.sun.com/jsf/html"
+	  			xmlns:f="http://java.sun.com/jsf/core"
+	  			xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/layouts/standard.xhtml">
+
+<ui:define name="title"> Choose subjects you want enroll for and push the Submit button
+</ui:define>
+
+<ui:define name="notes">
+
+</ui:define>
+
+<ui:define name="content">
+
+    <h:form id="form">
+        <p:messages id="messages"/>
+
+        <p:dataTable id="termsTable" var="term" value="#{terms}" emptyMessage="No terms found">
+        <!-- rendered="# {!terms.isEmpty()}" -->
+
+            <!-- <f:facet name="header">
+                <h:outputText value="# {terms.get(0).subject.name}" />
+            </f:facet> -->
+
+            <!-- <p:columnGroup type="header">
+                <p:row>
+                    <p:column headerText="Time" />
+                    <p:column headerText="Teacher" />
+                </p:row>
+            </p:columnGroup>
+                -->
+
+            <p:subTable var="studentPoints" value="#{studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
+
+                <f:facet name="header">
+                    #{term.subject.name}
+                    #{term.teacher.degree} #{term.teacher.firstName} #{term.teacher.secondName}
+                    #{term.startTime} #{term.endTime}
+                </f:facet>
+
+                <p:column>
+                    #{studentPoints.person.lastName} #{studentPoints.person.firstName}
+                </p:column>
+            </p:subTable>
+
+            <!--
+     <p:subTable var="studentPoints" value="# {studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
+         <p:columnGroup type="header">
+             <p:row>
+                 <p:column headerText="term.termPerSubjectID term.subject.name"/>
+                 <p:column headerText="term.teacher.degree term.teacher.firstName term.teacher.secondName"/>
+             </p:row>
+         </p:columnGroup>
+
+
+         <p:column>
+             #     {studentPoints.person.lastName} #     {studentPoints.person.firstName}
+         </p:column>
+
+         <p:columnGroup type="footer">
+             <p:row>
+                 <p:column footerText="Total students: " style="text-align:right"/>
+                 <p:column footerText="{studentPointsPerTermDAO.getStudentsAssignedToTerm(term).size()}" />
+             </p:row>
+         </p:columnGroup>
+
+     </p:subTable>       -->
+
+        </p:dataTable>
+    </h:form>
+
+
+</ui:define>
+
+</ui:composition>
