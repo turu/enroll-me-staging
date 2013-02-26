@@ -33,13 +33,12 @@
             </p:columnGroup>
                 -->
 
-            <p:columnGroup type="header">
-                <p:row>
-                    <p:column headerText="#{term.subject.name}" />
-                </p:row>
-            </p:columnGroup>
-
             <p:subTable var="studentPoints" value="#{studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
+
+                <f:facet name="header">
+                    #{term.subject.name}
+                </f:facet>
+
                 <p:column>
                     #{studentPoints.person.lastName} #{studentPoints.person.firstName}
                 </p:column>
