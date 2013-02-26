@@ -161,6 +161,8 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             StudentPointsPerTerm termPoint;
             Term term;
 
+            LOGGER.debug("Persisting sppt: " + tp);
+
             termPoint = pointsDAO.getByPK(tp.getId());
 
             if (termPoint != null) {
@@ -172,6 +174,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             //termPoint is not present in the database
             if (termPoint == null) {
                 if (tp.getPoints() != 0) {
+                    if (tp.getId() != null || tp.getId() != 0) {
+                        LOGGER.debug("SPPT.id to be added was previously set, but has been cleared now");
+                        tp.setId(0);
+                    }
                     pointsDAO.add(tp);
                     LOGGER.debug("Term points: " + termPoint + " added to the datebase");
                     addedCount++;
