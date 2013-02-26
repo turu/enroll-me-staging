@@ -14,6 +14,7 @@
         <transition on="subjects" to="subject-management"/>
         <transition on="generateFiles" to="generate-files"/>
         <transition on="impossibilities" to="impossibilities-management"/>
+        <transition on="importFile" to="import-files"/>
     </view-state>
 
     <subflow-state id="embedded-flow" subflow="top-flow-with-embedded-subflow/embedded-flow">
@@ -44,6 +45,13 @@
         <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
         <transition on="finished" to="configure-existing-enrollment"/>
     </subflow-state>
+
+    <subflow-state id="import-files" subflow="main/admin-panel/configure-already-created-enrollment/import-files">
+        <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
+        <transition on="upload" to="updated"/>
+    </subflow-state>
+
+
 
     <end-state id="updated"/>
     <end-state id="cancell"/>
