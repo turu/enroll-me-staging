@@ -20,23 +20,23 @@
 
         <p:dataTable id="termsTable" var="term" value="#{terms}" rendered="#{!terms.isEmpty()}" >
 
-            <!-- <f:facet name="header">
-                <h:outputText value="#           {terms.get(0).subject.name}" />
-            </f:facet> -->
+            <f:facet name="header">
+                <h:outputText value="#{terms.get(0).subject.name}" />
+            </f:facet>
 
-            <p:columnGroup type="header">
+            <!-- <p:columnGroup type="header">
                 <p:row>
                     <p:column headerText="Time" />
                     <p:column headerText="Teacher" />
                 </p:row>
             </p:columnGroup>
 
-            <!--<p:column>
+            <p:column>
                 #           {term.subject.name}
-            </p:column>-->
+            </p:column>
 
 
-            <p:subTable var="studentPoints" value="#{studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
+            <p:subTable var="studentPoints" value="# {studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
                 <p:columnGroup type="header">
                     <p:row>
                         <p:column headerText="term.termPerSubjectID term.subject.name"/>
@@ -44,19 +44,19 @@
                     </p:row>
                 </p:columnGroup>
 
-                <!--
+
                 <p:column>
                     #     {studentPoints.person.lastName} #     {studentPoints.person.firstName}
-                </p:column>-->
+                </p:column>
 
-                <!-- <p:columnGroup type="footer">
+                <p:columnGroup type="footer">
                     <p:row>
                         <p:column footerText="Total students: " style="text-align:right"/>
                         <p:column footerText="{studentPointsPerTermDAO.getStudentsAssignedToTerm(term).size()}" />
                     </p:row>
-                </p:columnGroup> -->
+                </p:columnGroup>
 
-            </p:subTable>
+            </p:subTable>       -->
 
         </p:dataTable>
     </h:form>
