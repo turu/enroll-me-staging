@@ -179,7 +179,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
                     LOGGER.debug("Term points: " + termPoint + " not present in the datebase, but zero-point");
                 }
             } else if (!termPoint.getAssigned() && !term.getCertain()) { //is present in the database and isn't assigned yet and corresponding term isn't certain
-                if (termPoint.getPoints() == 0) {
+                if (tp.getPoints() == 0) {
                     pointsDAO.remove(termPoint);
                     LOGGER.debug("Term points: " + termPoint + " removed from the datebase");
                     removedCount++;
