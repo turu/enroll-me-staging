@@ -112,21 +112,13 @@ public class TermManagementService implements ITermManagementService {
                 continue;
             }
 
-            final Subject termSubject = term.getSubject();
-            final Integer id = termCounters.get(termSubject.getSubjectID());
-            term.setTermPerSubjectID(id);
-            termCounters.put(termSubject.getSubjectID(), id+1);
-            LOGGER.debug("Term: " + term + " set termpersubjectid to " + id);
+            setTermPerSubjectID(termCounters, term);
         }
         LOGGER.debug("Non-certain terms' ids set");
 
         //Setting TermPerSubjectID of certain terms
         for (Term term : certainTerms) {
-            final Subject termSubject = term.getSubject();
-            final Integer id = termCounters.get(termSubject.getSubjectID());
-            term.setTermPerSubjectID(id);
-            termCounters.put(termSubject.getSubjectID(), id+1);
-            LOGGER.debug("Term: " + term + " set termpersubjectid to " + id);
+            setTermPerSubjectID(termCounters, term);
         }
         LOGGER.debug("IDs set");
 
@@ -146,6 +138,14 @@ public class TermManagementService implements ITermManagementService {
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Data saved", terms.size() + " terms were saved.");
         addMessage(message);
+    }
+
+    private void setTermPerSubjectID(Map<Integer, Integer> termCounters, Term term) {
+        final Subject termSubject = term.getSubject();
+        final Integer id = termCounters.get(termSubject.getSubjectID());
+        term.setTermPerSubjectID(id);
+        termCounters.put(termSubject.getSubjectID(), id+1);
+        LOGGER.debug("Term: " + term + " set termpersubjectid to " + id);
     }
 
     /**
