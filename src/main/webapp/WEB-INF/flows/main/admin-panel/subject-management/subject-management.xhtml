@@ -101,9 +101,14 @@
                 </p:cellEditor>
             </p:column>
             <p:column headerText="Color">
-                <p:cellEditor>
+                <!--<p:cellEditor>-->
+                    <!--<f:facet name="output">-->
+                        <!--<h:outputText value="#{subject.color}"/>-->
+                    <!--</f:facet>-->
+                    <!--<f:facet name="input">-->
                         <p:colorPicker value="#{subject.color}"/>
-                </p:cellEditor>
+                    <!--</f:facet>-->
+                <!--</p:cellEditor>-->
             </p:column>
             <p:column>
                 <p:rowEditor/>
