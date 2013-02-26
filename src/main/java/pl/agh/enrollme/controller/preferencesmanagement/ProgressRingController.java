@@ -212,8 +212,8 @@ public class ProgressRingController implements Serializable {
             progressTokens.add(token);
         }
 
-        //if there are exactly 2 progress tokens, clone the second one (to prevent unwanted behaviour of the ring component)
-        if (progressTokens.size() == 2) {
+        //if there is even number of progress tokens, clone the second one (to prevent unwanted behaviour of the ring component)
+        if (progressTokens.size() % 2 == 0) {
             progressTokens.add(progressTokens.get(1));
             final ProgressToken token = progressTokens.get(2);
             LOGGER.debug("Additional token created: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
