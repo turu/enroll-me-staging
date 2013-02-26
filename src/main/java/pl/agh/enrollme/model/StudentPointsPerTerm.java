@@ -30,7 +30,7 @@ public class StudentPointsPerTerm implements Serializable {
 
     private Boolean assigned;   //if true, person has been assigned given term
 
-    private Boolean accepted;
+    private Boolean accepted = false;
 
     public StudentPointsPerTerm() {
     }
