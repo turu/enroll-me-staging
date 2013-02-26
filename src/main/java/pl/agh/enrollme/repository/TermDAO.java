@@ -38,7 +38,8 @@ public class TermDAO extends GenericDAO<Term> implements ITermDAO {
     @Override
     @Transactional
     public List<Term> getTermsBySubjectAndTeacher(Subject subject, Teacher teacher) {
-        final String queryString = "Select t from Term t where t.subject = :subject and t.teacher = :teacher";
+        final String queryString =
+                "Select t from Term t where t.subject = :subject and t.teacher = :teacher";
 
         final TypedQuery<Term> query = em
                 .createQuery(queryString, Term.class)
