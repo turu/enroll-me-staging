@@ -16,10 +16,10 @@ public class StudentPointsPerTerm implements Serializable {
     @GeneratedValue
     private Integer Id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Term term;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Person person;
 
     //-1 if NIEMOZLIWOŚĆ
@@ -29,6 +29,8 @@ public class StudentPointsPerTerm implements Serializable {
     private String reason;
 
     private Boolean assigned;   //if true, person has been assigned given term
+
+    private Boolean accepted;
 
     public StudentPointsPerTerm() {
     }
@@ -87,6 +89,14 @@ public class StudentPointsPerTerm implements Serializable {
 
     public void setAssigned(Boolean assigned) {
         this.assigned = assigned;
+    }
+
+    public Boolean getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        this.accepted = accepted;
     }
 
     @Override

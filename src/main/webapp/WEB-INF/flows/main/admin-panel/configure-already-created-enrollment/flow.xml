@@ -13,6 +13,7 @@
         <transition on="terms" to="term-management"/>
         <transition on="subjects" to="subject-management"/>
         <transition on="generateFiles" to="generate-files"/>
+        <transition on="impossibilities" to="impossibilities-management"/>
     </view-state>
 
     <subflow-state id="embedded-flow" subflow="top-flow-with-embedded-subflow/embedded-flow">
@@ -37,6 +38,11 @@
     <subflow-state id="generate-files" subflow="main/admin-panel/configure-already-created-enrollment/generate-files">
         <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
         <transition on="downloaded" to="configure-existing-enrollment"/>
+    </subflow-state>
+
+    <subflow-state id="impossibilities-management" subflow="main/admin-panel/impossibilities-management">
+        <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
+        <transition on="finished" to="configure-existing-enrollment"/>
     </subflow-state>
 
     <end-state id="updated"/>
