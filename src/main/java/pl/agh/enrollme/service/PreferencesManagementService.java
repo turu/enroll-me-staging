@@ -184,6 +184,8 @@ public class PreferencesManagementService implements IPreferencesManagementServi
                     LOGGER.debug("Term points: " + termPoint + " removed from the datebase");
                     removedCount++;
                 } else {
+                    termPoint.setPoints(tp.getPoints());
+                    termPoint.setReason(tp.getReason());
                     pointsDAO.update(termPoint);
                     LOGGER.debug("Term points: " + termPoint + " updated in the datebase");
                     updatedCount++;
