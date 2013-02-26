@@ -123,7 +123,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         if (currentEnroll.getEnrollmentMode() == EnrollmentMode.CLOSED
                 || currentEnroll.getEnrollmentMode()  == EnrollmentMode.COMPLETED) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Enroll closed!", "Current enrollment has" +
-                    " either closed or completed. Unfortunatelly, saving is no longer possible. Contact ... someone ;)");
+                    " either closed or completed. Unfortunately, saving is no longer possible. Contact ... someone ;)");
             addMessage(message);
 
             LOGGER.debug("Save requested after enroll had been completed/closed!");
@@ -142,8 +142,8 @@ public class PreferencesManagementService implements IPreferencesManagementServi
 
         //Validating
         if (!validateMinimumReached(pointsMap, enrollConfiguration)) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!", "You have not reached minimum" +
-                    "rule for all subjects. Cannot save!");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!", "You have not satisfied minimum" +
+                    " rule for all subjects. Cannot save!");
             addMessage(message);
 
             LOGGER.debug("Minimum rule broken!");
@@ -161,6 +161,8 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             StudentPointsPerTerm termPoint;
             Term term;
 
+            LOGGER.debug("Persisting sppt: " + tp);
+
             termPoint = pointsDAO.getByPK(tp.getId());
 
             if (termPoint != null) {
@@ -172,6 +174,10 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             //termPoint is not present in the database
             if (termPoint == null) {
                 if (tp.getPoints() != 0) {
+                    if (tp.getId() != null || tp.getId() != 0) {
+                        LOGGER.debug("SPPT.id to be added was previously set, but has been cleared now");
+                        tp.setId(0);
+                    }
                     pointsDAO.add(tp);
                     LOGGER.debug("Term points: " + termPoint + " added to the datebase");
                     addedCount++;
@@ -179,11 +185,14 @@ public class PreferencesManagementService implements IPreferencesManagementServi
                     LOGGER.debug("Term points: " + termPoint + " not present in the datebase, but zero-point");
                 }
             } else if (!termPoint.getAssigned() && !term.getCertain()) { //is present in the database and isn't assigned yet and corresponding term isn't certain
-                if (termPoint.getPoints() == 0) {
+                if (tp.getPoints() == 0) {
                     pointsDAO.remove(termPoint);
+                    tp = new StudentPointsPerTerm(tp.getTerm(), tp.getPerson(), 0, "", false);
                     LOGGER.debug("Term points: " + termPoint + " removed from the datebase");
                     removedCount++;
                 } else {
+                    termPoint.setPoints(tp.getPoints());
+                    termPoint.setReason(tp.getReason());
                     pointsDAO.update(termPoint);
                     LOGGER.debug("Term points: " + termPoint + " updated in the datebase");
                     updatedCount++;

@@ -57,7 +57,7 @@ public class AdminScheduleController implements Serializable {
     //Enroll data end
 
     //Mapping from EventID to Term
-    private Map<String, Term> eventToTermMap = new HashMap<>();
+    private Map<String, Term> eventToTermMap = new LinkedHashMap<>();
 
     //Schedule component attributes
     private boolean periodic = true;
