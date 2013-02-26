@@ -32,9 +32,12 @@
                 </p:row>
             </p:columnGroup>
                 -->
-            <p:column>
-                #{term.subject.name}
-            </p:column>
+
+            <p:columnGroup type="header">
+                <p:row>
+                    <p:column headerText="#{term.subject.name}" />
+                </p:row>
+            </p:columnGroup>
 
             <p:subTable var="studentPoints" value="#{studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
                 <p:column>
