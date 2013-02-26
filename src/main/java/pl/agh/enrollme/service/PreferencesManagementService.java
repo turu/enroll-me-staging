@@ -161,11 +161,11 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             StudentPointsPerTerm termPoint;
             Term term;
 
-            if (tp.getId() != null) {
-                termPoint = pointsDAO.getByPK(tp.getId());
+            termPoint = pointsDAO.getByPK(tp.getId());
+
+            if (termPoint != null) {
                 term = termPoint.getTerm();
             } else {
-                termPoint = null;
                 term = null;
             }
 
