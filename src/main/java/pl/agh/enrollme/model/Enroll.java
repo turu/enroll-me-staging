@@ -17,6 +17,7 @@ public class Enroll implements Serializable {
 
     @Transient
     private static final long serialVersionUID = -577123547860923047L;
+    @Transient
     private static final Logger LOGGER = LoggerFactory.getLogger(Enroll.class.getName());
 
     @Id

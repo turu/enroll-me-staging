@@ -29,9 +29,11 @@ public class SubjectManagementService {
     private Enroll enrollment;
 
     public void initialize(Enroll enrollment) {
+        LOGGER.debug("initialize with enrollment: " + enrollment.getEnrollID() + ". " + enrollment.getName());
         this.enrollment = enrollmentDAO.getByPK(enrollment.getEnrollID());
-        this.oldSubjects = enrollment.getSubjects();
-        oldSubjects = subjects;
+        this.oldSubjects = this.enrollment.getSubjects();
+        this.subjects = new ArrayList<>();
+        this.subjects.addAll(this.enrollment.getSubjects());
     }
 
     public void saveState() {

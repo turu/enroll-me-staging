@@ -2,6 +2,7 @@ package pl.agh.enrollme.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +16,8 @@ import java.util.List;
 public class Subject implements Serializable {
     @Transient
     private static final long serialVersionUID = -5771235478609230476L;
+    @Transient
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Subject.class.getName());
 
     @Id
     @GeneratedValue
@@ -157,16 +160,16 @@ public class Subject implements Serializable {
 
         Subject subject = (Subject) o;
 
-        if (!enroll.getEnrollID().equals(subject.enroll.getEnrollID())) return false;
-        if (!name.equals(subject.name)) return false;
+        if (enroll != null ? !enroll.equals(subject.enroll) : subject.enroll != null) return false;
+        if (name != null ? !name.equals(subject.name) : subject.name != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = enroll.getEnrollID().hashCode();
-        result = 31 * result + name.hashCode();
+        int result = enroll != null ? enroll.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 
