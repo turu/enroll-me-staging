@@ -143,7 +143,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         //Validating
         if (!validateMinimumReached(pointsMap, enrollConfiguration)) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!", "You have not reached minimum" +
-                    "rule for all subjects. Can not save!");
+                    "rule for all subjects. Cannot save!");
             addMessage(message);
 
             LOGGER.debug("Minimum rule broken!");
@@ -166,6 +166,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
                 term = termPoint.getTerm();
             } else {
                 termPoint = null;
+                term = null;
             }
 
             //termPoint is not present in the database
@@ -177,7 +178,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
                 } else {
                     LOGGER.debug("Term points: " + termPoint + " not present in the datebase, but zero-point");
                 }
-            } else if (!termPoint.getAssigned() && !termPoint.getTerm().getCertain()) { //is present in the database and isn't assigned yet and corresponding term isn't certain
+            } else if (!termPoint.getAssigned() && !term.getCertain()) { //is present in the database and isn't assigned yet and corresponding term isn't certain
                 if (termPoint.getPoints() == 0) {
                     pointsDAO.remove(termPoint);
                     LOGGER.debug("Term points: " + termPoint + " removed from the datebase");
