@@ -36,6 +36,11 @@
             <p:subTable var="teacher" value="#{teacherDAO.getTeachersForSubject(subject)}">
                 <f:facet name="header">
                     #{subject.name}
+                    <p:commandButton value="See results" action="subjectResults">
+                        <f:setPropertyActionListener
+                            value="#{termDAO.getTermsBySubject(subject)}"
+                            target="#{terms}"/>
+                    </p:commandButton>
                 </f:facet>
 
                 <p:column>
