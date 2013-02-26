@@ -181,6 +181,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
             } else if (!termPoint.getAssigned() && !term.getCertain()) { //is present in the database and isn't assigned yet and corresponding term isn't certain
                 if (tp.getPoints() == 0) {
                     pointsDAO.remove(termPoint);
+                    tp = new StudentPointsPerTerm(tp.getTerm(), tp.getPerson(), 0, "", false);
                     LOGGER.debug("Term points: " + termPoint + " removed from the datebase");
                     removedCount++;
                 } else {
