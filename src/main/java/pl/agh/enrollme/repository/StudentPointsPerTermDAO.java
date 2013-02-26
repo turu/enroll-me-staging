@@ -45,7 +45,7 @@ public class StudentPointsPerTermDAO extends GenericDAO<StudentPointsPerTerm> im
     @Override
     @Transactional
     public List<StudentPointsPerTerm> getStudentsAssignedToTerm(Term term) {
-        final String queryString = "from StudentPointsPerTerm where term = :term";
+        final String queryString = "from StudentPointsPerTerm where term = :term and assigned = true";
 
         final TypedQuery<StudentPointsPerTerm> query = em
                 .createQuery(queryString, StudentPointsPerTerm.class)
