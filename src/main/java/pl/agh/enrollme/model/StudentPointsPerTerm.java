@@ -16,10 +16,10 @@ public class StudentPointsPerTerm implements Serializable {
     @GeneratedValue
     private Integer Id = 0;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER)
     private Term term;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER)
     private Person person;
 
     //-1 if NIEMOZLIWOŚĆ
