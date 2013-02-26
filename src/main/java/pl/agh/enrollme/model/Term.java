@@ -30,7 +30,7 @@ public class Term implements Serializable {
     private String type;        //type of activity: f.e lecture, lab, ex etc
     private Boolean certain;    //if true, an event is not part of the ongoing enrollment and cannot be assigned points
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Teacher teacher;
 
     public Term() {
