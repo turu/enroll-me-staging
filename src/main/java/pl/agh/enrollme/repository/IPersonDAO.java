@@ -22,4 +22,7 @@ public interface IPersonDAO {
     @Transactional
     List<Subject> getSavedSubjects(Person person);
     Person getCurrentUser();
+
+    @Transactional
+    Person getByIndex(Integer index);
 }
