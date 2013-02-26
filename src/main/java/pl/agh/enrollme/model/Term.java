@@ -4,6 +4,7 @@ import pl.agh.enrollme.utils.Week;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -55,6 +56,14 @@ public class Term implements Serializable, Comparable<Term> {
 
     public Date getEndTime() {
         return endTime;
+    }
+
+    public String getStartTimeAsString() {
+        return getTimeAsString(startTime);
+    }
+
+    public String getEndTimeAsString() {
+        return getTimeAsString(endTime);
     }
 
     public Week getWeek() {
@@ -167,5 +176,13 @@ public class Term implements Serializable, Comparable<Term> {
     @Override
     public int compareTo(Term o) {
         return termPerSubjectID.compareTo(o.getTermPerSubjectID());
+    }
+
+    private String getTimeAsString(Date time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        int h = cal.get(Calendar.HOUR);
+        int m = cal.get(Calendar.MINUTE);
+        return String.format("%d:%d", h, m);
     }
 }

@@ -22,20 +22,23 @@
 
             <p:subTable id="termsSubTable" var="studentPoints" value="#{studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
 
-                <f:facet name="header">
-                    <p:column>
-                        #{term.subject.name}
-                    </p:column>
-                    <p:column>
-                        #{term.teacher.degree} #{term.teacher.firstName} #{term.teacher.secondName}
-                    </p:column>
-                    <p:column>
-                        #{term.startTime} - #{term.endTime}
-                    </p:column>
-                </f:facet>
+                <p:columnGroup type="header">
+                    <p:row>
+                        <p:column>
+                            #{term.subject.name}
+                        </p:column>
+                        <p:column>
+                            #{term.teacher.degree} #{term.teacher.firstName} #{term.teacher.secondName}
+                        </p:column>
+                        <p:column>
+                            #{term.startTimeAsString} - #{term.endTimeAsString}
+                        </p:column>
+                    </p:row>
+                </p:columnGroup>
+
 
                 <p:column colspan="3">
-                    #{studentPoints.person.lastName} #{studentPoints.person.firstName}
+                    <h:outputText value="#{studentPoints.person.lastName} #{studentPoints.person.firstName}"/>
                 </p:column>
 
             </p:subTable>

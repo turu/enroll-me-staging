@@ -9,7 +9,9 @@ import pl.agh.enrollme.model.Term;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import java.util.Collections;
+
 import java.util.List;
 
 /**

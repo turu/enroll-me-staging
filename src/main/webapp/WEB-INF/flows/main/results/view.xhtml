@@ -24,28 +24,22 @@
                 <h:outputText value="#{currentEnrollment.name}" />
             </f:facet>
 
-            <!-- <p:columnGroup type="header">
+            <p:columnGroup type="header">
                 <p:row>
-                    <p:column headerText="#                          {subject.name}" />
-                 <p:column>
-                        <p:commandButton value="See results" action="subjectResults" />
-                    </p:column>
-                </p:row>
-            </p:columnGroup>   -->
-
-            <p:subTable var="teacher" value="#{teacherDAO.getTeachersForSubject(subject)}">
-                <f:facet name="header">
                     <p:column>
                         #{subject.name}
                     </p:column>
                     <p:column>
                         <p:commandButton value="See results" action="subjectResults">
                             <f:setPropertyActionListener
-                                value="#{termDAO.getTermsBySubject(subject)}"
-                                target="#{terms}"/>
+                                    value="#{termDAO.getTermsBySubject(subject)}"
+                                    target="#{terms}"/>
                         </p:commandButton>
                     </p:column>
-                </f:facet>
+                </p:row>
+            </p:columnGroup>
+
+            <p:subTable var="teacher" value="#{teacherDAO.getTeachersForSubject(subject)}">
 
                 <p:column>
                     #{teacher.degree} #{teacher.firstName} #{teacher.secondName}
@@ -54,8 +48,9 @@
                 <p:column headerText="">
                     <p:commandButton action="teacherResults" ajax="false" value="See results">
                         <f:setPropertyActionListener
-                                value="#{termDAO.getTermsBySubjectAndTeacher(subject, teacher)}"
-                                target="#{terms}"/>
+                                value="#{studentPointsPerTermDAO.getStudentsAssignedToSubjectAndTeacher(subject, teacher)}"
+                                target="#{studentPointsList}"/>
+                        <f:setPropertyActionListener value="#{teacher}" target="#{currentTeacher}"/>
                     </p:commandButton>
                 </p:column>
 
