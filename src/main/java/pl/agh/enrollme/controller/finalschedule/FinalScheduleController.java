@@ -37,8 +37,6 @@ public class FinalScheduleController implements Serializable {
     private List<Subject> subjects;
 
     private List<Term> terms;
-
-    private List<StudentPointsPerTerm> points;
     //Enroll data end
 
     //Schedule component attributes
