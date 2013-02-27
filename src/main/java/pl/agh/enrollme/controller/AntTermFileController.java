@@ -96,7 +96,7 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
-        if ( firstTermEnd.after(secondTermStart) && firstTermStart.before(secondTermEnd)) {
+        if ( !firstTermEnd.before(secondTermStart) && !firstTermStart.after(secondTermEnd)) {
             //print in the ant format:
             return term.getSubject().getSubjectID().toString() + "," +
                     term.getTermPerSubjectID() + ";" + termCollision.getSubject().getSubjectID() +
