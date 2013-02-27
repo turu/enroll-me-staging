@@ -58,7 +58,7 @@ public class StudentPointsPerTermDAO extends GenericDAO<StudentPointsPerTerm> im
     public List<StudentPointsPerTerm> getStudentsAssignedToSubjectAndTeacher(Subject subject, Teacher teacher) {
         final String queryString =
                 "from StudentPointsPerTerm where term.subject = :subject and term.teacher = :teacher and assigned = true " +
-                        "order by person.lastName, person.firstName";
+                        "order by term.startTime, person.lastName, person.firstName";
 
         final TypedQuery<StudentPointsPerTerm> query = em
                 .createQuery(queryString, StudentPointsPerTerm.class)

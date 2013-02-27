@@ -25,12 +25,12 @@
         <p:dataTable id="termsTable" var="sp" value="#{studentPointsList}" sortBy="#{sp.term.startTime}" emptyMessage="No terms found">
 
             <f:facet name="header">
-                Results
+                <h:outputText value="#{currentSubject.name}"/>
             </f:facet>
 
-            <p:column>
+            <!-- <p:column>
                 <h:outputText value="#{sp.term.subject.name}"/>
-            </p:column>
+            </p:column> -->
 
             <p:column>
                 <h:outputText value="#{sp.term.startTimeAsString} - #{sp.term.endTimeAsString}"/>
@@ -47,6 +47,13 @@
             <p:button value="Export result as pdf" />
             <p:dataExporter type="pdf" target="termsTable" fileName="terms"/>
         </h:commandLink>
+
+        <h:commandLink>
+            <p:button value="Export result as xls" />
+            <p:dataExporter type="xls" target="termsTable" fileName="terms"/>
+        </h:commandLink>
+
+        <p:commandButton value="Back" action="done"/>
 
     </h:form>
 
