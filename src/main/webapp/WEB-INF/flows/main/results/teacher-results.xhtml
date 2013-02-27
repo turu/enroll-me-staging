@@ -25,18 +25,22 @@
         <p:dataTable id="termsTable" var="sp" value="#{studentPointsList}" sortBy="#{sp.term.startTime}" emptyMessage="Nobody enrolled yet">
 
             <f:facet name="header">
-                <h:outputText value="#{currentSubject.name}"/>
+                <h:outputText value="#{currentSubject.name}" style="font-size: 14pt"/>
             </f:facet>
 
-            <!-- <p:column>
-                <h:outputText value="#{sp.term.subject.name}"/>
-            </p:column> -->
+            <p:column style="width: 30%" >
+                <f:facet name="header">
+                    Time
+                </f:facet>
 
-            <p:column>
-                <h:outputText value="#{sp.term.startTimeAsString} - #{sp.term.endTimeAsString}"/>
+                <h:outputText value="#{sp.term.timespanAsString}"/>
             </p:column>
 
-            <p:column>
+            <p:column style="width: 70%" >
+                <f:facet name="header">
+                    Student
+                </f:facet>
+
                 <h:outputText value="#{sp.person.lastName} #{sp.person.firstName}"/>
             </p:column>
 
