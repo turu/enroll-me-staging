@@ -181,7 +181,7 @@ public class Term implements Serializable, Comparable<Term> {
     private String getTimeAsString(Date time) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(time);
-        int h = cal.get(Calendar.HOUR);
+        int h = cal.get(Calendar.HOUR_OF_DAY);
         int m = cal.get(Calendar.MINUTE);
         return String.format("%d:%02d", h, m);
     }
