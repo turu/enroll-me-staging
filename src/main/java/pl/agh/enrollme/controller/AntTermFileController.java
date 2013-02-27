@@ -96,7 +96,7 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
-        if ( !firstTermStart.after(secondTermStart)) {
+        if (!firstTermStart.after(secondTermStart)) {
             if (firstTermEnd.after(secondTermStart)) {
                 return getCollistionString(termCollision, term);
             }
