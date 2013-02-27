@@ -23,25 +23,19 @@
                 <p:column headerText="Name" style="width:90%    ">
                     <h:outputFormat value="#{enrollment.name}"/>
                 </p:column>
-                <p:column style="width:10%">
+                <p:column style="width:50%">
                     <p:commandButton id="selectEnrollment" value="Enroll" icon="ui-icon-arrowreturnthick-1-e" action="eventChosen"
-                                     ajax="false" rendered="${enrollment.isActive()}">
+                                     ajax="false" rendered="#{enrollment.isActive() || p:ifGranted('ROLE_ADMIN')}">
                         <f:setPropertyActionListener value="#{enrollment}" target="#{chosenEnrollment}"/>
                     </p:commandButton>
-                </p:column>
-                <p:column style="width:10%">
                     <p:commandButton id="selectResults" value="See results" icon="ui-icon-arrowreturnthick-1-e" action="eventComplete"
-                                     ajax="false" rendered="${enrollment.isCompleted()}">
+                                     ajax="false" rendered="#{enrollment.isCompleted() || p:ifGranted('ROLE_ADMIN')}">
                         <f:setPropertyActionListener value="#{enrollment}" target="#{chosenEnrollment}"/>
                     </p:commandButton>
-                </p:column>
-                <p:column style="width: 10%">
                     <p:commandButton id="selectSchedule" value="Your Schedule" icon="ui-icon-arrowreturnthick-1-e" action="seeSchedule"
-                                     ajax="false" rendered="${enrollment.isCompleted()}">
+                                     ajax="false" rendered="#{enrollment.isCompleted()} || p:ifGranted('ROLE_ADMIN')">
                         <f:setPropertyActionListener value="#{enrollment}" target="#{chosenEnrollment}"/>
                     </p:commandButton>
-                </p:column>
-                <p:column style="width: 10%">
                     <p:outputLabel value="Event closed, wait for results" rendered="#{enrollment.isClosed()}" />
                 </p:column>
             </p:dataTable>
