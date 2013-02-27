@@ -13,6 +13,7 @@ import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -53,11 +54,19 @@ public class AntTermFileController {
         StringBuilder collisions = new StringBuilder();
 
         for (Subject subject: subjects) {
+            if (!subject.getHasInteractive()) {
+                //skip subjects with only certain fields
+                continue;
+            }
             //make subjectID a header: (ant format)
             singleTermDetails.append("[").append(subject.getSubjectID()).append("]\n");
-            List<Term> terms = termDAO.getTermsBySubject(subject);
+            List<Term> terms = termDAO.getTermsBySubjectOderByTermID(subject);
 
             for (Term term: terms) {
+                if (term.getCertain()) {
+                    //skip certain terms:
+                    continue;
+                }
                 //Iterate through subjects and for every subject put line into file:
                 //(Clean foreach costs some performance issue :-)
                 singleTermDetails.append(createLineWithSeparator(":", term.getTermPerSubjectID(),
@@ -66,7 +75,7 @@ public class AntTermFileController {
                 singleTermDetails.append("\n");
 
                 for (Term termCollision: terms) {
-                    //captured two times situation when term is in collision with another term - ant format require it
+                      //captured two times situation when term is in collision with another term - ant format require it
                     collisions.append(checkForCollision(term, termCollision));
                 }
             }
@@ -75,9 +84,16 @@ public class AntTermFileController {
     }
 
     private String checkForCollision(Term term, Term termCollision) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd:hh:mm");
         if (term.equals(termCollision)) {
+            LOGGER.debug("[collision debug] EQUALS: " + simpleDateFormat.format(term.getStartTime()) +
+                    " " + simpleDateFormat.format(term.getEndTime()) + " " +
+                    simpleDateFormat.format(termCollision.getStartTime()) + " "
+                    + simpleDateFormat.format(termCollision.getEndTime()));
             return "";
         }
+
+
         Calendar firstTermStart = Calendar.getInstance();
         Calendar firstTermEnd = Calendar.getInstance();
         Calendar secondTermStart = Calendar.getInstance();
@@ -88,13 +104,36 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
-        if ( firstTermEnd.after(secondTermStart) && firstTermStart.before(secondTermEnd)) {
-            //print in the ant format:
-            return term.getSubject().getSubjectID().toString() + "," +
-                    term.getTermPerSubjectID() + ";" + termCollision.getSubject().getSubjectID() +
-                    "," + termCollision.getTermPerSubjectID() + "\n";
+
+        LOGGER.debug("[collision debug] starting with: " + simpleDateFormat.format(term.getStartTime()) +
+            " " + simpleDateFormat.format(term.getEndTime()) + " " +
+                simpleDateFormat.format(termCollision.getStartTime()) + " "
+                + simpleDateFormat.format(termCollision.getEndTime()));
+        LOGGER.debug("[collision debug] firstTermStart: " + simpleDateFormat.format(firstTermStart.getTime()) +
+            " firstTermEnd:" + simpleDateFormat.format(firstTermEnd.getTime()) +
+            " secondTermStart: " + simpleDateFormat.format(secondTermStart.getTime()) +
+            " secondTermEnd: " + simpleDateFormat.format(secondTermEnd.getTime()));
+
+        if (!firstTermStart.after(secondTermStart)) {
+            LOGGER.debug("[collision debug] start of first < second");
+            if (firstTermEnd.after(secondTermStart)) {
+                LOGGER.debug("[collision debug] Collision!");
+                return getCollisionToString(termCollision, term);
+            }
+        } else {
+            LOGGER.debug("[collision debug] start of second < first");
+            if (secondTermEnd.after(firstTermStart)) {
+                LOGGER.debug("[collision debug] Collision2!");
+                return getCollisionToString(term, termCollision);
+            }
         }
         return "";
+    }
+
+    private String getCollisionToString(Term term, Term termCollision) {
+        return termCollision.getSubject().getSubjectID().toString() + "," +
+                termCollision.getTermPerSubjectID() + ";" + term.getSubject().getSubjectID() +
+                "," + term.getTermPerSubjectID() + "\n";
     }
 
 
@@ -103,7 +142,7 @@ public class AntTermFileController {
         int i=0; //number of objects already printed
         for (Object part: objects) {
             stringBuilder.append(part.toString());
-            if (++i < objects.length) {  // no the last one? add delimiter:
+            if (++i < objects.length) {  // not the last one? add delimiter:
                 stringBuilder.append(delimiter);
             }
         }

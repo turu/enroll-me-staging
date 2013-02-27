@@ -5,11 +5,13 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.model.Teacher;
 import pl.agh.enrollme.model.Term;
-import pl.agh.enrollme.utils.EnrollmentMode;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
+import java.util.Collections;
+
 import java.util.List;
 
 /**
@@ -47,6 +49,13 @@ public class TermDAO extends GenericDAO<Term> implements ITermDAO {
                 .setParameter("teacher", teacher);
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<Term> getTermsBySubjectOderByTermID(Subject subject) {
+        List<Term> terms = getTermsBySubject(subject);
+        Collections.sort(terms);
+        return terms;
     }
 
 }

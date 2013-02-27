@@ -10,6 +10,10 @@
     any ideas? -->
     <var name="terms" class="java.util.ArrayList"/>
 
+    <var name="studentPointsList" class="java.util.ArrayList"/>
+    <var name="currentTeacher" class="pl.agh.enrollme.model.Teacher"/>
+    <var name="currentSubject" class="pl.agh.enrollme.model.Subject"/>
+
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
     <view-state id="view">
