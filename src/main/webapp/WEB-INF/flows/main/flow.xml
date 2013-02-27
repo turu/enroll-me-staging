@@ -56,6 +56,8 @@
 	</subflow-state>
 
     <subflow-state id="seeFinalSchedule" subflow="main/final-schedule">
+        <input name="currentEnrollment" value="currentEnrollment" required="true"
+               type="pl.agh.enrollme.model.Enroll"/>
         <transition to="flowComplete"/>
     </subflow-state>
 
