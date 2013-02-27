@@ -84,7 +84,12 @@ public class AntTermFileController {
     }
 
     private String checkForCollision(Term term, Term termCollision) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd:hh:mm");
         if (term.equals(termCollision)) {
+            LOGGER.debug("[collision debug] EQUALS: " + simpleDateFormat.format(term.getStartTime()) +
+                    " " + simpleDateFormat.format(term.getEndTime()) + " " +
+                    simpleDateFormat.format(termCollision.getStartTime()) + " "
+                    + simpleDateFormat.format(termCollision.getEndTime()));
             return "";
         }
 
@@ -99,7 +104,6 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd:hh:mm");
 
         LOGGER.debug("[collision debug] starting with: " + simpleDateFormat.format(term.getStartTime()) +
             " " + simpleDateFormat.format(term.getEndTime()) + " " +
@@ -107,7 +111,7 @@ public class AntTermFileController {
                 + simpleDateFormat.format(termCollision.getEndTime()));
         LOGGER.debug("[collision debug] firstTermStart: " + simpleDateFormat.format(firstTermStart.getTime()) +
             " firstTermEnd:" + simpleDateFormat.format(firstTermEnd.getTime()) +
-            " secondTermStart: " + simpleDateFormat.format(secondTermEnd.getTime()) +
+            " secondTermStart: " + simpleDateFormat.format(secondTermStart.getTime()) +
             " secondTermEnd: " + simpleDateFormat.format(secondTermEnd.getTime()));
 
         if (!firstTermStart.after(secondTermStart)) {
