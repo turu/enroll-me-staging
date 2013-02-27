@@ -28,7 +28,7 @@
                 <!-- When user is not owner of group, let him select from already created groups-->
                 <p:outputPanel rendered="#{(not row.ownerOfSelectedGroup) and (row.subject.teamsCapacity > 1)}">
                     <p:selectOneMenu value="#{row.selectedGroup}" converter="#{groupConverter}" style="width: 50%;">
-                        <p:ajax event="change" listener="#{groupManagementService.onChange}"
+                        <p:ajax event="change" listener="#{groupManagementService.saveControllerState(controller)}"
                                 update=":mainForm:subjectsTable :mainForm:messages"/>
                         <f:selectItem itemLabel="-" itemValue="#{null}"/>
                         <f:selectItems value="#{row.subject.groups}" var="group" itemValue="#{group}"
@@ -107,7 +107,7 @@
                 <p>
                     <h:outputText value="Are you sure yo want to delete group #{groupToDelete.name}?"/>
                 </p>
-                <p:commandButton value="Delete!" action="deleteGroupConfirm"
+                <p:commandButton value="Delete!" action="deleteGroupConfirm" ajax="false"
                                  oncomplete="deleteGroupDialog.hide()"/>
                 <p:commandButton value="Cancel" oncomplete="deleteGroupDialog.hide()"/>
             </p:outputPanel>
