@@ -13,6 +13,7 @@ import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -96,19 +97,23 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
-        LOGGER.debug("firstTermStart: " + firstTermStart.toString() + " firstTermEnd:" + firstTermEnd.toString() +
-            " secondTermStart: " + secondTermEnd.toString() + " secondTermEnd: " + secondTermEnd.toString());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd:hh:mm");
+
+        LOGGER.debug("[collision debug] firstTermStart: " + simpleDateFormat.format(firstTermStart) +
+            " firstTermEnd:" + simpleDateFormat.format(firstTermEnd) +
+            " secondTermStart: " + simpleDateFormat.format(secondTermEnd) +
+            " secondTermEnd: " + simpleDateFormat.format(secondTermEnd));
 
         if (!firstTermStart.after(secondTermStart)) {
-            LOGGER.debug("start of first < second");
+            LOGGER.debug("[collision debug] start of first < second");
             if (firstTermEnd.after(secondTermStart)) {
-                LOGGER.debug("Collision!");
+                LOGGER.debug("[collision debug] Collision!");
                 return getCollisionToString(termCollision, term);
             }
         } else {
-            LOGGER.debug("start of second < first");
+            LOGGER.debug("[collision debug] start of second < first");
             if (secondTermEnd.after(firstTermStart)) {
-                LOGGER.debug("Collision2!");
+                LOGGER.debug("[collision debug] Collision2!");
                 return getCollisionToString(term, termCollision);
             }
         }
