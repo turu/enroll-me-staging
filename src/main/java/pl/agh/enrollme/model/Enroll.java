@@ -126,6 +126,18 @@ public class Enroll implements Serializable {
         return name;
     }
 
+    public Boolean isActive() {
+        return enrollmentMode == EnrollmentMode.ACTIVE;
+    }
+
+    public Boolean isClosed() {
+        return enrollmentMode == EnrollmentMode.CLOSED;
+    }
+
+    public Boolean isCompleted() {
+        return enrollmentMode == EnrollmentMode.COMPLETED;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
