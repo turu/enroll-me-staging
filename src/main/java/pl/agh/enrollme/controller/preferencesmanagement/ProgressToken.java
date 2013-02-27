@@ -84,6 +84,7 @@ public class ProgressToken implements Serializable {
 
     public int getProgress() {
         progress = (int)(((double)pointsUsed / (double)maxPoints) * 100);
+        progress = Math.min(100, progress);
         return progress;
     }
 

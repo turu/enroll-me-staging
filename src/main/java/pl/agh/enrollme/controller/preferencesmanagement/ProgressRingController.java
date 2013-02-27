@@ -202,7 +202,7 @@ public class ProgressRingController implements Serializable {
                 pointsUsed = 0;
             }
 
-            final ProgressToken token = new ProgressToken(s.getSubjectID(), s.getName(),
+            final ProgressToken token = new ProgressToken(s.getSubjectID(), shortenName(s.getName(), 12),
                     enrollConfiguration.getPointsPerSubject(),enrollConfiguration.getMinimumPointsPerSubject(),
                     pointsUsed, s.getColor());
 
@@ -220,6 +220,23 @@ public class ProgressRingController implements Serializable {
                     ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor());
         }
         LOGGER.debug("Tokens created");
+    }
+
+    private String shortenName(String name, int max) {
+        if (name.length() <= max) {
+            return name;
+        }
+
+        final String[] split = name.trim().toUpperCase().split("\\s+");
+        StringBuilder result = new StringBuilder();
+        for (String t : split) {
+            if (t.matches("\\d+.*")) {
+                result.append(" ");
+            }
+            result.append(t.charAt(0));
+        }
+
+        return result.toString();
     }
 
 }
