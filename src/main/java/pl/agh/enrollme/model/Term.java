@@ -183,6 +183,6 @@ public class Term implements Serializable, Comparable<Term> {
         cal.setTime(time);
         int h = cal.get(Calendar.HOUR);
         int m = cal.get(Calendar.MINUTE);
-        return String.format("%d:%d", h, m);
+        return String.format("%d:%.2d", h, m);
     }
 }

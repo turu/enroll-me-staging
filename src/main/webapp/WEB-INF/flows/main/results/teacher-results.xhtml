@@ -22,7 +22,7 @@
         <h:outputText style="font-size:20pt"
                 value="#{currentTeacher.degree} #{currentTeacher.firstName} #{currentTeacher.secondName}"/>
 
-        <p:dataTable id="termsTable" var="sp" value="#{studentPointsList}" sortBy="#{sp.term.startTime}" emptyMessage="No terms found">
+        <p:dataTable id="termsTable" var="sp" value="#{studentPointsList}" sortBy="#{sp.term.startTime}" emptyMessage="Nobody enrolled yet">
 
             <f:facet name="header">
                 <h:outputText value="#{currentSubject.name}"/>
