@@ -96,13 +96,22 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
-        if ( !firstTermEnd.before(secondTermStart) && !firstTermStart.after(secondTermEnd)) {
-            //print in the ant format:
-            return term.getSubject().getSubjectID().toString() + "," +
-                    term.getTermPerSubjectID() + ";" + termCollision.getSubject().getSubjectID() +
-                    "," + termCollision.getTermPerSubjectID() + "\n";
+        if ( !firstTermStart.after(secondTermStart)) {
+            if (firstTermEnd.after(secondTermStart)) {
+                return getCollistionString(termCollision, term);
+            }
+        } else {
+            if (secondTermEnd.after(firstTermStart)) {
+                return getCollistionString(term, termCollision);
+            }
         }
         return "";
+    }
+
+    private String getCollistionString(Term term, Term termCollision) {
+        return termCollision.getSubject().getSubjectID().toString() + "," +
+                termCollision.getTermPerSubjectID() + ";" + term.getSubject().getSubjectID() +
+                "," + term.getTermPerSubjectID() + "\n";
     }
 
 
