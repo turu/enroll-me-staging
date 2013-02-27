@@ -87,6 +87,8 @@ public class AntTermFileController {
         if (term.equals(termCollision)) {
             return "";
         }
+
+
         Calendar firstTermStart = Calendar.getInstance();
         Calendar firstTermEnd = Calendar.getInstance();
         Calendar secondTermStart = Calendar.getInstance();
@@ -99,10 +101,14 @@ public class AntTermFileController {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd:hh:mm");
 
-        LOGGER.debug("[collision debug] firstTermStart: " + simpleDateFormat.format(firstTermStart) +
-            " firstTermEnd:" + simpleDateFormat.format(firstTermEnd) +
-            " secondTermStart: " + simpleDateFormat.format(secondTermEnd) +
-            " secondTermEnd: " + simpleDateFormat.format(secondTermEnd));
+        LOGGER.debug("[collision debug] starting with: " + simpleDateFormat.format(term.getStartTime()) +
+            " " + simpleDateFormat.format(term.getEndTime()) + " " +
+                simpleDateFormat.format(termCollision.getStartTime()) + " "
+                + simpleDateFormat.format(termCollision.getEndTime()));
+        LOGGER.debug("[collision debug] firstTermStart: " + simpleDateFormat.format(firstTermStart.getTime()) +
+            " firstTermEnd:" + simpleDateFormat.format(firstTermEnd.getTime()) +
+            " secondTermStart: " + simpleDateFormat.format(secondTermEnd.getTime()) +
+            " secondTermEnd: " + simpleDateFormat.format(secondTermEnd.getTime()));
 
         if (!firstTermStart.after(secondTermStart)) {
             LOGGER.debug("[collision debug] start of first < second");
