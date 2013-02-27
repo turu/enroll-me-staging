@@ -12,6 +12,9 @@ public class TermPK implements Serializable {
 
     private Integer termPerSubjectID;
 
+    public TermPK() {
+    }
+
     public TermPK(Subject subject, Integer termPerSubjectID) {
         this.subject = subject;
         this.termPerSubjectID = termPerSubjectID;
