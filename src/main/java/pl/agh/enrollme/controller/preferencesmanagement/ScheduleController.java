@@ -1,5 +1,6 @@
 package pl.agh.enrollme.controller.preferencesmanagement;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 import org.primefaces.model.*;
 import org.slf4j.Logger;
@@ -8,6 +9,8 @@ import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.utils.DayOfWeek;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
@@ -17,6 +20,8 @@ import java.util.*;
  * This class is used as a schedule controller in preferences-management view
  * Author: Piotr Turek
  */
+@ManagedBean
+@ViewScoped
 public class ScheduleController implements Serializable {
 
     private static final long serialVersionUID = -740843017652008075L;
@@ -180,6 +185,9 @@ public class ScheduleController implements Serializable {
         }
 
         LOGGER.debug("Points range computed to be: " + eventPointsRange);
+
+        //Forcing primefaces to update eventDetails and reasonPanel BEFORE displaying them
+        RequestContext.getCurrentInstance().update("eventDetails reasonPanel");
 
     }
 
