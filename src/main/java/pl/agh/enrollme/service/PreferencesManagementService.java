@@ -123,7 +123,7 @@ public class PreferencesManagementService implements IPreferencesManagementServi
         if (currentEnroll.getEnrollmentMode() == EnrollmentMode.CLOSED
                 || currentEnroll.getEnrollmentMode()  == EnrollmentMode.COMPLETED) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Enroll closed!", "Current enrollment has" +
-                    " either closed or completed. Unfortunatelly, saving is no longer possible. Contact ... someone ;)");
+                    " either closed or completed. Unfortunately, saving is no longer possible. Contact ... someone ;)");
             addMessage(message);
 
             LOGGER.debug("Save requested after enroll had been completed/closed!");
@@ -142,8 +142,8 @@ public class PreferencesManagementService implements IPreferencesManagementServi
 
         //Validating
         if (!validateMinimumReached(pointsMap, enrollConfiguration)) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!", "You have not reached minimum" +
-                    "rule for all subjects. Cannot save!");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rule Broken!", "You have not satisfied minimum" +
+                    " rule for all subjects. Cannot save!");
             addMessage(message);
 
             LOGGER.debug("Minimum rule broken!");

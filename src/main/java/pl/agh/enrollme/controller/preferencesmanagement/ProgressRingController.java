@@ -202,7 +202,7 @@ public class ProgressRingController implements Serializable {
                 pointsUsed = 0;
             }
 
-            final ProgressToken token = new ProgressToken(s.getSubjectID(), s.getName(),
+            final ProgressToken token = new ProgressToken(s.getSubjectID(), shortenName(s.getName(), 12),
                     enrollConfiguration.getPointsPerSubject(),enrollConfiguration.getMinimumPointsPerSubject(),
                     pointsUsed, s.getColor());
 
@@ -212,14 +212,31 @@ public class ProgressRingController implements Serializable {
             progressTokens.add(token);
         }
 
-        //if there are exactly 2 progress tokens, clone the second one (to prevent unwanted behaviour of the ring component)
-        if (progressTokens.size() == 2) {
+        //if there is even number of progress tokens, clone the second one (to prevent unwanted behaviour of the ring component)
+        if (progressTokens.size() % 2 == 0) {
             progressTokens.add(progressTokens.get(1));
             final ProgressToken token = progressTokens.get(2);
             LOGGER.debug("Additional token created: " + token.getId() + ", " + token.getName() + ", " + token.getMaxPoints() +
                     ", " + token.getMinPoints() + ", " + token.getPointsUsed() +  ", #" + token.getColor());
         }
         LOGGER.debug("Tokens created");
+    }
+
+    private String shortenName(String name, int max) {
+        if (name.length() <= max) {
+            return name;
+        }
+
+        final String[] split = name.trim().toUpperCase().split("\\s+");
+        StringBuilder result = new StringBuilder();
+        for (String t : split) {
+            if (t.matches("\\d+.*")) {
+                result.append(" ");
+            }
+            result.append(t.charAt(0));
+        }
+
+        return result.toString();
     }
 
 }

@@ -24,23 +24,43 @@
                 <h:outputText value="#{currentEnrollment.name}" />
             </f:facet>
 
-            <!-- <p:columnGroup type="header">
+            <!--
+            <p:columnGroup type="header">
                 <p:row>
-                    <p:column headerText="#                          {subject.name}" />
-                 <p:column>
-                        <p:commandButton value="See results" action="subjectResults" />
+                    <p:column headerText="#{subject.name}"/>
+
+                    <p:column headerText="Stats" />
+                </p:row>
+            </p:columnGroup>
+            -->
+
+            <!--
+            <p:columnGroup type="header">
+                <p:row>
+                    <p:column>
+                        #{subject.name}
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="See results" action="subjectResults">
+                            <f:setPropertyActionListener
+                                    value="#{termDAO.getTermsBySubject(subject)}"
+                                    target="#{terms}"/>
+                        </p:commandButton>
                     </p:column>
                 </p:row>
-            </p:columnGroup>   -->
+            </p:columnGroup>
+                -->
 
             <p:subTable var="teacher" value="#{teacherDAO.getTeachersForSubject(subject)}">
+
                 <f:facet name="header">
-                    #{subject.name}
-                    <p:commandButton value="See results" action="subjectResults">
+                    <h:outputText value="#{subject.name} - "/>
+                    <p:commandLink value="see results" action="subjectResults">
                         <f:setPropertyActionListener
                             value="#{termDAO.getTermsBySubject(subject)}"
                             target="#{terms}"/>
-                    </p:commandButton>
+                        <f:setPropertyActionListener value="#{subject}" target="#{currentSubject}"/>
+                    </p:commandLink>
                 </f:facet>
 
                 <p:column>
@@ -50,8 +70,10 @@
                 <p:column headerText="">
                     <p:commandButton action="teacherResults" ajax="false" value="See results">
                         <f:setPropertyActionListener
-                                value="#{termDAO.getTermsBySubjectAndTeacher(subject, teacher)}"
-                                target="#{terms}"/>
+                                value="#{studentPointsPerTermDAO.getStudentsAssignedToSubjectAndTeacher(subject, teacher)}"
+                                target="#{studentPointsList}"/>
+                        <f:setPropertyActionListener value="#{teacher}" target="#{currentTeacher}"/>
+                        <f:setPropertyActionListener value="#{subject}" target="#{currentSubject}"/>
                     </p:commandButton>
                 </p:column>
 

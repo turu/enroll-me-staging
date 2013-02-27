@@ -87,6 +87,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO {
         }
 
         personSubjects.removeAll(toRemove);
+        person.getSubjectsSaved().removeAll(toRemove);
         LOGGER.debug("Unnecessary subjects removed");
 
         for (Subject subject : subjects) {
