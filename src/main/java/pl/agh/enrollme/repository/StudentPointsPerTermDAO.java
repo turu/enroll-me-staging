@@ -41,4 +41,18 @@ public class StudentPointsPerTermDAO extends GenericDAO<StudentPointsPerTerm> im
 
         throw new IllegalStateException("There is more than one points entity for person: " + person + " and term: " + term);
     }
+
+    @Override
+    @Transactional
+    public List<StudentPointsPerTerm> getStudentsAssignedToTerm(Term term) {
+        final String queryString =
+                "from StudentPointsPerTerm where term = :term and assigned = true order by person.lastName, person.firstName";
+
+        final TypedQuery<StudentPointsPerTerm> query = em
+                .createQuery(queryString, StudentPointsPerTerm.class)
+                .setParameter("term", term);
+
+        return query.getResultList();
+    }
+
 }

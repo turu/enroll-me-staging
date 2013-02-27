@@ -95,6 +95,7 @@ public class TermManagementService implements ITermManagementService {
         }
 
         final Map<Integer, Integer> termCounters = new HashMap<>();         //map containing term counters; subjectID is the key
+        final List<Term> certainTerms = new ArrayList<>();                  //list containing _certain_ terms of the current subject
 
         //Initialize map counters
         for (Subject subject : subjects) {
@@ -103,13 +104,21 @@ public class TermManagementService implements ITermManagementService {
         }
         LOGGER.debug("Counters initialized");
 
-        //Setting TermPerSubjectID of terms
+        //Setting TermPerSubjectID of non-certain terms
         for (Term term : terms) {
-            final Subject termSubject = term.getSubject();
-            final Integer id = termCounters.get(termSubject.getSubjectID());
-            term.setTermPerSubjectID(id);
-            termCounters.put(termSubject.getSubjectID(), id+1);
-            LOGGER.debug("Term: " + term + " set termpersubjectid to " + id);
+            if (term.getCertain()) {
+                certainTerms.add(term);
+                LOGGER.debug("Term: " + term + " is certain. Saving it for later processing");
+                continue;
+            }
+
+            setTermPerSubjectID(termCounters, term);
+        }
+        LOGGER.debug("Non-certain terms' ids set");
+
+        //Setting TermPerSubjectID of certain terms
+        for (Term term : certainTerms) {
+            setTermPerSubjectID(termCounters, term);
         }
         LOGGER.debug("IDs set");
 
@@ -129,6 +138,14 @@ public class TermManagementService implements ITermManagementService {
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Data saved", terms.size() + " terms were saved.");
         addMessage(message);
+    }
+
+    private void setTermPerSubjectID(Map<Integer, Integer> termCounters, Term term) {
+        final Subject termSubject = term.getSubject();
+        final Integer id = termCounters.get(termSubject.getSubjectID());
+        term.setTermPerSubjectID(id);
+        termCounters.put(termSubject.getSubjectID(), id+1);
+        LOGGER.debug("Term: " + term + " set termpersubjectid to " + id);
     }
 
     /**

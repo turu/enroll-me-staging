@@ -38,7 +38,7 @@ public class Subject implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT) // exception without it
     private List<Group> groups;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name = "";
 
     @Column(nullable = false)

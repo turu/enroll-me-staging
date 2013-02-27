@@ -29,7 +29,7 @@
             <set value="currentEvent.attributes.currentEnrollment" name="flowScope.currentEnrollment"
                  type="pl.agh.enrollme.model.Enroll"/>
         </transition>
-        <transition on="eventClosed" to="seeFinalChoice">
+        <transition on="seeSchedule" to="seeFinalSchedule">
             <set value="currentEvent.attributes.currentEnrollment" name="flowScope.currentEnrollment"
                  type="pl.agh.enrollme.model.Enroll"/>
         </transition>
@@ -55,11 +55,13 @@
         <transition on="logout" to="logout"/>
 	</subflow-state>
 
-    <subflow-state id="seeFinalChoice" subflow="main/final-choice">
+    <subflow-state id="seeFinalSchedule" subflow="main/final-schedule">
         <transition to="flowComplete"/>
     </subflow-state>
 
 	<subflow-state id="seeResults" subflow="main/results">
+        <input name="currentEnrollment" value="currentEnrollment" required="true"
+               type="pl.agh.enrollme.model.Enroll"/>
         <transition to="flowComplete"/>
 	</subflow-state>
 	
