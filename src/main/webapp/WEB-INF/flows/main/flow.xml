@@ -44,7 +44,7 @@
     <subflow-state id="manageUserGroups" subflow="main/group-management">
         <!-- TODO pass proper enroll -->
         <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
-        <transition on="groupsManaged" to="chooseSubjects"/>
+        <transition on="groupsManaged" to="managePreferences"/>
     </subflow-state>
 	
 	<subflow-state id="managePreferences" subflow="main/preferences-management">
@@ -52,7 +52,6 @@
                type="pl.agh.enrollme.model.Enroll"/>
         <transition on="preferencesApplied" to="flowComplete"/>
         <transition on="groupManagement" to="manageUserGroups"/>
-        <transition on="logout" to="logout"/>
 	</subflow-state>
 
     <subflow-state id="seeFinalSchedule" subflow="main/final-schedule">
@@ -72,7 +71,7 @@
     <end-state id="logout" view="externalRedirect:servletRelative:/logout"/>
 	
 	<global-transitions>
-		<transition on="exit" to="flowComplete">
+        <transition on="exit" to="flowComplete">
 		</transition>
 	</global-transitions>
 

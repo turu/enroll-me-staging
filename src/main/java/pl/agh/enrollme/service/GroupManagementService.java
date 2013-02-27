@@ -124,7 +124,7 @@ public class GroupManagementService {
             if ((selectedGroup != null) &&
                     (selectedGroup.getPersons().size() + 1 > selectedGroup.getSubject().getTeamsCapacity())) {
                 FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Group " + selectedGroup.getName() + " is already full. service", ""));
+                        "Group " + selectedGroup.getName() + " is already full.", ""));
 
                 LOGGER.debug("Size of selected group - " + selectedGroup.getPersons().size());
 

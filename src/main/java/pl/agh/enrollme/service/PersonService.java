@@ -97,5 +97,35 @@ public class PersonService {
         person = personDAO.getByPK(person.getId());
         return person;
     }
+
+    public String getCurrentUserString() {
+        Person p = null;
+
+        try {
+            p = getCurrentUser();
+        } catch (ClassCastException e) {
+            p = new Person();
+            p.setFirstName("Debug");
+            p.setLastName("Only");
+            p.setUsername("TEST");
+        }
+
+        if ((p.getFirstName() == null) || (p.getLastName() == null)) {
+            return "Unidentified user " + p.getUsername();
+        }
+
+        return p.getFirstName() + " " + p.getLastName();
+    }
+
+    public boolean isLoggedIn() {
+        return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+    }
+
+    /**
+     * Temporary function for logging out. After fixing webflows, this one should be gone.
+     */
+    public void logout() {
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }
 	
 }
