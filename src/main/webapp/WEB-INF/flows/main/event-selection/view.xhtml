@@ -33,7 +33,7 @@
                         <f:setPropertyActionListener value="#{enrollment}" target="#{chosenEnrollment}"/>
                     </p:commandButton>
                     <p:commandButton id="selectSchedule" value="Your Schedule" icon="ui-icon-arrowreturnthick-1-e" action="seeSchedule"
-                                     ajax="false" rendered="#{enrollment.isCompleted()} || p:ifGranted('ROLE_ADMIN')">
+                                     ajax="false" rendered="#{enrollment.isCompleted() || p:ifGranted('ROLE_ADMIN')}">
                         <f:setPropertyActionListener value="#{enrollment}" target="#{chosenEnrollment}"/>
                     </p:commandButton>
                     <p:outputLabel value="Event closed, wait for results" rendered="#{enrollment.isClosed()}" />
