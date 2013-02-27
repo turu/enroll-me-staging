@@ -108,15 +108,20 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
+        LOGGER.debug("start("+ term.getTermPerSubjectID() + ").compareTo(start (" + termCollision.getTermPerSubjectID()
+                + ")): " + term.getStartTime().compareTo(termCollision.getStartTime()));
+        LOGGER.debug("end(" + term.getTermPerSubjectID() +").compareTo(end(" + termCollision.getTermPerSubjectID() +
+                "))" + term.getEndTime().compareTo(termCollision.getEndTime()));
 
-        LOGGER.debug("[collision debug] starting with: " + simpleDateFormat.format(term.getStartTime()) +
-            " " + simpleDateFormat.format(term.getEndTime()) + " " +
-                simpleDateFormat.format(termCollision.getStartTime()) + " "
-                + simpleDateFormat.format(termCollision.getEndTime()));
-        LOGGER.debug("[collision debug] firstTermStart: " + simpleDateFormat.format(firstTermStart.getTime()) +
-            " firstTermEnd:" + simpleDateFormat.format(firstTermEnd.getTime()) +
-            " secondTermStart: " + simpleDateFormat.format(secondTermStart.getTime()) +
-            " secondTermEnd: " + simpleDateFormat.format(secondTermEnd.getTime()));
+
+//        LOGGER.debug("[collision debug] starting with: " + simpleDateFormat.format(term.getStartTime()) +
+//            " " + simpleDateFormat.format(term.getEndTime()) + " " +
+//                simpleDateFormat.format(termCollision.getStartTime()) + " "
+//                + simpleDateFormat.format(termCollision.getEndTime()));
+//        LOGGER.debug("[collision debug] firstTermStart: " + simpleDateFormat.format(firstTermStart.getTime()) +
+//            " firstTermEnd:" + simpleDateFormat.format(firstTermEnd.getTime()) +
+//            " secondTermStart: " + simpleDateFormat.format(secondTermStart.getTime()) +
+//            " secondTermEnd: " + simpleDateFormat.format(secondTermEnd.getTime()));
 
         if (!firstTermStart.after(secondTermStart)) {
             LOGGER.debug("[collision debug] start of first < second");
@@ -125,7 +130,7 @@ public class AntTermFileController {
                 return getCollisionToString(termCollision, term);
             }
         } else {
-            LOGGER.debug("[collision debug] start of second < first");
+            LOGGER.debug("[collision debug] start of second > first");
             if (secondTermEnd.after(firstTermStart)) {
                 LOGGER.debug("[collision debug] Collision2!");
                 return getCollisionToString(term, termCollision);
