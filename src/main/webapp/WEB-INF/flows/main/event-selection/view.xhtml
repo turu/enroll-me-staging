@@ -23,7 +23,7 @@
                 <p:column headerText="Name" style="width:90%    ">
                     <h:outputFormat value="#{enrollment.name}"/>
                 </p:column>
-                <p:column style="width:50%">
+                <p:column style="width:100%">
                     <p:commandButton id="selectEnrollment" value="Enroll" icon="ui-icon-arrowreturnthick-1-e" action="eventChosen"
                                      ajax="false" rendered="#{enrollment.isActive() || p:ifGranted('ROLE_ADMIN')}">
                         <f:setPropertyActionListener value="#{enrollment}" target="#{chosenEnrollment}"/>
