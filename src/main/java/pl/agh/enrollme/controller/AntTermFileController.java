@@ -58,6 +58,10 @@ public class AntTermFileController {
             List<Term> terms = termDAO.getTermsBySubject(subject);
 
             for (Term term: terms) {
+                if (term.getCertain()) {
+                    //skip certain terms:
+                    continue;
+                }
                 //Iterate through subjects and for every subject put line into file:
                 //(Clean foreach costs some performance issue :-)
                 singleTermDetails.append(createLineWithSeparator(":", term.getTermPerSubjectID(),
@@ -66,7 +70,7 @@ public class AntTermFileController {
                 singleTermDetails.append("\n");
 
                 for (Term termCollision: terms) {
-                    //captured two times situation when term is in collision with another term - ant format require it
+                      //captured two times situation when term is in collision with another term - ant format require it
                     collisions.append(checkForCollision(term, termCollision));
                 }
             }
