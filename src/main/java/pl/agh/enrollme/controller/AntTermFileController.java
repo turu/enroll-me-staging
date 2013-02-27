@@ -53,9 +53,13 @@ public class AntTermFileController {
         StringBuilder collisions = new StringBuilder();
 
         for (Subject subject: subjects) {
+            if (!subject.getHasInteractive()) {
+                //skip subjects with only certain fields
+                continue;
+            }
             //make subjectID a header: (ant format)
             singleTermDetails.append("[").append(subject.getSubjectID()).append("]\n");
-            List<Term> terms = termDAO.getTermsBySubject(subject);
+            List<Term> terms = termDAO.getTermsBySubjectOderByTermID(subject);
 
             for (Term term: terms) {
                 if (term.getCertain()) {

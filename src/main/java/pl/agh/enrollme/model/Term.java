@@ -10,7 +10,7 @@ import java.util.Date;
  * @author Michal Partyka
  */
 @Entity @IdClass(TermPK.class)
-public class Term implements Serializable {
+public class Term implements Serializable, Comparable<Term> {
     @Transient
     private static final long serialVersionUID = -5771235478609230476L;
 
@@ -162,5 +162,10 @@ public class Term implements Serializable {
         int result = subject.hashCode();
         result = 31 * result + termPerSubjectID.hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo(Term o) {
+        return termPerSubjectID.compareTo(o.getTermPerSubjectID());
     }
 }
