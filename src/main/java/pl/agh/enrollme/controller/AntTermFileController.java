@@ -14,6 +14,7 @@ import pl.agh.enrollme.repository.ITermDAO;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +53,8 @@ public class AntTermFileController {
     private String basicTermsInformation(List<Subject> subjects) {
         StringBuilder singleTermDetails = new StringBuilder();
         StringBuilder collisions = new StringBuilder();
+        List<Term> allTerms = new ArrayList<>();
+        List<Term> allTermsCollision = new ArrayList<>();
 
         for (Subject subject: subjects) {
             if (!subject.getHasInteractive()) {
@@ -60,30 +63,30 @@ public class AntTermFileController {
             }
             //make subjectID a header: (ant format)
             singleTermDetails.append("[").append(subject.getSubjectID()).append("]\n");
-            List<Term> terms = termDAO.getTermsBySubjectOderByTermID(subject);
-            List<Term> terms2 = termDAO.getTermsBySubjectOderByTermID(subject);
-
+            List<Term> terms = termDAO.getTermsBySubject(subject);
             for (Term term: terms) {
                 if (term.getCertain()) {
                     //skip certain terms:
                     continue;
                 }
+                allTerms.add(term);
                 //Iterate through subjects and for every subject put line into file:
                 //(Clean foreach costs some performance issue :-)
                 singleTermDetails.append(createLineWithSeparator(":", term.getTermPerSubjectID(),
                    term.getCapacity(), getAntFormatOfWeekDay(term.getStartTime()),
                    getAntFormatOfDate(term.getStartTime()), getAntFormatOfDate(term.getEndTime())));
                 singleTermDetails.append("\n");
-
-                for (Term termCollision: terms2) {
-                    if (term.getCertain()) {
-                        continue;
-                    }
-                      //captured two times situation when term is in collision with another term - ant format require it
-                    collisions.append(checkForCollision(term, termCollision));
-                }
             }
         }
+
+        allTermsCollision.addAll(allTerms);
+
+        for (Term term: allTerms) {
+            for (Term termCollision: allTermsCollision) {
+                collisions.append(checkForCollision(term, termCollision));
+            }
+        }
+
         return singleTermDetails.toString() + "[kolizje]\n" + collisions.toString();
     }
 

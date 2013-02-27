@@ -71,13 +71,15 @@ public class GroupManagementController implements Serializable {
     }
 
     public SubjectGroupManagementController getControllerWithSubjectId(Integer subjectId) {
+        LOGGER.debug("Getting controller for subject with id " + subjectId);
+
         for (SubjectGroupManagementController controller : subjectControllers) {
             if (controller.getSubject().getSubjectID().equals(subjectId)) {
                 return controller;
             }
         }
 
-        return null;
+        throw new IllegalStateException("Controller not found");
     }
 
 }
