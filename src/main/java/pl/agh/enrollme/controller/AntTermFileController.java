@@ -96,19 +96,26 @@ public class AntTermFileController {
         secondTermStart.setTime(termCollision.getStartTime());
         secondTermEnd.setTime(termCollision.getEndTime());
 
+        LOGGER.debug("firstTermStart: " + firstTermStart.toString() + " firstTermEnd:" + firstTermEnd.toString() +
+            " secondTermStart: " + secondTermEnd.toString() + " secondTermEnd: " + secondTermEnd.toString());
+
         if (!firstTermStart.after(secondTermStart)) {
+            LOGGER.debug("start of first < second");
             if (firstTermEnd.after(secondTermStart)) {
-                return getCollistionString(termCollision, term);
+                LOGGER.debug("Collision!");
+                return getCollisionToString(termCollision, term);
             }
         } else {
+            LOGGER.debug("start of second < first");
             if (secondTermEnd.after(firstTermStart)) {
-                return getCollistionString(term, termCollision);
+                LOGGER.debug("Collision2!");
+                return getCollisionToString(term, termCollision);
             }
         }
         return "";
     }
 
-    private String getCollistionString(Term term, Term termCollision) {
+    private String getCollisionToString(Term term, Term termCollision) {
         return termCollision.getSubject().getSubjectID().toString() + "," +
                 termCollision.getTermPerSubjectID() + ";" + term.getSubject().getSubjectID() +
                 "," + term.getTermPerSubjectID() + "\n";
@@ -120,7 +127,7 @@ public class AntTermFileController {
         int i=0; //number of objects already printed
         for (Object part: objects) {
             stringBuilder.append(part.toString());
-            if (++i < objects.length) {  // no the last one? add delimiter:
+            if (++i < objects.length) {  // not the last one? add delimiter:
                 stringBuilder.append(delimiter);
             }
         }
