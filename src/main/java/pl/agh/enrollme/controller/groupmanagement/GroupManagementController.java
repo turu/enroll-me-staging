@@ -52,9 +52,10 @@ public class GroupManagementController implements Serializable {
         subjectControllers = new ArrayList<>();
 
         for (Subject subject : subjects) {
-            SubjectGroupManagementController controller = new SubjectGroupManagementController(subject, currentPerson);
-
-            subjectControllers.add(controller);
+            if (currentPerson.getSubjects().contains(subject)) {
+                SubjectGroupManagementController controller = new SubjectGroupManagementController(subject, currentPerson);
+                subjectControllers.add(controller);
+            }
         }
     }
 
