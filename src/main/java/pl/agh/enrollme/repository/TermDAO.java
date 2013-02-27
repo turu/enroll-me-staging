@@ -57,5 +57,4 @@ public class TermDAO extends GenericDAO<Term> implements ITermDAO {
         Collections.sort(terms);
         return terms;
     }
-
 }
