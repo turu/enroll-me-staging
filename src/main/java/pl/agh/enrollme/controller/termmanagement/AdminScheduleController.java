@@ -236,6 +236,16 @@ public class AdminScheduleController implements Serializable {
     public void updateEvent(ActionEvent actionEvent) {
         LOGGER.debug("capacity=" + capacity + ", certain=" + certain + ", subject=" + subject.getName() + ", teacher=" + teacher.getSecondName());
 
+        if (event.getStartDate() == null || event.getEndDate() == null) {
+            LOGGER.debug("Error transferring dates!");
+            if (event.getId() != null) {
+                Term term = eventToTermMap.get(event.getId());
+                event.setStartDate(term.getStartTime());
+                event.setEndDate(term.getEndTime());
+            }
+            return;
+        }
+
         event.setShowPoints(false);
         setEventTeacher(teacher, event);
         event.setColor("#"+subject.getColor());
