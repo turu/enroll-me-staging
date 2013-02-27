@@ -61,6 +61,7 @@ public class AntTermFileController {
             //make subjectID a header: (ant format)
             singleTermDetails.append("[").append(subject.getSubjectID()).append("]\n");
             List<Term> terms = termDAO.getTermsBySubjectOderByTermID(subject);
+            List<Term> terms2 = termDAO.getTermsBySubjectOderByTermID(subject);
 
             for (Term term: terms) {
                 if (term.getCertain()) {
@@ -74,7 +75,10 @@ public class AntTermFileController {
                    getAntFormatOfDate(term.getStartTime()), getAntFormatOfDate(term.getEndTime())));
                 singleTermDetails.append("\n");
 
-                for (Term termCollision: terms) {
+                for (Term termCollision: terms2) {
+                    if (term.getCertain()) {
+                        continue;
+                    }
                       //captured two times situation when term is in collision with another term - ant format require it
                     collisions.append(checkForCollision(term, termCollision));
                 }
