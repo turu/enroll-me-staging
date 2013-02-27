@@ -2,9 +2,7 @@ package pl.agh.enrollme.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.agh.enrollme.model.Person;
-import pl.agh.enrollme.model.StudentPointsPerTerm;
-import pl.agh.enrollme.model.Term;
+import pl.agh.enrollme.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,6 +49,21 @@ public class StudentPointsPerTermDAO extends GenericDAO<StudentPointsPerTerm> im
         final TypedQuery<StudentPointsPerTerm> query = em
                 .createQuery(queryString, StudentPointsPerTerm.class)
                 .setParameter("term", term);
+
+        return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<StudentPointsPerTerm> getStudentsAssignedToSubjectAndTeacher(Subject subject, Teacher teacher) {
+        final String queryString =
+                "from StudentPointsPerTerm where term.subject = :subject and term.teacher = :teacher and assigned = true " +
+                        "order by person.lastName, person.firstName";
+
+        final TypedQuery<StudentPointsPerTerm> query = em
+                .createQuery(queryString, StudentPointsPerTerm.class)
+                .setParameter("subject", subject)
+                .setParameter("teacher", teacher);
 
         return query.getResultList();
     }

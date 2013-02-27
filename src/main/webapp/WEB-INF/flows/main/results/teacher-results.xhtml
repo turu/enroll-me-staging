@@ -19,25 +19,25 @@
     <h:form id="form">
         <p:messages id="messages"/>
 
-        <p:dataTable id="termsTable" var="term" value="#{terms}" sortBy="#{term.startTime}" emptyMessage="No terms found">
+        <h:outputText style="font-size:20pt"
+                value="#{currentTeacher.degree} #{currentTeacher.firstName} #{currentTeacher.secondName}"/>
 
-            <p:summaryRow>
-                <p:column colspan="3" style="text-align:right">
-                    Total:
-                    <h:outputText value="#{term.startTime}"/>
-                </p:column>
-            </p:summaryRow>
+        <p:dataTable id="termsTable" var="sp" value="#{studentPointsList}" sortBy="#{sp.term.startTime}" emptyMessage="No terms found">
+
+            <f:facet name="header">
+                Results
+            </f:facet>
 
             <p:column>
-                <h:outputText value="#{term.startTime} - #{term.endTime}"/>
+                <h:outputText value="#{sp.term.subject.name}"/>
             </p:column>
 
             <p:column>
-                <h:outputText value="#{term.subject.name}"/>
+                <h:outputText value="#{sp.term.startTimeAsString} - #{sp.term.endTimeAsString}"/>
             </p:column>
 
             <p:column>
-                <h:outputText value="#{term.teacher.degree} #{term.teacher.firstName} #{term.teacher.secondName}"/>
+                <h:outputText value="#{sp.person.lastName} #{sp.person.firstName}"/>
             </p:column>
 
         </p:dataTable>

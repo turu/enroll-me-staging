@@ -9,6 +9,8 @@
     (no guarantee that the actual type of List provided by DAO is ArrayList),
     any ideas? -->
     <var name="terms" class="java.util.ArrayList"/>
+    <var name="studentPointsList" class="java.util.ArrayList"/>
+    <var name="currentTeacher" class="pl.agh.enrollme.model.Teacher"/>
 
     <input name="currentEnrollment" type="pl.agh.enrollme.model.Enroll" required="true"/>
 
