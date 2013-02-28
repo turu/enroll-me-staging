@@ -6,27 +6,23 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/standard.xhtml">
 
-    <ui:define name="title">Account management</ui:define>
+    <ui:define name="title">Password reset</ui:define>
 
     <ui:define name="notes">
     </ui:define>
 
     <ui:define name="content">
         <h:form>
+            <p:growl id="messages"/>
 
-            <p:dashboard>
-                <p:panel>
-                    <p:commandButton value="Choose event" action="proceedToEvents"/>
-                </p:panel>
-
-                <p:panel rendered="#{p:ifGranted('ROLE_ADMIN')}">
-                    <p:commandButton value="Admin panel" action="proceedToAdminPanel"/>
-                </p:panel>
-
-                <p:panel>
-                    <p:commandButton value="Reset Password" action="passReset"/>
-                </p:panel>
-            </p:dashboard>
+            <p:panel>
+                <p:password id="oldPass" value="#{passResetController.oldPass}" required="true" label="Old Password"/><br/>
+                <p:password id="newPass1" value="#{passResetController.newPass}" required="true" label="New Password"/><br/>
+                <p:password id="newPass2" value="#{passResetController.newPassConfirm}" required="true" label="Confirmation"
+                            match="newPass1"/><br/>
+                <p:commandButton id="save" value="Save" action="save" ajax="false"/>
+                <p:commandButton id="exit" value="Done" action="exit" ajax="false"/>
+            </p:panel>
 
         </h:form>
 

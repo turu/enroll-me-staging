@@ -6,12 +6,15 @@
 
    <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-   <var name="pass" class="java.lang.String"/>
-
    <view-state id="view">
+       <on-entry>
+           <evaluate expression="passResetService.createController(currentUser)" result="viewScope.passResetController"
+                     result-type="pl.agh.enrollme.controller.PassResetController"/>
+       </on-entry>
        <transition on="save">
-           <evaluate expression="passResetService.resetPassword(currentUser, pass)"/>
+           <evaluate expression="passResetService.resetPassword(passResetController, currentUser)"/>
        </transition>
+       <transition on="exit" to="done"/>
    </view-state>
 
    <end-state id="done"/>
