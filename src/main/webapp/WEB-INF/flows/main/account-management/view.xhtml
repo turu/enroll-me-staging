@@ -14,9 +14,11 @@
 <ui:define name="content">
 <h:form>
 
-    <p:commandButton value="Choose event" action="proceedToEvents"/>
+            <p:commandButton value="Choose event" action="proceedToEvents" ajax="false"/>
 
-    <p:commandButton value="Admin panel" action="proceedToAdminPanel" rendered="#{p:ifGranted('ROLE_ADMIN')}"/>
+            <p:commandButton value="Admin panel" action="proceedToAdminPanel" rendered="#{p:ifGranted('ROLE_ADMIN')}" ajax="false"/>
+
+            <p:commandButton value="Reset Password" action="proceedToPassChange" ajax="false"/>
 
 </h:form>
 
