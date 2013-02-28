@@ -13,18 +13,21 @@
 
     <ui:define name="content">
         <h:form>
-            <p:growl id="messages"/>
+            <p:growl id="messageses"/>
 
             <p:panel>
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+
                 <p:outputLabel id="nLabel" value="Old Password: " for="oldPass"/><br/>
                 <p:password id="oldPass" value="#{passResetController.oldPass}" required="true" label="Old Password"/><br/>
-                <p:outputLabel id="nLabel2" value="New Password: " for="newPass1"/><br/>
-                <p:password id="newPass1" value="#{passResetController.newPass}" required="true" label="New Password"/><br/>
+                <p:outputLabel id="nLabel2" value="New Password: " for="newPass1" match="newPass2"/><br/>
+                <p:password id="newPass1" value="#{passResetController.newPass}" required="true" label="New Password"
+                        feedback="true" /><br/>
                 <p:outputLabel id="nLabel3" value="Confirm Password: " for="newPass2"/><br/>
                 <p:password id="newPass2" value="#{passResetController.newPassConfirm}" required="true" label="Confirmation"
-                            match="newPass1"/><br/>
+                            /><br/>
                 <p>
-                    <p:commandButton id="save" value="Save" action="save" ajax="false"/>
+                    <p:commandButton id="save" value="Save" update="messageses" action="save" ajax="false"/>
                     <p:commandButton id="exit" value="Done" action="exit" ajax="false"/>
                 </p>
             </p:panel>
