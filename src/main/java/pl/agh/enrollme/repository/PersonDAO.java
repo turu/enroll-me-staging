@@ -64,7 +64,7 @@ public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
                 peopleWithSavedSubjects.add(person);
             }
         }
-        return peopleWithSavedSubjects.isEmpty() ? null : new ArrayList<>(peopleWithSavedSubjects);
+        return new ArrayList<>(peopleWithSavedSubjects);
     }
 
     @Override
