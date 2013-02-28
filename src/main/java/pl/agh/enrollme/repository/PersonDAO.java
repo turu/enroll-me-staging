@@ -12,10 +12,7 @@ import pl.agh.enrollme.model.Subject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Repository
 public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
@@ -61,7 +58,7 @@ public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
     public List<Person> getPeopleWhoSavedPreferencesForCustomEnrollment(Enroll enrollment) {
         Enroll enrollmentFromDB = enrollmentDAO.getByPK(enrollment.getEnrollID());
         List<Person> people = enrollmentFromDB.getPersons();
-        Set<Person> peopleWithSavedSubjects = new TreeSet<>();
+        Set<Person> peopleWithSavedSubjects = new LinkedHashSet<>();
         for (Person person: people) {
             if (!person.getSubjectsSaved().isEmpty()) {
                 peopleWithSavedSubjects.add(person);
