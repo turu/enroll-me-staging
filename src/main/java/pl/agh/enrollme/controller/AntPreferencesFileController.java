@@ -89,7 +89,7 @@ public class AntPreferencesFileController {
 
     public int getCoefficient(EnrollConfiguration configuration, Integer points) {
         if (points == 0) {
-            return configuration.getPointsPerTerm() + configuration.getAdditionalPoints();
+            return configuration.getPointsPerSubject() + configuration.getAdditionalPoints();
         } else if ( points > 0 ) {
             return configuration.getPointsPerTerm() - points;
         } else if ( points == -1 ) {
