@@ -19,12 +19,12 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
 
                 <p:outputLabel id="nLabel" value="Old Password: " for="oldPass"/><br/>
-                <p:password id="oldPass" value="#{passResetController.oldPass}" required="true" label="Old Password"/><br/>
-                <p:outputLabel id="nLabel2" value="New Password: " for="newPass1" match="newPass2"/><br/>
-                <p:password id="newPass1" value="#{passResetController.newPass}" required="true" label="New Password"
-                        feedback="true" /><br/>
+                <p:password id="oldPass" value="#{passResetController.oldPass}" label="Old Password"/><br/>
+                <p:outputLabel id="nLabel2" value="New Password: " for="newPass1"/><br/>
+                <p:password id="newPass1" value="#{passResetController.newPass}" label="New Password"
+                        feedback="true" match="newPass2" /><br/>
                 <p:outputLabel id="nLabel3" value="Confirm Password: " for="newPass2"/><br/>
-                <p:password id="newPass2" value="#{passResetController.newPassConfirm}" required="true" label="Confirmation"
+                <p:password id="newPass2" value="#{passResetController.newPassConfirm}" label="Confirmation"
                             /><br/>
                 <p>
                     <p:commandButton id="save" value="Save" update="messageses" action="save" ajax="false"/>
