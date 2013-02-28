@@ -25,7 +25,8 @@
                 <h:outputText value="#{currentSubject.name}" style="font-size: 14pt" />
             </f:facet>
 
-            <p:subTable id="termsSubTable" var="studentPoints" value="#{studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
+            <p:subTable id="termsSubTable" var="studentPoints" value="#{studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}"
+                    rendered="#{!term.certain}">
 
                 <f:facet name="header">
                     #{term.teacher.degree} #{term.teacher.firstName} #{term.teacher.secondName} -
