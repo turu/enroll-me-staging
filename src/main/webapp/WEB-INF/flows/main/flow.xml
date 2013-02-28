@@ -13,6 +13,11 @@
         </transition>
         <transition on="adminPanelRequested" to="administer">
         </transition>
+        <transition on="passReset" to="passReset"/>
+    </subflow-state>
+
+    <subflow-state id="passReset" subflow="main/pass-reset">
+        <transition to="manageAccount"/>
     </subflow-state>
 
     <subflow-state id="administer" subflow="main/admin-panel">
@@ -33,6 +38,7 @@
             <set value="currentEvent.attributes.currentEnrollment" name="flowScope.currentEnrollment"
                  type="pl.agh.enrollme.model.Enroll"/>
         </transition>
+        <transition on="leaving" to="manageAccount"/>
 	</subflow-state>
 	
 	<subflow-state id="chooseSubjects" subflow="main/subject-selection">
@@ -44,7 +50,7 @@
     <subflow-state id="manageUserGroups" subflow="main/group-management">
         <!-- TODO pass proper enroll -->
         <input name="currentEnrollment" value="currentEnrollment" required="true" type="pl.agh.enrollme.model.Enroll"/>
-        <transition on="groupsManaged" to="chooseSubjects"/>
+        <transition on="groupsManaged" to="managePreferences"/>
     </subflow-state>
 	
 	<subflow-state id="managePreferences" subflow="main/preferences-management">
@@ -52,7 +58,6 @@
                type="pl.agh.enrollme.model.Enroll"/>
         <transition on="preferencesApplied" to="flowComplete"/>
         <transition on="groupManagement" to="manageUserGroups"/>
-        <transition on="logout" to="logout"/>
 	</subflow-state>
 
     <subflow-state id="seeFinalSchedule" subflow="main/final-schedule">
@@ -64,7 +69,7 @@
 	<subflow-state id="seeResults" subflow="main/results">
         <input name="currentEnrollment" value="currentEnrollment" required="true"
                type="pl.agh.enrollme.model.Enroll"/>
-        <transition to="flowComplete"/>
+        <transition on="resultsDone" to="flowComplete"/>
 	</subflow-state>
 	
 	<end-state id="flowComplete" view="externalRedirect:servletRelative:/main" />
@@ -72,7 +77,8 @@
     <end-state id="logout" view="externalRedirect:servletRelative:/logout"/>
 	
 	<global-transitions>
-		<transition on="exit" to="flowComplete">
+        <transition on="logout" to="logout"/>
+        <transition on="exit" to="flowComplete">
 		</transition>
 	</global-transitions>
 

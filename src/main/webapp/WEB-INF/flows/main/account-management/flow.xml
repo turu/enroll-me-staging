@@ -8,10 +8,16 @@
     <view-state id="view">
         <transition on="proceedToEvents" to="eventChoiceRequested"/>
         <transition on="proceedToAdminPanel" to="adminPanelRequested"/>
+        <transition on="logout" to="logout"/>
+        <transition on="proceedToPassChange" to="passReset"/>
     </view-state>
+
+    <end-state id="logout"/>
 
     <end-state id="eventChoiceRequested"/>
 
     <end-state id="adminPanelRequested"/>
+
+    <end-state id="passReset"/>
 
 </flow>
