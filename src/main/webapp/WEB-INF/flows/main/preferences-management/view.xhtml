@@ -78,8 +78,8 @@
                weekViewWidth="${scheduleController.weekViewWidth}"
                view="${scheduleController.view}"
                autoOpacity="true"
+               style="width: 150%"
             >
-
                 <p:ajax event="eventSelect" listener="#{scheduleController.onEventSelect}"
                         update="eventDetails reasonPanel" oncomplete="eventDialog.show()"  />
 
