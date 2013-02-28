@@ -65,12 +65,12 @@ public class AntPreferencesFileController {
         StringBuilder preferences = new StringBuilder();
         for (Person person: people) {
             //append index to the file [291524]
-            preferences.append("[ ").append(person.getIndeks()).append(" ]\n");
+            preferences.append("[").append(person.getIndeks()).append("]\n");
             List<Subject> savedSubjects = personDAO.getSavedSubjects(person);
             for (Subject subject: savedSubjects) {
                 //Start every subject line with subjectID and ":" e.g. - 13:
                 preferences.append(subject.getSubjectID()).append(":");
-                List<Term> terms = termDAO.getTermsBySubject(subject);
+                List<Term> terms = termDAO.getTermsBySubjectOderByTermID(subject);
                 for (Term term: terms) {
                     //Append for every term his ID and coefficient of preference: ID,coefficient
                     coefficient =
