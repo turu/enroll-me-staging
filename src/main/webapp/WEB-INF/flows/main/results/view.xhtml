@@ -21,41 +21,14 @@
                      emptyMessage="No terms found">
 
             <f:facet name="header">
-                <h:outputText value="#{currentEnrollment.name}" />
+                <h:outputText value="#{currentEnrollment.name}" style="font-size: 14pt" />
             </f:facet>
-
-            <!--
-            <p:columnGroup type="header">
-                <p:row>
-                    <p:column headerText="#{subject.name}"/>
-
-                    <p:column headerText="Stats" />
-                </p:row>
-            </p:columnGroup>
-            -->
-
-            <!--
-            <p:columnGroup type="header">
-                <p:row>
-                    <p:column>
-                        #{subject.name}
-                    </p:column>
-                    <p:column>
-                        <p:commandButton value="See results" action="subjectResults">
-                            <f:setPropertyActionListener
-                                    value="#{termDAO.getTermsBySubject(subject)}"
-                                    target="#{terms}"/>
-                        </p:commandButton>
-                    </p:column>
-                </p:row>
-            </p:columnGroup>
-                -->
 
             <p:subTable var="teacher" value="#{teacherDAO.getTeachersForSubject(subject)}">
 
                 <f:facet name="header">
-                    <h:outputText value="#{subject.name} - "/>
-                    <p:commandLink value="see results" action="subjectResults">
+                    <h:outputText value="#{subject.name} - " style="font-size: 16pt"/>
+                    <p:commandLink value="see results" style="font-size: 16pt" action="subjectResults">
                         <f:setPropertyActionListener
                             value="#{termDAO.getTermsBySubject(subject)}"
                             target="#{terms}"/>

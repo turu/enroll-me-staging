@@ -31,7 +31,7 @@
 
     <end-state id="logout" />
 
-    <end-state id="groupManagement" />
+    <end-state id="groupManagement"  />
 
     <global-transitions>
         <transition on="exit" to="preferencesApplied"/>

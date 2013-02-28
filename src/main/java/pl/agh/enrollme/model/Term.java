@@ -66,6 +66,14 @@ public class Term implements Serializable, Comparable<Term> {
         return getTimeAsString(endTime);
     }
 
+    public String getDayOfWeek() {
+        return String.format("%tA", startTime);
+    }
+
+    public String getTimespanAsString() {
+        return getDayOfWeek() + ", " + getTimeAsString(startTime) + " - " + getTimeAsString(endTime);
+    }
+
     public Week getWeek() {
         return week;
     }

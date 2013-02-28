@@ -41,9 +41,10 @@ public class GroupManagementService {
     @Autowired
     private ISubjectDAO subjectDAO;
 
-
     public GroupManagementController newControllerForEnroll(Enroll enroll) {
-        GroupManagementController controller = new GroupManagementController(enroll, fetchCurrentPerson());
+        Enroll retrievedEnroll = enrollmentDAO.getByPK(enroll.getEnrollID());
+
+        GroupManagementController controller = new GroupManagementController(retrievedEnroll, fetchCurrentPerson());
         return controller;
     }
 
@@ -123,7 +124,23 @@ public class GroupManagementService {
             if ((selectedGroup != null) &&
                     (selectedGroup.getPersons().size() + 1 > selectedGroup.getSubject().getTeamsCapacity())) {
                 FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Group " + selectedGroup.getName() + " is already full.", ""));
+                        "Group " + selectedGroup.getName() + " is already full. service", ""));
+
+                LOGGER.debug("Size of selected group - " + selectedGroup.getPersons().size());
+
+                for (Person p : selectedGroup.getPersons()) {
+                    LOGGER.debug("Person in group : " + p.getFirstName() + " " + p.getLastName());
+                }
+
+                LOGGER.debug("Overflow detected on saving. Removing user from group.");
+
+                selectedGroup.getPersons().remove(currentPerson);
+                currentPerson.getGroups().remove(selectedGroup);
+
+                personDAO.update(currentPerson);
+
+                controller.setSelectedGroup(null);
+
                 return;
             }
 

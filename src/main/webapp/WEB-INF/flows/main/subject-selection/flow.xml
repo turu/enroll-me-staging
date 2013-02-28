@@ -30,6 +30,5 @@
     <!--</view-state>-->
 
     <end-state id="subjectsChosen"/>
-    <end-state id="groupsManagementRequested"/>
 
 </flow>

@@ -19,38 +19,17 @@
     <h:form id="form">
         <p:messages id="messages"/>
 
-
-        <!-- <c:forEach items="${terms}" var="term">
-            #{term.subject.name}
-        </c:forEach>-->
-
         <p:dataTable id="termsTable" var="term" value="#{terms}" emptyMessage="No terms found">
 
             <f:facet name="header">
-                <h:outputText value="#{currentSubject.name}"/>
+                <h:outputText value="#{currentSubject.name}" style="font-size: 14pt" />
             </f:facet>
-
-            <!--
-            <p:columnGroup type="header">
-                <p:row>
-                    <p:column>
-                        <h:outputText value="#{term.subject.name}"/>
-                    </p:column>
-                    <p:column>
-                        #{term.teacher.degree} #{term.teacher.firstName} #{term.teacher.secondName}
-                    </p:column>
-                    <p:column>
-                        #{term.startTimeAsString} - #{term.endTimeAsString}
-                    </p:column>
-                </p:row>
-            </p:columnGroup>    -->
-
 
             <p:subTable id="termsSubTable" var="studentPoints" value="#{studentPointsPerTermDAO.getStudentsAssignedToTerm(term)}">
 
                 <f:facet name="header">
-                    #{term.teacher.degree} #{term.teacher.firstName} #{term.teacher.secondName}
-                    #{term.startTimeAsString} - #{term.endTimeAsString}
+                    #{term.teacher.degree} #{term.teacher.firstName} #{term.teacher.secondName} -
+                    #{term.timespanAsString}
                 </f:facet>
 
                 <p:column>

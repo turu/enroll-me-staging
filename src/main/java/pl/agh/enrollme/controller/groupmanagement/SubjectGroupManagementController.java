@@ -61,13 +61,24 @@ public class SubjectGroupManagementController implements Serializable {
         }
 
         /* Exceeded capacity */
-        if ((selectedGroup != null) &&
+        if ((selectedGroup != null) && (!selectedGroup.equals(selectedGroup)) &&
                 (selectedGroup.getPersons().size() + 1 > selectedGroup.getSubject().getTeamsCapacity())) {
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Group " + selectedGroup.getName() + " is already full.", ""));
+                    "C: Group " + selectedGroup.getName() + " is already full.", ""));
+            LOGGER.debug("Overflow detected when setting selected group.");
         } else {
             this.selectedGroup = selectedGroup;
         }
+    }
+
+    public void deleteSelectedGroup() {
+        if (selectedGroup == null) {
+            LOGGER.debug("Trying to remove selected group, but none selected " + subject.getName());
+            return;
+        }
+
+        subject.getGroups().remove(selectedGroup);
+        setSelectedGroup(null);
     }
 
     public Person getCurrentPerson() {

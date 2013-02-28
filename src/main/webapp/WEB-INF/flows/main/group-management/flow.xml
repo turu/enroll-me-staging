@@ -18,9 +18,12 @@
             <set name="flowScope.newGroupRowId" value="-1" type="java.lang.Integer"/>
             <set name="flowScope.groupToDeleteRowId" value="-1" type="java.lang.Integer"/>
             <set name="flowScope.personToRemoveRowId" value="-1" type="java.lang.Integer"/>
+        </on-entry>
+        
+        <on-render>
             <evaluate expression="groupManagementService.newControllerForEnroll(currentEnrollment)"
                       result="controller"/>
-        </on-entry>
+        </on-render>
 
         <transition on="createNewGroup">
             <set value="new java.lang.String()" name="newGroupName"/>
@@ -49,10 +52,11 @@
                     personToRemove)"/>
             <evaluate expression="groupManagementService.removePersonFromGroup(personToRemove,
                     controller.getControllerWithSubjectId(personToRemoveRowId).selectedGroup)"/>
+            <evaluate expression="groupManagementService.saveControllerState(controller)"/>
         </transition>
 
         <transition on="saveGroups" to="groupsManaged">
-            <evaluate expression="groupManagementService.saveControllerState(controller)"/>
+            <!--<evaluate expression="groupManagementService.saveControllerState(controller)"/>-->
         </transition>
     </view-state>
 
