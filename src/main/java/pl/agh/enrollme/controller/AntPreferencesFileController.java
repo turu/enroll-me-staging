@@ -68,10 +68,16 @@ public class AntPreferencesFileController {
             preferences.append("[").append(person.getIndeks()).append("]\n");
             List<Subject> savedSubjects = personDAO.getSavedSubjects(person);
             for (Subject subject: savedSubjects) {
+                if (!subject.getHasInteractive()) {
+                    continue;
+                }
                 //Start every subject line with subjectID and ":" e.g. - 13:
                 preferences.append(subject.getSubjectID()).append(":");
                 List<Term> terms = termDAO.getTermsBySubjectOderByTermID(subject);
                 for (Term term: terms) {
+                    if (term.getCertain()) {
+                        continue;
+                    }
                     //Append for every term his ID and coefficient of preference: ID,coefficient
                     coefficient =
                             getCoefficient(configuration, pointsService.getPointsAssignedByUserToTheTerm(person, term));
