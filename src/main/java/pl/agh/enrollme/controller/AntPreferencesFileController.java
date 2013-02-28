@@ -91,7 +91,7 @@ public class AntPreferencesFileController {
         if (points == 0) {
             return configuration.getPointsPerSubject() + configuration.getAdditionalPoints();
         } else if ( points > 0 ) {
-            return configuration.getPointsPerTerm() - points;
+            return configuration.getPointsPerSubject() - points;
         } else if ( points == -1 ) {
             return -1;
         }

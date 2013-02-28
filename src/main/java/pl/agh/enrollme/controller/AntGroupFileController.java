@@ -48,18 +48,16 @@ public class AntGroupFileController {
 
     private String generateGroupsAntFormat(Enroll enrollment) {
         StringBuilder groupsOutput = new StringBuilder();
-        groupsOutput.append("\n");
         List<Subject> subjects = enrollment.getSubjects();
         for ( Subject subject : subjects ) {
             List<Group> groups = subject.getGroups();
             for ( Group group : groups) {
-                groupsOutput.append(subject.getSubjectID()).append(":");
+                groupsOutput.append("\n").append(subject.getSubjectID()).append(":");
                 List<Person> participants = group.getPersons();
                 for (Person participant : participants) {
                     groupsOutput.append(participant.getIndeks()).append(",");
                 }
             }
-            groupsOutput.append("\n");
         }
         return groupsOutput.toString();
     }
