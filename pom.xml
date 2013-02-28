@@ -144,7 +144,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>3.5zzb</version>
+            <version>3.5zzc</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
