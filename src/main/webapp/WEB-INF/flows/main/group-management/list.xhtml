@@ -16,7 +16,8 @@
 <ui:define name="content">
     <h:form id="mainForm">
         <p:messages id="messages"/>
-        <p:dataTable id="subjectsTable" value="#{controller.subjectControllers}" var="row">
+        <p:dataTable id="subjectsTable" value="#{controller.subjectControllers}" var="row"
+                     emptyMessage="You haven't signed in for any subjects.">
             <p:column headerText="Name">
                 <h:outputText value="#{row.subject.name}"/>
             </p:column>
