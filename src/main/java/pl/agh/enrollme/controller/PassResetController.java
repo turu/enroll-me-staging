@@ -1,9 +1,11 @@
 package pl.agh.enrollme.controller;
 
+import java.io.Serializable;
+
 /**
  * Author: Piotr Turek
  */
-public class PassResetController {
+public class PassResetController implements Serializable {
 
     private String oldPass;
     private String newPass;
