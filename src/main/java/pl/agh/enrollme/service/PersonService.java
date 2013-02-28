@@ -1,5 +1,6 @@
 package pl.agh.enrollme.service;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,8 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.webflow.action.FlowDefinitionRedirectAction;
+import org.springframework.webflow.execution.Action;
 import pl.agh.enrollme.model.Person;
 import pl.agh.enrollme.repository.IPersonDAO;
 
@@ -125,7 +128,8 @@ public class PersonService {
      * Temporary function for logging out. After fixing webflows, this one should be gone.
      */
     public void logout() {
-        SecurityContextHolder.getContext().setAuthentication(null);
+        //SecurityContextHolder.getContext().setAuthentication(null);
+
     }
 	
 }
