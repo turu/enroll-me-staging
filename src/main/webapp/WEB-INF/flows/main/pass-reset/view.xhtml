@@ -16,11 +16,11 @@
             <p:growl id="messages"/>
 
             <p:panel>
-                <p:outputLabel id="nLabel" value="Old Password *: " for="oldPass"/><br/>
+                <p:outputLabel id="nLabel" value="Old Password: " for="oldPass"/><br/>
                 <p:password id="oldPass" value="#{passResetController.oldPass}" required="true" label="Old Password"/><br/>
-                <p:outputLabel id="nLabel2" value="New Password *: " for="newPass1"/><br/>
+                <p:outputLabel id="nLabel2" value="New Password: " for="newPass1"/><br/>
                 <p:password id="newPass1" value="#{passResetController.newPass}" required="true" label="New Password"/><br/>
-                <p:outputLabel id="nLabel3" value="Confirm Password *: " for="newPass2"/><br/>
+                <p:outputLabel id="nLabel3" value="Confirm Password: " for="newPass2"/><br/>
                 <p:password id="newPass2" value="#{passResetController.newPassConfirm}" required="true" label="Confirmation"
                             match="newPass1"/><br/>
                 <p>
