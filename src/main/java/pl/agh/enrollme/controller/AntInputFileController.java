@@ -110,12 +110,17 @@ public class AntInputFileController {
                     termPerSubjectID);
         }
 
+        if (!person.getSubjectsSaved().contains(term.getSubject())) {
+            throw new IllegalStateException("Trying assign person for the unsaved subject!");
+        }
+
         StudentPointsPerTerm studentPointsPerTerm = studentPointsPerTermDAO.getByPersonAndTerm(person, term);
         if (studentPointsPerTerm == null) {
-            throw new IllegalStateException("Lack of record for the given term: " + term + " and person: " + person +
-                    "in studentPointsPerTerm table");
+            studentPointsPerTerm = new StudentPointsPerTerm(term, person, 0, "", true);
+            studentPointsPerTermDAO.add(studentPointsPerTerm);
+        } else {
+            studentPointsPerTerm.setAssigned(true);
+            studentPointsPerTermDAO.update(studentPointsPerTerm);
         }
-        studentPointsPerTerm.setAssigned(true);
-        studentPointsPerTermDAO.update(studentPointsPerTerm);
     }
 }
