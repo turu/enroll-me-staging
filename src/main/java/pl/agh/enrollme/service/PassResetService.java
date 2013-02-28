@@ -2,6 +2,8 @@ package pl.agh.enrollme.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,16 +23,19 @@ public class PassResetService implements IPassResetService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PassResetService.class);
 
+    @Autowired
+    private PersonService personService;
+
     @Transactional
     @Override
-    public PassResetController createController(Principal principal) {
+    public PassResetController createController() {
         return new PassResetController();
     }
 
     @Transactional
     @Override
-    public void resetPassword(PassResetController controller, Principal principal) {
-        Person person = (Person) principal;
+    public void resetPassword(PassResetController controller) {
+        Person person = personService.getCurrentUser();
 
         PasswordEncoder encoder = new ShaPasswordEncoder(256);
         String encodedPassword = encoder.encodePassword(controller.getOldPass(), null);

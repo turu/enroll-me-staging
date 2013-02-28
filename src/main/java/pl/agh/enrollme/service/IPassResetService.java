@@ -10,8 +10,8 @@ import java.security.Principal;
  */
 public interface IPassResetService {
     @Transactional
-    PassResetController createController(Principal principal);
+    PassResetController createController();
 
     @Transactional
-    void resetPassword(PassResetController controller, Principal principal);
+    void resetPassword(PassResetController controller);
 }

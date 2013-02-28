@@ -8,11 +8,11 @@
 
    <view-state id="view">
        <on-entry>
-           <evaluate expression="passResetService.createController(currentUser)" result="viewScope.passResetController"
+           <evaluate expression="passResetService.createController()" result="viewScope.passResetController"
                      result-type="pl.agh.enrollme.controller.PassResetController"/>
        </on-entry>
        <transition on="save">
-           <evaluate expression="passResetService.resetPassword(passResetController, currentUser)"/>
+           <evaluate expression="passResetService.resetPassword(passResetController)"/>
        </transition>
        <transition on="exit" to="done"/>
    </view-state>
