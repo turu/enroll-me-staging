@@ -14,9 +14,19 @@
 <ui:define name="content">
 <h:form>
 
-    <p:commandButton value="Choose event" action="proceedToEvents"/>
+    <p:dashboard>
+        <p:panel>
+            <p:commandButton value="Choose event" action="proceedToEvents"/>
+        </p:panel>
 
-    <p:commandButton value="Admin panel" action="proceedToAdminPanel" rendered="#{p:ifGranted('ROLE_ADMIN')}"/>
+        <p:panel rendered="#{p:ifGranted('ROLE_ADMIN')}">
+            <p:commandButton value="Admin panel" action="proceedToAdminPanel"/>
+        </p:panel>
+
+        <p:panel>
+            <p:commandButton value="Reset Password" action="passReset"/>
+        </p:panel>
+    </p:dashboard>
 
 </h:form>
 

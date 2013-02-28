@@ -13,6 +13,11 @@
         </transition>
         <transition on="adminPanelRequested" to="administer">
         </transition>
+        <transition on="passReset" to="passReset"/>
+    </subflow-state>
+
+    <subflow-state id="passReset" subflow="main/pass-reset">
+        <transition to="manageAccount"/>
     </subflow-state>
 
     <subflow-state id="administer" subflow="main/admin-panel">
