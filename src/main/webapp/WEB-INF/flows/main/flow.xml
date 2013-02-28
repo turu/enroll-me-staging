@@ -33,6 +33,7 @@
             <set value="currentEvent.attributes.currentEnrollment" name="flowScope.currentEnrollment"
                  type="pl.agh.enrollme.model.Enroll"/>
         </transition>
+        <transition on="leaving" to="manageAccount"/>
 	</subflow-state>
 	
 	<subflow-state id="chooseSubjects" subflow="main/subject-selection">
@@ -63,7 +64,7 @@
 	<subflow-state id="seeResults" subflow="main/results">
         <input name="currentEnrollment" value="currentEnrollment" required="true"
                type="pl.agh.enrollme.model.Enroll"/>
-        <transition to="flowComplete"/>
+        <transition on="resultsDone" to="flowComplete"/>
 	</subflow-state>
 	
 	<end-state id="flowComplete" view="externalRedirect:servletRelative:/main" />

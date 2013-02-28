@@ -20,7 +20,7 @@
 
         <transition on="subjectResults" to="subject-results"/>
         <transition on="teacherResults" to="teacher-results"/>
-        <transition on="done" to="theEnd"/>
+        <transition on="done" to="resultsDone"/>
     </view-state>
     
     <view-state id="subject-results">
@@ -33,6 +33,6 @@
         </transition>
     </view-state>
 
-    <end-state id="theEnd"/>
+    <end-state id="resultsDone"/>
 
 </flow>
