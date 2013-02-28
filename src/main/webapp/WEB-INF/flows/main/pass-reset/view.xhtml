@@ -18,7 +18,7 @@
             <p:panel>
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
 
-                <p:panelGrid columns="1">
+                <p:panelGrid columns="1" style="border: hidden">
 
                     <p:row style="border: hidden"><p:column style="border: hidden"><p:outputLabel id="nLabel" value="Old Password: *" for="oldPass"/></p:column></p:row>
                     <p:row style="border: hidden"><p:column style="border: hidden"><p:password id="oldPass" value="#{passResetController.oldPass}" label="Old Password"/></p:column></p:row>

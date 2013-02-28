@@ -46,11 +46,20 @@ public class PassResetService implements IPassResetService {
             return;
         }
 
+        if (!controller.getNewPass().equals(controller.getNewPassConfirm())) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Tokens don't match",
+                    "Tokens provided in the input fields don't match");
+            addMessage(message);
+            return;
+        }
+
 
         personService.setEncodedPassword(person, controller.getNewPass());
 
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Password change", "Your password has been changed.");
         addMessage(message);
+
+        LOGGER.debug("Person: " + person + " changes his/her password");
 
     }
 
