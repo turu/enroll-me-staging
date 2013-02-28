@@ -55,31 +55,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="hibernate-4.1.1" level="project" />
     <orderEntry type="library" name="com.lowagie:itext:4.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.5-beta3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.5-beta3" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces:3.5zzb" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces.extensions:primefaces-extensions:0.6.3" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.2" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: spy:spymemcached:2.7.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss.netty:netty:3.2.0.Final" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.codehaus.jettison:jettison:1.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: stax:stax-api:1.0.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: commons-codec:commons-codec:1.5" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-annotations-api:7.0.23" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-tribes:7.0.23" level="project" />
-    <orderEntry type="library" name="Maven: com.lowagie:itext:2.0.7" level="project" />
-    <orderEntry type="library" name="Maven: bouncycastle:bcmail-jdk14:138" level="project" />
-    <orderEntry type="library" name="Maven: bouncycastle:bcprov-jdk14:138" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.5-beta3" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces:3.5zzb" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces.extensions:primefaces-extensions:0.6.3" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.2" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
-    <orderEntry type="library" name="Maven: com.lowagie:itext:2.0.7" level="project" />
-    <orderEntry type="library" name="Maven: bouncycastle:bcmail-jdk14:138" level="project" />
-    <orderEntry type="library" name="Maven: bouncycastle:bcprov-jdk14:138" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.5-beta3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:3.2.1.RELEASE" level="project" />
@@ -111,7 +86,7 @@
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-api:2.1.7" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.1.7" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces:3.5zzb" level="project" />
+    <orderEntry type="library" name="Maven: org.primefaces:primefaces:3.5zzd" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces.extensions:primefaces-extensions:0.6.3" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
@@ -157,11 +132,18 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.beust:jcommander:1.27" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: de.javakaffee.msm:memcached-session-manager-tc7:1.6.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: de.javakaffee.msm:memcached-session-manager:1.6.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-catalina:7.0.23" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-catalina-ha:7.0.23" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-coyote:7.0.23" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: spy:spymemcached:2.7.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss.netty:netty:3.2.0.Final" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.codehaus.jettison:jettison:1.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: stax:stax-api:1.0.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: commons-codec:commons-codec:1.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.code.findbugs:jsr305:1.3.9" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.code.findbugs:annotations:1.3.9" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-catalina:7.0.23" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-annotations-api:7.0.23" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-catalina-ha:7.0.23" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-coyote:7.0.23" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat:tomcat-tribes:7.0.23" level="project" />
     <orderEntry type="library" name="Maven: com.lowagie:itext:2.0.7" level="project" />
     <orderEntry type="library" name="Maven: bouncycastle:bcmail-jdk14:138" level="project" />
     <orderEntry type="library" name="Maven: bouncycastle:bcprov-jdk14:138" level="project" />
