@@ -23,7 +23,7 @@
             <i>
                 <h:form>
                     <h:outputText value="Logged in as: #{personService.currentUserString} " for="logoutButton"/>
-                    <p:commandLink value="Logout" action="logout" ajax="false" id="logoutButton">
+                    <p:commandLink value="Logout" action="externalRedirect:servletRelative:/logout" ajax="false" id="logoutButton" >
                     </p:commandLink>
                 </h:form>
             </i>
