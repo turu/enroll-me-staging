@@ -18,20 +18,22 @@
             <p:panel>
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
 
-                <p:panelGrid columns="2">
-                    <p:outputLabel id="nLabel" value="Old Password: " for="oldPass"/><br/>
-                    <p:password id="oldPass" value="#{passResetController.oldPass}" label="Old Password"/><br/>
-                    <p:outputLabel id="nLabel2" value="New Password: " for="newPass1"/><br/>
-                    <p:password id="newPass1" value="#{passResetController.newPass}" label="New Password"
-                        feedback="true" match="newPass2" /><br/>
-                    <p:outputLabel id="nLabel3" value="Confirm Password: " for="newPass2"/><br/>
-                    <p:password id="newPass2" value="#{passResetController.newPassConfirm}" label="Confirmation"
-                            /><br/>
+                <p:panelGrid columns="1">
+
+                    <p:row><p:column><p:outputLabel id="nLabel" value="Old Password: *" for="oldPass"/></p:column></p:row>
+                    <p:row><p:column><p:password id="oldPass" value="#{passResetController.oldPass}" label="Old Password"/></p:column></p:row>
+                    <p:row><p:column><p:outputLabel id="nLabel2" value="New Password: *" for="newPass1"/></p:column></p:row>
+                    <p:row><p:column><p:password id="newPass1" value="#{passResetController.newPass}" label="New Password"
+                        feedback="true" match="newPass2" /></p:column></p:row>
+                    <p:row><p:column><p:outputLabel id="nLabel3" value="Confirm Password: *" for="newPass2"/></p:column></p:row>
+                    <p:row><p:column><p:password id="newPass2" value="#{passResetController.newPassConfirm}" label="Confirmation"
+                            />
+                    </p:column></p:row>
+                    <p:row><p:column>
+                        <p:commandButton id="save" value="Save" update="g" action="save" ajax="false"/>
+                        <p:commandButton id="exit" value="Done" action="exit" ajax="false"/>
+                    </p:column></p:row>
                 </p:panelGrid>
-                 <p>
-                    <p:commandButton id="save" value="Save" update="g" action="save" ajax="false"/>
-                    <p:commandButton id="exit" value="Done" action="exit" ajax="false"/>
-                </p>
             </p:panel>
 
         </h:form>
