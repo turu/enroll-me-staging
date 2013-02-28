@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Repository
 public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
@@ -59,13 +61,13 @@ public class PersonDAO extends GenericDAO<Person> implements IPersonDAO {
     public List<Person> getPeopleWhoSavedPreferencesForCustomEnrollment(Enroll enrollment) {
         Enroll enrollmentFromDB = enrollmentDAO.getByPK(enrollment.getEnrollID());
         List<Person> people = enrollmentFromDB.getPersons();
-        List<Person> peopleWithSavedSubjects = new ArrayList<>();
+        Set<Person> peopleWithSavedSubjects = new TreeSet<>();
         for (Person person: people) {
-            if (!person.getSubjects().isEmpty()) {
+            if (!person.getSubjectsSaved().isEmpty()) {
                 peopleWithSavedSubjects.add(person);
             }
         }
-        return peopleWithSavedSubjects;
+        return peopleWithSavedSubjects.isEmpty() ? null : new ArrayList<>(peopleWithSavedSubjects);
     }
 
     @Override
