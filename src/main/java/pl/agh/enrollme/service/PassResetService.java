@@ -47,6 +47,10 @@ public class PassResetService implements IPassResetService {
         }
 
 
+        personService.setEncodedPassword(person, controller.getNewPass());
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Password change", "New password has been changed.");
+        addMessage(message);
 
     }
 

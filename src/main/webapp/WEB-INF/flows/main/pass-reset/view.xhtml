@@ -13,7 +13,7 @@
 
     <ui:define name="content">
         <h:form>
-            <p:growl id="messageses"/>
+            <p:growl id="growl"/>
 
             <p:panel>
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/>
@@ -27,7 +27,7 @@
                 <p:password id="newPass2" value="#{passResetController.newPassConfirm}" label="Confirmation"
                             /><br/>
                 <p>
-                    <p:commandButton id="save" value="Save" update="messageses" action="save" ajax="false"/>
+                    <p:commandButton id="save" value="Save" update="g" action="save" ajax="false"/>
                     <p:commandButton id="exit" value="Done" action="exit" ajax="false"/>
                 </p>
             </p:panel>
