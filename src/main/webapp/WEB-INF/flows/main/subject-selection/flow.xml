@@ -21,6 +21,7 @@
             <evaluate expression="subjectDAO.fillCurrentUserSubjectList(subjectChoosingController.chosenSubjects)"/>
         </transition>
         <transition on="groups" to="groupsManagementRequested"/>
+        <transition on="logout" to="logout"/>
     </view-state>
 
     <!--<view-state id="renderSubjects">-->
@@ -30,5 +31,6 @@
     <!--</view-state>-->
 
     <end-state id="subjectsChosen"/>
+    <end-state id="logout"/>
 
 </flow>

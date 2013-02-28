@@ -16,6 +16,7 @@
         <transition on="eventChosen" to="activeChosen"/>
         <transition on="eventComplete" to="eventComplete"/>
         <transition on="seeSchedule" to="seeSchedule"/>
+        <transition on="logout" to="logout"/>
      </view-state>
 
     <end-state id="activeChosen">
@@ -29,5 +30,7 @@
     <end-state id="eventComplete">
         <output name="currentEnrollment" value="chosenEnrollment"/>
     </end-state>
+
+    <end-state id="logout"/>
 
 </flow>

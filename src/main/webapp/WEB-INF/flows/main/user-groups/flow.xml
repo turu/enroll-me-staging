@@ -22,8 +22,11 @@
         </transition>
 
         <transition on="exit" to="groupsManaged"/>
+
+        <transition on="logout" to="logout"/>
     </view-state>
 
     <end-state id="groupsManaged"/>
+    <end-state id="logout"/>
 
 </flow>

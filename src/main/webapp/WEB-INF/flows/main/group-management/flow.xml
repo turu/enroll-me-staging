@@ -58,8 +58,11 @@
         <transition on="saveGroups" to="groupsManaged">
             <!--<evaluate expression="groupManagementService.saveControllerState(controller)"/>-->
         </transition>
+
+        <transition on="logout" to="logout"/>
     </view-state>
 
+    <end-state id="logout"/>
     <end-state id="groupsManaged"/>
 
 </flow>

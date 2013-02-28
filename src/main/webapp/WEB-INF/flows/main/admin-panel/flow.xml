@@ -44,9 +44,12 @@
     <end-state id="exit" view="externalRedirect:servletRelative:/main">
     </end-state>
 
+    <end-state id="logout"/>
+
     <global-transitions>
         <transition on="exit" to="exit">
         </transition>
+        <transition on="logout" to="logout"/>
     </global-transitions>
 
 
