@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:webflow-config="http://www.springframework.org/schema/webflow-config"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd">
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+   <secured attributes="ROLE_USER, ROLE_ADMIN" match="any"/>
 
-</beans>
+   <var name="pass" class="java.lang.String"/>
+
+   <view-state id="view">
+       <transition on="save">
+           <evaluate expression="passResetService.resetPassword(currentUser, pass)"/>
+       </transition>
+   </view-state>
+
+   <end-state id="done"/>
+
+</flow>
