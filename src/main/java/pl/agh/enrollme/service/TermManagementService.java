@@ -123,17 +123,17 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug("IDs set");
 
         for (Term term : terms) {
-            term.setSubject(subjectDAO.update(term.getSubject()));
-            term.setTeacher(teacherDAO.update(term.getTeacher()));
+//            term.setSubject(subjectDAO.update(term.getSubject()));
+//            term.setTeacher(teacherDAO.update(term.getTeacher()));
             final Subject subject = term.getSubject();
 
             if(!subject.getHasInteractive() && !term.getCertain()) {
                 subject.setHasInteractive(true);
+                subjectDAO.update(subject);
                 LOGGER.debug("Subject: " + subject + " set interactive");
             }
 
             termDAO.add(term);
-            subjectDAO.update(subject);
             LOGGER.debug("Term: " + term + " has been persisted");
         }
         LOGGER.debug("State persisted");
