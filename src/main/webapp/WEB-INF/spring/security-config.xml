@@ -27,19 +27,17 @@
 			pete/pete1
 	-->
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:password-encoder hash="md5"/>
-			<!-- the above hash function should be changed to sha-256 as soon as there is a proper
-				 user service set up -->
-			<security:user-service>
-				<security:user name="joe" password="bf403351dfb2ae819874163aff25a49c" 
-					authorities="ROLE_USER, ROLE_APPLE_USER" />
-				<security:user name="pete" password="5d2ea1f70185e4357183bb9c00187219" 
-					authorities="ROLE_USER, ROLE_ANDROID_USER" />
-                <security:user name="admin" password="5d2ea1f70185e4357183bb9c00187219"
-                    authorities="ROLE_USER, ROLE_ADMIN" />
-			</security:user-service>
-		</security:authentication-provider>
+		<!--<security:authentication-provider>-->
+			<!--<security:password-encoder hash="md5"/>-->
+			<!--<security:user-service>-->
+				<!--<security:user name="joe" password="bf403351dfb2ae819874163aff25a49c" -->
+					<!--authorities="ROLE_USER, ROLE_APPLE_USER" />-->
+				<!--<security:user name="pete" password="5d2ea1f70185e4357183bb9c00187219" -->
+					<!--authorities="ROLE_USER, ROLE_ANDROID_USER" />-->
+                <!--<security:user name="admin" password="5d2ea1f70185e4357183bb9c00187219"-->
+                    <!--authorities="ROLE_USER, ROLE_ADMIN" />-->
+			<!--</security:user-service>-->
+		<!--</security:authentication-provider>-->
         <security:authentication-provider ref="daoAuthenticationProvider"/>
 	</security:authentication-manager>
 
