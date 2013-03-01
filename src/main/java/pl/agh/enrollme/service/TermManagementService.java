@@ -129,6 +129,7 @@ public class TermManagementService implements ITermManagementService {
 
             if(!subject.getHasInteractive() && !term.getCertain()) {
                 subject.setHasInteractive(true);
+                LOGGER.debug("Subject: " + subject + " set interactive");
             }
 
             termDAO.add(term);
