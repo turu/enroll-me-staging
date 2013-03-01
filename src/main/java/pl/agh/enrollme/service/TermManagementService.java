@@ -132,6 +132,7 @@ public class TermManagementService implements ITermManagementService {
             }
 
             termDAO.add(term);
+            subjectDAO.update(subject);
             LOGGER.debug("Term: " + term + " has been persisted");
         }
         LOGGER.debug("State persisted");
