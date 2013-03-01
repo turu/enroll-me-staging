@@ -123,8 +123,11 @@ public class TermManagementService implements ITermManagementService {
         LOGGER.debug("IDs set");
 
         for (Term term : terms) {
-//            term.setSubject(subjectDAO.update(term.getSubject()));
-//            term.setTeacher(teacherDAO.update(term.getTeacher()));
+            term.setSubject(subjectDAO.update(term.getSubject()));
+            term.setTeacher(teacherDAO.update(term.getTeacher()));
+        }
+
+        for (Term term : terms) {
             final Subject subject = term.getSubject();
 
             if(!subject.getHasInteractive() && !term.getCertain()) {
