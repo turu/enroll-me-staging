@@ -82,7 +82,8 @@ public class AntPreferencesFileController {
         final Map<MapTuple, Integer> pointsMap = new HashMap<>();
         final List<StudentPointsPerTerm> pointsList = pointsDAO.getList();
         for (StudentPointsPerTerm p : pointsList) {
-            pointsMap.put(new MapTuple(p.getPerson(), p.getTerm()), p.getPoints());
+            LOGGER.debug("Creating map entry for person: " + p.getPerson() + " and term: " + p.getTerm() + ", points = " + p.getPoints());
+            pointsMap.put(new MapTuple(p.getPerson(), p.getTerm()), p.getPoints() != null ? p.getPoints() : 0);
         }
         LOGGER.debug("Creating points map end");
 
@@ -111,9 +112,13 @@ public class AntPreferencesFileController {
                         continue;
                     }
                     //Append for every term his ID and coefficient of preference: ID,coefficient
+                    Integer value = pointsMap.get(new MapTuple(person, term));
+                    if (value == null) {
+                        value = 0;
+                    }
                     coefficient =
                             //getCoefficient(configuration, pointsService.getPointsAssignedByUserToTheTerm(person, term));
-                            getCoefficient(configuration, pointsMap.get(new MapTuple(person, term)));
+                            getCoefficient(configuration, value);
                     if (coefficient != -1) {
                         //if term is signed as impossible by the user, skip it!
                         preferences.append(term.getTermPerSubjectID()).append(",").append(coefficient).
