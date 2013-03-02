@@ -49,7 +49,7 @@
 	</logger>
 
     <logger name="org.hibernate">
-        <level value="off"/>
+        <level value="fatal"/>
     </logger>
 
 	<!-- Root Logger -->
