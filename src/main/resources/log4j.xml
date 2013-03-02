@@ -17,36 +17,40 @@
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="warn" />
+		<level value="off" />
 	</logger>	
 	
 	<logger name="org.springframework.beans">
-		<level value="warn" />
+		<level value="off" />
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="warn" />
+		<level value="off" />
 	</logger>
 
 	<logger name="org.springframework.http">
-		<level value="warn" />
+		<level value="off" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="warn" />
+		<level value="off" />
 	</logger>
 
 	<logger name="org.springframework.binding">
-		<level value="warn" />
+		<level value="off" />
 	</logger>
 
 	<logger name="org.springframework.webflow">
-		<level value="warn" />
+		<level value="off" />
 	</logger>
 
 	<logger name="org.primefaces">
-		<level value="warn" />
+		<level value="off" />
 	</logger>
+
+    <logger name="org.hibernate">
+        <level value="fatal"/>
+    </logger>
 
 	<!-- Root Logger -->
 	<root>
