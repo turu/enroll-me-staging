@@ -7,7 +7,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
 				template="/WEB-INF/layouts/standard.xhtml">
 
-<ui:define name="title"> Choose subjects you want enroll for and push the Submit button
+<ui:define name="title"> Results for a teacher
 </ui:define>
 
 <ui:define name="notes">
@@ -22,7 +22,8 @@
         <h:outputText style="font-size:20pt"
                 value="#{currentTeacher.degree} #{currentTeacher.firstName} #{currentTeacher.secondName}"/>
 
-        <p:dataTable id="termsTable" var="sp" value="#{studentPointsList}" sortBy="#{sp.term.startTime}" emptyMessage="Nobody enrolled yet">
+        <p:dataTable id="termsTable" var="sp" value="#{studentPointsList}" sortBy="#{sp.term.startTime}"
+                     emptyMessage="Nobody assigned or student lists for all terms are fixed">
 
             <f:facet name="header">
                 <h:outputText value="#{currentSubject.name}" style="font-size: 14pt"/>

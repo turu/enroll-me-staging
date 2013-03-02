@@ -7,7 +7,7 @@
 	  			xmlns:p="http://primefaces.org/ui"
 				template="/WEB-INF/layouts/standard.xhtml">
 
-<ui:define name="title"> Choose subjects you want enroll for and push the Submit button
+<ui:define name="title"> Results for a subject
 </ui:define>
 
 <ui:define name="notes">
@@ -19,7 +19,8 @@
     <h:form id="form">
         <p:messages id="messages"/>
 
-        <p:dataTable id="termsTable" var="term" value="#{terms}" emptyMessage="No terms found">
+        <p:dataTable id="termsTable" var="term" value="#{terms}"
+                     emptyMessage="No terms found or student lists for all terms are fixed">
 
             <f:facet name="header">
                 <h:outputText value="#{currentSubject.name}" style="font-size: 14pt" />
@@ -36,6 +37,10 @@
                 <p:column>
                     <h:outputText value="#{studentPoints.person.lastName} #{studentPoints.person.firstName}"/>
                 </p:column>
+
+                <!-- <f:facet name="footer">
+                    Total participants: studentPointsPerTermDAO.getStudentsAssignedToTerm(term).size()
+                </f:facet> -->
 
             </p:subTable>
 
