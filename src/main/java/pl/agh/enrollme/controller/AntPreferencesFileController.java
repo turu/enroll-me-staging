@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.IConfigurationDAO;
 import pl.agh.enrollme.repository.IPersonDAO;
+import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 import pl.agh.enrollme.service.StudentPointsService;
 
@@ -16,7 +17,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Michal Partyka
@@ -39,6 +42,9 @@ public class AntPreferencesFileController {
 
     @Autowired
     private StudentPointsService pointsService;
+
+    @Autowired
+    private ISubjectDAO subjectDAO;
 
 
     public void generatePreferencesFile(ActionEvent event) {
@@ -66,21 +72,33 @@ public class AntPreferencesFileController {
             throw new IllegalStateException("There is no proper configuration");
         }
 
+        final Map<Subject, List<Term>> map = new HashMap<>();
+        List<Subject> s = subjectDAO.getSubjectsByEnrollment(enrollment);
+        for (Subject subject: s) {
+            map.put(subject, termDAO.getTermsBySubject(subject));
+        }
+
+        LOGGER.debug("After filling map...");
         int coefficient;
         List<Person> people = personDAO.getPeopleWhoSavedPreferencesForCustomEnrollment(enrollment);
         StringBuilder preferences = new StringBuilder();
         for (Person person: people) {
+            LOGGER.debug("Next person...");
             //append index to the file [291524]
             preferences.append("[").append(person.getIndeks()).append("]\n");
-            List<Subject> savedSubjects = personDAO.getSavedSubjects(person);
+//            List<Subject> savedSubjects = personDAO.getSavedSubjects(person);
+            List<Subject> savedSubjects = person.getSubjectsSaved();
             for (Subject subject: savedSubjects) {
+                LOGGER.debug("next subject...");
                 if (!subject.getHasInteractive()) {
                     continue;
                 }
                 //Start every subject line with subjectID and ":" e.g. - 13:
                 preferences.append(subject.getSubjectID()).append(":");
-                List<Term> terms = termDAO.getTermsBySubjectOderByTermID(subject);
+//                List<Term> terms = termDAO.getTermsBySubjectOderByTermID(subject);
+                List<Term> terms = map.get(subject);
                 for (Term term: terms) {
+                    LOGGER.debug("next term...");
                     if (term.getCertain()) {
                         continue;
                     }
