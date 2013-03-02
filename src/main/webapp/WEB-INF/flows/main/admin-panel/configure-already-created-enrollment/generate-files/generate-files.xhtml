@@ -17,20 +17,24 @@
     </p:dialog>
 
     <h:form id="downloading">
+        <p:messages showDetail="true"/>
+
         Download terms file:
-            <p:commandButton id="termsListener" actionListener="#{antTermFileController.generateTermsFile()}" value="generate terms"/>
+            <p:commandButton id="termsListener" actionListener="#{antTermFileController.generateTermsFile}" value="generate terms"/>
         <p:commandButton id="downloadTerms" value="Download" ajax="false"
                          onclick="PrimeFaces.monitorDownload(start, stop)" icon="ui-icon-arrowthichk-s">
             <p:fileDownload value="#{antTermFileController.streamedTerms}" />
         </p:commandButton>
         <br/>
         Download preferences file:
+        <p:commandButton id="preferencesListener" actionListener="#{antPreferencesFileController.generatePreferencesFile}" value="generate prefs"/>
         <p:commandButton id="downloadPreferences" value="Download" ajax="false"
                          onclick="PrimeFaces.monitorDownload(start, stop)" icon="ui-icon-arrowthichk-s">
             <p:fileDownload value="#{antPreferencesFileController.streamedPreferences}" />
         </p:commandButton>
         <br/>
         Download groups file:
+        <p:commandButton id="preferencesListener" actionListener="#{antGroupFileController.generateGroupsFile}" value="generate groups"/>
         <p:commandButton id="downloadGroups" value="Download" ajax="false"
                          onclick="PrimeFaces.monitorDownload(start, stop)" icon="ui-icon-arrowthichk-s">
             <p:fileDownload value="#{antGroupFileController.streamedGroups}" />
