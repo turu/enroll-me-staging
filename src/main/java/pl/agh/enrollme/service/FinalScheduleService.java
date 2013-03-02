@@ -12,7 +12,9 @@ import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Piotr Turek
@@ -85,8 +87,8 @@ public class FinalScheduleService implements IFinalScheduleService {
 
         for (Term t : interTerms) {
             final StudentPointsPerTerm byPersonAndTerm = pointsDAO.getByPersonAndTerm(person, t);
-            if (byPersonAndTerm != null && byPersonAndTerm.getAssigned()) {
-                points.add(byPersonAndTerm);
+            if (t.getCertain() || (byPersonAndTerm != null && byPersonAndTerm.getAssigned())) {
+                if(byPersonAndTerm != null && byPersonAndTerm.getAssigned()) points.add(byPersonAndTerm);
                 terms.add(t);
             }
         }
