@@ -12,6 +12,9 @@ import pl.agh.enrollme.model.Term;
 import pl.agh.enrollme.repository.ISubjectDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ public class AntTermFileController {
     private static final File termsFile = new File("/tmp/termsFile.txt");
     private static final Logger LOGGER = LoggerFactory.getLogger(AntTermFileController.class.getName());
     private StreamedContent streamedTerms;
+    private Enroll enrollment;
 
     @Autowired
     ITermDAO termDAO;
@@ -35,7 +39,7 @@ public class AntTermFileController {
     @Autowired
     ISubjectDAO subjectDAO;
 
-    public void generateTermsFile(Enroll enrollment) {
+    public void generateTermsFile(ActionEvent event) {
         LOGGER.debug("I am in generate Terms...");
         try (BufferedWriter output = new BufferedWriter( new FileWriter(termsFile))) {
             output.write("\n" + basicTermsInformation(subjectDAO.getSubjectsByEnrollment(enrollment)));
@@ -48,6 +52,8 @@ public class AntTermFileController {
         } catch (FileNotFoundException e) {
             LOGGER.debug("there is no given file :(: " + termsFile.getName(), e);
         }
+        FacesMessage msg = new FacesMessage("Success!", "term file is generated");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     private String basicTermsInformation(List<Subject> subjects) {
@@ -183,5 +189,13 @@ public class AntTermFileController {
 
     public StreamedContent getStreamedTerms() {
         return streamedTerms;
+    }
+
+    public Enroll getEnrollment() {
+        return enrollment;
+    }
+
+    public void setEnrollment(Enroll enrollment) {
+        this.enrollment = enrollment;
     }
 }

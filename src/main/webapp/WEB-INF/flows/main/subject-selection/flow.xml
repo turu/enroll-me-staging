@@ -20,7 +20,6 @@
         <transition on="done" to="subjectsChosen">
             <evaluate expression="subjectDAO.fillCurrentUserSubjectList(subjectChoosingController.chosenSubjects)"/>
         </transition>
-        <transition on="groups" to="groupsManagementRequested"/>
         <transition on="logout" to="logout"/>
     </view-state>
 

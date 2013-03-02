@@ -12,6 +12,9 @@ import pl.agh.enrollme.repository.IPersonDAO;
 import pl.agh.enrollme.repository.ITermDAO;
 import pl.agh.enrollme.service.StudentPointsService;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import java.io.*;
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class AntPreferencesFileController {
     private static final File prefFile = new File("/tmp/preferencesFile.txt");
     private static final Logger LOGGER = LoggerFactory.getLogger(AntPreferencesFileController.class.getName());
     private StreamedContent streamedPreferences;
+    private Enroll enrollment;
 
     @Autowired
     private IPersonDAO personDAO;
@@ -37,7 +41,7 @@ public class AntPreferencesFileController {
     private StudentPointsService pointsService;
 
 
-    public void generatePreferencesFile(Enroll enrollment) {
+    public void generatePreferencesFile(ActionEvent event) {
         try (BufferedWriter output = new BufferedWriter( new FileWriter(prefFile))) {
             output.write("\n" + generatePeoplePreferences(enrollment));
         } catch (IOException e) {
@@ -49,6 +53,8 @@ public class AntPreferencesFileController {
         } catch (FileNotFoundException e) {
             LOGGER.debug("there is no given file :(: " + prefFile.getName(), e);
         }
+        FacesMessage msg = new FacesMessage("Success!", "term file is generated");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     private String generatePeoplePreferences(Enroll enrollment) {
@@ -106,5 +112,9 @@ public class AntPreferencesFileController {
 
     public StreamedContent getStreamedPreferences() {
         return streamedPreferences;
+    }
+
+    public void setEnrollment(Enroll enrollment) {
+        this.enrollment = enrollment;
     }
 }

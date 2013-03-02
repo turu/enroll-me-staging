@@ -13,6 +13,9 @@ import pl.agh.enrollme.model.Subject;
 import pl.agh.enrollme.repository.IGroupDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import java.io.*;
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class AntGroupFileController {
     private static final File groupFile = new File("/tmp/groupFile.txt");
     private static final Logger LOGGER = LoggerFactory.getLogger(AntGroupFileController.class.getName());
     private StreamedContent streamedGroups;
+    private Enroll enrollment;
 
     @Autowired
     IGroupDAO groupDAO;
@@ -32,7 +36,7 @@ public class AntGroupFileController {
     ISubjectDAO subjectDAO;
 
 
-    public void generateGroupsFile(Enroll enrollment) {
+    public void generateGroupsFile(ActionEvent event) {
         try (BufferedWriter output = new BufferedWriter( new FileWriter(groupFile))) {
             output.write("\n" + generateGroupsAntFormat(enrollment));
         } catch (IOException e) {
@@ -44,6 +48,8 @@ public class AntGroupFileController {
         } catch (FileNotFoundException e) {
             LOGGER.debug("there is no given file :(: " + groupFile.getName(), e);
         }
+        FacesMessage msg = new FacesMessage("Success!", "term file is generated");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     private String generateGroupsAntFormat(Enroll enrollment) {
@@ -66,4 +72,7 @@ public class AntGroupFileController {
         return streamedGroups;
     }
 
+    public void setEnrollment(Enroll enrollment) {
+        this.enrollment = enrollment;
+    }
 }
