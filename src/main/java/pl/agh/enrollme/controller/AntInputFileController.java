@@ -111,7 +111,8 @@ public class AntInputFileController {
         }
 
         if (!person.getSubjectsSaved().contains(term.getSubject())) {
-            throw new IllegalStateException("Trying assign person for the unsaved subject!");
+//            throw new IllegalStateException("Trying assign person for the unsaved subject!");
+            LOGGER.error("Trying assign person for the unsaved subject!");
         }
 
         StudentPointsPerTerm studentPointsPerTerm = studentPointsPerTermDAO.getByPersonAndTerm(person, term);
