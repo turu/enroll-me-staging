@@ -27,7 +27,7 @@ import java.util.List;
  * @author Michal Partyka
  */
 @Controller
-public class łooAntTermFileController {
+public class AntTermFileController {
     private static final File termsFile = new File("/tmp/termsFile.txt");
     private static final Logger LOGGER = LoggerFactory.getLogger(AntTermFileController.class.getName());
     private StreamedContent streamedTerms;
