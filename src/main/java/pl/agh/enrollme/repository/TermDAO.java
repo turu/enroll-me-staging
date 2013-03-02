@@ -57,4 +57,16 @@ public class TermDAO extends GenericDAO<Term> implements ITermDAO {
         Collections.sort(terms);
         return terms;
     }
+
+    @Override
+    @Transactional
+    public List<Term> getTermsBySubjectOrderByStartTime(Subject subject) {
+
+        final String queryString = "Select t from Term t where t.subject = :subject order by startTime";
+        final TypedQuery<Term> query = em
+                .createQuery(queryString, Term.class)
+                .setParameter("subject", subject);
+
+        return query.getResultList();
+    }
 }

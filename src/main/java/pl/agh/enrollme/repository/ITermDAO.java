@@ -19,4 +19,7 @@ public interface ITermDAO extends IGenericDAO<Term> {
     public List<Term> getTermsBySubjectAndTeacher(Subject subject, Teacher teacher);
 
     List<Term> getTermsBySubjectOderByTermID(Subject subject);
+
+    @Transactional
+    List<Term> getTermsBySubjectOrderByStartTime(Subject subject);
 }
