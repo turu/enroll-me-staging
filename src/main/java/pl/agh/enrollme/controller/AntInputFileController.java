@@ -18,6 +18,8 @@ import javax.faces.context.FacesContext;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +59,8 @@ public class AntInputFileController {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
+        final List<MapTuple> tuples = new ArrayList<>();
+
         Integer index = 0; //current user index (current while parsing)
 
         Pattern p = Pattern.compile(REGEX);
@@ -77,7 +81,7 @@ public class AntInputFileController {
                         LOGGER.debug("TermID: " + assignedTermData[1]);
 
                         try {
-                            assignTerm(index, Integer.parseInt(assignedTermData[0]), Integer.parseInt(assignedTermData[1]));
+                            tuples.add(assignTerm(index, Integer.parseInt(assignedTermData[0]), Integer.parseInt(assignedTermData[1])));
                         } catch (IllegalStateException e) {
                             FacesMessage msg = new FacesMessage("IllegalStateException: ", e.getMessage());
                             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -89,16 +93,26 @@ public class AntInputFileController {
                     }
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             LOGGER.debug("IOException while importing file: ", e);
         }
 
-
+        int i=0;
+        for (MapTuple tuple: tuples) {
+            LOGGER.debug("Assigned person - " + i);
+            StudentPointsPerTerm studentPointsPerTerm = studentPointsPerTermDAO.getByPersonAndTerm(tuple.getPerson(), tuple.getTerm());
+            if (studentPointsPerTerm == null) {
+                studentPointsPerTerm = new StudentPointsPerTerm(tuple.getTerm(), tuple.getPerson(), 0, "", true);
+                studentPointsPerTermDAO.add(studentPointsPerTerm);
+            } else {
+                studentPointsPerTerm.setAssigned(true);
+                studentPointsPerTermDAO.update(studentPointsPerTerm);
+            }
+        }
     }
 
-    private void assignTerm(Integer index, Integer subjectID, Integer termPerSubjectID) {
+    private MapTuple assignTerm(Integer index, Integer subjectID, Integer termPerSubjectID) {
         Person person = personDAO.getByIndex(index);
         if (person == null) {
             throw new IllegalStateException("there is no person with provided index in DB!. Index: " + index);
@@ -115,13 +129,52 @@ public class AntInputFileController {
             LOGGER.error("Trying assign person for the unsaved subject!");
         }
 
-        StudentPointsPerTerm studentPointsPerTerm = studentPointsPerTermDAO.getByPersonAndTerm(person, term);
-        if (studentPointsPerTerm == null) {
-            studentPointsPerTerm = new StudentPointsPerTerm(term, person, 0, "", true);
-            studentPointsPerTermDAO.add(studentPointsPerTerm);
-        } else {
-            studentPointsPerTerm.setAssigned(true);
-            studentPointsPerTermDAO.update(studentPointsPerTerm);
+        return new MapTuple(person, term);
+//        StudentPointsPerTerm studentPointsPerTerm = studentPointsPerTermDAO.getByPersonAndTerm(person, term);
+//        if (studentPointsPerTerm == null) {
+//            studentPointsPerTerm = new StudentPointsPerTerm(term, person, 0, "", true);
+//            studentPointsPerTermDAO.add(studentPointsPerTerm);
+//        } else {
+//            studentPointsPerTerm.setAssigned(true);
+//            studentPointsPerTermDAO.update(studentPointsPerTerm);
+//        }
+    }
+
+    private class MapTuple {
+        private final Person person;
+        private final Term term;
+
+        public MapTuple(Person person, Term term) {
+            this.person = person;
+            this.term = term;
+        }
+
+        public Person getPerson() {
+            return person;
+        }
+
+        public Term getTerm() {
+            return term;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof MapTuple)) return false;
+
+            MapTuple mapTuple = (MapTuple) o;
+
+            if (person != null ? !person.equals(mapTuple.person) : mapTuple.person != null) return false;
+            if (term != null ? !term.equals(mapTuple.term) : mapTuple.term != null) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = person != null ? person.hashCode() : 0;
+            result = 31 * result + (term != null ? term.hashCode() : 0);
+            return result;
         }
     }
 }
