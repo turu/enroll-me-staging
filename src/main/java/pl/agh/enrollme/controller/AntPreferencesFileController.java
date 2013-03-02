@@ -82,7 +82,8 @@ public class AntPreferencesFileController {
         final Map<MapTuple, Integer> pointsMap = new HashMap<>();
         final List<StudentPointsPerTerm> pointsList = pointsDAO.getList();
         for (StudentPointsPerTerm p : pointsList) {
-            pointsMap.put(new MapTuple(p.getPerson(), p.getTerm()), p.getPoints());
+            LOGGER.debug("Creating map entry for person: " + p.getPerson() + " and term: " + p.getTerm() + ", points = " + p.getPoints());
+            pointsMap.put(new MapTuple(p.getPerson(), p.getTerm()), p.getPoints() != null ? p.getPoints() : 0);
         }
         LOGGER.debug("Creating points map end");
 
