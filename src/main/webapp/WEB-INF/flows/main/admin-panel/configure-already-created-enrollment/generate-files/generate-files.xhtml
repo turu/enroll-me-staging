@@ -34,7 +34,7 @@
         </p:commandButton>
         <br/>
         Download groups file:
-        <p:commandButton id="preferencesListener" actionListener="#{antGroupFileController.generateGroupsFile}" value="generate groups"/>
+        <p:commandButton id="groupListener" actionListener="#{antGroupFileController.generateGroupsFile}" value="generate groups"/>
         <p:commandButton id="downloadGroups" value="Download" ajax="false"
                          onclick="PrimeFaces.monitorDownload(start, stop)" icon="ui-icon-arrowthichk-s">
             <p:fileDownload value="#{antGroupFileController.streamedGroups}" />
