@@ -6,8 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/standard.xhtml">
 
-<ui:define name="title">Preferences Management <br/><br/>
-    <b>Attention!</b> Changes you make to your preferences will not be saved until YOU save them. Save frequently or perish!
+<ui:define name="title">Your schedule<br/><br/>
 </ui:define>
 
 <ui:define name="notes">
@@ -41,6 +40,7 @@
                           view="${scheduleController.view}"
                           autoOpacity="true"
                           aspectRatio="1"
+                          style="width: 100%;left:0;position: absolute; !important;"
                 >
 
         </p:enrollSchedule>
