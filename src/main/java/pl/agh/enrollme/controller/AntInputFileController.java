@@ -119,7 +119,7 @@ public class AntInputFileController {
 
         int i=0;
         for (MapTuple tuple: tuples) {
-            LOGGER.debug("Assigned person - " + i);
+            LOGGER.debug("Assigned person - " + i++);
             StudentPointsPerTerm studentPointsPerTerm = studentPointsPerTermDAO.getByPersonAndTerm(tuple.getPerson(), tuple.getTerm());
             if (studentPointsPerTerm == null) {
                 studentPointsPerTerm = new StudentPointsPerTerm(tuple.getTerm(), tuple.getPerson(), 0, "", true);

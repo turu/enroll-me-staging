@@ -27,4 +27,25 @@ public class TermPK implements Serializable {
     public Integer getTermPerSubjectID() {
         return termPerSubjectID;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TermPK)) return false;
+
+        TermPK termPK = (TermPK) o;
+
+        if (subject != null ? !subject.equals(termPK.subject) : termPK.subject != null) return false;
+        if (termPerSubjectID != null ? !termPerSubjectID.equals(termPK.termPerSubjectID) : termPK.termPerSubjectID != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = subject != null ? subject.hashCode() : 0;
+        result = 31 * result + (termPerSubjectID != null ? termPerSubjectID.hashCode() : 0);
+        return result;
+    }
 }
