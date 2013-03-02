@@ -4,10 +4,7 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import pl.agh.enrollme.model.Person;
-import pl.agh.enrollme.model.StudentPointsPerTerm;
-import pl.agh.enrollme.model.Term;
-import pl.agh.enrollme.model.TermPK;
+import pl.agh.enrollme.model.*;
 import pl.agh.enrollme.repository.IPersonDAO;
 import pl.agh.enrollme.repository.IStudentPointsPerTermDAO;
 import pl.agh.enrollme.repository.ISubjectDAO;
@@ -19,7 +16,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +30,9 @@ public class AntInputFileController {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(AntTermFileController.class.getName());
     private UploadedFile file;
     private static final String REGEX = "\\[[0-9]+\\]";
+    private final Map<Integer, Person> personMap = new HashMap<>(100);
+    private final Map<TermPK, Term> termMap = new HashMap<>(300);
+    private final Map<Integer, Subject> subjectMap = new HashMap<>();
 
     @Autowired
     private IPersonDAO personDAO;
@@ -60,6 +62,23 @@ public class AntInputFileController {
         }
 
         final List<MapTuple> tuples = new ArrayList<>();
+
+        LOGGER.debug("Before getting datas from db");
+
+        final List<Person> persons = personDAO.getList();
+        final List<Subject> subjects = subjectDAO.getList();
+        final List<Term> terms = termDAO.getList();
+        for (Person person: persons) {
+            personMap.put(person.getIndeks(), person);
+        }
+        for (Subject subject: subjects) {
+            subjectMap.put(subject.getSubjectID(), subject);
+        }
+        for (Term term: terms) {
+            termMap.put(new TermPK(term.getSubject(), term.getTermPerSubjectID()), term);
+        }
+
+        LOGGER.debug("Obtained from db");
 
         Integer index = 0; //current user index (current while parsing)
 
@@ -113,12 +132,14 @@ public class AntInputFileController {
     }
 
     private MapTuple assignTerm(Integer index, Integer subjectID, Integer termPerSubjectID) {
-        Person person = personDAO.getByIndex(index);
+//        Person person = personDAO.getByIndex(index);
+        Person person = personMap.get(index);
         if (person == null) {
             throw new IllegalStateException("there is no person with provided index in DB!. Index: " + index);
         }
 
-        Term term = termDAO.getByPK(new TermPK(subjectDAO.getByPK(subjectID), termPerSubjectID));
+//        Term term = termDAO.getByPK(new TermPK(subjectDAO.getByPK(subjectID), termPerSubjectID));
+        Term term = termMap.get(new TermPK(subjectMap.get(subjectID), termPerSubjectID));
         if (term == null) {
             throw new IllegalStateException("There is no Term with subjectID: " + subjectID + "termID: " +
                     termPerSubjectID);
