@@ -7,10 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import pl.agh.enrollme.model.*;
-import pl.agh.enrollme.repository.IConfigurationDAO;
-import pl.agh.enrollme.repository.IPersonDAO;
-import pl.agh.enrollme.repository.ISubjectDAO;
-import pl.agh.enrollme.repository.ITermDAO;
+import pl.agh.enrollme.repository.*;
 import pl.agh.enrollme.service.StudentPointsService;
 
 import javax.faces.application.FacesMessage;
@@ -46,6 +43,9 @@ public class AntPreferencesFileController {
     @Autowired
     private ISubjectDAO subjectDAO;
 
+    @Autowired
+    private IStudentPointsPerTermDAO pointsDAO;
+
 
     public void generatePreferencesFile(ActionEvent event) {
         try (BufferedWriter output = new BufferedWriter( new FileWriter(prefFile))) {
@@ -78,6 +78,14 @@ public class AntPreferencesFileController {
             map.put(subject, termDAO.getTermsBySubject(subject));
         }
 
+        LOGGER.debug("Creating points map begin");
+        final Map<MapTuple, Integer> pointsMap = new HashMap<>();
+        final List<StudentPointsPerTerm> pointsList = pointsDAO.getList();
+        for (StudentPointsPerTerm p : pointsList) {
+            pointsMap.put(new MapTuple(p.getPerson(), p.getTerm()), p.getPoints());
+        }
+        LOGGER.debug("Creating points map end");
+
         LOGGER.debug("After filling map...");
         int coefficient;
         List<Person> people = personDAO.getPeopleWhoSavedPreferencesForCustomEnrollment(enrollment);
@@ -104,7 +112,8 @@ public class AntPreferencesFileController {
                     }
                     //Append for every term his ID and coefficient of preference: ID,coefficient
                     coefficient =
-                            getCoefficient(configuration, pointsService.getPointsAssignedByUserToTheTerm(person, term));
+                            //getCoefficient(configuration, pointsService.getPointsAssignedByUserToTheTerm(person, term));
+                            getCoefficient(configuration, pointsMap.get(new MapTuple(person, term)));
                     if (coefficient != -1) {
                         //if term is signed as impossible by the user, skip it!
                         preferences.append(term.getTermPerSubjectID()).append(",").append(coefficient).
@@ -134,5 +143,43 @@ public class AntPreferencesFileController {
 
     public void setEnrollment(Enroll enrollment) {
         this.enrollment = enrollment;
+    }
+
+    private class MapTuple {
+        private final Person person;
+        private final Term term;
+
+        public MapTuple(Person person, Term term) {
+            this.person = person;
+            this.term = term;
+        }
+
+        public Person getPerson() {
+            return person;
+        }
+
+        public Term getTerm() {
+            return term;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof MapTuple)) return false;
+
+            MapTuple mapTuple = (MapTuple) o;
+
+            if (person != null ? !person.equals(mapTuple.person) : mapTuple.person != null) return false;
+            if (term != null ? !term.equals(mapTuple.term) : mapTuple.term != null) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = person != null ? person.hashCode() : 0;
+            result = 31 * result + (term != null ? term.hashCode() : 0);
+            return result;
+        }
     }
 }
