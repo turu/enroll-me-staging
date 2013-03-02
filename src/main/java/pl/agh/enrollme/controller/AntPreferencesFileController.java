@@ -112,9 +112,13 @@ public class AntPreferencesFileController {
                         continue;
                     }
                     //Append for every term his ID and coefficient of preference: ID,coefficient
+                    Integer value = pointsMap.get(new MapTuple(person, term));
+                    if (value == null) {
+                        value = 0;
+                    }
                     coefficient =
                             //getCoefficient(configuration, pointsService.getPointsAssignedByUserToTheTerm(person, term));
-                            getCoefficient(configuration, pointsMap.get(new MapTuple(person, term)));
+                            getCoefficient(configuration, value);
                     if (coefficient != -1) {
                         //if term is signed as impossible by the user, skip it!
                         preferences.append(term.getTermPerSubjectID()).append(",").append(coefficient).
